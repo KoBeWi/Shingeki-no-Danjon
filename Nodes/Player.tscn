@@ -34,22 +34,25 @@ _sections_unfolded = [ "Resource" ]
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
-editor/display_folded = true
 position = Vector2( 126.577, 312.239 )
+z_index = 1
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = SubResource( 1 )
+_sections_unfolded = [ "Z Index" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
+position = Vector2( 0, -16 )
+scale = Vector2( 1, 2 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 3
-_sections_unfolded = [ "Animation" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 __meta__ = {
 "_edit_lock_": true
 }
@@ -60,10 +63,10 @@ anchor_mode = 1
 rotating = false
 current = true
 zoom = Vector2( 1, 1 )
-limit_left = 0
-limit_top = 0
-limit_right = 1024
-limit_bottom = 832
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
 limit_smoothed = false
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
@@ -76,9 +79,11 @@ drag_margin_top = 0.2
 drag_margin_right = 0.2
 drag_margin_bottom = 0.2
 editor_draw_screen = true
-editor_draw_limits = true
+editor_draw_limits = false
 editor_draw_drag_margin = false
-_sections_unfolded = [ "Editor", "Limit" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Collider" type="CollisionShape2D" parent="." index="2"]
 
