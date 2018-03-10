@@ -14,6 +14,10 @@ config/name="Shingeki no Danjon"
 run/main_scene="res://Scenes/Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+SkillBase="*res://Scripts/SkillSystem.gd"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
