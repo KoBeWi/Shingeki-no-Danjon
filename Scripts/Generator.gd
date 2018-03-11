@@ -26,7 +26,6 @@ func generate():
 		empty_spots.erase(spot)
 		
 		var ways = get_possible_ways(spot)
-		print(spot, " ", ways)
 		var segments = get_matching_segments(ways)
 		
 		if !segments.empty():
@@ -57,7 +56,6 @@ func get_possible_ways(pos):
 		ways[0] = "ok"
 	elif typeof(up) != TYPE_BOOL and up.ways[2]:
 		ways[0] = "force"
-	print(up)
 		
 	if !right:
 		ways[1] = "ok"
