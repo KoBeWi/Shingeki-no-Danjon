@@ -17,3 +17,8 @@ config/icon="res://icon.png"
 [autoload]
 
 SkillBase="*res://Scripts/SkillSystem.gd"
+
+[display]
+
+window/size/width=1366
+window/size/height=768

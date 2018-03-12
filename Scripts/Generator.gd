@@ -3,8 +3,8 @@ extends Node
 onready var dungeon = $".."
 
 var SEGMENTS = {}
-const SEG_W = 320
-const SEG_H = 320
+const SEG_W = 800
+const SEG_H = 800
 const DIRECTIONS = [Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0)]
 
 var map = []

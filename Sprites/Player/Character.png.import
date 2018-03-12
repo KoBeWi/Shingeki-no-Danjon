@@ -7,10 +7,10 @@ path="res://.import/Character.png-fefcd056ed0256e02f6caf5abe0851c9.stex"
 [deps]
 
 source_file="res://Sprites/Player/Character.png"
-source_md5="9d78eb4dc7d1b2e411a5dcc5bf21f803"
+source_md5="b78af56e306427651f0565509c2748b9"
 
 dest_files=[ "res://.import/Character.png-fefcd056ed0256e02f6caf5abe0851c9.stex" ]
-dest_md5="53c8ceb62429fe081ca2f5f16a8154dd"
+dest_md5="062418605b69153606d8cddcd46e281f"
 
 [params]
 

@@ -7,10 +7,10 @@ path="res://.import/Dungeon.png-5862a55dc0704e5732cb9218aff18a8d.stex"
 [deps]
 
 source_file="res://Sprites/Tilesets/Dungeon.png"
-source_md5="32c3ec996b9fbcd66c1161971fe7e26e"
+source_md5="c0f1144fccad57b36499eee9489b6a7f"
 
 dest_files=[ "res://.import/Dungeon.png-5862a55dc0704e5732cb9218aff18a8d.stex" ]
-dest_md5="617e4a325b2dde2144e3e178ed209b10"
+dest_md5="fc7994f2a4332f0b3af31c123d7d0244"
 
 [params]
 
