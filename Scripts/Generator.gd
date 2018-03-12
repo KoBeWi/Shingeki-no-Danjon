@@ -1,8 +1,7 @@
 extends Node
-
+onready var Res = $"/root/Resources"
 onready var dungeon = $".."
 
-var SEGMENTS = {}
 const SEG_W = 800
 const SEG_H = 800
 const DIRECTIONS = [Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0)]
@@ -12,7 +11,6 @@ var width = 5
 var height = 5
 
 func _ready():
-	load_segments()
 	map.resize(width * height)
 #	$"../Player/Camera".limit_right = width * SEG_W
 #	$"../Player/Camera".limit_bottom = height * SEG_H
@@ -77,7 +75,7 @@ func get_possible_ways(pos):
 func get_matching_segments(ways):
 	var segments = []
 	
-	for segment in SEGMENTS.values():
+	for segment in Res.segments.values():
 		var can_be = true
 		for i in range(4):
 			if (segment["ways"][i] and !ways[i]) or (ways[i] and ways[i] == "force" and !segment["ways"][i]): can_be = false
@@ -94,29 +92,7 @@ func set_segment(pos, segment):
 	map[pos.x + pos.y  * width] = segment
 
 func create_segment(segment, pos):
-	var seg = load("res://Nodes/Segments/" + segment + ".tscn").instance()
+	var seg = Res.segment_nodes[segment].instance()
 	seg.position = Vector2(pos.x * SEG_W, pos.y * SEG_H)
 	dungeon.add_child(seg)
 	return seg
-
-func load_segments():
-	var dir = Directory.new()
-	if dir.open("res://Nodes/Segments/") == OK:
-		dir.list_dir_begin()
-		
-		var name = dir.get_next()
-		while name != "":
-			if name == "." or name == ".." or name.ends_with(".tscn"):
-				name = dir.get_next()
-				continue
-			
-			var file = File.new()
-			file.open("res://Nodes/Segments/" + name, file.READ)
-			var text = file.get_as_text()
-			file.close()
-			
-			var segname = name.left(name.length() - 5)
-			SEGMENTS[segname] = parse_json(text)
-			SEGMENTS[segname]["name"] = segname
-			
-			name = dir.get_next()

@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/Generator.gd" type="Script" id=2]
 [ext_resource path="res://Nodes/Player.tscn" type="PackedScene" id=3]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 

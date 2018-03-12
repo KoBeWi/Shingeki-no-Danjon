@@ -16,6 +16,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Resources="*res://Scripts/Resources.gd"
 SkillBase="*res://Scripts/SkillSystem.gd"
 
 [display]
