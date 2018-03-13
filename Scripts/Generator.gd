@@ -56,6 +56,7 @@ func get_possible_ways(pos):
 	if !left: left = get_segment(pos + DIRECTIONS[3])
 	
 	var ways = [false, false, false, false]
+	
 	if !up:
 		ways[0] = "ok"
 	elif typeof(up) != TYPE_BOOL and get_way(up, 2, get_segment_data(pos + DIRECTIONS[0]).piece_x):
@@ -83,8 +84,9 @@ func get_matching_segments(ways):
 	
 	for segment in Res.segments.values():
 		var can_be = true
-		for i in range(4): #poprawić dla podwójnych itp.
-			if (segment.ways[i] and !ways[i]) or (ways[i] and ways[i] == "force" and !segment.ways[i]): can_be = false
+		for i in range(segment.ways.size()):
+			var j = way_dir(segment, i)
+			if (segment.ways[i] and !ways[j]) or (ways[j] and ways[j] == "force" and !segment.ways[i]): can_be = false
 		
 		if can_be: segments.append(segment)
 	
@@ -124,9 +126,9 @@ func set_segment(pos, segment):
 
 func get_way(segment, dir, pos):
 	var w = pos
-	if dir >= 1: w += segment.width
-	if dir >= 2: w += segment.height
-	if dir >= 3: w += segment.width
+	if dir == 1: w += segment.width
+	elif dir == 2: w = segment.width + segment.height + (segment.width - pos - 1)
+	elif dir == 3: w = segment.width*2 + segment.height + (segment.height - pos - 1)
 	return segment.ways[w]
 
 func way_offset(segment, i):

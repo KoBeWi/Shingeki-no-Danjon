@@ -3,7 +3,7 @@ extends Node
 func _ready():
 	VisualServer.set_default_clear_color(Color(0.05, 0.05, 0.07))
 	randomize()
-#	seed(7)
+#	seed(101)
 	$"Generator".generate(10, 10)
 
 func _process(delta):
