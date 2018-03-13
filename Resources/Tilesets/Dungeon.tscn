@@ -7,7 +7,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 40, 40 )
 
-[node name="TilesetBase" type="Node"]
+[node name="TilesetBase" type="Node" index="0"]
 
 [node name="Roof1" type="Sprite" parent="." index="0"]
 
@@ -311,7 +311,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Wall7" type="Sprite" parent="." index="12"]
+[node name="Wall4" type="Sprite" parent="." index="12"]
 
 editor/display_folded = true
 position = Vector2( 0, 320 )
@@ -320,7 +320,7 @@ region_enabled = true
 region_rect = Rect2( 0, 240, 80, 80 )
 _sections_unfolded = [ "Region" ]
 
-[node name="Collider" type="StaticBody2D" parent="Wall7" index="0"]
+[node name="Collider" type="StaticBody2D" parent="Wall4" index="0"]
 
 editor/display_folded = true
 input_pickable = false
@@ -334,7 +334,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Shape" type="CollisionShape2D" parent="Wall7/Collider" index="0"]
+[node name="Shape" type="CollisionShape2D" parent="Wall4/Collider" index="0"]
 
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -342,7 +342,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Wall8" type="Sprite" parent="." index="13"]
+[node name="Wall5" type="Sprite" parent="." index="13"]
 
 editor/display_folded = true
 position = Vector2( 80, 320 )
@@ -351,7 +351,7 @@ region_enabled = true
 region_rect = Rect2( 40, 240, 80, 80 )
 _sections_unfolded = [ "Region" ]
 
-[node name="Collider" type="StaticBody2D" parent="Wall8" index="0"]
+[node name="Collider" type="StaticBody2D" parent="Wall5" index="0"]
 
 editor/display_folded = true
 input_pickable = false
@@ -365,7 +365,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Shape" type="CollisionShape2D" parent="Wall8/Collider" index="0"]
+[node name="Shape" type="CollisionShape2D" parent="Wall5/Collider" index="0"]
 
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -373,7 +373,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Wall9" type="Sprite" parent="." index="14"]
+[node name="Wall6" type="Sprite" parent="." index="14"]
 
 editor/display_folded = true
 position = Vector2( 160, 320 )
@@ -382,7 +382,7 @@ region_enabled = true
 region_rect = Rect2( 80, 240, 80, 80 )
 _sections_unfolded = [ "Region" ]
 
-[node name="Collider" type="StaticBody2D" parent="Wall9" index="0"]
+[node name="Collider" type="StaticBody2D" parent="Wall6" index="0"]
 
 editor/display_folded = true
 input_pickable = false
@@ -396,7 +396,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Shape" type="CollisionShape2D" parent="Wall9/Collider" index="0"]
+[node name="Shape" type="CollisionShape2D" parent="Wall6/Collider" index="0"]
 
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]

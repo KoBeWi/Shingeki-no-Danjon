@@ -21,7 +21,7 @@ func _ready():
 			
 			var segname = name.left(name.length() - 5)
 			segments[segname] = parse_json(text)
-			segments[segname]["name"] = segname
+			segments[segname].name = segname
 			segment_nodes[segname] = load("res://Nodes/Segments/" + segname + ".tscn")
 			
 			name = dir.get_next()
