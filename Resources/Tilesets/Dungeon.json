@@ -1,0 +1,7 @@
+{
+	"floor": [
+		19,
+		{"id": 20, "pattern_x": 1, "pattern_y": 1},
+		{"id": 21, "pattern_x": 1, "pattern_y": 1}
+	]
+}

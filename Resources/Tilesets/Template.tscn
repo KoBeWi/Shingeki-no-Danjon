@@ -536,20 +536,4 @@ region_enabled = true
 region_rect = Rect2( 0, 320, 80, 80 )
 _sections_unfolded = [ "Region" ]
 
-[node name="Floor2" type="Sprite" parent="." index="20"]
-
-position = Vector2( 80, 400 )
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 80, 320, 80, 80 )
-_sections_unfolded = [ "Region" ]
-
-[node name="Floor3" type="Sprite" parent="." index="21"]
-
-position = Vector2( 160, 400 )
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 160, 320, 80, 80 )
-_sections_unfolded = [ "Region" ]
-
 

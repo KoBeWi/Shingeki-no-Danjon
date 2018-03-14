@@ -12,7 +12,9 @@ script = ExtResource( 1 )
 
 script = ExtResource( 2 )
 
-[node name="Player" parent="." index="1" instance=ExtResource( 3 )]
+[node name="Segments" type="Node" parent="." index="1"]
+
+[node name="Player" parent="." index="2" instance=ExtResource( 3 )]
 
 position = Vector2( 124.122, 184.554 )
 _sections_unfolded = [ "Transform", "Z Index" ]

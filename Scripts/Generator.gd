@@ -1,6 +1,6 @@
 extends Node
 onready var Res = $"/root/Resources"
-onready var dungeon = $".."
+onready var dungeon = $"../Segments"
 
 const SEG_W = 800
 const SEG_H = 800
@@ -49,6 +49,18 @@ func generate(w, h):
 				create_segment(segment.segment.name, Vector2(x, y))
 	
 	$"../Player".position = Vector2(start.x * SEG_W, start.y * SEG_H) + Vector2(SEG_W/2, SEG_H/2)
+	
+	for segment in dungeon.get_children():
+		var bottom = segment.get_node("BottomTiles")
+		
+		var tileset = Res.tilesets["Dungeon"]
+		var floor_id = tileset.floor[0]
+		var floor_size = tileset.floor.size()
+		
+		for cell in bottom.get_used_cells():
+			if bottom.get_cellv(cell) == floor_id:
+				var new_tile = randi() % floor_size
+				if new_tile > 0: bottom.set_cellv(cell, tileset.floor[new_tile].id)
 
 func get_possible_segments(spot):
 	var pos = spot.pos
@@ -109,68 +121,6 @@ func get_possible_segments(spot):
 	
 	return segments
 
-func get_possible_ways(pos):
-	var up = (pos.y == 0)
-	if !up: up = get_segment(pos + DIRECTIONS[0])
-	var right = (pos.x == width-1)
-	if !right: right = get_segment(pos + DIRECTIONS[1])
-	var down = (pos.y == height-1)
-	if !down: down = get_segment(pos + DIRECTIONS[2])
-	var left = (pos.x == 0)
-	if !left: left = get_segment(pos + DIRECTIONS[3])
-	
-	var ways = [false, false, false, false]
-	
-	if !up:
-		ways[0] = "ok"
-	elif typeof(up) != TYPE_BOOL and get_way(up, 2, get_segment_data(pos + DIRECTIONS[0]).piece_x):
-		ways[0] = "force"
-	
-	if !right:
-		ways[1] = "ok"
-	elif typeof(right) != TYPE_BOOL and get_way(right, 3, get_segment_data(pos + DIRECTIONS[1]).piece_y):
-		ways[1] = "force"
-	
-	if !down:
-		ways[2] = "ok"
-	elif typeof(down) != TYPE_BOOL and get_way(down, 0, get_segment_data(pos + DIRECTIONS[2]).piece_x):
-		ways[2] = "force"
-	
-	if !left:
-		ways[3] = "ok"
-	elif typeof(left) != TYPE_BOOL and get_way(left, 1, get_segment_data(pos + DIRECTIONS[3]).piece_y):
-		ways[3] = "force"
-	
-	return ways
-
-func get_matching_segments(ways):
-	var segments = []
-	
-	for segment in Res.segments.values():
-		var can_be = true
-		for i in range(segment.ways.size()):
-			var j = way_dir(segment, i)
-			if (segment.ways[i] and !ways[j]) or (ways[j] and ways[j] == "force" and !segment.ways[i]): can_be = false
-		
-		if can_be: segments.append(segment)
-	
-	return segments
-
-func filter_segments(pos, segments):
-	var result = []
-	
-	for segment in segments:
-		var can_be = true
-		for x in range(segment.width):
-			for y in range(segment.height):
-				var p = pos + Vector2(x, y)
-				if p.x < 0 or p.y < 0 or p.x >= width or p.y >= width or get_segment(p):
-					can_be = false
-		
-		if can_be: result.append(segment)
-	
-	return result
-
 func get_segment(pos):
 	if pos.x < 0 or pos.y < 0 or pos.x >= width or pos.y >= height: return
 	if !map[pos.x + pos.y * width]: return null
@@ -187,21 +137,6 @@ func set_segment(pos, segment):
 	for x in range(segment.width):
 		for y in range(segment.height):
 			map[pos.x + x + (pos.y + y)  * width] = {"segment": segment, "piece_x": x, "piece_y": y}
-
-func get_way(segment, dir, pos):
-	return segment["ways" + str(dir)][pos]
-
-func way_offset(segment, i):
-	if way_dir(segment, i) == 0: return Vector2(i, -1)
-	if way_dir(segment, i) == 1: return Vector2(segment.width, i - segment.width)
-	if way_dir(segment, i) == 2: return Vector2(segment.width - (i - segment.width - segment.height) - 1, segment.height)
-	if way_dir(segment, i) == 3: return Vector2(-1, segment.height - (i - segment.width*2 - segment.height) - 1)
-
-func way_dir(segment, i):
-	if i >= segment.width*2 + segment.height: return 3
-	if i >= segment.width*2: return 2
-	if i >= segment.width: return 1
-	return 0
 
 func create_segment(segment, pos):
 	var seg = Res.segment_nodes[segment].instance()

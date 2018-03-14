@@ -2,6 +2,7 @@ extends Node
 
 var segments = {}
 var segment_nodes = {}
+var tilesets = {}
 
 func _ready():
 	var dir = Directory.new()
@@ -23,5 +24,24 @@ func _ready():
 			segments[segname] = parse_json(text)
 			segments[segname].name = segname
 			segment_nodes[segname] = load("res://Nodes/Segments/" + segname + ".tscn")
+			
+			name = dir.get_next()
+
+	if dir.open("res://Resources/Tilesets/") == OK:
+		dir.list_dir_begin()
+		
+		var name = dir.get_next()
+		while name != "":
+			if !name.ends_with(".json"):
+				name = dir.get_next()
+				continue
+			
+			var file = File.new()
+			file.open("res://Resources/Tilesets/" + name, file.READ)
+			var text = file.get_as_text()
+			file.close()
+			
+			var tileset_name = name.left(name.length() - 5)
+			tilesets[tileset_name] = parse_json(text)
 			
 			name = dir.get_next()

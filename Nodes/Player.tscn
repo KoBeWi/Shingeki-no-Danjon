@@ -7,12 +7,12 @@
 resource_name = "Player"
 script/source = "extends KinematicBody2D
 
-const SPEED = 160
+const SPEED = 320
 
 func _ready():
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	var move = Vector2()
 	
 	if Input.is_key_pressed(KEY_UP):
@@ -34,7 +34,7 @@ _sections_unfolded = [ "Resource" ]
 custom_solver_bias = 0.0
 extents = Vector2( 20, 10 )
 
-[node name="Player" type="KinematicBody2D" index="0"]
+[node name="Player" type="KinematicBody2D"]
 
 position = Vector2( 126.577, 312.239 )
 z_index = 1
