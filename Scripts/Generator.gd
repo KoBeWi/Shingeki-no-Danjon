@@ -72,7 +72,7 @@ func get_possible_segments(spot):
 	for segment in Res.segments.values():
 		var offset = Vector2()
 		if dir > -1:
-			var ways = segment["ways" + str(OPPOSITE[dir])]
+			var ways = segment["ways" + str(OPPOSITE[dir])]\
 			
 			for i in range(ways.size()):
 				if !ways[i]: continue
