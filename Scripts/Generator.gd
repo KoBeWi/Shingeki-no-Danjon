@@ -54,13 +54,25 @@ func generate(w, h):
 		var bottom = segment.get_node("BottomTiles")
 		
 		var tileset = Res.tilesets["Dungeon"]
+		
 		var floor_id = tileset.floor[0]
 		var floor_size = tileset.floor.size()
+		
+		var wall_id = tileset.wall[0]
+		var wall_size = tileset.wall.size()
 		
 		for cell in bottom.get_used_cells():
 			if bottom.get_cellv(cell) == floor_id:
 				var new_tile = randi() % floor_size
 				if new_tile > 0: bottom.set_cellv(cell, tileset.floor[new_tile].id)
+				
+			if bottom.get_cellv(cell) == wall_id:
+				var new_tile = randi() % wall_size
+				if new_tile > 0:
+					var tile = tileset.wall[new_tile]
+					
+					for y in range(tile.pattern_y.size()):
+						bottom.set_cellv(cell + Vector2(0, y), tile.id + tile.pattern_y[y])
 
 func get_possible_segments(spot):
 	var pos = spot.pos
@@ -72,7 +84,7 @@ func get_possible_segments(spot):
 	for segment in Res.segments.values():
 		var offset = Vector2()
 		if dir > -1:
-			var ways = segment["ways" + str(OPPOSITE[dir])]\
+			var ways = segment["ways" + str(OPPOSITE[dir])]
 			
 			for i in range(ways.size()):
 				if !ways[i]: continue

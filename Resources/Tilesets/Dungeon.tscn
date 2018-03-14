@@ -404,7 +404,69 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Corner1" type="Sprite" parent="." index="15"]
+[node name="Wall7" type="Sprite" parent="." index="15"]
+
+editor/display_folded = true
+position = Vector2( 240, 240 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 160, 160, 80, 80 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Collider" type="StaticBody2D" parent="Wall7" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shape" type="CollisionShape2D" parent="Wall7/Collider" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall8" type="Sprite" parent="." index="16"]
+
+editor/display_folded = true
+position = Vector2( 240, 320 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 160, 240, 80, 80 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Collider" type="StaticBody2D" parent="Wall8" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shape" type="CollisionShape2D" parent="Wall8/Collider" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Corner1" type="Sprite" parent="." index="17"]
 
 editor/display_folded = true
 position = Vector2( 240, 0 )
@@ -435,7 +497,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Corner2" type="Sprite" parent="." index="16"]
+[node name="Corner2" type="Sprite" parent="." index="18"]
 
 editor/display_folded = true
 position = Vector2( 320, 0 )
@@ -466,7 +528,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Corner3" type="Sprite" parent="." index="17"]
+[node name="Corner3" type="Sprite" parent="." index="19"]
 
 editor/display_folded = true
 position = Vector2( 320, 80 )
@@ -497,7 +559,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Corner4" type="Sprite" parent="." index="18"]
+[node name="Corner4" type="Sprite" parent="." index="20"]
 
 editor/display_folded = true
 position = Vector2( 240, 80 )
@@ -528,7 +590,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Floor" type="Sprite" parent="." index="19"]
+[node name="Floor" type="Sprite" parent="." index="21"]
 
 position = Vector2( 0, 400 )
 texture = ExtResource( 1 )
@@ -536,7 +598,7 @@ region_enabled = true
 region_rect = Rect2( 0, 320, 80, 80 )
 _sections_unfolded = [ "Region" ]
 
-[node name="Floor2" type="Sprite" parent="." index="20"]
+[node name="Floor2" type="Sprite" parent="." index="22"]
 
 position = Vector2( 80, 400 )
 texture = ExtResource( 1 )
@@ -544,7 +606,7 @@ region_enabled = true
 region_rect = Rect2( 80, 320, 80, 80 )
 _sections_unfolded = [ "Region" ]
 
-[node name="Floor3" type="Sprite" parent="." index="21"]
+[node name="Floor3" type="Sprite" parent="." index="23"]
 
 position = Vector2( 160, 400 )
 texture = ExtResource( 1 )
