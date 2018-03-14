@@ -64,15 +64,34 @@ func generate(w, h):
 		for cell in bottom.get_used_cells():
 			if bottom.get_cellv(cell) == floor_id:
 				var new_tile = randi() % floor_size
-				if new_tile > 0: bottom.set_cellv(cell, tileset.floor[new_tile].id)
+				if new_tile > 0:
+					var tile = tileset.floor[new_tile]
+					
+					var space = true
+					for t in range(tile.pattern.size()):
+						if bottom.get_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols))) != floor_id:
+							space = false
+							break
+					
+					if !space: continue
+					for t in range(tile.pattern.size()):
+						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
 				
 			if bottom.get_cellv(cell) == wall_id:
 				var new_tile = randi() % wall_size
 				if new_tile > 0:
 					var tile = tileset.wall[new_tile]
 					
-					for y in range(tile.pattern_y.size()):
-						bottom.set_cellv(cell + Vector2(0, y), tile.id + tile.pattern_y[y])
+					var space = true
+					for t in range(tile.pattern.size()):
+						var celll = bottom.get_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)))
+						if celll != wall_id and celll != wall_id + 3:
+							space = false
+							break
+					
+					if !space: continue
+					for t in range(tile.pattern.size()):
+						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
 
 func get_possible_segments(spot):
 	var pos = spot.pos
