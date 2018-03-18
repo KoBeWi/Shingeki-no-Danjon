@@ -49,6 +49,9 @@ func generate(w, h):
 				create_segment(segment.segment.name, Vector2(x, y))
 	
 	$"../Player".position = Vector2(start.x * SEG_W, start.y * SEG_H) + Vector2(SEG_W/2, SEG_H/2)
+	$"../Uganda".position = Vector2(start.x * SEG_W + 70, start.y * SEG_H) + Vector2(SEG_W/2, SEG_H/2)
+	
+	$"../Uganda/AnimatedSprite".play()
 	
 	for segment in dungeon.get_children():
 		var bottom = segment.get_node("BottomTiles")
