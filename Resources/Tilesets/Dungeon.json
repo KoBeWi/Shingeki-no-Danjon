@@ -1,8 +1,8 @@
 {
 	"floor": [
 		19,
-		{"id": 20, "pattern": [0], "cols": 1},
-		{"id": 21, "pattern": [0], "cols": 1},
+		{"id": 20, "pattern": [0], "cols": 1, "can_flip": true},
+		{"id": 21, "pattern": [0], "cols": 1, "can_flip": true},
 		{"id": 28, "pattern": [0, 1, 2, 3], "cols": 2},
 	],
 	

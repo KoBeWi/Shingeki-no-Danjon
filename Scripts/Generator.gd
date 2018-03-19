@@ -76,7 +76,9 @@ func generate(w, h):
 					
 					if !space: continue
 					for t in range(tile.pattern.size()):
-						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
+						var flip = [false, false, false]
+						if tile.has("can_flip"): flip = [randi()%2 == 0, randi()%2 == 0, randi()%2 == 0]
+						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t], flip[0], flip[1], flip[2])
 				
 			if bottom.get_cellv(cell) == wall_id:
 				var new_tile = randi() % wall_size
