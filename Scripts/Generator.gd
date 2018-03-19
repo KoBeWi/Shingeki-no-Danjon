@@ -40,7 +40,7 @@ func generate(w, h):
 				var dim = ["width", "height"][dir%2]
 				for i in range(segment[dim]):
 					var ds = DIRECTIONS[dir] + DOFFSET[dir%2] * i
-					if segment["ways" + str(dir)][i]: empty_spots.append({"pos": spot.pos + ds, "dir": dir})
+					if segment["ways" + str(dir)][i]: empty_spots.append({"pos": spot.pos + offset + ds, "dir": dir})
 	
 	for x in range(width):
 		for y in range(height):

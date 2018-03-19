@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Resources/Tilesets/Dungeon.tres" type="TileSet" id=1]
 
-[node name="Segment" type="Node2D"]
+[node name="Segment" type="Node2D" index="0"]
 
 [node name="BottomTiles" type="TileMap" parent="." index="0"]
 
