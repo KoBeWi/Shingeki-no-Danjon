@@ -3,6 +3,8 @@ onready var Res = $"/root/Resources"
 onready var dungeon = $"../Segments"
 onready	var uganda = load("res://Nodes/Uganda.tscn")
 
+
+
 const SEG_W = 800
 const SEG_H = 800
 const DIRECTIONS = [Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0)]
@@ -13,7 +15,8 @@ var map = []
 var width = 100
 var height = 100
 
-var map_Uganda = [] # Table for positions of floor Segments
+
+var map_Uganda = []
 
 func _ready():
 	pass
@@ -43,7 +46,7 @@ func generate(w, h):
 				var dim = ["width", "height"][dir%2]
 				for i in range(segment[dim]):
 					var ds = DIRECTIONS[dir] + DOFFSET[dir%2] * i
-					if segment["ways" + str(dir)][i]: empty_spots.append({"pos": spot.pos + offset + ds, "dir": dir})
+					if segment["ways" + str(dir)][i]: empty_spots.append({"pos": spot.pos + ds, "dir": dir})
 	
 	for x in range(width):
 		for y in range(height):
@@ -51,7 +54,9 @@ func generate(w, h):
 			if segment and segment.piece_x + segment.piece_y == 0:
 				create_segment(segment.segment.name, Vector2(x, y))
 	
+	
 	$"../Player".position = Vector2(start.x * SEG_W, start.y * SEG_H) + Vector2(SEG_W/2, SEG_H/2)
+
 	
 	for segment in dungeon.get_children():
 		var bottom = segment.get_node("BottomTiles")
@@ -78,9 +83,7 @@ func generate(w, h):
 					
 					if !space: continue
 					for t in range(tile.pattern.size()):
-						var flip = [false, false, false]
-						if tile.has("can_flip"): flip = [randi()%2 == 0, randi()%2 == 0, randi()%2 == 0]
-						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t], flip[0], flip[1], flip[2])
+						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
 				
 			if bottom.get_cellv(cell) == wall_id:
 				var new_tile = randi() % wall_size
@@ -97,7 +100,6 @@ func generate(w, h):
 					if !space: continue
 					for t in range(tile.pattern.size()):
 						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
-
 						
 	place_Uganda_into_maze(start, 100)
 
