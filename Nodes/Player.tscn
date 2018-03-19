@@ -26,8 +26,10 @@ func _physics_process(delta):
 		move.x = 1 * SPEED
 		$Sprite.frame = 4
 	
-	if Input.is_key_pressed(KEY_SHIFT): move *= 3
+	if SkillBase.has_skill(\"FastWalk\") and Input.is_key_pressed(KEY_SHIFT): move *= 3
 	if Input.is_action_just_pressed(\"ui_accept\"): print(int(position.x)/800, \", \", int(position.y)/800) ##DEBUG
+	
+	SkillBase.inc_stat(\"PixelsTravelled\", int(move.length()))
 	
 	move_and_slide(move)"
 _sections_unfolded = [ "Resource" ]

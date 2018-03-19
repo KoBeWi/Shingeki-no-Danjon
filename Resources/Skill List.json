@@ -16,5 +16,12 @@
 			"stat": "DamageTaken",
 			"value": 1000
 		}
+	],
+	
+	"FastWalk": [
+		{
+			"stat": "PixelsTravelled",
+			"value": 100000
+		}
 	]
 }

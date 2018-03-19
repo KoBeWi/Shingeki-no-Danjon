@@ -11,7 +11,7 @@ func _init():
 	var text = file.get_as_text()
 	file.close()
 	
-	var SKILLS = parse_json(text)
+	SKILLS = parse_json(text)
 
 func inc_stat(stat, amount = 1):
 	if current_stats.has(stat):
@@ -32,6 +32,7 @@ func inc_stat(stat, amount = 1):
 		
 		if can_has:
 			acquired_skills.append(skill)
+			print("Acquired skill: ", skill)
 			#powiadomienie
 
 func get_stat_value(stat):
@@ -39,3 +40,6 @@ func get_stat_value(stat):
 		return current_stats[stat]
 	else:
 		return 0
+
+func has_skill(skill):
+	return acquired_skills.has(skill)
