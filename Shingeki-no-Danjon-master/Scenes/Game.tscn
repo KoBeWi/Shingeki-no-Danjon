@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Generator.gd" type="Script" id=2]
+[ext_resource path="res://Nodes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Nodes/Uganda.tscn" type="PackedScene" id=4]
+
+[node name="Game" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+
+[node name="Generator" type="Node" parent="." index="0"]
+
+script = ExtResource( 2 )
+
+[node name="Segments" type="Node" parent="." index="1"]
+
+[node name="Player" parent="." index="2" instance=ExtResource( 3 )]
+
+position = Vector2( 124.122, 184.554 )
+z_index = 3
+_sections_unfolded = [ "Collision", "Material", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
+
+[node name="Uganda" parent="." index="3" instance=ExtResource( 4 )]
+
+z_index = 1
+_sections_unfolded = [ "Material", "Visibility", "Z Index" ]
+
+
