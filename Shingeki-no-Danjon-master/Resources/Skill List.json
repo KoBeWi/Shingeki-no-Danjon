@@ -1,0 +1,20 @@
+{
+	"TestSkill1": [
+		{
+			"stat": "Strength",
+			"value": 10
+		}
+	],
+	
+	"TestSkill2": [
+		{
+			"stat": "ShieldBlocks",
+			"value": 100
+		},
+		
+		{
+			"stat": "DamageTaken",
+			"value": 1000
+		}
+	]
+}

@@ -1,0 +1,96 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/Player/Character.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "Player"
+script/source = "extends KinematicBody2D
+
+const SPEED = 320
+
+func _ready():
+	pass
+
+func _physics_process(delta):
+	var move = Vector2()
+	
+	if Input.is_key_pressed(KEY_UP):
+		move.y = -1 * SPEED
+	if Input.is_key_pressed(KEY_DOWN):
+		move.y = 1 * SPEED
+	if Input.is_key_pressed(KEY_LEFT):
+		move.x = -1 * SPEED
+		$Sprite.frame = 0
+	if Input.is_key_pressed(KEY_RIGHT):
+		move.x = 1 * SPEED
+		$Sprite.frame = 4
+	
+	move_and_slide(move)"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 20, 10 )
+
+[node name="Player" type="KinematicBody2D"]
+
+position = Vector2( 126.577, 312.239 )
+z_index = 1
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = SubResource( 1 )
+_sections_unfolded = [ "Z Index" ]
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+position = Vector2( 0, -16 )
+scale = Vector2( 1, 2 )
+texture = ExtResource( 1 )
+vframes = 2
+hframes = 3
+_sections_unfolded = [ "Transform", "Z Index" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Camera" type="Camera2D" parent="." index="1"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Collider" type="CollisionShape2D" parent="." index="2"]
+
+position = Vector2( 0.975357, 53.7922 )
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+
