@@ -6,7 +6,7 @@ func _ready():
 	var siid = randi()
 	print("Seed: ", siid)
 	seed(siid)
-#	seed(2080138725) ##DEBUG
+	seed(3352953944) ##DEBUG
 	$"Generator".generate(10, 10)
 
 func _process(delta):

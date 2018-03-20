@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/2.png-a6e966cfd0179af7b453f5d9f9174a24.stex"
+path="res://.import/Puncher_Special_Up_Down_Atack.png-c45e15fe0be5aad1ea7353570a892490.stex"
 
 [deps]
 
-source_file="res://Sprites/Uganda/2.png"
-source_md5="258103155d9e6ba153c9586d093957e1"
+source_file="res://Sprites/Enemies/Puncher/Puncher_Special_Up_Down_Atack.png"
+source_md5="6d998de9032fc8bfb5d533bf87475ca3"
 
-dest_files=[ "res://.import/2.png-a6e966cfd0179af7b453f5d9f9174a24.stex" ]
-dest_md5="b43d1cc316af501bea6f49295b70d898"
+dest_files=[ "res://.import/Puncher_Special_Up_Down_Atack.png-c45e15fe0be5aad1ea7353570a892490.stex" ]
+dest_md5="efd157e9eac63494c52d88449d21c8c5"
 
 [params]
 

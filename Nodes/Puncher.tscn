@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Nodes/Puncher.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Puncher/Puncher.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Puncher.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Enemies/Puncher/Puncher.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]
 
