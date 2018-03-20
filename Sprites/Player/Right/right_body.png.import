@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Dungeon.png-5862a55dc0704e5732cb9218aff18a8d.stex"
+path="res://.import/right_body.png-4beb0942f9cc81053a8c9af7e595ed8c.stex"
 
 [deps]
 
-source_file="res://Sprites/Tilesets/Dungeon.png"
-source_md5="ffa5313efa3c17ac9af619cbc60272e6"
+source_file="res://Sprites/Player/Right/right_body.png"
+source_md5="27f47b6f395187b3230c4823b5347560"
 
-dest_files=[ "res://.import/Dungeon.png-5862a55dc0704e5732cb9218aff18a8d.stex" ]
-dest_md5="4e04976ccd235ad9bbe7c1a2f4a2f023"
+dest_files=[ "res://.import/right_body.png-4beb0942f9cc81053a8c9af7e595ed8c.stex" ]
+dest_md5="5e3efeeee978fafd37b2edd087522b7a"
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
