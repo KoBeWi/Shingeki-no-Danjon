@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends "res://Scripts/BaseEnemy.gd"
 
 const SPEED = 100
 const FOLLOW_RANGE = 400
@@ -12,8 +12,10 @@ var follow_player = false
 
 onready var sprites = $Sprites.get_children()
 
+func _ready():
+	._ready()
+
 func _physics_process(delta):
-	name = "test"
 	if dead :
 		dead_time += delta
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
@@ -59,7 +61,10 @@ func _on_animation_started(anim_name):
 		for i in range(sprites.size()):
 			sprites[i].visible = (i+1 == main_sprite)
 
-func damage(amount):
+func _on_dead():
 	dead = true
 	follow_player = false
 	$"AnimationPlayer".play("Dead")
+
+func _on_damage():
+	print("oof")

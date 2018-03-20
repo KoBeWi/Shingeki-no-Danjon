@@ -1,4 +1,4 @@
-extends Node
+extends YSort
 
 func _ready():
 	VisualServer.set_default_clear_color(Color(0.05, 0.05, 0.07))
@@ -10,6 +10,7 @@ func _ready():
 	$"Generator".generate(10, 10)
 
 func _process(delta):
+#	sort_enabled = !sort_enabled
 	update()
 
 #ta funkcja to hack i ma być usunięta razem z update, gdy set_default_clear_color() będzie naprawiony

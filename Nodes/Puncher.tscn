@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Puncher.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/Puncher/Puncher.png" type="Texture" id=2]
@@ -106,22 +106,29 @@ extents = Vector2( 10, 10 )
 [sub_resource type="RectangleShape2D" id=6]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 10.6279, 10 )
 
 [sub_resource type="RectangleShape2D" id=8]
 
 custom_solver_bias = 0.0
 extents = Vector2( 39.8092, 47.0572 )
 
-[node name="Puncher" type="KinematicBody2D" index="0" groups=[
+[sub_resource type="RectangleShape2D" id=9]
+
+custom_solver_bias = 0.0
+extents = Vector2( 57.0542, 68.5652 )
+
+[node name="Puncher" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
+z_index = 1
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
+_sections_unfolded = [ "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
@@ -140,6 +147,7 @@ _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index
 visible = false
 texture = ExtResource( 3 )
 hframes = 4
+frame = 3
 _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -176,7 +184,7 @@ shape = SubResource( 5 )
 
 [node name="Shape" type="CollisionShape2D" parent="." index="3"]
 
-position = Vector2( -1.17209, 72.7202 )
+position = Vector2( 0.290953, 47.2325 )
 scale = Vector2( 3.70602, 1 )
 shape = SubResource( 6 )
 
@@ -199,8 +207,24 @@ _sections_unfolded = [ "Collision" ]
 position = Vector2( 0.358475, -12.5471 )
 shape = SubResource( 8 )
 
+[node name="AttackCollider" type="Area2D" parent="." index="5"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollider" index="0"]
+
+shape = SubResource( 9 )
+
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]
 
 [connection signal="body_entered" from="Radar" to="." method="_on_Area2D_body_entered"]
+
+[connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 
 
