@@ -131,12 +131,6 @@ func _on_damage():
 	print("oof")
 
 func _on_animation_finished(anim_name):
-	print( "GetEndOfAnimation" )
-	
-	#ZA ZADNE SKARBY Sie nie sprawdza .... I nie działa
-	
-	#print($AnimationPlayer.get_current_frame())
-	print(anim_name)
 	if anim_name == "Special":
 		special_ready = false
 		in_action     = false

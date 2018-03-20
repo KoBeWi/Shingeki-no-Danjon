@@ -290,6 +290,7 @@ _sections_unfolded = [ "Textures" ]
 
 [node name="Radar" type="Area2D" parent="." index="6"]
 
+editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -301,9 +302,11 @@ audio_bus_name = "Master"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
 
 position = Vector2( 9.54746, -3.98993 )
-rotation = 0.0167522
 scale = Vector2( 18.7885, 19.6979 )
 shape = SubResource( 11 )
+_sections_unfolded = [ "Transform" ]
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]
 
