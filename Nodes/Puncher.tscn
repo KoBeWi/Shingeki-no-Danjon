@@ -204,8 +204,6 @@ _sections_unfolded = [ "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
-editor/display_folded = true
-
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
 texture = ExtResource( 2 )

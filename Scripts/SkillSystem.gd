@@ -1,5 +1,7 @@
 extends Node
 
+signal new_skill
+
 var SKILLS = {}
 
 var current_stats = {}
@@ -32,8 +34,7 @@ func inc_stat(stat, amount = 1):
 		
 		if can_has:
 			acquired_skills.append(skill)
-			print("Acquired skill: ", skill)
-			#powiadomienie
+			emit_signal("new_skill", skill)
 
 func get_stat_value(stat):
 	if current_stats.has(stat):

@@ -28,7 +28,7 @@
 	"FireAffinity": [
 		{
 			"stat": "FireMagic",
-			"value": 1000
+			"value": 10
 		}
 	]
 }

@@ -22,6 +22,8 @@ func new_dir(dir):
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group(\"enemies\"):
+		SkillBase.inc_stat(\"FireMagic\")
+		SkillBase.inc_stat(\"Ranged\")
 		collider.get_parent().damage(200 if SkillBase.has_skill(\"FireAffinity\") else 5)
 		queue_free()"
 _sections_unfolded = [ "Resource" ]
