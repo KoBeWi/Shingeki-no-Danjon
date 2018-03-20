@@ -2,8 +2,7 @@
 
 [ext_resource path="res://Sprites/Player/Right/right_body.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Player/Right/right_sword_attack_sprite_sheet.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Player/Right/right_shield_off_sprite_sheet.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/Player/Right/right_shield_on_sprite_sheet.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Player/Right/right_shield_on_sprite_sheet.png" type="Texture" id=3]
 
 [sub_resource type="GDScript" id=1]
 
@@ -13,14 +12,13 @@ script/source = "extends KinematicBody2D
 var side = true
 const SPEED = 320
 
+var attacking = false
+
 func _ready():
 	pass
 
 func _physics_process(delta):
 	var move = Vector2()
-	
-	
-	
 	
 	if Input.is_key_pressed(KEY_UP):
 		move.y = -1 * SPEED
@@ -39,10 +37,19 @@ func _physics_process(delta):
 	$Body/LeftArm.flip_h = side
 	$Body/RightArm.flip_h = side
 	
-	if Input.is_action_just_pressed(\"ui_accept\"):
+	if !attacking and Input.is_action_just_pressed(\"ui_accept\"):
 		$Animation.play(\"SwordAttackRight\")
+		attacking = true
 	
-	move_and_slide(move)"
+	move_and_slide(move)
+
+func _on_animation_finished(anim_name):
+	if anim_name == \"SwordAttackRight\":
+		attacking = false
+
+func _on_attack_hit(collider):
+	if collider.get_parent().is_in_group(\"enemies\"):
+		collider.get_parent().damage(1)"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="Animation" id=2]
@@ -61,7 +68,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Body/LeftArm:hframes")
@@ -101,10 +108,46 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+"values": [ 0, 1, 2, 4, 5, 6, 7, 8, 9 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackCollider/Shape:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3, 4, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -25.0047, -28.0341 ), Vector2( 10.6591, -39.9221 ), Vector2( 45.7825, -12.9041 ), Vector2( 42, 20.5983 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackCollider/Shape:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 3, 4, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 36.5144, 93.5705, 150.159, 161.731 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackCollider/Shape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 3, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="RectangleShape2D" id=4]
@@ -112,7 +155,12 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 20, 10 )
 
-[node name="Player" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id=5]
+
+custom_solver_bias = 0.0
+extents = Vector2( 12.7266, 3.18475 )
+
+[node name="Player" type="KinematicBody2D" index="0"]
 
 position = Vector2( 126.577, 312.239 )
 z_index = 1
@@ -121,10 +169,10 @@ collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = SubResource( 1 )
-_sections_unfolded = [ "Z Index" ]
 
 [node name="Body" type="Sprite" parent="." index="0"]
 
+editor/display_folded = true
 texture = ExtResource( 1 )
 _sections_unfolded = [ "Animation", "Transform", "Z Index" ]
 __meta__ = {
@@ -137,14 +185,13 @@ texture = ExtResource( 2 )
 vframes = 2
 hframes = 5
 frame = 9
-_sections_unfolded = [ "Animation" ]
+_sections_unfolded = [ "Animation", "Region" ]
 
 [node name="LeftArm" type="Sprite" parent="Body" index="1"]
 
 z_index = -1
 texture = ExtResource( 3 )
-hframes = 2
-frame = 1
+hframes = 4
 _sections_unfolded = [ "Animation", "Transform", "Z Index" ]
 
 [node name="Animation" type="AnimationPlayer" parent="." index="1"]
@@ -194,5 +241,32 @@ shape = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="AttackCollider" type="Area2D" parent="." index="4"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+collision_mask = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
+
+position = Vector2( 42, 20.5983 )
+rotation = 2.82273
+scale = Vector2( 2.48499, 2.29352 )
+shape = SubResource( 5 )
+disabled = true
+_sections_unfolded = [ "Transform" ]
+
+[connection signal="animation_finished" from="Animation" to="." method="_on_animation_finished"]
+
+[connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 
 

@@ -13,6 +13,7 @@ var follow_player = false
 onready var sprites = $Sprites.get_children()
 
 func _physics_process(delta):
+	name = "test"
 	if dead :
 		dead_time += delta
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
@@ -21,26 +22,21 @@ func _physics_process(delta):
 	if follow_player :
 		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
 		
+		move_and_slide(move * SPEED)
+		
 		var axix_X = abs(position.x - player.position.x) >= PERSONAL_SPACE
 		var axix_Y = abs(position.y - player.position.y) >= PERSONAL_SPACE
+	
+		if axix_X:
+			sprites[0].flip_h = move.x > 0
 		
-		if axix_X or axix_Y:
-			move_and_slide(move * 100)
-		
-			if axix_X:
-				sprites[0].flip_h = move.x > 0
-			
-				if move.x != 0: play_animation_if_not_playing("Left")
+			if move.x != 0: play_animation_if_not_playing("Left")
 #				elif move.x > 0: play_animation_if_not_playing("Right") na później
-			elif axix_Y:
-				if move.y < 0: play_animation_if_not_playing("Down")
-				elif move.y > 0: play_animation_if_not_playing("Up")
-			else:
-				play_animation_if_not_playing("Down")
+		elif axix_Y:
+			if move.y < 0: play_animation_if_not_playing("Down")
+			elif move.y > 0: play_animation_if_not_playing("Up")
 		else:
-			dead = true
-			follow_player = false
-			$"AnimationPlayer".play("Dead")
+			play_animation_if_not_playing("Down")
 
 		if abs(position.x - player.position.x) > FOLLOW_RANGE and abs(position.y - player.position.y) > FOLLOW_RANGE:
 			follow_player = false
@@ -62,3 +58,8 @@ func _on_animation_started(anim_name):
 	
 		for i in range(sprites.size()):
 			sprites[i].visible = (i+1 == main_sprite)
+
+func damage(amount):
+	dead = true
+	follow_player = false
+	$"AnimationPlayer".play("Dead")
