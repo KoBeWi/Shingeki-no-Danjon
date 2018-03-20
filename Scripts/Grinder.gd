@@ -50,18 +50,17 @@ func _physics_process(delta):
 
 		move_and_slide(move * SPEED)
 		#print(move)
+		if in_action: return
 		var axix_X = abs(position.x - player.position.x) >= PERSONAL_SPACE
 		var axix_Y = abs(position.y - player.position.y) >= PERSONAL_SPACE
 		
 		if axix_X:
-
 			sprites[0].flip_h = move.x > 0
 			if abs(move.x) > 1: 
 				play_animation_if_not_playing("Left")
 				direction = "Right" if move.x > 0 else "Left"
 #				elif move.x > 0: play_animation_if_not_playing("Right") na później
 		elif axix_Y:
-
 			if move.y < 0: 
 				play_animation_if_not_playing("Down")
 				direction = "Up"
@@ -85,7 +84,6 @@ func _physics_process(delta):
 				damage = SPECIAL_DAMAGE
 				knockback = KNOCKBACK_ATACK
 			elif atack_ready:
-				print("CHARGE!!!")
 				in_action = true
 				atack_ready = false
 				
@@ -95,7 +93,6 @@ func _physics_process(delta):
 
 
 func punch_in_direction():
-	print(direction)
 	if direction == "Right" : 
 		sprites[1].flip_h = true
 		play_animation_if_not_playing("PunchLeft")
