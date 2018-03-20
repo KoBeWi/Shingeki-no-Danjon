@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Health.png-5ae80f23f824966e2cfc4ac82263f008.stex"
+path="res://.import/EnemyHealth.png-92865cc0791cf1bfce3ff4a2e3ef6649.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Health.png"
-source_md5="41afc94b8e6f0a1e77f559d5a4082189"
+source_file="res://Sprites/UI/EnemyHealth.png"
+source_md5="dc82000a23af1104a075ca742e909bb3"
 
-dest_files=[ "res://.import/Health.png-5ae80f23f824966e2cfc4ac82263f008.stex" ]
-dest_md5="cd14e1ae45d408e33c96402757eab0c5"
+dest_files=[ "res://.import/EnemyHealth.png-92865cc0791cf1bfce3ff4a2e3ef6649.stex" ]
+dest_md5="40823e5a668ff84a8fd6e162f224481d"
 
 [params]
 

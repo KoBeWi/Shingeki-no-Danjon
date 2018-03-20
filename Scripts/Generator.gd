@@ -102,27 +102,20 @@ func generate(w, h):
 					for t in range(tile.pattern.size()):
 						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
 
-						
-	place_Uganda_into_maze(start, 100)
-	place_Pusher_into_maze(start, 40)
+	place_Uganda_into_maze(100)
+	place_Pusher_into_maze(40)
 
-func place_Pusher_into_maze(start, how_many):
-#	$"../Puncher".position = Vector2(start.x * SEG_W, start.y * SEG_H) + Vector2(SEG_W/2, SEG_H/2)
-#	$"../Puncher/AnimationPlayer".play()
-	
+func place_Pusher_into_maze(how_many):
 	for nmb in range(how_many):
 		var ug_inst = pusher.instance()
-		ug_inst.position = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)# + Vector2(randi()% (SEG_W-460), randi()% (SEG_H-500) )#Vector2( randi()%width * SEG_W + randi()% SEG_W, randi()%height * SEG_H  + randi()% SEG_H)
+		ug_inst.position = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
 		dungeon.get_parent().add_child(ug_inst)
 
-func place_Uganda_into_maze(start, how_many):
-#	$"../Uganda".position = Vector2(start.x * SEG_W + 70, start.y * SEG_H) + Vector2(SEG_W/2, SEG_H/2)
-
+func place_Uganda_into_maze(how_many):
 	for nmb in range(how_many):
 		var ug_inst = uganda.instance()
-		ug_inst.position = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)# + Vector2(randi()% (SEG_W-460), randi()% (SEG_H-500) )#Vector2( randi()%width * SEG_W + randi()% SEG_W, randi()%height * SEG_H  + randi()% SEG_H)
-		ug_inst.z_index = 1
-		dungeon.add_child(ug_inst)
+		ug_inst.position = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
+		dungeon.get_parent().add_child(ug_inst)
 
 func get_possible_segments(spot):
 	var pos = spot.pos

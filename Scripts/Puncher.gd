@@ -16,6 +16,8 @@ func _ready():
 	._ready()
 
 func _physics_process(delta):
+	._physics_process(delta)
+	
 	if dead :
 		dead_time += delta
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
