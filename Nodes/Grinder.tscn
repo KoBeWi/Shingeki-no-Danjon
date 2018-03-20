@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/Grinder.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Enemies/GearGrinder3000.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Enemies/Puncher/Puncher_LeftAtack.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Enemies/GearGrinder300/GearGrinder3000.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Enemies/GearGrinder300/GG300_leftAtack.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Enemies/GearGrinder300/GG3000_D_U.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=1]
 
@@ -64,10 +65,29 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=4]
 
-resource_name = "Punch Left"
+resource_name = "PunchDown"
 length = 4.0
 loop = false
-step = 1.0
+step = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.6, 2.4, 3.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 6, 7, 8, 9 ]
+}
+
+[sub_resource type="Animation" id=5]
+
+resource_name = "PunchLeft"
+length = 4.0
+loop = false
+step = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/2:frame")
 tracks/0/interp = 1
@@ -75,13 +95,32 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.8, 1.6, 2.4, 3.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 0, 1, 2, 3, 4 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
+
+resource_name = "PunchUp"
+length = 4.0
+loop = false
+step = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.6, 2.4, 3.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4 ]
+}
+
+[sub_resource type="Animation" id=7]
 
 length = 4.0
 loop = true
@@ -99,22 +138,27 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=8]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10.6279, 10 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=9]
 
 custom_solver_bias = 0.0
 extents = Vector2( 39.8092, 47.0572 )
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=10]
 
 custom_solver_bias = 0.0
 extents = Vector2( 57.0542, 68.5652 )
 
-[node name="Grinder" type="KinematicBody2D" groups=[
+[sub_resource type="RectangleShape2D" id=11]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="Grinder" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -128,10 +172,9 @@ _sections_unfolded = [ "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
-editor/display_folded = true
-
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
+position = Vector2( 0, -27 )
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 8
@@ -141,10 +184,20 @@ _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index
 [node name="2" type="Sprite" parent="Sprites" index="1"]
 
 visible = false
+position = Vector2( -21.0524, 4.76657 )
 texture = ExtResource( 3 )
-hframes = 4
+hframes = 5
 frame = 3
 _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index" ]
+
+[node name="3" type="Sprite" parent="Sprites" index="2"]
+
+visible = false
+texture = ExtResource( 4 )
+vframes = 2
+hframes = 5
+frame = 3
+_sections_unfolded = [ "Animation" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 
@@ -156,8 +209,10 @@ playback_speed = 8.0
 anims/Dead = SubResource( 1 )
 anims/Down = SubResource( 2 )
 anims/Left = SubResource( 3 )
-"anims/Punch Left" = SubResource( 4 )
-anims/Up = SubResource( 5 )
+anims/PunchDown = SubResource( 4 )
+anims/PunchLeft = SubResource( 5 )
+anims/PunchUp = SubResource( 6 )
+anims/Up = SubResource( 7 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -165,7 +220,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 position = Vector2( 0.290953, 47.2325 )
 scale = Vector2( 3.70602, 1 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="3"]
 
@@ -184,7 +239,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
 position = Vector2( 0.358475, -12.5471 )
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="4"]
 
@@ -199,7 +254,7 @@ audio_bus_name = "Master"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="5"]
 
@@ -225,14 +280,35 @@ page = 0.0
 value = 0.0
 exp_edit = false
 rounded = false
-texture_under = ExtResource( 4 )
+texture_under = ExtResource( 5 )
 texture_over = null
-texture_progress = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
 radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
 _sections_unfolded = [ "Textures" ]
 
+[node name="Radar" type="Area2D" parent="." index="6"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
+
+position = Vector2( 9.54746, -3.98993 )
+rotation = 0.0167522
+scale = Vector2( 18.7885, 19.6979 )
+shape = SubResource( 11 )
+
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]
+
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
+
+[connection signal="body_entered" from="Radar" to="." method="_on_Radar_body_entered"]
 
 
