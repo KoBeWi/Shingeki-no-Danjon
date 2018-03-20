@@ -108,6 +108,7 @@ func generate(w, h):
 
 func place_Pusher_into_maze(start, how_many):
 	$"../Puncher".position = Vector2(start.x * SEG_W, start.y * SEG_H) + Vector2(SEG_W/2, SEG_H/2)
+	$"../Puncher".z_index = 1
 	$"../Puncher/AnimationPlayer".play()
 	
 	for nmb in range(how_many):
