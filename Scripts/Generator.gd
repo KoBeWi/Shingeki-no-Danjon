@@ -11,6 +11,10 @@ const DIRECTIONS = [Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0)
 const DOFFSET = [Vector2(1, 0), Vector2(0, 1)]
 const OPPOSITE = [2, 3, 0, 1]
 
+const ENABLE_UGANDA = true
+const ENABLE_GRIDER = true
+const ENABLE_PUSHER = false
+
 var map = []
 var width = 100
 var height = 100
@@ -103,20 +107,17 @@ func generate(w, h):
 					for t in range(tile.pattern.size()):
 						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
 
-	place_Uganda_into_maze(100)
-	place_Pusher_into_maze(40)
+	if ENABLE_GRIDER: place_into_maze(grinder, 50 )
+	if ENABLE_UGANDA: place_into_maze(uganda,100)
+	if ENABLE_PUSHER: place_into_maze(pusher,40)
+	
 
-func place_Pusher_into_maze(how_many):
+func place_into_maze(what, how_many):
 	for nmb in range(how_many):
-		var ug_inst = (grinder if randi()%2 ==0 else pusher).instance()
+		var ug_inst = what.instance()
 		ug_inst.position = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
 		dungeon.get_parent().add_child(ug_inst)
 
-func place_Uganda_into_maze(how_many):
-	for nmb in range(how_many):
-		var ug_inst = uganda.instance()
-		ug_inst.position = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
-		dungeon.get_parent().add_child(ug_inst)
 
 func get_possible_segments(spot):
 	var pos = spot.pos

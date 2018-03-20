@@ -1,15 +1,30 @@
 extends "res://Scripts/BaseEnemy.gd"
 
-const SPEED = 100
-const FOLLOW_RANGE = 400
+const BASIC_DAMAGE         = 10
+const SPECIAL_DAMAGE       = 20
+
+const SPECIAL_PROBABILITY  = 200
+const ATACK_SPEED          = 125
+
+const SPEED                = 100
+
+const KNOCKBACK_ATACK      = 10 
+
+const FOLLOW_RANGE         = 400
+const PERSONAL_SPACE       = 30
 const TIME_OF_LIYUGN_CORPS = 3
-const PERSONAL_SPACE = 42
 
 var player
-var dead_time = 0
-var dead = false
-var follow_player = false
-var special = false
+var direction       = "Down"
+var dead_time       = 0
+
+var can_use_special = true
+var dead            = false
+
+var follow_player   = false
+var in_action       = false
+var special_ready   = false
+var atack_ready     = true
 
 onready var sprites = $Sprites.get_children()
 
@@ -24,40 +39,70 @@ func _physics_process(delta):
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
 		return
 	
-	if follow_player and !special:
-		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
+	if follow_player and !in_action :
 		
-		move_and_slide(move * SPEED)
+		if( !special_ready ) : special_ready = (randi()%SPECIAL_PROBABILITY == 0)
+		if( !  atack_ready ) : atack_ready   = (randi()%ATACK_SPEED         == 0)
+		
+		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
+
 		
 		var axix_X = abs(position.x - player.position.x) >= PERSONAL_SPACE
 		var axix_Y = abs(position.y - player.position.y) >= PERSONAL_SPACE
-	
-		if axix_X:
-			sprites[0].flip_h = move.x > 0
 		
-			if move.x != 0: play_animation_if_not_playing("Left")
+
+		#if( axix_X and axix_Y):
+		move_and_slide(move * SPEED)
+		
+		if axix_X:
+
+			sprites[0].flip_h = move.x > 0
+			if abs(move.x) > 1: 
+				play_animation_if_not_playing("Left")
+				direction = "Right" if move.x > 0 else "Left"
 #				elif move.x > 0: play_animation_if_not_playing("Right") na później
 		elif axix_Y:
-			if move.y < 0: play_animation_if_not_playing("Down")
-			elif move.y > 0: play_animation_if_not_playing("Up")
+
+			if move.y < 0: 
+				play_animation_if_not_playing("Down")
+				direction = "Up"
+			elif move.y > 0: 
+				play_animation_if_not_playing("Up")
+				direction = "Down"
 		else:
 			play_animation_if_not_playing("Down")
+			direction = "Down"
+	
+		var player_monster_distance_x = abs(position.x - player.position.x) 
+		var player_monster_distance_y = abs(position.y - player.position.y) 
 
-		if abs(position.x - player.position.x) > FOLLOW_RANGE and abs(position.y - player.position.y) > FOLLOW_RANGE:
+		if player_monster_distance_x > FOLLOW_RANGE and player_monster_distance_y > FOLLOW_RANGE:
 			follow_player = false
 		
-		special = (randi()%200 == 0)
-	elif !special:
-		play_animation_if_not_playing("Down")
+		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
+			if special_ready and can_use_special:
+				in_action = true
+				play_animation_if_not_playing("Special")
+				damage = SPECIAL_DAMAGE
+				knockback = KNOCKBACK_ATACK
+			elif atack_ready:
+				in_action = true
+				atack_ready = false
+				
+				punch_in_direction()
+				damage = BASIC_DAMAGE
+				knockback = 0
+
+
+func punch_in_direction():
+	print(direction)
+	if direction == "Right" : 
+		sprites[1].flip_h = true
+		play_animation_if_not_playing("PunchLeft")
 	else:
-		play_animation_if_not_playing("Special")
-	
-	if special:
-		damage = 20
-		knockback = 10
-	else:
-		damage = 5
-		knockback = 0
+		sprites[1].flip_h = false
+		play_animation_if_not_playing("Punch" + direction)
+
 
 func play_animation_if_not_playing(anim):
 	if $AnimationPlayer.current_animation != anim:
@@ -79,12 +124,19 @@ func _on_animation_started(anim_name):
 
 func _on_dead():
 	dead = true
-	follow_player = false
 	$"AnimationPlayer".play("Dead")
+	$"Shape".disabled = true
 
 func _on_damage():
 	print("oof")
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Special":
-		special = false
+		special_ready = false
+		in_action     = false
+	elif anim_name == "PunchDown":
+		in_action     = false
+	elif anim_name == "PunchLeft":
+		in_action     = false
+	elif anim_name == "PunchUp":
+		in_action     = false
