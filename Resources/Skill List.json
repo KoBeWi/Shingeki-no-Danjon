@@ -23,5 +23,12 @@
 			"stat": "PixelsTravelled",
 			"value": 100000
 		}
+	],
+	
+	"FireAffinity": [
+		{
+			"stat": "FireMagic",
+			"value": 1000
+		}
 	]
 }

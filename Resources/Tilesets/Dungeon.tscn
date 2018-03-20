@@ -7,7 +7,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 40, 40 )
 
-[node name="TilesetBase" type="Node"]
+[node name="TilesetBase" type="Node" index="0"]
 
 [node name="Roof1" type="Sprite" parent="." index="0"]
 
@@ -619,7 +619,6 @@ _sections_unfolded = [ "Region" ]
 
 [node name="Wall7" type="Sprite" parent="." index="29"]
 
-editor/display_folded = true
 position = Vector2( 240, 240 )
 texture = ExtResource( 1 )
 region_enabled = true

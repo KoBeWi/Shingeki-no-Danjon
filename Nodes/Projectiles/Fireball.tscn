@@ -22,7 +22,7 @@ func new_dir(dir):
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group(\"enemies\"):
-		collider.get_parent().damage(5)
+		collider.get_parent().damage(200 if SkillBase.has_skill(\"FireAffinity\") else 5)
 		queue_free()"
 _sections_unfolded = [ "Resource" ]
 

@@ -11,11 +11,13 @@
 resource_name = "Player"
 script/source = "extends KinematicBody2D
 
-var side = true
 const SPEED = 320
+const MEDITATION_TIME = 3
 
 onready var fireball = load(\"res://Nodes/Projectiles/Fireball.tscn\")
 var direction = 1
+var static_time = 0
+var side = true
 
 var attacking = false
 
@@ -27,6 +29,9 @@ func _ready():
 
 func _physics_process(delta):
 	var move = Vector2()
+	
+	static_time += delta
+	if static_time >= MEDITATION_TIME: SkillBase.inc_stat(\"Meditation\")
 	
 	if Input.is_key_pressed(KEY_UP):
 		move.y = -1 * SPEED
@@ -54,6 +59,8 @@ func _physics_process(delta):
 		attacking = true
 	
 	if PlayerStats.mana > 10 and Input.is_action_just_pressed(\"Spell\"):
+		SkillBase.inc_stat(\"OffensiveMagic\")
+		SkillBase.inc_stat(\"FireMagic\")
 		var newf = fireball.instance()
 		get_parent().add_child(newf)
 		newf.position = position
@@ -63,9 +70,14 @@ func _physics_process(delta):
 	if randi()%10 == 0: PlayerStats.mana += 1
 	$ManaIndicator.value = PlayerStats.mana
 	
+	if SkillBase.has_skill(\"FastWalk\") and Input.is_key_pressed(KEY_SHIFT): move *= 3
+	SkillBase.inc_stat(\"PixelsTravelled\", int(move.length()))
+	
+	if move != Vector2(): static_time = 0
 	move_and_slide(move)
 
 func damage(attacker, amount, knockback):
+	SkillBase.inc_stat(\"DamageTaken\", amount)
 	PlayerStats.health -= amount
 	$HealthIndicator.value = PlayerStats.health
 	move_and_slide((position - attacker.position).normalized() * 1000 * knockback)
@@ -76,6 +88,8 @@ func _on_animation_finished(anim_name):
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group(\"enemies\"):
+		SkillBase.inc_stat(\"OneHanded\")
+		SkillBase.inc_stat(\"Melee\")
 		collider.get_parent().damage(10)"
 _sections_unfolded = [ "Resource" ]
 
