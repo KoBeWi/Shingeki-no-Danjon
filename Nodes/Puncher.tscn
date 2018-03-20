@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Puncher.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/Puncher/Puncher.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Enemies/Puncher/Puncher_LeftAtack.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 
@@ -10,7 +11,7 @@ length = 4.0
 loop = false
 step = 1.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Sprites/1:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -28,7 +29,7 @@ length = 4.0
 loop = true
 step = 1.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Sprites/1:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -47,7 +48,26 @@ length = 4.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Sprites/1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=7]
+
+resource_name = "Punch Left"
+length = 4.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/2:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -66,7 +86,7 @@ length = 4.0
 loop = true
 step = 1.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Sprites/1:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -96,12 +116,21 @@ collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="." index="0"]
+[node name="Sprites" type="Node2D" parent="." index="0"]
+
+[node name="1" type="Sprite" parent="Sprites" index="0"]
 
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 8
 frame = 10
+_sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index" ]
+
+[node name="2" type="Sprite" parent="Sprites" index="1"]
+
+visible = false
+texture = ExtResource( 3 )
+hframes = 4
 _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -114,13 +143,14 @@ playback_speed = 8.0
 anims/Dead = SubResource( 1 )
 anims/Down = SubResource( 2 )
 anims/Left = SubResource( 3 )
+"anims/Punch Left" = SubResource( 7 )
 anims/Up = SubResource( 4 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
 
-visible = false
+editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -140,6 +170,8 @@ shape = SubResource( 5 )
 position = Vector2( -1.17209, 72.7202 )
 scale = Vector2( 3.70602, 1 )
 shape = SubResource( 6 )
+
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 

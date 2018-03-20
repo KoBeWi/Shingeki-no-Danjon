@@ -10,6 +10,8 @@ var dead_time = 0
 var dead = false
 var follow_player = false
 
+onready var sprites = $Sprites.get_children()
+
 func _physics_process(delta):
 	if dead :
 		dead_time += delta
@@ -23,11 +25,10 @@ func _physics_process(delta):
 		var axix_Y = abs(position.y - player.position.y) >= PERSONAL_SPACE
 		
 		if axix_X or axix_Y:
-			
 			move_and_slide(move * 100)
 		
 			if axix_X:
-				$"Sprite".flip_h = move.x > 0
+				sprites[0].flip_h = move.x > 0
 			
 				if move.x != 0: play_animation_if_not_playing("Left")
 #				elif move.x > 0: play_animation_if_not_playing("Right") na później
@@ -52,3 +53,12 @@ func _on_Area2D_body_entered(body):
 	if body.name == "Player":
 		follow_player = true;
 		player = body
+
+func _on_animation_started(anim_name):
+	var anim = $AnimationPlayer.get_animation(anim_name)
+	
+	if anim and sprites:
+		var main_sprite = int(anim.track_get_path(0).get_name(1))
+	
+		for i in range(sprites.size()):
+			sprites[i].visible = (i+1 == main_sprite)
