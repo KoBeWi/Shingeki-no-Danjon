@@ -10,6 +10,7 @@
 resource_name = "Player"
 script/source = "extends KinematicBody2D
 
+var side = true
 const SPEED = 320
 
 func _ready():
@@ -18,16 +19,25 @@ func _ready():
 func _physics_process(delta):
 	var move = Vector2()
 	
+	
+	
+	
 	if Input.is_key_pressed(KEY_UP):
 		move.y = -1 * SPEED
 	if Input.is_key_pressed(KEY_DOWN):
 		move.y = 1 * SPEED
 	if Input.is_key_pressed(KEY_LEFT):
 		move.x = -1 * SPEED
+		side = move.x < 0
 #		$Sprite.frame = 0
 	if Input.is_key_pressed(KEY_RIGHT):
 		move.x = 1 * SPEED
+		side = move.x < 0
 #		$Sprite.frame = 4
+	
+	$Body.flip_h = side
+	$Body/LeftArm.flip_h = side
+	$Body/RightArm.flip_h = side
 	
 	if Input.is_action_just_pressed(\"ui_accept\"):
 		$Animation.play(\"SwordAttackRight\")
@@ -35,7 +45,7 @@ func _physics_process(delta):
 	move_and_slide(move)"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 
 resource_name = "ShieldBlockRight"
 length = 4.0
@@ -97,12 +107,12 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
 extents = Vector2( 20, 10 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
 position = Vector2( 126.577, 312.239 )
 z_index = 1
@@ -144,7 +154,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/ShieldBlockRight = SubResource( 4 )
+anims/ShieldBlockRight = SubResource( 2 )
 anims/SwordAttackRight = SubResource( 3 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
@@ -180,7 +190,7 @@ __meta__ = {
 [node name="Collider" type="CollisionShape2D" parent="." index="3"]
 
 position = Vector2( 0.975357, 53.7922 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }

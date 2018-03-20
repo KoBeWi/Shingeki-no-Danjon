@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Generator.gd" type="Script" id=2]
 [ext_resource path="res://Nodes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Nodes/Uganda.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Nodes/Puncher.tscn" type="PackedScene" id=5]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
@@ -25,5 +26,7 @@ _sections_unfolded = [ "Collision", "Material", "Pickable", "Transform", "Visibi
 
 z_index = 1
 _sections_unfolded = [ "Material", "Visibility", "Z Index" ]
+
+[node name="Puncher" parent="." index="4" instance=ExtResource( 5 )]
 
 
