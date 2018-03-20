@@ -3,6 +3,7 @@ extends KinematicBody2D
 var max_health = 50
 var health = 50
 var damage = 10
+var knockback = 0
 
 var bar_timeout = 0
 var _dead = false
@@ -33,4 +34,4 @@ func damage(amount):
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group("players"):
-		collider.get_parent().damage(damage)
+		collider.get_parent().damage(self, damage, knockback)

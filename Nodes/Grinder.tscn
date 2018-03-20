@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://Scripts/Puncher.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Enemies/Puncher/Puncher.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Grinder.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Enemies/GearGrinder3000.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Enemies/Puncher/Puncher_LeftAtack.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/Enemies/Puncher/Puncher_Special_Up_Down_Atack.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=5]
 
 [sub_resource type="Animation" id=1]
 
@@ -22,7 +21,7 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ 12, 13, 14, 15 ]
 }
 
@@ -40,7 +39,7 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ 8, 9, 10, 11 ]
 }
 
@@ -59,32 +58,13 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=4]
 
-resource_name = "PunchDown"
-length = 4.0
-loop = false
-step = 1.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprites/3:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 4, 5, 6, 7 ]
-}
-
-[sub_resource type="Animation" id=7]
-
-resource_name = "PunchLeft"
+resource_name = "Punch Left"
 length = 4.0
 loop = false
 step = 1.0
@@ -97,63 +77,12 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=5]
 
-resource_name = "PunchUp"
-length = 4.0
-loop = false
-step = 1.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprites/3:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3 ]
-}
-
-[sub_resource type="Animation" id=10]
-
-resource_name = "Special"
-length = 5.0
-loop = false
-step = 1.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprites/3:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3, 4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 8, 9, 10, 11, 8 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("AttackCollider/Shape:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-
-[sub_resource type="Animation" id=4]
-
-resource_name = "Up"
 length = 4.0
 loop = true
 step = 1.0
@@ -166,16 +95,11 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
-
-custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
-
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10.6279, 10 )
@@ -188,9 +112,9 @@ extents = Vector2( 39.8092, 47.0572 )
 [sub_resource type="RectangleShape2D" id=9]
 
 custom_solver_bias = 0.0
-extents = Vector2( 100.382, 85.7356 )
+extents = Vector2( 57.0542, 68.5652 )
 
-[node name="Puncher" type="KinematicBody2D" index="0" groups=[
+[node name="Grinder" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -222,15 +146,6 @@ hframes = 4
 frame = 3
 _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index" ]
 
-[node name="3" type="Sprite" parent="Sprites" index="2"]
-
-visible = false
-texture = ExtResource( 4 )
-vframes = 3
-hframes = 4
-frame = 8
-_sections_unfolded = [ "Animation" ]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 
 root_node = NodePath("..")
@@ -241,43 +156,20 @@ playback_speed = 8.0
 anims/Dead = SubResource( 1 )
 anims/Down = SubResource( 2 )
 anims/Left = SubResource( 3 )
-anims/PunchDown = SubResource( 12 )
-anims/PunchLeft = SubResource( 7 )
-anims/PunchUp = SubResource( 11 )
-anims/Special = SubResource( 10 )
-anims/Up = SubResource( 4 )
+"anims/Punch Left" = SubResource( 4 )
+anims/Up = SubResource( 5 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Radar" type="Area2D" parent="." index="2"]
+[node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
-editor/display_folded = true
-visible = false
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
-
-scale = Vector2( 23.9231, 19.4231 )
-shape = SubResource( 5 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="Shape" type="CollisionShape2D" parent="." index="3"]
-
-visible = false
 position = Vector2( 0.290953, 47.2325 )
 scale = Vector2( 3.70602, 1 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
-[node name="DamageCollider" type="Area2D" parent="." index="4"]
+[node name="DamageCollider" type="Area2D" parent="." index="3"]
 
 editor/display_folded = true
-visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -294,10 +186,9 @@ _sections_unfolded = [ "Collision" ]
 position = Vector2( 0.358475, -12.5471 )
 shape = SubResource( 8 )
 
-[node name="AttackCollider" type="Area2D" parent="." index="5"]
+[node name="AttackCollider" type="Area2D" parent="." index="4"]
 
 editor/display_folded = true
-visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -306,12 +197,11 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 
-[node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
 shape = SubResource( 9 )
-disabled = true
 
-[node name="HealthBar" type="TextureProgress" parent="." index="6"]
+[node name="HealthBar" type="TextureProgress" parent="." index="5"]
 
 visible = false
 anchor_left = 0.0
@@ -319,9 +209,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -19.0
-margin_top = -88.0
+margin_top = -81.0
 margin_right = 21.0
-margin_bottom = -48.0
+margin_bottom = -41.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -335,19 +225,15 @@ page = 0.0
 value = 0.0
 exp_edit = false
 rounded = false
-texture_under = ExtResource( 5 )
+texture_under = ExtResource( 4 )
 texture_over = null
-texture_progress = ExtResource( 6 )
+texture_progress = ExtResource( 5 )
 radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
 _sections_unfolded = [ "Textures" ]
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
-
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]
-
-[connection signal="body_entered" from="Radar" to="." method="_on_Area2D_body_entered"]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 

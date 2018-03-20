@@ -9,6 +9,7 @@ var player
 var dead_time = 0
 var dead = false
 var follow_player = false
+var special = false
 
 onready var sprites = $Sprites.get_children()
 
@@ -23,7 +24,7 @@ func _physics_process(delta):
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
 		return
 	
-	if follow_player :
+	if follow_player and !special:
 		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
 		
 		move_and_slide(move * SPEED)
@@ -44,6 +45,19 @@ func _physics_process(delta):
 
 		if abs(position.x - player.position.x) > FOLLOW_RANGE and abs(position.y - player.position.y) > FOLLOW_RANGE:
 			follow_player = false
+		
+		special = (randi()%200 == 0)
+	elif !special:
+		play_animation_if_not_playing("Down")
+	else:
+		play_animation_if_not_playing("Special")
+	
+	if special:
+		damage = 20
+		knockback = 10
+	else:
+		damage = 5
+		knockback = 0
 
 func play_animation_if_not_playing(anim):
 	if $AnimationPlayer.current_animation != anim:
@@ -70,3 +84,7 @@ func _on_dead():
 
 func _on_damage():
 	print("oof")
+
+func _on_animation_finished(anim_name):
+	if anim_name == "Special":
+		special = false

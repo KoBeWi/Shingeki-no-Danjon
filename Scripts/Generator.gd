@@ -3,6 +3,7 @@ onready var Res = $"/root/Resources"
 onready var dungeon = $"../Segments"
 onready	var uganda = load("res://Nodes/Uganda.tscn")
 onready var pusher = load("res://Nodes/Puncher.tscn")
+onready var grinder = load("res://Nodes/Grinder.tscn")
 
 const SEG_W = 800
 const SEG_H = 800
@@ -107,7 +108,7 @@ func generate(w, h):
 
 func place_Pusher_into_maze(how_many):
 	for nmb in range(how_many):
-		var ug_inst = pusher.instance()
+		var ug_inst = (grinder if randi()%2 ==0 else pusher).instance()
 		ug_inst.position = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
 		dungeon.get_parent().add_child(ug_inst)
 

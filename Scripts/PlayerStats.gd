@@ -6,3 +6,6 @@ var strength = 1
 var dexterity = 1
 var intelligence = 1
 var vitality = 1
+
+var inventory = []
+var equipment = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]

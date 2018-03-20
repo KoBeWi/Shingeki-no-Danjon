@@ -45,9 +45,10 @@ func _physics_process(delta):
 	
 	move_and_slide(move)
 
-func damage(amount):
+func damage(attacker, amount, knockback):
 	PlayerStats.health -= amount
 	$HealthIndicator.value = PlayerStats.health
+	move_and_slide((position - attacker.position).normalized() * 1000 * knockback)
 
 func _on_animation_finished(anim_name):
 	if anim_name == \"SwordAttackRight\":
@@ -171,7 +172,7 @@ extents = Vector2( 12.7266, 3.18475 )
 custom_solver_bias = 0.0
 extents = Vector2( 30.7129, 58.1424 )
 
-[node name="Player" type="KinematicBody2D" index="0" groups=[
+[node name="Player" type="KinematicBody2D" groups=[
 "players",
 ]]
 
