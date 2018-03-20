@@ -14,7 +14,7 @@ _sections_unfolded = [ "Sort" ]
 
 script = ExtResource( 2 )
 
-[node name="Segments" type="Node" parent="." index="1"]
+[node name="Segments" type="Node2D" parent="." index="1"]
 
 [node name="Player" parent="." index="2" instance=ExtResource( 3 )]
 
