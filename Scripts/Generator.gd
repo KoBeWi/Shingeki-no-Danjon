@@ -13,7 +13,7 @@ const OPPOSITE = [2, 3, 0, 1]
 
 const ENABLE_UGANDA = true
 const ENABLE_GRIDER = true
-const ENABLE_PUSHER = false
+const ENABLE_PUSHER = true
 
 var map = []
 var width = 100
