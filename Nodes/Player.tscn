@@ -170,7 +170,7 @@ extents = Vector2( 12.7266, 3.18475 )
 custom_solver_bias = 0.0
 extents = Vector2( 30.7129, 58.1424 )
 
-[node name="Player" type="KinematicBody2D" index="0" groups=[
+[node name="Player" type="KinematicBody2D" groups=[
 "players",
 ]]
 
@@ -266,7 +266,6 @@ size_flags_vertical = 1
 
 [node name="SkillAcquiredPanel" type="Panel" parent="Camera/UI" index="0"]
 
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0

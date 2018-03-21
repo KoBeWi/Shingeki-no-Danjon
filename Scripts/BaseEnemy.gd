@@ -19,6 +19,7 @@ func _physics_process(delta):
 
 func damage(amount):
 	if _dead: return
+	load("res://Nodes/DamageNumber.tscn").instance().damage(self, amount) #nie czytać za każdym razem
 	health -= amount
 	
 	$HealthBar.visible = true

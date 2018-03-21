@@ -75,6 +75,7 @@ func _physics_process(delta):
 	move_and_slide(move)
 
 func damage(attacker, amount, knockback):
+	load("res://Nodes/DamageNumber.tscn").instance().damage(self, amount) #nie czytać za każdym razem
 	SkillBase.inc_stat("DamageTaken", amount)
 	PlayerStats.health -= amount
 	UI.get_node("HealthIndicator").value = PlayerStats.health
