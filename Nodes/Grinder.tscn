@@ -290,7 +290,6 @@ _sections_unfolded = [ "Textures" ]
 
 [node name="Radar" type="Area2D" parent="." index="6"]
 
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0

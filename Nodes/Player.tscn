@@ -16,6 +16,8 @@ const SPEED = 320
 const MEDITATION_TIME = 3
 const SKILL_TIMEOUT = 3
 
+var texture_cache = {}
+
 onready var fireball = load(\"res://Nodes/Projectiles/Fireball.tscn\")
 var direction = 3
 var static_time = 0
@@ -29,6 +31,11 @@ func _ready():
 	$HealthIndicator.value = PlayerStats.health
 	$ManaIndicator.max_value = PlayerStats.max_mana
 	$ManaIndicator.value = PlayerStats.mana
+	
+	for anim in [\"Body\", \"SwordAttack\", \"ShieldOn\", \"ShieldOff\"]:
+		for dir in [\"Back\", \"Right\", \"Front\", \"Left\"]:
+			var texname = \"res://Sprites/Player/\" + dir + \"/\" + anim + \".png\"
+			texture_cache[texname] = load(texname)
 
 func _physics_process(delta):
 	var move = Vector2()
@@ -108,7 +115,7 @@ func change_dir(dir):
 	change_texture($Body/LeftArm, d, \"ShieldOn\", [\"Right\", \"Back\"])
 
 func change_texture(sprite, direction, texture, on_back = []):
-	sprite.texture = load(\"res://Sprites/Player/\" + direction + \"/\" + texture + \".png\")
+	sprite.texture = texture_cache[\"res://Sprites/Player/\" + direction + \"/\" + texture + \".png\"]
 	sprite.show_behind_parent = on_back.has(direction)"
 _sections_unfolded = [ "Resource" ]
 

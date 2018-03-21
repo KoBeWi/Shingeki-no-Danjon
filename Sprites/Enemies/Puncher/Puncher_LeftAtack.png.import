@@ -7,10 +7,10 @@ path="res://.import/Puncher_LeftAtack.png-8f7400ec6b7f5ed563c88db52de15638.stex"
 [deps]
 
 source_file="res://Sprites/Enemies/Puncher/Puncher_LeftAtack.png"
-source_md5="5c8e150fb4365b1a09ca098a4faf1573"
+source_md5="377526029bf2c6a8b956d9fceab902a0"
 
 dest_files=[ "res://.import/Puncher_LeftAtack.png-8f7400ec6b7f5ed563c88db52de15638.stex" ]
-dest_md5="118e33fe4d95c4e6c712c1a1869ab7a7"
+dest_md5="933084ab8a1e8e58290d635a74f21ee1"
 
 [params]
 
