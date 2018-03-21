@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/Puncher.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/Puncher/Puncher.png" type="Texture" id=2]
@@ -63,7 +63,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=4]
 
 resource_name = "PunchDown"
 length = 4.0
@@ -82,7 +82,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 
 resource_name = "PunchLeft"
 length = 4.0
@@ -101,7 +101,26 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=13]
+
+resource_name = "PunchRight"
+length = 4.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=6]
 
 resource_name = "PunchUp"
 length = 4.0
@@ -120,10 +139,10 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=7]
 
 resource_name = "Special"
-length = 5.0
+length = 9.0
 loop = false
 step = 1.0
 tracks/0/type = "value"
@@ -133,10 +152,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3, 4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 8, 9, 10, 11, 8 ]
+"values": [ 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("AttackCollider/Shape:disabled")
@@ -145,15 +164,14 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 5 ),
+"times": PoolRealArray( 0, 9 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=8]
 
-resource_name = "Up"
 length = 4.0
 loop = true
 step = 1.0
@@ -170,27 +188,27 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=9]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=10]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10.6279, 10 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=11]
 
 custom_solver_bias = 0.0
 extents = Vector2( 39.8092, 47.0572 )
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=12]
 
 custom_solver_bias = 0.0
 extents = Vector2( 100.382, 85.7356 )
 
-[node name="Puncher" type="KinematicBody2D" groups=[
+[node name="Puncher" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -215,18 +233,21 @@ _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index
 [node name="2" type="Sprite" parent="Sprites" index="1"]
 
 visible = false
+position = Vector2( 5, -18 )
 texture = ExtResource( 3 )
+vframes = 2
 hframes = 4
-frame = 3
+frame = 7
 _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
 
 visible = false
+position = Vector2( 1, -34 )
 texture = ExtResource( 4 )
-vframes = 3
+vframes = 4
 hframes = 4
-frame = 8
+frame = 15
 _sections_unfolded = [ "Animation" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -239,11 +260,12 @@ playback_speed = 8.0
 anims/Dead = SubResource( 1 )
 anims/Down = SubResource( 2 )
 anims/Left = SubResource( 3 )
-anims/PunchDown = SubResource( 12 )
-anims/PunchLeft = SubResource( 7 )
-anims/PunchUp = SubResource( 11 )
-anims/Special = SubResource( 10 )
-anims/Up = SubResource( 4 )
+anims/PunchDown = SubResource( 4 )
+anims/PunchLeft = SubResource( 5 )
+anims/PunchRight = SubResource( 13 )
+anims/PunchUp = SubResource( 6 )
+anims/Special = SubResource( 7 )
+anims/Up = SubResource( 8 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -262,7 +284,7 @@ audio_bus_name = "Master"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
 
 scale = Vector2( 23.9231, 19.4231 )
-shape = SubResource( 5 )
+shape = SubResource( 9 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="3"]
@@ -270,11 +292,10 @@ _sections_unfolded = [ "Transform" ]
 visible = false
 position = Vector2( 0.290953, 47.2325 )
 scale = Vector2( 3.70602, 1 )
-shape = SubResource( 6 )
+shape = SubResource( 10 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="4"]
 
-editor/display_folded = true
 visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -290,7 +311,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
 position = Vector2( 0.358475, -12.5471 )
-shape = SubResource( 8 )
+shape = SubResource( 11 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
@@ -306,7 +327,7 @@ audio_bus_name = "Master"
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
-shape = SubResource( 9 )
+shape = SubResource( 12 )
 disabled = true
 
 [node name="HealthBar" type="TextureProgress" parent="." index="6"]
