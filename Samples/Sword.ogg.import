@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Sword.ogg-d27a2ce0afcc0920d798ddf7fa7e77c2.oggstr"
+
+[deps]
+
+source_file="res://Samples/Sword.ogg"
+source_md5="c3e797e62a21ab938ff782827348ce1b"
+
+dest_files=[ "res://.import/Sword.ogg-d27a2ce0afcc0920d798ddf7fa7e77c2.oggstr" ]
+dest_md5="b9b658efb7d692477d690bfed828ce16"
+
+[params]
+
+loop=false
+loop_offset=0

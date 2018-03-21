@@ -1,5 +1,4 @@
 extends Node
-onready var Res = $"/root/Resources"
 onready var dungeon = $"../Segments"
 onready	var uganda = load("res://Nodes/Uganda.tscn")
 onready var pusher = load("res://Nodes/Puncher.tscn")

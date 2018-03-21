@@ -1,5 +1,6 @@
 extends Node
 
+var resources = {}
 var segments = {}
 var segment_nodes = {}
 var tilesets = {}
@@ -45,3 +46,15 @@ func _ready():
 			tilesets[tileset_name] = parse_json(text)
 			
 			name = dir.get_next()
+
+func get_resource(path):
+	if !resources.has(path): resources[path] = load(path)
+	
+	return resources[path]
+
+func play_sample(source, sample):
+	source.stream = get_resource("res://Samples/" + sample + ".ogg")
+	source.play()
+
+func create_instance(node):
+	return get_resource("res://Nodes/" + node + ".tscn").instance()

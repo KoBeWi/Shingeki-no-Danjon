@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/SkillAcquired.ogg-f8b4d0e73f879b8caeebf351394b84b3.oggstr"
+
+[deps]
+
+source_file="res://Samples/SkillAcquired.ogg"
+source_md5="a783efd03fc2e10b966d5693fd0051ef"
+
+dest_files=[ "res://.import/SkillAcquired.ogg-f8b4d0e73f879b8caeebf351394b84b3.oggstr" ]
+dest_md5="0703358c07fce42b75ee7be5b2ae4ffa"
+
+[params]
+
+loop=false
+loop_offset=0

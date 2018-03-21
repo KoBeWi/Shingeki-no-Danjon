@@ -16,7 +16,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Resources="*res://Scripts/Resources.gd"
+Res="*res://Scripts/Resources.gd"
 SkillBase="*res://Scripts/SkillSystem.gd"
 PlayerStats="*res://Scripts/PlayerStats.gd"
 
@@ -24,6 +24,13 @@ PlayerStats="*res://Scripts/PlayerStats.gd"
 
 window/size/width=1366
 window/size/height=768
+
+[importer_defaults]
+
+ogg_vorbis={
+"loop": false,
+"loop_offset": 0
+}
 
 [input]
 

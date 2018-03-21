@@ -101,7 +101,7 @@ func _physics_process(delta):
 
 
 func punch_in_direction():
-	print(direction)
+#	print(direction)
 	#if direction == "Right" : 
 	#	sprites[1].flip_h = true
 	#	play_animation_if_not_playing("PunchLeft")

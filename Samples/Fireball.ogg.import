@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Fireball.ogg-4f1fd2675dd3aa497788b0054d797b4e.oggstr"
+
+[deps]
+
+source_file="res://Samples/Fireball.ogg"
+source_md5="5320c280bdb981e65699e80bd0826848"
+
+dest_files=[ "res://.import/Fireball.ogg-4f1fd2675dd3aa497788b0054d797b4e.oggstr" ]
+dest_md5="240a9e98ed74132d3d6401d7a0a2379a"
+
+[params]
+
+loop=false
+loop_offset=0
