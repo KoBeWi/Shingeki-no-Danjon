@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Character.png-fefcd056ed0256e02f6caf5abe0851c9.stex"
+path="res://.import/SwordAttack.png-b373489d03ef75a408e224f634016cc5.stex"
 
 [deps]
 
-source_file="res://Sprites/Player/Character.png"
-source_md5="b78af56e306427651f0565509c2748b9"
+source_file="res://Sprites/Player/Left/SwordAttack.png"
+source_md5="09d7a7556fb4dac8ae06e1f712996d73"
 
-dest_files=[ "res://.import/Character.png-fefcd056ed0256e02f6caf5abe0851c9.stex" ]
-dest_md5="062418605b69153606d8cddcd46e281f"
+dest_files=[ "res://.import/SwordAttack.png-b373489d03ef75a408e224f634016cc5.stex" ]
+dest_md5="5102f69d53f3d9d6b5b62d4acfa73d83"
 
 [params]
 

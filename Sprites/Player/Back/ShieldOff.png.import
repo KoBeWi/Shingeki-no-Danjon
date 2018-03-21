@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/right_body.png-4beb0942f9cc81053a8c9af7e595ed8c.stex"
+path="res://.import/ShieldOff.png-68b94df123b2cef9ba3cc75a3e23e69c.stex"
 
 [deps]
 
-source_file="res://Sprites/Player/Right/right_body.png"
-source_md5="27f47b6f395187b3230c4823b5347560"
+source_file="res://Sprites/Player/Back/ShieldOff.png"
+source_md5="bec2bb0459f79ade56545a1da6c474c0"
 
-dest_files=[ "res://.import/right_body.png-4beb0942f9cc81053a8c9af7e595ed8c.stex" ]
-dest_md5="5e3efeeee978fafd37b2edd087522b7a"
+dest_files=[ "res://.import/ShieldOff.png-68b94df123b2cef9ba3cc75a3e23e69c.stex" ]
+dest_md5="aef355ae69a2e4d14f0aedb7f47a74e1"
 
 [params]
 
