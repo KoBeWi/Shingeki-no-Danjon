@@ -12,7 +12,7 @@ const DOFFSET = [Vector2(1, 0), Vector2(0, 1)]
 const OPPOSITE = [2, 3, 0, 1]
 
 const ENABLE_UGANDA = true
-const ENABLE_GRIDER = true
+const ENABLE_GRIDER = false
 const ENABLE_PUSHER = true
 
 var map = []
@@ -108,7 +108,7 @@ func generate(w, h):
 						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
 
 	if ENABLE_GRIDER: place_into_maze(grinder, 50 )
-	if ENABLE_UGANDA: place_into_maze(uganda,100)
+	if ENABLE_UGANDA: place_into_maze(uganda,3)
 	if ENABLE_PUSHER: place_into_maze(pusher,40)
 	
 

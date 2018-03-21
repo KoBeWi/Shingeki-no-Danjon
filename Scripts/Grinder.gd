@@ -11,7 +11,7 @@ const SPEED                = 120
 const KNOCKBACK_ATACK      = 0
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 40
+const PERSONAL_SPACE       = 20
 const TIME_OF_LIYUGN_CORPS = 3
 
 var player
@@ -39,24 +39,35 @@ func _physics_process(delta):
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
 		return
 	
-	#print( in_action )
-	#print($AnimationPlayer.is_playing())
-	if follow_player:# and !in_action :
+	if follow_player and !in_action :
 		
-		#if( !special_ready ) : special_ready = (randi()%SPECIAL_PROBABILITY == 0)
+		if( !special_ready ) : special_ready = (randi()%SPECIAL_PROBABILITY == 0)
 		if( !  atack_ready ) : atack_ready   = (randi()%ATACK_SPEED         == 0)
 		
 		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
 
+
+		var x_distance = abs(position.x - player.position.x)
+		var y_distance = abs(position.y - player.position.y) 
+
+		var axix_X = x_distance >= PERSONAL_SPACE
+		var axix_Y = y_distance >= PERSONAL_SPACE
+		
+		if( x_distance < move.x*SPEED ): move.x = x_distance/SPEED
+		if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
+		
+		
+		
+
 		move_and_slide(move * SPEED)
-		#print(move)
-		var axix_X = abs(position.x - player.position.x) >= PERSONAL_SPACE
-		var axix_Y = abs(position.y - player.position.y) >= PERSONAL_SPACE
+		
+		
+	
 		
 		if axix_X:
 
-			sprites[0].flip_h = move.x > 0
 			if abs(move.x) > 1: 
+				sprites[0].flip_h = move.x > 0
 				play_animation_if_not_playing("Left")
 				direction = "Right" if move.x > 0 else "Left"
 #				elif move.x > 0: play_animation_if_not_playing("Right") na później
@@ -107,6 +118,8 @@ func punch_in_direction():
 func play_animation_if_not_playing(anim):
 	if $AnimationPlayer.current_animation != anim:
 		$"AnimationPlayer".play(anim)
+		if( $AnimationPlayer.has_animation(anim)):
+			print( anim + " ONLINE " )
 
 func _on_Radar_body_entered(body):
 	if body.name == "Player":
@@ -126,21 +139,12 @@ func _on_dead():
 	dead = true
 	$"AnimationPlayer".play("Dead")
 	$"Shape".disabled = true
+	$"DamageCollider/Shape".disabled = true
 
 func _on_damage():
 	print("oof")
 
 func _on_animation_finished(anim_name):
-	pass
-
-
-func _on_AnimationPlayer_animation_finished(anim_name):
-	print( "GetEndOfAnimation" )
-	
-	#ZA ZADNE SKARBY Sie nie sprawdza .... I nie działa
-	
-	#print($AnimationPlayer.get_current_frame())
-
 	if anim_name == "Special":
 		special_ready = false
 		in_action     = false

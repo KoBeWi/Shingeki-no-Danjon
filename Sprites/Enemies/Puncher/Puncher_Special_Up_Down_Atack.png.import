@@ -7,10 +7,10 @@ path="res://.import/Puncher_Special_Up_Down_Atack.png-c45e15fe0be5aad1ea7353570a
 [deps]
 
 source_file="res://Sprites/Enemies/Puncher/Puncher_Special_Up_Down_Atack.png"
-source_md5="6d998de9032fc8bfb5d533bf87475ca3"
+source_md5="8839c36be9f7dfc10c69532bdd49f098"
 
 dest_files=[ "res://.import/Puncher_Special_Up_Down_Atack.png-c45e15fe0be5aad1ea7353570a892490.stex" ]
-dest_md5="efd157e9eac63494c52d88449d21c8c5"
+dest_md5="5da99d3b976f5eeebfc57815fd0d3980"
 
 [params]
 
