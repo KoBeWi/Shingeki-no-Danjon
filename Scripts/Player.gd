@@ -15,7 +15,9 @@ var skill_time = 0
 var attacking = false
 
 func _ready():
+	PlayerStats.connect("level_up", self, "level_up")
 	SkillBase.connect("new_skill", self, "new_skill")
+	
 	UI.get_node("HealthIndicator").max_value = PlayerStats.max_health
 	UI.get_node("HealthIndicator").value = PlayerStats.health
 	UI.get_node("ManaIndicator").max_value = PlayerStats.max_mana
@@ -92,13 +94,16 @@ func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group("enemies"):
 		SkillBase.inc_stat("OneHanded")
 		SkillBase.inc_stat("Melee")
-		collider.get_parent().damage(10)
+		collider.get_parent().damage(PlayerStats.get_damage())
 
 func new_skill(skill):
 	Res.play_sample($Audio, "SkillAcquired")
 	UI.get_node("SkillAcquiredPanel").visible = true
 	UI.get_node("SkillAcquiredPanel/Name").text = skill
 	skill_time = SKILL_TIMEOUT
+	
+func level_up():
+	Res.play_sample($Audio, "SkillAcquired")
 
 func change_dir(dir):
 	direction = dir

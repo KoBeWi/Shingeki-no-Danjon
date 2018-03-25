@@ -4,6 +4,7 @@ var resources = {}
 var segments = {}
 var segment_nodes = {}
 var tilesets = {}
+var items = []
 
 func _ready():
 	var dir = Directory.new()
@@ -44,6 +45,26 @@ func _ready():
 			
 			var tileset_name = name.left(name.length() - 5)
 			tilesets[tileset_name] = parse_json(text)
+			
+			name = dir.get_next()
+
+	if dir.open("res://Resources/Items/") == OK:
+		dir.list_dir_begin()
+		
+		var name = dir.get_next()
+		while name != "":
+			if !name.ends_with(".json"):
+				name = dir.get_next()
+				continue
+			
+			var file = File.new()
+			file.open("res://Resources/Items/" + name, file.READ)
+			var text = file.get_as_text()
+			file.close()
+			
+			var item_id = int(name.left(name.length() - 5))
+			items.resize(max(item_id+1, items.size()))
+			items[item_id] = parse_json(text)
 			
 			name = dir.get_next()
 

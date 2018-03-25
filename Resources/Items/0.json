@@ -1,0 +1,8 @@
+{
+	"type": "weapon",
+	"weapon": "one-handed",
+	"name": "Iron Sword",
+	"description": "One-handed sword made of iron.",
+	"attack": 5,
+	"scalling": {"strength": 1}
+}
