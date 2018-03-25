@@ -55,7 +55,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 14.6171, 20.7013 )
 
-[node name="Fireball" type="KinematicBody2D" index="0"]
+[node name="Fireball" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 0

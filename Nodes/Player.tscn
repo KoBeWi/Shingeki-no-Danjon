@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Right/Body.png" type="Texture" id=2]
@@ -7,8 +7,9 @@
 [ext_resource path="res://Scripts/UI.gd" type="Script" id=5]
 [ext_resource path="res://Resources/FancyFont.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Sprites/Player/Front/Body.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/UI/Mana.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/UI/Health.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Items/0.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/Mana.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/UI/Health.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -163,7 +164,7 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "players",
 ]]
 
@@ -201,7 +202,6 @@ _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [node name="Camera" type="Camera2D" parent="." index="1"]
 
-editor/display_folded = true
 z_index = 10
 anchor_mode = 1
 rotating = false
@@ -308,7 +308,6 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="StatusPanel" type="Panel" parent="Camera/UI" index="1"]
 
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -344,7 +343,6 @@ stretch_mode = 0
 
 [node name="Stats" type="Label" parent="Camera/UI/StatusPanel" index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -679,6 +677,356 @@ text = "+"
 flat = false
 align = 1
 
+[node name="Equipment" type="Control" parent="Camera/UI/StatusPanel" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Helmet" type="TextureRect" parent="Camera/UI/StatusPanel/Equipment" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 640.0
+margin_top = 50.0
+margin_right = 690.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
+
+[node name="Armor" type="TextureRect" parent="Camera/UI/StatusPanel/Equipment" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 690.0
+margin_top = 50.0
+margin_right = 740.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
+
+[node name="Boots" type="TextureRect" parent="Camera/UI/StatusPanel/Equipment" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 740.0
+margin_top = 50.0
+margin_right = 790.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
+
+[node name="Weapon" type="TextureRect" parent="Camera/UI/StatusPanel/Equipment" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 790.0
+margin_top = 50.0
+margin_right = 840.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
+
+[node name="Shield" type="TextureRect" parent="Camera/UI/StatusPanel/Equipment" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 840.0
+margin_top = 50.0
+margin_right = 890.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
+
+[node name="Ring1" type="TextureRect" parent="Camera/UI/StatusPanel/Equipment" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 640.0
+margin_top = 100.0
+margin_right = 690.0
+margin_bottom = 150.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
+
+[node name="Ring2" type="TextureRect" parent="Camera/UI/StatusPanel/Equipment" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 690.0
+margin_top = 100.0
+margin_right = 740.0
+margin_bottom = 150.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
+
+[node name="Pants" type="TextureRect" parent="Camera/UI/StatusPanel/Equipment" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 740.0
+margin_top = 100.0
+margin_right = 790.0
+margin_bottom = 150.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
+
+[node name="Gloves" type="TextureRect" parent="Camera/UI/StatusPanel/Equipment" index="8"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 790.0
+margin_top = 100.0
+margin_right = 840.0
+margin_bottom = 150.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
+
+[node name="Amulet" type="TextureRect" parent="Camera/UI/StatusPanel/Equipment" index="9"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 840.0
+margin_top = 100.0
+margin_right = 890.0
+margin_bottom = 150.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
+
+[node name="Inventory" type="Control" parent="Camera/UI/StatusPanel" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Slot1" type="TextureButton" parent="Camera/UI/StatusPanel/Inventory" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 640.0
+margin_top = 250.0
+margin_right = 690.0
+margin_bottom = 300.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 3
+_sections_unfolded = [ "Textures" ]
+
+[node name="Slot2" type="TextureButton" parent="Camera/UI/StatusPanel/Inventory" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 690.0
+margin_top = 250.0
+margin_right = 740.0
+margin_bottom = 300.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 3
+_sections_unfolded = [ "Textures" ]
+
+[node name="Slot3" type="TextureButton" parent="Camera/UI/StatusPanel/Inventory" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 740.0
+margin_top = 250.0
+margin_right = 790.0
+margin_bottom = 300.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 3
+_sections_unfolded = [ "Textures" ]
+
+[node name="Slot4" type="TextureButton" parent="Camera/UI/StatusPanel/Inventory" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 790.0
+margin_top = 250.0
+margin_right = 840.0
+margin_bottom = 300.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 3
+_sections_unfolded = [ "Textures" ]
+
+[node name="Slot5" type="TextureButton" parent="Camera/UI/StatusPanel/Inventory" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 840.0
+margin_top = 250.0
+margin_right = 890.0
+margin_bottom = 300.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 3
+_sections_unfolded = [ "Textures" ]
+
 [node name="HUD" type="Control" parent="Camera/UI" index="2"]
 
 editor/display_folded = true
@@ -720,7 +1068,7 @@ exp_edit = false
 rounded = false
 texture_under = null
 texture_over = null
-texture_progress = ExtResource( 8 )
+texture_progress = ExtResource( 9 )
 fill_mode = 5
 radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
@@ -752,7 +1100,7 @@ exp_edit = false
 rounded = false
 texture_under = null
 texture_over = null
-texture_progress = ExtResource( 9 )
+texture_progress = ExtResource( 10 )
 fill_mode = 5
 radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )

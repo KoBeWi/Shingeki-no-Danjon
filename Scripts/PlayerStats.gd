@@ -1,5 +1,8 @@
 extends Node
 
+const INVENTORY_SIZE = 5
+const EQUIPMENT_SLOTS = ["helmet", "armor", "boots", "weapon", "shield", "ring", "ring", "boots", "gloves", "amulet"]
+
 var level = 1
 var experience = 0
 var stat_points = 0
@@ -20,10 +23,19 @@ var skill_slots = ["Fireball", null, null]
 
 signal level_up
 
+func _ready():
+	inventory.resize(INVENTORY_SIZE)
+
 func get_damage():
 	var damage = strength
-	if equipment[0] > -1:
-		damage = Res.items[equipment[0]].attack
+	var eq = equipment[3]##bez stałej
+	
+	if eq > -1:
+		eq = Res.items[eq]
+		
+		damage = eq.attack
+		for stat in eq.scalling.keys():
+			damage += int(PlayerStats[stat] * eq.scalling[stat])
 	
 	return damage
 

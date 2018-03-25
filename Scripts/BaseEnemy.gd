@@ -34,6 +34,12 @@ func damage(amount):
 		health_bar.visible = false
 		PlayerStats.add_experience(experience)
 		_on_dead()
+		
+		if randi()%5 == 0:
+			var item = Res.create_instance("Item")
+			item.position = position
+			if randi()%2 == 0: item.id = 1
+			get_parent().add_child(item)
 	else:
 		_on_damage()
 

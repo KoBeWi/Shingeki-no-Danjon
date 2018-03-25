@@ -5,6 +5,8 @@ var just_opened = false
 func _ready():
 	for button in $StatusPanel/AddStat.get_children():
 		button.connect("pressed", self, "_on_add_stat", [button.name])
+	for button in $StatusPanel/Inventory.get_children():
+		button.connect("pressed", self, "_on_inventory_click", [button.get_index()])
 
 func _process(delta):
 	if !get_tree().paused: return
@@ -37,6 +39,24 @@ func refresh():
 	
 	for button in $StatusPanel/AddStat.get_children():
 		button.disabled = (PlayerStats.stat_points == 0)
+	
+	for i in range(PlayerStats.INVENTORY_SIZE):
+		var slot = $StatusPanel/Inventory.get_child(i)
+		if PlayerStats.inventory[i] != null:
+			slot.disabled = false
+			slot.visible = true
+			slot.texture_normal = Res.get_item_texture(PlayerStats.inventory[i])
+		else:
+			slot.disabled = true
+			slot.visible = false
+			
+	for i in range(PlayerStats.equipment.size()):
+		var slot = $StatusPanel/Equipment.get_child(i)
+		if PlayerStats.equipment[i] > -1:
+			slot.visible = true
+			slot.texture = Res.get_item_texture(PlayerStats.equipment[i])
+		else:
+			slot.visible = false
 
 func _on_add_stat(stat):
 	PlayerStats[stat.to_lower()] += 1
@@ -45,3 +65,14 @@ func _on_add_stat(stat):
 	
 	PlayerStats.recalc_stats()
 	refresh()
+
+func _on_inventory_click(i):
+	var item = Res.items[PlayerStats.inventory[i]]
+	var slot = PlayerStats.EQUIPMENT_SLOTS.find(item.type)
+	
+	if slot > -1:
+		var old = null
+		if PlayerStats.equipment[slot] > -1: old = PlayerStats.equipment[slot]
+		PlayerStats.equipment[slot] = item.id
+		PlayerStats.inventory[i] = old
+		refresh()

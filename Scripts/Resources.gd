@@ -66,6 +66,7 @@ func _ready():
 			var item_id = int(name.left(name.length() - 5))
 			items.resize(max(item_id+1, items.size()))
 			items[item_id] = parse_json(text)
+			items[item_id].id = item_id
 			
 			name = dir.get_next()
 
@@ -104,3 +105,6 @@ func play_sample(source, sample):
 
 func create_instance(node):
 	return get_resource("res://Nodes/" + node + ".tscn").instance()
+	
+func get_item_texture(id):
+	return get_resource("res://Sprites/Items/" + str(id) + ".png")
