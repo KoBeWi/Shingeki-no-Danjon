@@ -1,0 +1,10 @@
+{
+	"type": "active",
+	"name": "Fire Ball",
+	"description": "Shoots straight a magical ball made of fire.",
+	"projectile": "Fireball",
+	"stats": ["OffensiveMagic"],
+	"cost": 10,
+	"damage": 5,
+	"scalling": {"intelligence": 1}
+}

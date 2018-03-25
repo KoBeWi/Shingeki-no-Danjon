@@ -5,10 +5,9 @@ const MEDITATION_TIME = 3
 const SKILL_TIMEOUT = 3
 
 onready var UI = $Camera/UI
-onready var fireball = load("res://Nodes/Projectiles/Fireball.tscn")
 var texture_cache = {}
 
-var direction = 3
+var direction = 1
 var static_time = 0
 var skill_time = 0
 
@@ -17,11 +16,6 @@ var attacking = false
 func _ready():
 	PlayerStats.connect("level_up", self, "level_up")
 	SkillBase.connect("new_skill", self, "new_skill")
-	
-	UI.get_node("HealthIndicator").max_value = PlayerStats.max_health
-	UI.get_node("HealthIndicator").value = PlayerStats.health
-	UI.get_node("ManaIndicator").max_value = PlayerStats.max_mana
-	UI.get_node("ManaIndicator").value = PlayerStats.mana
 	
 	for anim in ["Body", "SwordAttack", "ShieldOn", "ShieldOff"]:
 		for dir in ["Back", "Right", "Front", "Left"]:
@@ -61,17 +55,11 @@ func _physics_process(delta):
 		$Animation.play("SwordAttackRight")
 		attacking = true
 	
-	if PlayerStats.mana > 10 and Input.is_action_just_pressed("Spell"):
-		Res.play_sample($Audio, "Fireball")
-		SkillBase.inc_stat("OffensiveMagic")
-		var newf = fireball.instance()
-		get_parent().add_child(newf)
-		newf.position = position
-		newf.direction = direction
-		PlayerStats.mana -= 10
+	if Input.is_action_just_pressed("Spell1") and PlayerStats.get_skill(0) and PlayerStats.mana > PlayerStats.get_skill(0).cost:
+		cast_spell(0)
 	
 	if randi()%10 == 0: PlayerStats.mana += 1
-	UI.get_node("ManaIndicator").value = PlayerStats.mana
+	UI.get_node("HUD/ManaIndicator").value = PlayerStats.mana
 	
 	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
 	SkillBase.inc_stat("PixelsTravelled", int(move.length()))
@@ -83,7 +71,7 @@ func damage(attacker, amount, knockback):
 	Res.create_instance("DamageNumber").damage(self, amount)
 	SkillBase.inc_stat("DamageTaken", amount)
 	PlayerStats.health -= amount
-	UI.get_node("HealthIndicator").value = PlayerStats.health
+	UI.get_node("HUD/HealthIndicator").value = PlayerStats.health
 	move_and_slide((position - attacker.position).normalized() * 1000 * knockback)
 
 func _on_animation_finished(anim_name):
@@ -115,3 +103,18 @@ func change_dir(dir):
 func change_texture(sprite, direction, texture, on_back = []):
 	sprite.texture = texture_cache["res://Sprites/Player/" + direction + "/" + texture + ".png"]
 	sprite.show_behind_parent = on_back.has(direction)
+
+func cast_spell(slot):
+	var spell = PlayerStats.get_skill(slot)
+	PlayerStats.mana -= spell.cost
+	for stat in spell.stats:
+		SkillBase.inc_stat(stat)
+	
+	var projectile = Res.create_instance("Projectiles/" + spell.projectile)
+	get_parent().add_child(projectile)
+	projectile.position = position
+	projectile.direction = direction
+	
+	projectile.damage = spell.damage
+	for stat in spell.scalling.keys():
+		projectile.damage += int(PlayerStats[stat] * spell.scalling[stat])

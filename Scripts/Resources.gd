@@ -5,6 +5,7 @@ var segments = {}
 var segment_nodes = {}
 var tilesets = {}
 var items = []
+var skills = {}
 
 func _ready():
 	var dir = Directory.new()
@@ -65,6 +66,26 @@ func _ready():
 			var item_id = int(name.left(name.length() - 5))
 			items.resize(max(item_id+1, items.size()))
 			items[item_id] = parse_json(text)
+			
+			name = dir.get_next()
+
+	if dir.open("res://Resources/Skills/") == OK:
+		dir.list_dir_begin()
+		
+		var name = dir.get_next()
+		while name != "":
+			if !name.ends_with(".json"):
+				name = dir.get_next()
+				continue
+			
+			var file = File.new()
+			file.open("res://Resources/Skills/" + name, file.READ)
+			var text = file.get_as_text()
+			file.close()
+			
+			var skill_name = name.left(name.length() - 5)
+			print(skill_name)
+			skills[skill_name] = parse_json(text)
 			
 			name = dir.get_next()
 

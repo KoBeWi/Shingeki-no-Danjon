@@ -4,28 +4,28 @@
 [ext_resource path="res://Sprites/Player/Right/Body.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Player/Right/SwordAttack.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=4]
-[ext_resource path="res://Resources/FancyFont.tres" type="DynamicFont" id=5]
-[ext_resource path="res://Scripts/StatusPanel.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/UI.gd" type="Script" id=5]
+[ext_resource path="res://Resources/FancyFont.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Sprites/Player/Front/Body.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/UI/Mana.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/UI/Health.png" type="Texture" id=9]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 12.7266, 3.18475 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 30.7129, 58.1424 )
 
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 30.7129, 58.1424 )
 
-[sub_resource type="RectangleShape2D" id=4]
-
-custom_solver_bias = 0.0
-extents = Vector2( 30.7129, 58.1424 )
-
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 
 length = 4.0
 loop = false
@@ -67,7 +67,7 @@ tracks/2/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 
 length = 1.0
 loop = false
@@ -109,7 +109,7 @@ tracks/2/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 
 length = 10.0
 loop = false
@@ -163,7 +163,7 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 
-[node name="Player" type="KinematicBody2D" index="0" groups=[
+[node name="Player" type="KinematicBody2D" groups=[
 "players",
 ]]
 
@@ -230,11 +230,14 @@ __meta__ = {
 
 [node name="UI" type="CanvasLayer" parent="Camera" index="0"]
 
+pause_mode = 2
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+script = ExtResource( 5 )
+_sections_unfolded = [ "Pause" ]
 
 [node name="SkillAcquiredPanel" type="Panel" parent="Camera/UI" index="0"]
 
@@ -271,7 +274,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "Skill acquired!"
 percent_visible = 1.0
 lines_skipped = 0
@@ -294,7 +297,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "This is a skill name"
 align = 1
 percent_visible = 1.0
@@ -304,7 +307,6 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="StatusPanel" type="Panel" parent="Camera/UI" index="1"]
 
-pause_mode = 2
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -320,7 +322,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 6 )
+_sections_unfolded = [ "Pause" ]
 
 [node name="Character" type="TextureRect" parent="Camera/UI/StatusPanel" index="0"]
 
@@ -356,7 +358,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "Level:
 Skillpoints:
 
@@ -388,7 +390,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0
@@ -411,7 +413,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0
@@ -434,7 +436,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0
@@ -457,7 +459,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0
@@ -480,7 +482,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0
@@ -503,7 +505,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0
@@ -526,7 +528,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0
@@ -549,7 +551,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0
@@ -676,7 +678,23 @@ text = "+"
 flat = false
 align = 1
 
-[node name="ManaIndicator" type="TextureProgress" parent="Camera/UI" index="2"]
+[node name="HUD" type="Control" parent="Camera/UI" index="2"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="ManaIndicator" type="TextureProgress" parent="Camera/UI/HUD" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -708,7 +726,7 @@ radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
 _sections_unfolded = [ "Textures" ]
 
-[node name="HealthIndicator" type="TextureProgress" parent="Camera/UI" index="3"]
+[node name="HealthIndicator" type="TextureProgress" parent="Camera/UI/HUD" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -742,7 +760,7 @@ nine_patch_stretch = false
 [node name="Collider" type="CollisionShape2D" parent="." index="2"]
 
 position = Vector2( 0.975357, 53.7922 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -766,7 +784,7 @@ _sections_unfolded = [ "Collision" ]
 position = Vector2( 45.7825, -12.9041 )
 rotation = 2.62077
 scale = Vector2( 0.922973, 0.136567 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 disabled = true
 _sections_unfolded = [ "Transform" ]
 
@@ -784,7 +802,7 @@ audio_bus_name = "Master"
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
 position = Vector2( -1.46303, -1.95068 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Animation" type="AnimationPlayer" parent="." index="5"]
 
@@ -793,9 +811,9 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/IdleRight = SubResource( 5 )
-anims/ShieldBlockRight = SubResource( 6 )
-anims/SwordAttackRight = SubResource( 7 )
+anims/IdleRight = SubResource( 4 )
+anims/ShieldBlockRight = SubResource( 5 )
+anims/SwordAttackRight = SubResource( 6 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 

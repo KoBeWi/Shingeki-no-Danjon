@@ -30,5 +30,12 @@
 			"stat": "FireMagic",
 			"value": 10
 		}
+	],
+	
+	"Fireball": [
+		{
+			"stat": "FireMagic",
+			"value": 10
+		}
 	]
 }

@@ -16,6 +16,7 @@ var vitality = 1
 
 var inventory = []
 var equipment = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+var skill_slots = ["Fireball", null, null]
 
 signal level_up
 
@@ -25,6 +26,14 @@ func get_damage():
 		damage = Res.items[equipment[0]].attack
 	
 	return damage
+
+func get_skill(slot):
+	if skill_slots[slot]:
+		return Res.skills[skill_slots[slot]]
+
+func recalc_stats():
+	max_health = 90 + vitality * 10
+	max_mana = 90 + intelligence * 2
 
 func exp_to_level(level):
 	return level * 10 + 10
