@@ -172,6 +172,8 @@ _sections_unfolded = [ "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
+editor/display_folded = true
+
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
 position = Vector2( 0, -27 )
@@ -290,6 +292,7 @@ _sections_unfolded = [ "Textures" ]
 
 [node name="Radar" type="Area2D" parent="." index="6"]
 
+editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0

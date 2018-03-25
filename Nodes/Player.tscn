@@ -167,7 +167,7 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 
-[node name="Player" type="KinematicBody2D" index="0" groups=[
+[node name="Player" type="KinematicBody2D" groups=[
 "players",
 ]]
 
@@ -311,6 +311,7 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="StatusPanel" type="Panel" parent="Camera/UI" index="1"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1036,6 +1037,7 @@ _sections_unfolded = [ "Textures" ]
 
 [node name="HUD" type="Control" parent="Camera/UI" index="2"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1207,7 +1209,6 @@ collision_layer = 2
 collision_mask = 2
 audio_bus_override = false
 audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 

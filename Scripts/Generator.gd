@@ -106,9 +106,11 @@ func generate(w, h):
 					for t in range(tile.pattern.size()):
 						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
 
+	##ten fragment jest do zmiany
 	if ENABLE_GRIDER: place_into_maze(grinder, 50 )
 	if ENABLE_UGANDA: place_into_maze(uganda,3)
 	if ENABLE_PUSHER: place_into_maze(pusher,40)
+	place_into_maze(Res.get_resource("res://Nodes/Objects/Barrel.tscn"), 10)
 	
 
 func place_into_maze(what, how_many):
@@ -116,6 +118,8 @@ func place_into_maze(what, how_many):
 		var ug_inst = what.instance()
 		ug_inst.position = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
 		dungeon.get_parent().add_child(ug_inst)
+		if what == Res.get_resource("res://Nodes/Objects/Barrel.tscn") and randi()%2 == 0: ##hack ;_;
+			ug_inst.item = randi()%3
 
 
 func get_possible_segments(spot):

@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/WoodBreak.ogg-b9a49a68ace1294d892f0cf025cf8feb.oggstr"
+
+[deps]
+
+source_file="res://Samples/WoodBreak.ogg"
+source_md5="456ffa809a7371ad6f4cf6d386151a77"
+
+dest_files=[ "res://.import/WoodBreak.ogg-b9a49a68ace1294d892f0cf025cf8feb.oggstr" ]
+dest_md5="9c285291ada343ac02352658c7056107"
+
+[params]
+
+loop=false
+loop_offset=0

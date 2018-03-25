@@ -62,7 +62,7 @@ func _physics_process(delta):
 	UI.get_node("HUD/ManaIndicator").value = PlayerStats.mana
 	
 	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
-	SkillBase.inc_stat("PixelsTravelled", int(move.length()))
+	SkillBase.inc_stat("PixelsTravelled", int(move.length())) ##działa też na ścianach :/
 	
 	if move != Vector2(): static_time = 0
 	move_and_slide(move)
