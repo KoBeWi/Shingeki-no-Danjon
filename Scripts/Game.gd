@@ -10,7 +10,10 @@ func _ready():
 	$"Generator".generate(10, 10)
 
 func _process(delta):
-#	sort_enabled = !sort_enabled
+	if Input.is_action_just_pressed("ui_cancel"):
+		$Player/Camera/UI/StatusPanel.enable()
+		get_tree().paused = true
+	
 	update()
 
 #ta funkcja to hack i ma być usunięta razem z update, gdy set_default_clear_color() będzie naprawiony

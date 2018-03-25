@@ -103,7 +103,7 @@ func new_skill(skill):
 	skill_time = SKILL_TIMEOUT
 	
 func level_up():
-	Res.play_sample($Audio, "SkillAcquired")
+	Res.play_sample($Audio, "LevelUp")
 
 func change_dir(dir):
 	direction = dir
