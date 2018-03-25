@@ -84,7 +84,6 @@ func _ready():
 			file.close()
 			
 			var skill_name = name.left(name.length() - 5)
-			print(skill_name)
 			skills[skill_name] = parse_json(text)
 			
 			name = dir.get_next()
@@ -95,8 +94,13 @@ func get_resource(path):
 	return resources[path]
 
 func play_sample(source, sample):
-	source.stream = get_resource("res://Samples/" + sample + ".ogg")
-	source.play()
+	var player = AudioStreamPlayer2D.new()
+	$"/root/Game".add_child(player)
+	player.connect("finished", player, "queue_free")
+	
+	player.stream = get_resource("res://Samples/" + sample + ".ogg")
+	player.position = source.position
+	player.play()
 
 func create_instance(node):
 	return get_resource("res://Nodes/" + node + ".tscn").instance()

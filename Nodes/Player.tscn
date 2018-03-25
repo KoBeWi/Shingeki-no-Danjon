@@ -201,6 +201,7 @@ _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [node name="Camera" type="Camera2D" parent="." index="1"]
 
+editor/display_folded = true
 z_index = 10
 anchor_mode = 1
 rotating = false
@@ -816,14 +817,6 @@ anims/ShieldBlockRight = SubResource( 5 )
 anims/SwordAttackRight = SubResource( 6 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
-
-[node name="Audio" type="AudioStreamPlayer" parent="." index="6"]
-
-stream = null
-volume_db = 0.0
-autoplay = false
-mix_target = 0
-bus = "Master"
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 

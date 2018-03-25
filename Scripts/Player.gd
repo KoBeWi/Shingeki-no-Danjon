@@ -51,7 +51,7 @@ func _physics_process(delta):
 	move = move.normalized() * SPEED
 	
 	if !attacking and Input.is_action_just_pressed("Attack"):
-		Res.play_sample($Audio, "Sword")
+		Res.play_sample(self, "Sword")
 		$Animation.play("SwordAttackRight")
 		attacking = true
 	
@@ -85,13 +85,13 @@ func _on_attack_hit(collider):
 		collider.get_parent().damage(PlayerStats.get_damage())
 
 func new_skill(skill):
-	Res.play_sample($Audio, "SkillAcquired")
+	Res.play_sample(self, "SkillAcquired")
 	UI.get_node("SkillAcquiredPanel").visible = true
 	UI.get_node("SkillAcquiredPanel/Name").text = skill
 	skill_time = SKILL_TIMEOUT
 	
 func level_up():
-	Res.play_sample($Audio, "LevelUp")
+	Res.play_sample(self, "LevelUp")
 
 func change_dir(dir):
 	direction = dir
@@ -114,6 +114,7 @@ func cast_spell(slot):
 	get_parent().add_child(projectile)
 	projectile.position = position
 	projectile.direction = direction
+	projectile.intiated()
 	
 	projectile.damage = spell.damage
 	for stat in spell.scalling.keys():
