@@ -17,9 +17,9 @@ func _ready():
 		button.connect("pressed", self, "on_add_stat", [button.name])
 	for button in status_panel.get_node("Inventory").get_children():
 		button.connect("pressed", self, "on_inventory_click", [button.get_index()])
-		button.connect("pressed", self, "on_add_stat", [button.name])
 	for icon in skill_panel.get_node("Icons").get_children():
 		icon.connect("mouse_entered", self, "over_skill_icon", [icon.get_index()])
+		icon.connect("mouse_exited", self, "out_skill_icon", [icon.get_index()])
 
 func _process(delta):
 	if skill_time > 0:
@@ -89,6 +89,7 @@ func refresh():
 		
 		if i < SkillBase.acquired_skills.size():
 			icon.visible = true
+			icon.texture = Res.get_skill_texture(SkillBase.acquired_skills[i])
 		else:
 			icon.visible = false
 
@@ -112,7 +113,12 @@ func on_inventory_click(i):
 		refresh()
 
 func over_skill_icon(i):
-	print(i)
+	skill_panel.get_node("SkillName").visible = true
+	skill_panel.get_node("SkillName").rect_position = get_viewport().get_mouse_position() - $Tabs.rect_position
+	skill_panel.get_node("SkillName/Label").text = SkillBase.acquired_skills[i]#Res.skills[SkillBase.acquired_skills[i]].name
+
+func out_skill_icon(i):
+	skill_panel.get_node("SkillName").visible = false
 
 func new_skill(skill):
 	Res.play_sample(player, "SkillAcquired")

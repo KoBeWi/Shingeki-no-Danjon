@@ -178,6 +178,7 @@ stretch_mode = 0
 
 [node name="Tabs" type="TabContainer" parent="." index="1"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1114,6 +1115,51 @@ size_flags_vertical = 1
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 4
+
+[node name="SkillName" type="Panel" parent="Tabs/Skills" index="1"]
+
+editor/display_folded = true
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -37.0
+margin_top = -171.0
+margin_right = 263.0
+margin_bottom = -71.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Label" type="Label" parent="Tabs/Skills/SkillName" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 300.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 8 )
+text = "Skill Name"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="LevelUpLabel" type="Label" parent="." index="2"]
 

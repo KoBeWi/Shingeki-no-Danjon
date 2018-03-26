@@ -111,3 +111,9 @@ func get_node(node):
 	
 func get_item_texture(id):
 	return get_resource("res://Sprites/Items/" + str(id) + ".png")
+	
+func get_skill_texture(skill):
+	if get_resource("res://Sprites/UI/Skills/" + skill + ".png"):
+		return get_resource("res://Sprites/UI/Skills/" + skill + ".png")
+	else:
+		return get_resource("res://Sprites/UI/Skills/NoSkill.png")
