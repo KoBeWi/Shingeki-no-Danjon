@@ -1,14 +1,29 @@
 extends CanvasLayer
 
+const SKILL_TIMEOUT = 3
+
+onready var player = $"../.."
+
 var just_opened = false
+var skill_time = 0
 
 func _ready():
+	PlayerStats.connect("level_up", self, "level_up")
+	SkillBase.connect("new_skill", self, "new_skill")
+	
 	for button in $StatusPanel/AddStat.get_children():
 		button.connect("pressed", self, "_on_add_stat", [button.name])
 	for button in $StatusPanel/Inventory.get_children():
 		button.connect("pressed", self, "_on_inventory_click", [button.get_index()])
 
 func _process(delta):
+	if skill_time > 0:
+		skill_time -= delta
+		$SkillAcquiredPanel.modulate.a = clamp(skill_time / (SKILL_TIMEOUT-1), 0, 1)
+		
+		if skill_time <= 0:
+			$SkillAcquiredPanel.visible = false
+			
 	if !get_tree().paused: return
 	
 	if Input.is_action_just_pressed("ui_cancel") and !just_opened:
@@ -82,3 +97,21 @@ func _on_inventory_click(i):
 		PlayerStats.equipment[slot] = item.id
 		PlayerStats.inventory[i] = old
 		refresh()
+
+func new_skill(skill):
+	Res.play_sample(player, "SkillAcquired")
+	$"SkillAcquiredPanel".visible = true
+	$"SkillAcquiredPanel/Name".text = skill
+	skill_time = SKILL_TIMEOUT
+	
+func level_up():
+	Res.play_sample(player, "LevelUp")
+	$LevelUpLabel.visible = true
+	yield(get_tree().create_timer(1), "timeout")
+	$LevelUpLabel.visible = false
+
+func got_item(id):
+	$ItemGetPanel/Name.text = Res.items[id].name
+	$ItemGetPanel.visible = true
+	yield(get_tree().create_timer(1), "timeout")
+	$ItemGetPanel.visible = false

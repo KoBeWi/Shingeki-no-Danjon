@@ -22,6 +22,7 @@ func _on_collect(body):
 				break
 		
 		if slot > -1:
+			$\"/root/Game/Player\".UI.got_item(id)
 			Res.play_sample(self, \"Item\")
 			PlayerStats.inventory[slot] = id
 			queue_free()"
