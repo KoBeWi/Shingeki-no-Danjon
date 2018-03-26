@@ -1,7 +1,7 @@
 extends Node
 onready var dungeon = $"../Segments"
-onready	var uganda = load("res://Nodes/Uganda.tscn")
-onready var pusher = load("res://Nodes/Puncher.tscn")
+onready	var uganda  = load("res://Nodes/Uganda.tscn")
+onready var pusher  = load("res://Nodes/Puncher.tscn")
 onready var grinder = load("res://Nodes/Grinder.tscn")
 
 const SEG_W = 800
@@ -14,11 +14,12 @@ const ENABLE_UGANDA = true
 const ENABLE_GRIDER = false
 const ENABLE_PUSHER = true
 
-var map = []
 var width = 100
 var height = 100
 
-var map_Uganda = [] # Table for positions of floor Segments
+var map         = [] # Table for segments positions
+var map_Uganda  = [] # Table for positions of floor Segments
+var mapTresures = [] # Table for positions of barrels and treasures
 
 func _ready():
 	pass
@@ -107,14 +108,33 @@ func generate(w, h):
 						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
 
 	##ten fragment jest do zmiany
-	if ENABLE_GRIDER: place_into_maze(grinder, 50 )
-	if ENABLE_UGANDA: place_into_maze(uganda,3)
-	if ENABLE_PUSHER: place_into_maze(pusher,40)
-	place_into_maze(Res.get_resource("res://Nodes/Objects/Barrel.tscn"), 10)
-	place_into_maze(Res.get_resource("res://Nodes/Objects/Chest.tscn"), 10)
+	#oczywiscie ze jest do zmiany, ale poki co nie mamy dopasowanych mobkow zeby robic zmiane
+	if ENABLE_GRIDER: place_enemy_into_maze(grinder, 50 )
+	if ENABLE_UGANDA: place_enemy_into_maze(uganda,3)
+	if ENABLE_PUSHER: place_enemy_into_maze(pusher,40)
+	
+	place_treasure_into_maze(Res.get_resource("res://Nodes/Objects/Barrel.tscn"), 20)
+	place_treasure_into_maze(Res.get_resource("res://Nodes/Objects/Chest.tscn"), 10)
+
+	
+func place_treasure_into_maze(what, how_many):
+	for nmb in range(how_many):
+		var ug_inst = what.instance()
+		var temp = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
+	
+		while temp in mapTresures:
+			temp = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
+			
+		mapTresures.append(temp) 
+		ug_inst.position = temp
+		
+		dungeon.get_parent().add_child(ug_inst)
+		if (what == Res.get_resource("res://Nodes/Objects/Barrel.tscn") and randi()%6 == 0) or what == Res.get_resource("res://Nodes/Objects/Chest.tscn"): ##hack ;_;
+			ug_inst.item = randi()%2
+
 	
 
-func place_into_maze(what, how_many):
+func place_enemy_into_maze(what, how_many):
 	for nmb in range(how_many):
 		var ug_inst = what.instance()
 		ug_inst.position = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
