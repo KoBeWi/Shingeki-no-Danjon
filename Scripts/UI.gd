@@ -1,10 +1,14 @@
 extends CanvasLayer
 
 const SKILL_TIMEOUT = 3
+const CHOOSER_BASE_Y = 96
 
 onready var player = $"../.."
 onready var status_panel = $Tabs/Inventory
 onready var skill_panel = $Tabs/Skills
+
+var dialogues = []
+var on_dialogue = false
 
 var just_opened = false
 var skill_time = 0
@@ -21,7 +25,7 @@ func _ready():
 		icon.connect("mouse_entered", self, "over_skill_icon", [icon.get_index()])
 		icon.connect("mouse_exited", self, "out_skill_icon", [icon.get_index()])
 
-func _process(delta):
+func _physics_process(delta):
 	if skill_time > 0:
 		skill_time -= delta
 		$SkillAcquiredPanel.modulate.a = clamp(skill_time / (SKILL_TIMEOUT-1), 0, 1)
@@ -31,9 +35,21 @@ func _process(delta):
 			
 	if !get_tree().paused: return
 	
-	if Input.is_action_just_pressed("ui_cancel") and !just_opened:
-		$Tabs.visible = false
-		get_tree().paused = false
+	if on_dialogue:
+		if on_dialogue.has("choices"):
+			if Input.is_action_just_pressed("ui_down") and on_dialogue.choice < on_dialogue.choices.size()-1:
+				on_dialogue.choice += 1
+			elif Input.is_action_just_pressed("ui_up") and on_dialogue.choice > 0:
+				on_dialogue.choice -= 1
+			$DialogueBox/Chooser.rect_position.y = CHOOSER_BASE_Y + on_dialogue.choice * 48
+			
+		if Input.is_action_just_pressed("Interact") and !just_opened:
+			on_dialogue = load_next_dialogue()
+	else:
+		if Input.is_action_just_pressed("Menu") and !just_opened:
+			$Tabs.visible = false
+			get_tree().paused = false
+			
 	just_opened = false
 
 func enable():
@@ -137,3 +153,35 @@ func got_item(id):
 	$ItemGetPanel.visible = true
 	yield(get_tree().create_timer(1), "timeout")
 	$ItemGetPanel.visible = false
+
+func add_dialogue(data):
+	dialogues.append(data)
+	init_dialogue()
+
+func init_dialogue():
+	if !on_dialogue:
+		get_tree().paused = true
+		player.get_node("Interact").visible = false
+		$DialogueBox.visible = true
+		on_dialogue = load_next_dialogue()
+
+func load_next_dialogue():
+	if dialogues.size() > 0:
+		var dialogue = dialogues.pop_front()
+		$DialogueBox/Name/Label.text = dialogue.name
+		$DialogueBox/Text.text = dialogue.text
+		
+		if dialogue.has("choices"):
+			$DialogueBox/Chooser.visible = true
+			$DialogueBox/Chooser.rect_position.y = CHOOSER_BASE_Y
+			dialogue.choice = 0
+			
+			for choice in dialogue.choices: $DialogueBox/Text.text = $DialogueBox/Text.text + "\n   " + choice
+		else:
+			$DialogueBox/Chooser.visible = false
+		
+		return dialogue
+	else:
+		get_tree().paused = false
+		$DialogueBox.visible = false
+		return false

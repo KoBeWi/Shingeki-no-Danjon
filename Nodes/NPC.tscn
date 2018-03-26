@@ -7,12 +7,12 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 32, 10 )
+extents = Vector2( 32, 22.5213 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 53.5912, 43.976 )
 
 [node name="NPC" type="KinematicBody2D"]
 
@@ -33,7 +33,7 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="1"]
 
-position = Vector2( 0, 54 )
+position = Vector2( 0, 41 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
@@ -51,7 +51,7 @@ script = ExtResource( 3 )
 
 [node name="Shape" type="CollisionShape2D" parent="InteractArea" index="0"]
 
-position = Vector2( 0, 74.6143 )
+position = Vector2( -1.39496, 41.4926 )
 shape = SubResource( 2 )
 
 

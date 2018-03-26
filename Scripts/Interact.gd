@@ -7,8 +7,8 @@ func _ready():
 	connect("body_entered", self, "on_enter")
 	connect("body_exited", self, "on_exit")
 
-func _process(delta):
-	if player_in and Input.is_action_just_pressed("ui_accept"):
+func _physics_process(delta):
+	if player_in and icon.visible and Input.is_action_just_pressed("Interact"):
 		get_parent().interact()
 
 func on_enter(body):
