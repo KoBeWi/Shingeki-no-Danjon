@@ -134,7 +134,9 @@ func place_treasure_into_maze(what, how_many):
 func place_enemy_into_maze(what, how_many):
 	for nmb in range(how_many):
 		var ug_inst = what.instance()
-		ug_inst.position = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
+		var i = randi()%map_Uganda.size()
+		ug_inst.position = map_Uganda[i]+ Vector2(40,40)
+		map_Uganda.remove(i)
 		dungeon.get_parent().add_child(ug_inst)
 		if (what == Res.get_resource("res://Nodes/Objects/Barrel.tscn") and randi()%3 == 0) or what == Res.get_resource("res://Nodes/Objects/Chest.tscn"): ##hack ;_;
 			ug_inst.item = randi()%2

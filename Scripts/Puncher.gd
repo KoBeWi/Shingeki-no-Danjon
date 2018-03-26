@@ -41,7 +41,6 @@ func _physics_process(delta):
 	#follow_player  = false
 	
 	if follow_player and !in_action :
-		
 		if( !special_ready ) : special_ready = (randi()%SPECIAL_PROBABILITY == 0)
 		if( !  atack_ready ) : atack_ready   = (randi()%ATACK_SPEED         == 0)
 		
@@ -60,7 +59,6 @@ func _physics_process(delta):
 		move_and_slide(move * SPEED)
 		
 		if axix_X:
-
 			if abs(move.x) != 0: 
 				
 				sprites[0].flip_h = move.x > 0
@@ -68,7 +66,6 @@ func _physics_process(delta):
 				direction = "Right" if move.x > 0 else "Left"
 #				elif move.x > 0: play_animation_if_not_playing("Right") na później
 		elif axix_Y:
-
 			if move.y < 0: 
 				play_animation_if_not_playing("Down")
 				direction = "Up"
@@ -102,7 +99,6 @@ func _physics_process(delta):
 
 func punch_in_direction():
 	play_animation_if_not_playing("Punch" + direction)
-
 
 func play_animation_if_not_playing(anim):
 	if $AnimationPlayer.current_animation != anim:
