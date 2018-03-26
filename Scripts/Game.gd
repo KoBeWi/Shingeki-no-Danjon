@@ -7,6 +7,8 @@ func _ready():
 	print("Seed: ", siid)
 	seed(siid)
 #	seed(3352953944) ##DEBUG
+#	seed(3136793389) #NEEDDEBUG
+#   seed(3037373601)
 	$"Generator".generate(10, 10)
 
 func _process(delta):

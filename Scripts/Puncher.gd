@@ -38,6 +38,7 @@ func _physics_process(delta):
 		dead_time += delta
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
 		return
+	#follow_player  = false
 	
 	if follow_player and !in_action :
 		
@@ -45,7 +46,6 @@ func _physics_process(delta):
 		if( !  atack_ready ) : atack_ready   = (randi()%ATACK_SPEED         == 0)
 		
 		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
-
 		
 		var x_distance = abs(position.x - player.position.x)
 		var y_distance = abs(position.y - player.position.y) 
@@ -101,12 +101,6 @@ func _physics_process(delta):
 
 
 func punch_in_direction():
-#	print(direction)
-	#if direction == "Right" : 
-	#	sprites[1].flip_h = true
-	#	play_animation_if_not_playing("PunchLeft")
-	#else:
-	#	sprites[1].flip_h = false
 	play_animation_if_not_playing("Punch" + direction)
 
 
@@ -136,7 +130,6 @@ func _on_dead():
 
 func _on_damage():
 	pass
-	#print("oof")
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Special":
