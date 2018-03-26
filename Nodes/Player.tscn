@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Right/Body.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Player/Right/SwordAttack.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=4]
 [ext_resource path="res://Nodes/UI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sprites/UI/Interact.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -159,7 +160,7 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "players",
 ]]
 
@@ -197,6 +198,7 @@ _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [node name="Camera" type="Camera2D" parent="." index="1"]
 
+editor/display_folded = true
 z_index = 10
 anchor_mode = 1
 rotating = false
@@ -284,6 +286,12 @@ anims/ShieldBlockRight = SubResource( 5 )
 anims/SwordAttackRight = SubResource( 6 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
+
+[node name="Interact" type="Sprite" parent="." index="6"]
+
+visible = false
+position = Vector2( 0, -100 )
+texture = ExtResource( 6 )
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 
