@@ -59,7 +59,7 @@ func _physics_process(delta):
 		cast_spell(0)
 	
 	if randi()%10 == 0: PlayerStats.mana += 1
-	UI.get_node("HUD/ManaIndicator").value = PlayerStats.mana
+	UI.soft_refresh()
 	
 	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
 	SkillBase.inc_stat("PixelsTravelled", int(move.length())) ##działa też na ścianach :/
@@ -71,7 +71,7 @@ func damage(attacker, amount, knockback):
 	Res.create_instance("DamageNumber").damage(self, amount)
 	SkillBase.inc_stat("DamageTaken", amount)
 	PlayerStats.health -= amount
-	UI.get_node("HUD/HealthIndicator").value = PlayerStats.health
+	UI.soft_refresh()
 	move_and_slide((position - attacker.position).normalized() * 1000 * knockback)
 
 func _on_animation_finished(anim_name):

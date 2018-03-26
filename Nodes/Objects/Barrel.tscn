@@ -12,16 +12,15 @@ var item
 func _on_hit(body):
 	if body.get_parent().is_in_group(\"players\"):
 		Res.play_sample(self, \"WoodBreak\")
+		$Animation.play(\"Destroyed\")
+		$DamageCollider.queue_free()
+		$Shape.disabled = true
 		
 		if item != null:
 			var it = Res.create_instance(\"Item\")
 			it.position = position
 			it.id = item
-			get_parent().add_child(it)
-		
-		$Animation.play(\"Destroyed\")
-		$DamageCollider.queue_free()
-		$Shape.disabled = true"
+			get_parent().add_child(it)"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="Animation" id=1]
@@ -53,7 +52,7 @@ extents = Vector2( 24.9147, 34.5188 )
 custom_solver_bias = 0.0
 extents = Vector2( 24.9147, 15.7539 )
 
-[node name="Barrel" type="StaticBody2D" index="0"]
+[node name="Barrel" type="StaticBody2D"]
 
 input_pickable = false
 collision_layer = 1

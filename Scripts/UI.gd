@@ -21,6 +21,12 @@ func enable():
 	just_opened = true
 	refresh()
 
+func soft_refresh():
+	$HUD/HealthIndicator.max_value = PlayerStats.max_health
+	$HUD/HealthIndicator.value = PlayerStats.health
+	$HUD/ManaIndicator.max_value = PlayerStats.max_mana
+	$HUD/ManaIndicator.value = PlayerStats.mana
+
 func refresh():
 	$HUD/HealthIndicator.max_value = PlayerStats.max_health
 	$HUD/HealthIndicator.value = PlayerStats.health

@@ -167,7 +167,7 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "players",
 ]]
 
