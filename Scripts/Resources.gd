@@ -96,7 +96,7 @@ func get_resource(path):
 
 func play_sample(source, sample):
 	var player = AudioStreamPlayer2D.new()
-	$"/root/Game".add_child(player)
+	get_parent().get_node("Game").add_child(player)
 	player.connect("finished", player, "queue_free")
 	
 	player.stream = get_resource("res://Samples/" + sample + ".ogg")

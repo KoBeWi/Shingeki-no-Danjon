@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/UI.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/PlayerBarBottom.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Sprites/Player/Front/Body.png" type="Texture" id=7]
 [ext_resource path="res://Resources/FancyFont.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Sprites/Items/0.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/UI/Skills/NoSkill.png" type="Texture" id=10]
 
 [node name="UI" type="CanvasLayer" index="0"]
 
@@ -175,18 +176,37 @@ size_flags_vertical = 1
 texture = ExtResource( 6 )
 stretch_mode = 0
 
-[node name="StatusPanel" type="Panel" parent="." index="1"]
+[node name="Tabs" type="TabContainer" parent="." index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 33.0
+margin_top = 139.0
+margin_right = 1327.0
+margin_bottom = 729.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+tab_align = 1
+tabs_visible = true
+
+[node name="Inventory" type="Panel" parent="Tabs" index="0"]
 
 editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 210.0
-margin_top = 100.0
-margin_right = 1186.0
-margin_bottom = 623.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -195,7 +215,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Pause" ]
 
-[node name="Character" type="TextureRect" parent="StatusPanel" index="0"]
+[node name="Character" type="TextureRect" parent="Tabs/Inventory" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -212,7 +232,7 @@ size_flags_vertical = 1
 texture = ExtResource( 7 )
 stretch_mode = 0
 
-[node name="Stats" type="Label" parent="StatusPanel" index="1"]
+[node name="Stats" type="Label" parent="Tabs/Inventory" index="1"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -245,7 +265,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Level" type="Label" parent="StatusPanel/Stats" index="0"]
+[node name="Level" type="Label" parent="Tabs/Inventory/Stats" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -268,7 +288,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Skillpoints" type="Label" parent="StatusPanel/Stats" index="1"]
+[node name="Skillpoints" type="Label" parent="Tabs/Inventory/Stats" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -291,7 +311,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Experience" type="Label" parent="StatusPanel/Stats" index="2"]
+[node name="Experience" type="Label" parent="Tabs/Inventory/Stats" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -314,7 +334,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="ToNext" type="Label" parent="StatusPanel/Stats" index="3"]
+[node name="ToNext" type="Label" parent="Tabs/Inventory/Stats" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -337,7 +357,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Strength" type="Label" parent="StatusPanel/Stats" index="4"]
+[node name="Strength" type="Label" parent="Tabs/Inventory/Stats" index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -360,7 +380,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Dexterity" type="Label" parent="StatusPanel/Stats" index="5"]
+[node name="Dexterity" type="Label" parent="Tabs/Inventory/Stats" index="5"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -383,7 +403,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Intelligence" type="Label" parent="StatusPanel/Stats" index="6"]
+[node name="Intelligence" type="Label" parent="Tabs/Inventory/Stats" index="6"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -406,7 +426,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Vitality" type="Label" parent="StatusPanel/Stats" index="7"]
+[node name="Vitality" type="Label" parent="Tabs/Inventory/Stats" index="7"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -429,7 +449,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="AddStat" type="Control" parent="StatusPanel" index="2"]
+[node name="AddStat" type="Control" parent="Tabs/Inventory" index="2"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -445,7 +465,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Strength" type="Button" parent="StatusPanel/AddStat" index="0"]
+[node name="Strength" type="Button" parent="Tabs/Inventory/AddStat" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -471,7 +491,7 @@ text = "+"
 flat = false
 align = 1
 
-[node name="Dexterity" type="Button" parent="StatusPanel/AddStat" index="1"]
+[node name="Dexterity" type="Button" parent="Tabs/Inventory/AddStat" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -497,7 +517,7 @@ text = "+"
 flat = false
 align = 1
 
-[node name="Intelligence" type="Button" parent="StatusPanel/AddStat" index="2"]
+[node name="Intelligence" type="Button" parent="Tabs/Inventory/AddStat" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -523,7 +543,7 @@ text = "+"
 flat = false
 align = 1
 
-[node name="Vitality" type="Button" parent="StatusPanel/AddStat" index="3"]
+[node name="Vitality" type="Button" parent="Tabs/Inventory/AddStat" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -549,7 +569,7 @@ text = "+"
 flat = false
 align = 1
 
-[node name="Equipment" type="Control" parent="StatusPanel" index="3"]
+[node name="Equipment" type="Control" parent="Tabs/Inventory" index="3"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -565,7 +585,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Helmet" type="TextureRect" parent="StatusPanel/Equipment" index="0"]
+[node name="Helmet" type="TextureRect" parent="Tabs/Inventory/Equipment" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -584,7 +604,7 @@ size_flags_vertical = 1
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Armor" type="TextureRect" parent="StatusPanel/Equipment" index="1"]
+[node name="Armor" type="TextureRect" parent="Tabs/Inventory/Equipment" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -603,7 +623,7 @@ size_flags_vertical = 1
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Boots" type="TextureRect" parent="StatusPanel/Equipment" index="2"]
+[node name="Boots" type="TextureRect" parent="Tabs/Inventory/Equipment" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -622,7 +642,7 @@ size_flags_vertical = 1
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Weapon" type="TextureRect" parent="StatusPanel/Equipment" index="3"]
+[node name="Weapon" type="TextureRect" parent="Tabs/Inventory/Equipment" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -641,7 +661,7 @@ size_flags_vertical = 1
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Shield" type="TextureRect" parent="StatusPanel/Equipment" index="4"]
+[node name="Shield" type="TextureRect" parent="Tabs/Inventory/Equipment" index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -660,7 +680,7 @@ size_flags_vertical = 1
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Ring1" type="TextureRect" parent="StatusPanel/Equipment" index="5"]
+[node name="Ring1" type="TextureRect" parent="Tabs/Inventory/Equipment" index="5"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -679,7 +699,7 @@ size_flags_vertical = 1
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Ring2" type="TextureRect" parent="StatusPanel/Equipment" index="6"]
+[node name="Ring2" type="TextureRect" parent="Tabs/Inventory/Equipment" index="6"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -698,7 +718,7 @@ size_flags_vertical = 1
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Pants" type="TextureRect" parent="StatusPanel/Equipment" index="7"]
+[node name="Pants" type="TextureRect" parent="Tabs/Inventory/Equipment" index="7"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -717,7 +737,7 @@ size_flags_vertical = 1
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Gloves" type="TextureRect" parent="StatusPanel/Equipment" index="8"]
+[node name="Gloves" type="TextureRect" parent="Tabs/Inventory/Equipment" index="8"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -736,7 +756,7 @@ size_flags_vertical = 1
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Amulet" type="TextureRect" parent="StatusPanel/Equipment" index="9"]
+[node name="Amulet" type="TextureRect" parent="Tabs/Inventory/Equipment" index="9"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -755,7 +775,7 @@ size_flags_vertical = 1
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Inventory" type="Control" parent="StatusPanel" index="4"]
+[node name="Inventory" type="Control" parent="Tabs/Inventory" index="4"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -771,7 +791,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Slot1" type="TextureButton" parent="StatusPanel/Inventory" index="0"]
+[node name="Slot1" type="TextureButton" parent="Tabs/Inventory/Inventory" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -797,7 +817,7 @@ expand = true
 stretch_mode = 3
 _sections_unfolded = [ "Textures" ]
 
-[node name="Slot2" type="TextureButton" parent="StatusPanel/Inventory" index="1"]
+[node name="Slot2" type="TextureButton" parent="Tabs/Inventory/Inventory" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -823,7 +843,7 @@ expand = true
 stretch_mode = 3
 _sections_unfolded = [ "Textures" ]
 
-[node name="Slot3" type="TextureButton" parent="StatusPanel/Inventory" index="2"]
+[node name="Slot3" type="TextureButton" parent="Tabs/Inventory/Inventory" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -849,7 +869,7 @@ expand = true
 stretch_mode = 3
 _sections_unfolded = [ "Textures" ]
 
-[node name="Slot4" type="TextureButton" parent="StatusPanel/Inventory" index="3"]
+[node name="Slot4" type="TextureButton" parent="Tabs/Inventory/Inventory" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -875,7 +895,7 @@ expand = true
 stretch_mode = 3
 _sections_unfolded = [ "Textures" ]
 
-[node name="Slot5" type="TextureButton" parent="StatusPanel/Inventory" index="4"]
+[node name="Slot5" type="TextureButton" parent="Tabs/Inventory/Inventory" index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -900,6 +920,200 @@ texture_normal = ExtResource( 9 )
 expand = true
 stretch_mode = 3
 _sections_unfolded = [ "Textures" ]
+
+[node name="Skills" type="Panel" parent="Tabs" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -12.0
+margin_bottom = -8.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Hint" ]
+
+[node name="Icons" type="Control" parent="Tabs/Skills" index="0"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="1" type="TextureRect" parent="Tabs/Skills/Icons" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 13.0
+margin_top = 29.0
+margin_right = 63.0
+margin_bottom = 79.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="2" type="TextureRect" parent="Tabs/Skills/Icons" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 63.0
+margin_top = 29.0
+margin_right = 113.0
+margin_bottom = 79.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="3" type="TextureRect" parent="Tabs/Skills/Icons" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 113.0
+margin_top = 29.0
+margin_right = 163.0
+margin_bottom = 79.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="4" type="TextureRect" parent="Tabs/Skills/Icons" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 163.0
+margin_top = 29.0
+margin_right = 213.0
+margin_bottom = 79.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="5" type="TextureRect" parent="Tabs/Skills/Icons" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 213.0
+margin_top = 29.0
+margin_right = 263.0
+margin_bottom = 79.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="6" type="TextureRect" parent="Tabs/Skills/Icons" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 263.0
+margin_top = 29.0
+margin_right = 313.0
+margin_bottom = 79.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="7" type="TextureRect" parent="Tabs/Skills/Icons" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 313.0
+margin_top = 29.0
+margin_right = 363.0
+margin_bottom = 79.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="8" type="TextureRect" parent="Tabs/Skills/Icons" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 363.0
+margin_top = 29.0
+margin_right = 413.0
+margin_bottom = 79.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 4
 
 [node name="LevelUpLabel" type="Label" parent="." index="2"]
 
