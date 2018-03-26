@@ -1,5 +1,7 @@
 extends YSort
 
+var leave_menu = false
+
 func _ready():
 	VisualServer.set_default_clear_color(Color(0.05, 0.05, 0.07))
 	randomize()
@@ -13,9 +15,11 @@ func _ready():
 	$"Generator".generate(10, 10)
 
 func _process(delta):
-	if Input.is_action_just_pressed("Menu"):
+	if Input.is_action_just_pressed("Menu") and !leave_menu:
 		$Player/Camera/UI.enable()
 		get_tree().paused = true
+	elif Input.is_action_just_released("Menu"):
+		leave_menu = false
 	
 	update()
 

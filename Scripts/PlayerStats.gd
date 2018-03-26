@@ -17,6 +17,7 @@ var dexterity = 1
 var intelligence = 1
 var vitality = 1
 
+var money = 0
 var inventory = []
 var equipment = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 var skill_slots = ["Fireball", null, null]

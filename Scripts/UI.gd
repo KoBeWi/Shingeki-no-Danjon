@@ -45,10 +45,11 @@ func _physics_process(delta):
 			
 		if Input.is_action_just_pressed("Interact") and !just_opened:
 			on_dialogue = load_next_dialogue()
-	else:
-		if Input.is_action_just_pressed("Menu") and !just_opened:
-			$Tabs.visible = false
-			get_tree().paused = false
+		
+	elif Input.is_action_just_pressed("Menu") and !just_opened:
+		$"/root/Game".leave_menu = true
+		$Tabs.visible = false
+		get_tree().paused = false
 			
 	just_opened = false
 
@@ -78,6 +79,7 @@ func refresh():
 	status_panel.get_node("Stats/Dexterity").text =  str(PlayerStats.dexterity)
 	status_panel.get_node("Stats/Intelligence").text =  str(PlayerStats.intelligence)
 	status_panel.get_node("Stats/Vitality").text =  str(PlayerStats.vitality)
+	status_panel.get_node("Money/Amount").text =  str(PlayerStats.money)
 	
 	for button in status_panel.get_node("AddStat").get_children():
 		button.disabled = (PlayerStats.stat_points == 0)
