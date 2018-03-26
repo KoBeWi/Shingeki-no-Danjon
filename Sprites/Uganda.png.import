@@ -2,14 +2,14 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Uganda.png-ca23ea588435bdede845d0e8d32965a6.stex"
+path="res://.import/Uganda.png-4f40da970ca7a53a8eefe8b7dd74eb97.stex"
 
 [deps]
 
-source_file="res://Sprites/Enemies/Uganda.png"
+source_file="res://Sprites/Uganda.png"
 source_md5="02fa1d86de57cd25a9874a1bedb15490"
 
-dest_files=[ "res://.import/Uganda.png-ca23ea588435bdede845d0e8d32965a6.stex" ]
+dest_files=[ "res://.import/Uganda.png-4f40da970ca7a53a8eefe8b7dd74eb97.stex" ]
 dest_md5="4110ab656648ac57232abca473475086"
 
 [params]

@@ -104,7 +104,10 @@ func play_sample(source, sample):
 	player.play()
 
 func create_instance(node):
-	return get_resource("res://Nodes/" + node + ".tscn").instance()
+	return get_node(node).instance()
+
+func get_node(node):
+	return get_resource("res://Nodes/" + node + ".tscn")
 	
 func get_item_texture(id):
 	return get_resource("res://Sprites/Items/" + str(id) + ".png")

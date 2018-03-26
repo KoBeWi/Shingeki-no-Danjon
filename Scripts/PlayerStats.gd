@@ -46,6 +46,9 @@ func get_skill(slot):
 func recalc_stats():
 	max_health = 90 + vitality * 10
 	max_mana = 98 + intelligence * 2
+	
+	health = min(health, max_health)
+	mana = min(health, max_mana)
 
 func exp_to_level(level):
 	return level * 10 + 10

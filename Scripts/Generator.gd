@@ -1,8 +1,5 @@
 extends Node
 onready var dungeon = $"../Segments"
-onready	var uganda  = load("res://Nodes/Uganda.tscn")
-onready var pusher  = load("res://Nodes/Puncher.tscn")
-onready var grinder = load("res://Nodes/Grinder.tscn")
 
 const SEG_W = 800
 const SEG_H = 800
@@ -109,12 +106,12 @@ func generate(w, h):
 
 	##ten fragment jest do zmiany
 	#oczywiscie ze jest do zmiany, ale poki co nie mamy dopasowanych mobkow zeby robic zmiane
-	if ENABLE_GRIDER: place_enemy_into_maze(grinder, 50 )
-	if ENABLE_UGANDA: place_enemy_into_maze(uganda,3)
-	if ENABLE_PUSHER: place_enemy_into_maze(pusher,40)
+	if ENABLE_GRIDER: place_enemy_into_maze(Res.get_node("Enemies/Grinder"), 50 )
+	if ENABLE_UGANDA: place_enemy_into_maze(Res.get_node("Uganda"),3)
+	if ENABLE_PUSHER: place_enemy_into_maze(Res.get_node("Enemies/Puncher"),40)
 	
-	place_treasure_into_maze(Res.get_resource("res://Nodes/Objects/Barrel.tscn"), 20)
-	place_treasure_into_maze(Res.get_resource("res://Nodes/Objects/Chest.tscn"), 10)
+	place_treasure_into_maze(Res.get_node("Objects/Barrel"), 20)
+	place_treasure_into_maze(Res.get_node("Objects/Chest"), 10)
 
 	
 func place_treasure_into_maze(what, how_many):
@@ -129,7 +126,7 @@ func place_treasure_into_maze(what, how_many):
 		ug_inst.position = temp
 		
 		dungeon.get_parent().add_child(ug_inst)
-		if (what == Res.get_resource("res://Nodes/Objects/Barrel.tscn") and randi()%6 == 0) or what == Res.get_resource("res://Nodes/Objects/Chest.tscn"): ##hack ;_;
+		if (what == Res.get_node("Objects/Barrel") and randi()%6 == 0) or what == Res.get_node("Objects/Chest"): ##hack ;_;
 			ug_inst.item = randi()%2
 
 	
