@@ -3,6 +3,7 @@
 	"weapon": "one-handed",
 	"name": "Iron Sword",
 	"description": "One-handed sword made of iron.",
+	"price": 10,
 	"attack": 5,
 	"scalling": {"strength": 1}
 }

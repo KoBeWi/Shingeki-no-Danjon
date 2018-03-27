@@ -109,7 +109,7 @@ func generate(w, h):
 	if ENABLE_GRIDER: place_enemy_into_maze(Res.get_node("Enemies/Grinder"), 50 )
 	if ENABLE_UGANDA: place_enemy_into_maze(Res.get_node("Uganda"),3)
 	if ENABLE_PUSHER: place_enemy_into_maze(Res.get_node("Enemies/Puncher"),40)
-	if true: place_enemy_into_maze(Res.get_node("NPC"),1)
+	if true: place_enemy_into_maze(Res.get_node("NPC"),5)
 	
 	place_treasure_into_maze(Res.get_node("Objects/Barrel"), 20)
 	place_treasure_into_maze(Res.get_node("Objects/Chest"), 10)
@@ -141,6 +141,9 @@ func place_enemy_into_maze(what, how_many):
 		dungeon.get_parent().add_child(ug_inst)
 		if (what == Res.get_resource("res://Nodes/Objects/Barrel.tscn") and randi()%3 == 0) or what == Res.get_resource("res://Nodes/Objects/Chest.tscn"): ##hack ;_;
 			ug_inst.item = randi()%2
+		elif what == Res.get_node("NPC") and randi()%3 == 0:
+			ug_inst.id = 1
+			ug_inst.get_node("Sprite").texture = load("res://Sprites/NPC/ShopGuy.png")
 
 
 func get_possible_segments(spot):

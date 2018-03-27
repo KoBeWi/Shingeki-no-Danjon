@@ -3,6 +3,7 @@
 	"weapon": "one-handed",
 	"name": "Cursed Sword Gram",
 	"description": "A corrupted sword bestowed by goddess.",
+	"price": 100,
 	"attack": 20,
 	"scalling": {"strength": 1}
 }

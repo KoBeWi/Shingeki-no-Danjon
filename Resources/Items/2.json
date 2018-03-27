@@ -1,0 +1,7 @@
+{
+	"type": "consumable",
+	"name": "Bread",
+	"description": "The rarest of the food. Restores HP.",
+	"price": 20,
+	"hp": 50
+}

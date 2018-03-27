@@ -7,11 +7,12 @@ onready var player = $"../.."
 onready var status_panel = $Tabs/Inventory
 onready var skill_panel = $Tabs/Skills
 
-var dialogues = []
-var on_dialogue = false
-
 var just_opened = false
 var skill_time = 0
+
+var dialogues = []
+var on_dialogue = false
+var shop = []
 
 func _ready():
 	PlayerStats.connect("level_up", self, "level_up")
@@ -21,6 +22,10 @@ func _ready():
 		button.connect("pressed", self, "on_add_stat", [button.name])
 	for button in status_panel.get_node("Inventory").get_children():
 		button.connect("pressed", self, "on_inventory_click", [button.get_index()])
+	for button in $Shop/ShopItems.get_children():
+		button.connect("pressed", self, "on_buy", [button.get_index()])
+		button.connect("mouse_entered", self, "over_shop", [button.get_index()])
+		button.connect("mouse_exited", self, "out_shop", [button.get_index()])
 	for icon in skill_panel.get_node("Icons").get_children():
 		icon.connect("mouse_entered", self, "over_skill_icon", [icon.get_index()])
 		icon.connect("mouse_exited", self, "out_skill_icon", [icon.get_index()])
@@ -49,6 +54,7 @@ func _physics_process(delta):
 	elif Input.is_action_just_pressed("Menu") and !just_opened:
 		$"/root/Game".leave_menu = true
 		$Tabs.visible = false
+		$Shop.visible = false
 		get_tree().paused = false
 			
 	just_opened = false
@@ -139,13 +145,13 @@ func out_skill_icon(i):
 	skill_panel.get_node("SkillName").visible = false
 
 func new_skill(skill):
-	Res.play_sample(player, "SkillAcquired")
+	Res.play_sample(player, "SkillAcquired", false)
 	$"SkillAcquiredPanel".visible = true
 	$"SkillAcquiredPanel/Name".text = skill
 	skill_time = SKILL_TIMEOUT
 	
 func level_up():
-	Res.play_sample(player, "LevelUp")
+	Res.play_sample(player, "LevelUp", false)
 	$LevelUpLabel.visible = true
 	yield(get_tree().create_timer(1), "timeout")
 	$LevelUpLabel.visible = false
@@ -187,3 +193,56 @@ func load_next_dialogue():
 		get_tree().paused = false
 		$DialogueBox.visible = false
 		return false
+
+func open_shop(name, items):
+	get_tree().paused = true
+	$Shop.visible = true
+	$Shop/Name.text = name
+	shop = items
+	
+	refresh_shop()
+
+func refresh_shop():
+	$Shop/Money/Amount.text = str(PlayerStats.money)
+	
+	for i in range($Shop/ShopItems.get_child_count()):
+		var slot = $Shop/ShopItems.get_child(i)
+		
+		if i < shop.size():
+			slot.disabled = false
+			slot.visible = true
+			slot.texture_normal = Res.get_item_texture(shop[i])
+		else:
+			slot.disabled = true
+			slot.visible = false
+	
+	for i in range(PlayerStats.INVENTORY_SIZE):
+		var slot = $Shop/InventoryItems.get_child(i)
+		if PlayerStats.inventory[i] != null:
+			slot.visible = true
+			slot.texture = Res.get_item_texture(PlayerStats.inventory[i])
+		else:
+			slot.visible = false
+
+func on_buy(i):
+	var item = Res.items[shop[i]]
+	var slot = -1
+	for i in range(PlayerStats.INVENTORY_SIZE): if !PlayerStats.inventory[i]:
+		slot = i
+		break
+	
+	if PlayerStats.money >= item.price and slot > -1:
+		Res.play_sample(player, "Buy", false)
+		PlayerStats.money -= item.price
+		PlayerStats.inventory[slot] = item.id
+		refresh_shop()
+	else:
+		Res.play_sample(player, "Buzzer", false)
+
+func over_shop(i):
+	$Shop/PriceTag.visible = true
+	$Shop/PriceTag.rect_position = get_viewport().get_mouse_position() - $Shop.rect_position
+	$Shop/PriceTag/Amount.text = str(Res.items[shop[i]].price)
+
+func out_shop(i):
+	$Shop/PriceTag.visible = false

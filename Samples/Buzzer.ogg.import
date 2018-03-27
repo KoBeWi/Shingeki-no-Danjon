@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Buzzer.ogg-5e33f70693e741208052bf92faab524d.oggstr"
+
+[deps]
+
+source_file="res://Samples/Buzzer.ogg"
+source_md5="6608e1c4a30da9d9446a405db5fd9a2d"
+
+dest_files=[ "res://.import/Buzzer.ogg-5e33f70693e741208052bf92faab524d.oggstr" ]
+dest_md5="38d3dc8e79ebb1b5a102255e902c68bf"
+
+[params]
+
+loop=false
+loop_offset=0

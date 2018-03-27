@@ -40,6 +40,10 @@ func damage(amount):
 			item.position = position
 			if randi()%2 == 0: item.id = 1
 			get_parent().add_child(item)
+		elif randi()%2 == 0:
+			var item = Res.create_instance("Money")
+			item.position = position
+			get_parent().add_child(item)
 	else:
 		_on_damage()
 

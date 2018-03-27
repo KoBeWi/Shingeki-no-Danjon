@@ -94,8 +94,9 @@ func get_resource(path):
 	
 	return resources[path]
 
-func play_sample(source, sample):
+func play_sample(source, sample, pausable = true):
 	var player = AudioStreamPlayer2D.new()
+	player.pause_mode = (PAUSE_MODE_INHERIT if pausable else PAUSE_MODE_PROCESS)
 	get_parent().get_node("Game").add_child(player)
 	player.connect("finished", player, "queue_free")
 	
