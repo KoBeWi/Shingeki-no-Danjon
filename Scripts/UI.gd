@@ -127,13 +127,20 @@ func on_add_stat(stat):
 
 func on_inventory_click(i):
 	var item = Res.items[PlayerStats.inventory[i]]
-	var slot = PlayerStats.EQUIPMENT_SLOTS.find(item.type)
 	
-	if slot > -1:
-		var old = null
-		if PlayerStats.equipment[slot] > -1: old = PlayerStats.equipment[slot]
-		PlayerStats.equipment[slot] = item.id
-		PlayerStats.inventory[i] = old
+	if item.type == "consumable":
+		Res.play_sample(player, "Consume", false)
+		PlayerStats.inventory[i] = -1
+		PlayerStats.health += item.health
+		refresh()
+	else:
+		var slot = PlayerStats.EQUIPMENT_SLOTS.find(item.type)
+		
+		if slot > -1:
+			var old = null
+			if PlayerStats.equipment[slot] > -1: old = PlayerStats.equipment[slot]
+			PlayerStats.equipment[slot] = item.id
+			PlayerStats.inventory[i] = old
 		refresh()
 
 func over_skill_icon(i):
