@@ -6,7 +6,7 @@
 [ext_resource path="res://Sprites/UI/PlayerHPTop.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/PlayerMPMiddle.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/UI/PlayerMPTop.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/Player/Front/Body.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/UI/Player.png" type="Texture" id=7]
 [ext_resource path="res://Resources/FancyFont.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Sprites/Items/0.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/UI/Money.png" type="Texture" id=10]
@@ -15,7 +15,7 @@
 [ext_resource path="res://Sprites/UI/Choice.png" type="Texture" id=13]
 [ext_resource path="res://Sprites/Items/2.png" type="Texture" id=14]
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=1]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
@@ -44,7 +44,7 @@ anti_aliasing = true
 anti_aliasing_size = 1
 _sections_unfolded = [ "Border Width" ]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=2]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
@@ -72,7 +72,7 @@ shadow_size = 0
 anti_aliasing = true
 anti_aliasing_size = 1
 
-[node name="UI" type="CanvasLayer" index="0"]
+[node name="UI" type="CanvasLayer"]
 
 pause_mode = 2
 layer = 1
@@ -260,6 +260,7 @@ tabs_visible = true
 
 [node name="Inventory" type="Panel" parent="Tabs" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -1437,7 +1438,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 1 )
 _sections_unfolded = [ "custom_styles" ]
 
 [node name="Label" type="Label" parent="DialogueBox/Name" index="0"]
@@ -1511,6 +1512,7 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="Shop" type="Panel" parent="." index="6"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1601,6 +1603,7 @@ margin_right = 123.0
 margin_bottom = 238.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_mode = 2
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -1893,7 +1896,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 2 )
 _sections_unfolded = [ "custom_styles" ]
 
 [node name="Icon" type="TextureRect" parent="Shop/PriceTag" index="0"]

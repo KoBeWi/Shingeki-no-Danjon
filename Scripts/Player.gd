@@ -11,12 +11,6 @@ var static_time = 0
 
 var attacking = false
 
-func _ready():
-	for anim in ["Body", "SwordAttack", "ShieldOn", "ShieldOff"]:
-		for dir in ["Back", "Right", "Front", "Left"]:
-			var texname = "res://Sprites/Player/" + dir + "/" + anim + ".png"
-			texture_cache[texname] = load(texname)
-
 func _physics_process(delta):
 	var move = Vector2()
 	
@@ -40,7 +34,7 @@ func _physics_process(delta):
 	
 	if !attacking and Input.is_action_just_pressed("Attack"):
 		Res.play_sample(self, "Sword")
-		$Animation.play("SwordAttackRight")
+		$ArmAnimator.play("SwordAttackRight")
 		attacking = true
 	
 	if Input.is_action_just_pressed("Spell1") and PlayerStats.get_skill(0) and PlayerStats.mana > PlayerStats.get_skill(0).cost:
@@ -52,7 +46,17 @@ func _physics_process(delta):
 	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
 	SkillBase.inc_stat("PixelsTravelled", int(move.length())) ##działa też na ścianach :/
 	
-	if move != Vector2(): static_time = 0
+	if move != Vector2():
+		static_time = 0
+		if $BodyAnimator.assigned_animation != "WalkRight":
+			change_texture($Body, ["Back", "Right", "Front", "Left"][direction], "BodyWalk")
+			$Body.hframes = 9
+			$BodyAnimator.play("WalkRight")
+	else:
+		change_texture($Body, ["Back", "Right", "Front", "Left"][direction], "Body")
+		$Body.hframes = 1
+		$BodyAnimator.play("Idle")
+	
 	move_and_slide(move)
 
 func damage(attacker, amount, knockback):
@@ -75,12 +79,12 @@ func _on_attack_hit(collider):
 func change_dir(dir):
 	direction = dir
 	var d = ["Back", "Right", "Front", "Left"][dir]
-	change_texture($Body, d, "Body")
+#	change_texture($Body, d, "Body")
 	change_texture($Body/RightArm, d, "SwordAttack", ["Left", "Back"])
 	change_texture($Body/LeftArm, d, "ShieldOn", ["Right", "Back"])
 
 func change_texture(sprite, direction, texture, on_back = []):
-	sprite.texture = texture_cache["res://Sprites/Player/" + direction + "/" + texture + ".png"]
+	sprite.texture = Res.get_resource("res://Sprites/Player/" + direction + "/" + texture + ".png")
 	sprite.show_behind_parent = on_back.has(direction)
 
 func cast_spell(slot):
