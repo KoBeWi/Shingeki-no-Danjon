@@ -1,10 +1,12 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Player/Right/BodyIdle.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=3]
-[ext_resource path="res://Nodes/UI.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Sprites/UI/Interact.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Player/Back/BodyIdle.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Player/Back/SwordAttack.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Player/Back/ShieldOn.png" type="Texture" id=4]
+[ext_resource path="res://Nodes/UI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/Interact.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -36,7 +38,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Body/LeftArm:hframes")
@@ -103,6 +105,171 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=13]
+
+resource_name = "SwordAttackBack"
+length = 10.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/RightArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 4, 5, 6, 7, 8, 9 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackCollider/Shape:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3, 4, 5, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 31.1033, -46.201 ), Vector2( 59.4754, -30.493 ), Vector2( -69.9316, 17.0928 ), Vector2( 71.7757, 37.7476 ), Vector2( 52.6197, 64.2289 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackCollider/Shape:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 3, 4, 5, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 83.2657, 114.444, 198.61, 185.094, 37.76 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackCollider/Shape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 3, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=12]
+
+resource_name = "SwordAttackFront"
+length = 10.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/RightArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 4, 5, 6, 7, 8, 9 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackCollider/Shape:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3, 4, 5, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -49.4859, -31.8935 ), Vector2( -64.6203, -13.5576 ), Vector2( -69.9316, 17.0928 ), Vector2( -46.1882, 64.3187 ), Vector2( 22.8367, 58.3891 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackCollider/Shape:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 3, 4, 5, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 77.6293, 52.4914, 198.61, 126.351, 28.8969 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackCollider/Shape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 3, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=11]
+
+resource_name = "SwordAttackLeft"
+length = 10.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/RightArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 4, 5, 6, 7, 8, 9 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackCollider/Shape:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3, 4, 5, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 23.2196, -19.3379 ), Vector2( -33.0854, -40.7127 ), Vector2( -69.6396, -9.47833 ), Vector2( -66.0436, 24.0241 ), Vector2( -45.4889, 65.3969 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackCollider/Shape:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 3, 4, 5, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 162.234, 87.4609, 210.308, 196.932, 135.911 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackCollider/Shape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 3, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -276,7 +443,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=10]
 
-resource_name = "WalkRight"
+resource_name = "Walk"
 length = 9.0
 loop = true
 step = 1.0
@@ -307,7 +474,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Body" type="Sprite" parent="." index="0"]
 
-editor/display_folded = true
 texture = ExtResource( 2 )
 hframes = 2
 _sections_unfolded = [ "Animation", "Z Index" ]
@@ -317,16 +483,18 @@ __meta__ = {
 
 [node name="RightArm" type="Sprite" parent="Body" index="0"]
 
+show_behind_parent = true
 texture = ExtResource( 3 )
 vframes = 2
 hframes = 5
-_sections_unfolded = [ "Animation", "Region", "Z Index" ]
+frame = 8
+_sections_unfolded = [ "Animation", "Region", "Visibility", "Z Index" ]
 
 [node name="LeftArm" type="Sprite" parent="Body" index="1"]
 
 show_behind_parent = true
 position = Vector2( 0, 1 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 hframes = 4
 _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
@@ -360,7 +528,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="UI" parent="Camera" index="0" instance=ExtResource( 4 )]
+[node name="UI" parent="Camera" index="0" instance=ExtResource( 5 )]
 
 [node name="Collider" type="CollisionShape2D" parent="." index="2"]
 
@@ -373,8 +541,6 @@ __meta__ = {
 
 [node name="AttackCollider" type="Area2D" parent="." index="3"]
 
-editor/display_folded = true
-visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -387,11 +553,10 @@ audio_bus_name = "Master"
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
-position = Vector2( 45.7825, -12.9041 )
-rotation = 2.62077
+position = Vector2( 52.6197, 64.2289 )
+rotation = 0.659037
 scale = Vector2( 0.922973, 0.136567 )
 shape = SubResource( 2 )
-disabled = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="DamageCollider" type="Area2D" parent="." index="4"]
@@ -420,6 +585,9 @@ playback_default_blend_time = 0.0
 playback_speed = 16.0
 anims/IdleRight = SubResource( 4 )
 anims/ShieldBlockRight = SubResource( 5 )
+anims/SwordAttackBack = SubResource( 13 )
+anims/SwordAttackFront = SubResource( 12 )
+anims/SwordAttackLeft = SubResource( 11 )
 anims/SwordAttackRight = SubResource( 6 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
@@ -434,7 +602,7 @@ playback_speed = 16.0
 anims/Idle = SubResource( 7 )
 anims/ShieldBlockRight = SubResource( 8 )
 anims/SwordAttackRight = SubResource( 9 )
-anims/WalkRight = SubResource( 10 )
+anims/Walk = SubResource( 10 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -442,7 +610,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 visible = false
 position = Vector2( 0, -100 )
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 

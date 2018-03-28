@@ -6,10 +6,17 @@ const MEDITATION_TIME = 3
 onready var UI = $Camera/UI
 var texture_cache = {}
 
-var direction = 1
+var direction = 2
 var static_time = 0
+var body_animation
+var sprite_direction = "Front"
 
 var attacking = false
+
+func _ready():
+	change_body_animation("Idle")
+	change_dir(2)
+	reset_arms()
 
 func _physics_process(delta):
 	var move = Vector2()
@@ -34,7 +41,7 @@ func _physics_process(delta):
 	
 	if !attacking and Input.is_action_just_pressed("Attack"):
 		Res.play_sample(self, "Sword")
-		$ArmAnimator.play("SwordAttackRight")
+		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
 	
 	if Input.is_action_just_pressed("Spell1") and PlayerStats.get_skill(0) and PlayerStats.mana > PlayerStats.get_skill(0).cost:
@@ -48,14 +55,9 @@ func _physics_process(delta):
 	
 	if move != Vector2():
 		static_time = 0
-		if $BodyAnimator.assigned_animation != "WalkRight":
-			change_texture($Body, ["Back", "Right", "Front", "Left"][direction], "BodyWalk")
-			$Body.hframes = 9
-			$BodyAnimator.play("WalkRight")
+		change_body_animation("Walk")
 	else:
-		change_texture($Body, ["Back", "Right", "Front", "Left"][direction], "Body")
-		$Body.hframes = 1
-		$BodyAnimator.play("Idle")
+		change_body_animation("Idle")
 	
 	move_and_slide(move)
 
@@ -67,8 +69,7 @@ func damage(attacker, amount, knockback):
 	move_and_slide((position - attacker.position).normalized() * 1000 * knockback)
 
 func _on_animation_finished(anim_name):
-	if anim_name == "SwordAttackRight":
-		attacking = false
+	if anim_name.find("SwordAttack") > -1: attacking = false
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group("enemies"):
@@ -78,14 +79,35 @@ func _on_attack_hit(collider):
 
 func change_dir(dir):
 	direction = dir
-	var d = ["Back", "Right", "Front", "Left"][dir]
-#	change_texture($Body, d, "Body")
-	change_texture($Body/RightArm, d, "SwordAttack", ["Left", "Back"])
-	change_texture($Body/LeftArm, d, "ShieldOn", ["Right", "Back"])
+	sprite_direction = ["Back", "Right", "Front", "Left"][dir]
+	change_texture($Body, "Body" + body_animation)
+	change_texture($Body/RightArm, "SwordAttack", ["Left", "Back"])
+	change_texture($Body/LeftArm, "ShieldOn", ["Right", "Back"])
 
-func change_texture(sprite, direction, texture, on_back = []):
-	sprite.texture = Res.get_resource("res://Sprites/Player/" + direction + "/" + texture + ".png")
-	sprite.show_behind_parent = on_back.has(direction)
+func change_texture(sprite, texture, on_back = []):
+	sprite.texture = Res.get_resource("res://Sprites/Player/" + sprite_direction + "/" + texture + ".png")
+	sprite.show_behind_parent = on_back.has(sprite_direction)
+
+func change_body_animation(animation):
+	if body_animation == animation: return
+	
+	match animation:
+		"Idle":
+			change_texture($Body, "BodyIdle")
+			$Body.hframes = 2
+			$BodyAnimator.playback_speed = 4
+		"Walk":
+			change_texture($Body, "BodyWalk")
+			$Body.hframes = 9
+			$BodyAnimator.playback_speed = 16
+	
+	$BodyAnimator.play(animation)
+	body_animation = animation
+
+func reset_arms():
+	$Body/LeftArm.frame = 0
+	$Body/RightArm.frame = 0
+	$AttackCollider/Shape.disabled = false
 
 func cast_spell(slot):
 	var spell = PlayerStats.get_skill(slot)

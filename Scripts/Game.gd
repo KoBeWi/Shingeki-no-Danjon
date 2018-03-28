@@ -3,6 +3,7 @@ extends YSort
 var leave_menu = false
 
 func _ready():
+	print("Generatung")
 	VisualServer.set_default_clear_color(Color(0.05, 0.05, 0.07))
 	randomize()
 	var siid = randi()

@@ -9,7 +9,7 @@ const OPPOSITE = [2, 3, 0, 1]
 
 const ENABLE_UGANDA = true
 const ENABLE_GRIDER = false
-const ENABLE_PUSHER = true
+const ENABLE_PUSHER = false
 
 var width = 100
 var height = 100
