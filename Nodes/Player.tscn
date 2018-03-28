@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Player/Right/BodyWalk.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Player/Right/BodyIdle.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=3]
 [ext_resource path="res://Nodes/UI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sprites/UI/Interact.png" type="Texture" id=5]
@@ -69,7 +69,7 @@ length = 1.0
 loop = false
 step = 1.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/RightArm:frame")
+tracks/0/path = NodePath("Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -81,12 +81,24 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/LeftArm:frame")
+tracks/1/path = NodePath("Body/RightArm:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/LeftArm:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -147,11 +159,11 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 
 resource_name = "Idle"
-length = 4.0
-loop = false
+length = 2.0
+loop = true
 step = 1.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:frame")
@@ -160,13 +172,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=8]
 
 length = 1.0
 loop = false
@@ -208,7 +220,7 @@ tracks/2/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=9]
 
 length = 10.0
 loop = false
@@ -262,7 +274,7 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=10]
 
 resource_name = "WalkRight"
 length = 9.0
@@ -297,7 +309,7 @@ _sections_unfolded = [ "Transform" ]
 
 editor/display_folded = true
 texture = ExtResource( 2 )
-hframes = 9
+hframes = 2
 _sections_unfolded = [ "Animation", "Z Index" ]
 __meta__ = {
 "_edit_lock_": true
@@ -419,10 +431,10 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/Idle = SubResource( 8 )
-anims/ShieldBlockRight = SubResource( 9 )
-anims/SwordAttackRight = SubResource( 10 )
-anims/WalkRight = SubResource( 11 )
+anims/Idle = SubResource( 7 )
+anims/ShieldBlockRight = SubResource( 8 )
+anims/SwordAttackRight = SubResource( 9 )
+anims/WalkRight = SubResource( 10 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
