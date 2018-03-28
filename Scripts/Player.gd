@@ -4,13 +4,14 @@ const SPEED = 320
 const MEDITATION_TIME = 3
 
 onready var UI = $Camera/UI
-var texture_cache = {}
 
 var direction = 2
 var static_time = 0
+var motion_time = 0
 var body_animation
 var sprite_direction = "Front"
 
+var prev_move = Vector2()
 var attacking = false
 
 func _ready():
@@ -22,20 +23,21 @@ func _physics_process(delta):
 	var move = Vector2()
 	
 	static_time += delta
+	motion_time += delta
 	if static_time >= MEDITATION_TIME: SkillBase.inc_stat("Meditation")
 	
 	if Input.is_key_pressed(KEY_UP):
 		move.y = -1
-		change_dir(0)
+		if prev_move.x == 0 or (direction == 0 and prev_move.y > 0): change_dir(0)
 	if Input.is_key_pressed(KEY_DOWN):
 		move.y = 1
-		change_dir(2)
+		if prev_move.x == 0 or (direction == 2 and prev_move.y < 0): change_dir(2)
 	if Input.is_key_pressed(KEY_LEFT):
 		move.x = -1
-		change_dir(3)
+		if prev_move.y == 0 or (direction == 1 and prev_move.x > 0): change_dir(3)
 	if Input.is_key_pressed(KEY_RIGHT):
 		move.x = 1
-		change_dir(1)
+		if prev_move.y == 0 or (direction == 3 and prev_move.x < 0): change_dir(1)
 	
 	move = move.normalized() * SPEED
 	
@@ -51,15 +53,19 @@ func _physics_process(delta):
 	UI.soft_refresh()
 	
 	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
-	SkillBase.inc_stat("PixelsTravelled", int(move.length())) ##działa też na ścianach :/
 	
-	if move != Vector2():
+	if move.length() > 0:
 		static_time = 0
 		change_body_animation("Walk")
 	else:
+		motion_time = 0
 		change_body_animation("Idle")
 	
-	move_and_slide(move)
+	if motion_time > 1: SkillBase.inc_stat("PixelsTravelled", int(move.length()))
+	
+	var rem = move_and_slide(move)
+	if rem.length() > 0: motion_time = 0
+	prev_move = move
 
 func damage(attacker, amount, knockback):
 	Res.create_instance("DamageNumber").damage(self, amount)
@@ -107,7 +113,7 @@ func change_body_animation(animation):
 func reset_arms():
 	$Body/LeftArm.frame = 0
 	$Body/RightArm.frame = 0
-	$AttackCollider/Shape.disabled = false
+	$AttackCollider/Shape.disabled = true
 
 func cast_spell(slot):
 	var spell = PlayerStats.get_skill(slot)

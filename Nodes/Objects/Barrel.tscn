@@ -15,7 +15,7 @@ func _on_hit(body):
 		$Animation.play(\"Destroyed\")
 		$DamageCollider.queue_free()
 		$Shape.disabled = true
-		z_index = 0
+		z_index = -1
 		
 		if item != null:
 			var it = Res.create_instance(\"Item\")
@@ -52,7 +52,7 @@ extents = Vector2( 24.9147, 34.5188 )
 custom_solver_bias = 0.0
 extents = Vector2( 24.9147, 31.3505 )
 
-[node name="Barrel" type="StaticBody2D"]
+[node name="Barrel" type="StaticBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
