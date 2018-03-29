@@ -5,7 +5,7 @@ const MEDITATION_TIME = 3
 
 onready var UI = $Camera/UI
 
-var direction = 2
+var direction = -1
 var static_time = 0
 var motion_time = 0
 var body_animation
