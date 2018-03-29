@@ -140,6 +140,7 @@ func _on_dead():
 	$"AnimationPlayer".play("Dead")
 	$"Shape".disabled = true
 	$"DamageCollider/Shape".disabled = true
+	$"AttackCollider/Shape".disabled = true
 
 func _on_damage():
 	print("oof")

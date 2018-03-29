@@ -116,6 +116,7 @@ func change_body_animation(animation):
 func reset_arms():
 	$Body/LeftArm.frame = 0
 	$Body/RightArm.frame = 0
+	$Body/RightArm/Weapon.frame = 0
 	$AttackCollider/Shape.disabled = true
 
 func weapon_sprite():
