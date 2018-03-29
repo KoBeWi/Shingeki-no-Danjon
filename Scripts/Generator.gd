@@ -30,7 +30,6 @@ func generate(w, h):
 	var empty_spots = [{"pos": start}]
 	
 	while !empty_spots.empty():
-#		print("x")
 		var spot = empty_spots[randi() % empty_spots.size()]
 		empty_spots.erase(spot)
 		
@@ -106,7 +105,6 @@ func generate(w, h):
 						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
 
 	##ten fragment jest do zmiany
-	#oczywiscie ze jest do zmiany, ale poki co nie mamy dopasowanych mobkow zeby robic zmiane
 	if ENABLE_GRIDER: place_enemy_into_maze(Res.get_node("Enemies/Grinder"), 50 )
 	if ENABLE_UGANDA: place_enemy_into_maze(Res.get_node("Uganda"),3)
 	if ENABLE_PUSHER: place_enemy_into_maze(Res.get_node("Enemies/Puncher"),40)
@@ -118,11 +116,12 @@ func generate(w, h):
 	
 func place_treasure_into_maze(what, how_many):
 	for nmb in range(how_many):
+		if map_Uganda.empty(): break
+		
 		var ug_inst = what.instance()
-		var temp = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
-	
-		while temp in mapTresures:
-			temp = map_Uganda[randi()%map_Uganda.size()]+ Vector2(40,40)
+		var i = randi()%map_Uganda.size()
+		var temp = map_Uganda[i]+ Vector2(40,40)
+		map_Uganda.remove(i)
 			
 		mapTresures.append(temp) 
 		ug_inst.position = temp
@@ -135,6 +134,8 @@ func place_treasure_into_maze(what, how_many):
 
 func place_enemy_into_maze(what, how_many):
 	for nmb in range(how_many):
+		if map_Uganda.empty(): break
+		
 		var ug_inst = what.instance()
 		var i = randi()%map_Uganda.size()
 		ug_inst.position = map_Uganda[i]+ Vector2(40,40)
