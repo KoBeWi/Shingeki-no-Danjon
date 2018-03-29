@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ShieldOn.png-bf202c3a578383d71d4e0c71b09a66fc.stex"
+path="res://.import/Sword2.png-c342e3d8a38db099e6e9ab7f84a4348f.stex"
 
 [deps]
 
-source_file="res://Sprites/Player/Right/ShieldOn.png"
-source_md5="873873707c74d3c57506480ae91a7214"
+source_file="res://Sprites/Player/Front/Weapons/Sword2.png"
+source_md5="5a8d674924a9d0952e35ac4d7a131406"
 
-dest_files=[ "res://.import/ShieldOn.png-bf202c3a578383d71d4e0c71b09a66fc.stex" ]
-dest_md5="522f7017bc89ff4fce485a3f182d829b"
+dest_files=[ "res://.import/Sword2.png-c342e3d8a38db099e6e9ab7f84a4348f.stex" ]
+dest_md5="b2b2b58ff4c64c309c63226ad413fb23"
 
 [params]
 

@@ -1,6 +1,7 @@
 {
 	"type": "weapon",
 	"weapon": "one-handed",
+	"sprite": "Sword1",
 	"name": "Iron Sword",
 	"description": "One-handed sword made of iron.",
 	"price": 10,

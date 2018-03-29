@@ -7,10 +7,10 @@ path="res://.import/ShieldOff.png-cfee994a90de0ab217a3a5c9b1e59391.stex"
 [deps]
 
 source_file="res://Sprites/Player/Right/ShieldOff.png"
-source_md5="91ada9e9c0460e91c7f17e8a9bc15644"
+source_md5="8d565e805c8a0e1262b6a64a861f513b"
 
 dest_files=[ "res://.import/ShieldOff.png-cfee994a90de0ab217a3a5c9b1e59391.stex" ]
-dest_md5="f0cdb2b487b7caad37e464965ee1b7a8"
+dest_md5="52d8985ad64c371dbc65010ee66625ab"
 
 [params]
 

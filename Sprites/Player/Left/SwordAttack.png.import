@@ -7,10 +7,10 @@ path="res://.import/SwordAttack.png-b373489d03ef75a408e224f634016cc5.stex"
 [deps]
 
 source_file="res://Sprites/Player/Left/SwordAttack.png"
-source_md5="09d7a7556fb4dac8ae06e1f712996d73"
+source_md5="e2605853759b238971528fdd1566c233"
 
 dest_files=[ "res://.import/SwordAttack.png-b373489d03ef75a408e224f634016cc5.stex" ]
-dest_md5="5102f69d53f3d9d6b5b62d4acfa73d83"
+dest_md5="861276cfba79efff41b8de167b5bf024"
 
 [params]
 

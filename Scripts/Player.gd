@@ -83,15 +83,19 @@ func _on_attack_hit(collider):
 		collider.get_parent().damage(PlayerStats.get_damage())
 
 func change_dir(dir):
+	if direction == dir: return
 	direction = dir
 	sprite_direction = ["Back", "Right", "Front", "Left"][dir]
 	change_texture($Body, "Body" + body_animation)
 	change_texture($Body/RightArm, "SwordAttack", ["Left", "Back"])
-	change_texture($Body/LeftArm, "ShieldOn", ["Right", "Back"])
+	change_texture($Body/RightArm/Weapon, "Weapons/Sword1", ["Front", "Right", "Left", "Back"])
+	change_texture($Body/LeftArm, "ShieldOn", ["Right", "Back"], {"Back": 1, "Front": 0})
 
-func change_texture(sprite, texture, on_back = []):
+func change_texture(sprite, texture, on_back = [], move_child = {}):
 	sprite.texture = Res.get_resource("res://Sprites/Player/" + sprite_direction + "/" + texture + ".png")
 	sprite.show_behind_parent = on_back.has(sprite_direction)
+	if move_child.has(sprite_direction):
+		$Body.move_child(sprite, move_child[sprite_direction])
 
 func change_body_animation(animation):
 	if body_animation == animation: return
