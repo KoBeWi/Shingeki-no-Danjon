@@ -88,7 +88,7 @@ func change_dir(dir):
 	sprite_direction = ["Back", "Right", "Front", "Left"][dir]
 	change_texture($Body, "Body" + body_animation)
 	change_texture($Body/RightArm, "SwordAttack", ["Left", "Back"])
-	change_texture($Body/RightArm/Weapon, "Weapons/Sword1", ["Front", "Right", "Left", "Back"])
+	update_weapon()
 	change_texture($Body/LeftArm, "ShieldOn", ["Right", "Back"], {"Back": 1, "Front": 0})
 
 func change_texture(sprite, texture, on_back = [], move_child = {}):
@@ -117,6 +117,16 @@ func reset_arms():
 	$Body/LeftArm.frame = 0
 	$Body/RightArm.frame = 0
 	$AttackCollider/Shape.disabled = true
+
+func weapon_sprite():
+	var weapon
+	if PlayerStats.equipment[3] > -1:
+		return Res.items[PlayerStats.equipment[3]].sprite
+	else:
+		return "Sword1"
+
+func update_weapon():
+	change_texture($Body/RightArm/Weapon, "Weapons/" + weapon_sprite(), ["Front", "Right", "Left", "Back"])
 
 func cast_spell(slot):
 	var spell = PlayerStats.get_skill(slot)

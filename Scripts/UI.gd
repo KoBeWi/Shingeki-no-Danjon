@@ -141,6 +141,9 @@ func on_inventory_click(i):
 			if PlayerStats.equipment[slot] > -1: old = PlayerStats.equipment[slot]
 			PlayerStats.equipment[slot] = item.id
 			PlayerStats.inventory[i] = old
+			
+			if slot == 3:
+				player.update_weapon()
 		refresh()
 
 func over_skill_icon(i):

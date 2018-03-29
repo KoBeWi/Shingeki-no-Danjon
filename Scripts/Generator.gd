@@ -9,7 +9,7 @@ const OPPOSITE = [2, 3, 0, 1]
 
 const ENABLE_UGANDA = true
 const ENABLE_GRIDER = false
-const ENABLE_PUSHER = false
+const ENABLE_PUSHER = true
 
 var width = 100
 var height = 100
@@ -30,6 +30,7 @@ func generate(w, h):
 	var empty_spots = [{"pos": start}]
 	
 	while !empty_spots.empty():
+#		print("x")
 		var spot = empty_spots[randi() % empty_spots.size()]
 		empty_spots.erase(spot)
 		
