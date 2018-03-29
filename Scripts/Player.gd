@@ -61,10 +61,9 @@ func _physics_process(delta):
 		motion_time = 0
 		change_body_animation("Idle")
 	
-	if motion_time > 1: SkillBase.inc_stat("PixelsTravelled", int(move.length()))
-	
 	var rem = move_and_slide(move)
-	if rem.length() > 0: motion_time = 0
+	if rem.length() == 0: motion_time = 0
+	elif motion_time > 1: SkillBase.inc_stat("PixelsTravelled", int(rem.length()))
 	prev_move = move
 
 func damage(attacker, amount, knockback):
