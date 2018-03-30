@@ -208,7 +208,9 @@ extents = Vector2( 12.2459, 10 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0"]
+[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
+"enemies",
+]]
 
 input_pickable = false
 collision_layer = 1
@@ -236,7 +238,7 @@ anims/Up = SubResource( 9 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+[node name="Shape" type="CollisionShape2D" parent="." index="1"]
 
 position = Vector2( 2.70749, 68.8615 )
 scale = Vector2( 1, 1.83971 )
@@ -244,6 +246,7 @@ shape = SubResource( 10 )
 
 [node name="Sprites" type="Node2D" parent="." index="2"]
 
+editor/display_folded = true
 z_index = 1
 _sections_unfolded = [ "Z Index" ]
 
@@ -307,7 +310,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 _sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pickable", "Transform", "Visibility", "Z Index" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageCollider" index="0"]
+[node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
 position = Vector2( 2.21718, 3.08687 )
 scale = Vector2( 4.10386, 8.58365 )
@@ -328,7 +331,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 _sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pause", "Pickable", "Transform", "Visibility", "Z Index" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollider" index="0"]
+[node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
 position = Vector2( 0.496182, -0.474453 )
 scale = Vector2( 2.9313, 1.39416 )
