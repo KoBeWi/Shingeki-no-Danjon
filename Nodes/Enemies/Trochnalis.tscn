@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://Nodes/Enemies/Trochnalis.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Trochnalis.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/Trochnalis/Trochnalis_basics.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Enemies/Trochnalis/Specials_Trochnalis.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=4]
@@ -37,7 +37,7 @@ tracks/1/keys = {
 "values": [ 16, 17, 18, 19 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 
 resource_name = "Down"
 length = 4.0
@@ -75,7 +75,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 
 resource_name = "PunchDown"
 length = 6.0
@@ -94,7 +94,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 2, 1 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 
 resource_name = "PunchLeft"
 length = 6.0
@@ -113,7 +113,7 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11, 10, 9 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=6]
 
 resource_name = "PunchRight"
 length = 6.0
@@ -132,7 +132,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15, 14, 13 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 
 resource_name = "PunchUp"
 length = 6.0
@@ -151,7 +151,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7, 6, 5 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=8]
 
 resource_name = "Special"
 length = 4.0
@@ -170,9 +170,8 @@ tracks/0/keys = {
 "values": [ 16, 17, 18, 19 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=9]
 
-resource_name = "Up"
 length = 4.0
 loop = false
 step = 1.0
@@ -189,7 +188,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=10]
 
 custom_solver_bias = 0.0
 extents = Vector2( 41.2003, 13.9811 )
@@ -226,14 +225,14 @@ playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
 anims/Dead = SubResource( 1 )
-anims/Down = SubResource( 4 )
+anims/Down = SubResource( 2 )
 anims/Left = SubResource( 3 )
-anims/PunchDown = SubResource( 6 )
-anims/PunchLeft = SubResource( 7 )
-anims/PunchRight = SubResource( 8 )
-anims/PunchUp = SubResource( 9 )
-anims/Special = SubResource( 10 )
-anims/Up = SubResource( 2 )
+anims/PunchDown = SubResource( 4 )
+anims/PunchLeft = SubResource( 5 )
+anims/PunchRight = SubResource( 6 )
+anims/PunchUp = SubResource( 7 )
+anims/Special = SubResource( 8 )
+anims/Up = SubResource( 9 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -241,7 +240,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 position = Vector2( 2.70749, 68.8615 )
 scale = Vector2( 1, 1.83971 )
-shape = SubResource( 5 )
+shape = SubResource( 10 )
 
 [node name="Sprites" type="Node2D" parent="." index="2"]
 
@@ -276,6 +275,7 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="Radar" type="Area2D" parent="." index="3"]
 
+editor/display_folded = true
 visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -291,8 +291,11 @@ position = Vector2( 19.4395, -10.6553 )
 scale = Vector2( 28.1086, 18.9252 )
 shape = SubResource( 11 )
 
-[node name="DamageCollider" type="Area2D" parent="." index="4"]
+[node name="DamageCollider" type="Area2D" parent="." index="4" groups=[
+"enemies",
+]]
 
+editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -312,6 +315,7 @@ shape = SubResource( 12 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
+editor/display_folded = true
 visible = false
 position = Vector2( 2.21718, 3.08687 )
 scale = Vector2( 4.10386, 8.58365 )
