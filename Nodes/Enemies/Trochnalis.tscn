@@ -274,7 +274,6 @@ shape = SubResource( 10 )
 
 [node name="Sprites" type="Node2D" parent="." index="2"]
 
-editor/display_folded = true
 z_index = 1
 _sections_unfolded = [ "Z Index" ]
 
