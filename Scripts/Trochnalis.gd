@@ -1,16 +1,16 @@
 extends "res://Scripts/BaseEnemy.gd"
 
-const BASIC_DAMAGE         = 10
-const SPECIAL_DAMAGE       = 20
+const BASIC_DAMAGE         = 12
+const SPECIAL_DAMAGE       = 50
 
 const SPECIAL_PROBABILITY  = 200
 const ATACK_SPEED          = 125
 
-const SPEED                = 100
+const SPEED                = 120
 
 const KNOCKBACK_ATACK      = 3 
 
-const FOLLOW_RANGE         = 400
+const FOLLOW_RANGE         = 20
 const PERSONAL_SPACE       = 10
 const TIME_OF_LIYUGN_CORPS = 3
 
@@ -25,6 +25,7 @@ var follow_player   = false
 var in_action       = false
 var special_ready   = false
 var atack_ready     = true
+var suesided        = false
 
 onready var sprites = $Sprites.get_children()
 
@@ -39,6 +40,11 @@ func _physics_process(delta):
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
 		return
 	#follow_player  = false
+	
+	if suesided:
+		health = 0
+		_on_dead()
+		return
 	
 	if follow_player and !in_action :
 		if( !special_ready ) : special_ready = (randi()%SPECIAL_PROBABILITY == 0)
@@ -81,9 +87,10 @@ func _physics_process(delta):
 
 		if player_monster_distance_x > FOLLOW_RANGE and player_monster_distance_y > FOLLOW_RANGE:
 			follow_player = false
+			play_animation_if_not_playing("Idle")
 		
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
-			if special_ready and can_use_special:
+			if special_ready and can_use_special and health == 1:
 				in_action = true
 				play_animation_if_not_playing("Special")
 				damage = SPECIAL_DAMAGE
@@ -91,7 +98,6 @@ func _physics_process(delta):
 			elif atack_ready:
 				in_action = true
 				atack_ready = false
-				
 				punch_in_direction()
 				damage = BASIC_DAMAGE
 				knockback = 0
@@ -111,7 +117,6 @@ func _on_Area2D_body_entered(body):
 
 func _on_animation_started(anim_name):
 	var anim = $AnimationPlayer.get_animation(anim_name)
-	
 	if anim and sprites:
 		var main_sprite = int(anim.track_get_path(0).get_name(1))
 	
@@ -120,7 +125,8 @@ func _on_animation_started(anim_name):
 
 func _on_dead():
 	dead = true
-	$"AnimationPlayer".play("Dead")
+	$"AnimationPlayer".play("Dead2")
+	if suesided : $"AnimationPlayer".play("Dead")
 	$"Shape".disabled = true
 	$"DamageCollider/Shape".disabled = true
 	$"AttackCollider/Shape".disabled = true
@@ -132,9 +138,6 @@ func _on_animation_finished(anim_name):
 	if anim_name == "Special":
 		special_ready = false
 		in_action     = false
+		suesided = true
 	if "Punch" in anim_name:
 		in_action     = false
-
-
-func _on_attack_hit(area):
-	pass # replace with function body

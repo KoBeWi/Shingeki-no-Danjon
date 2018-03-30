@@ -9,7 +9,8 @@ const OPPOSITE = [2, 3, 0, 1]
 
 const ENABLE_UGANDA = true
 const ENABLE_GRIDER = false
-const ENABLE_PUSHER = false
+const ENABLE_PUSHER = true
+const ENABLE_TROCHNALIS = true
 
 var width = 100
 var height = 100
@@ -108,7 +109,7 @@ func generate(w, h):
 	if ENABLE_GRIDER: place_enemy_into_maze(Res.get_node("Enemies/Grinder"), 50 )
 	if ENABLE_UGANDA: place_enemy_into_maze(Res.get_node("Uganda"),3)
 	if ENABLE_PUSHER: place_enemy_into_maze(Res.get_node("Enemies/Puncher"),40)
-	if true: place_enemy_into_maze(Res.get_node("Enemies/Trochnalis"),5)
+	if ENABLE_TROCHNALIS: place_enemy_into_maze(Res.get_node("Enemies/Trochnalis"),40)
 	if true: place_enemy_into_maze(Res.get_node("NPC"),5)
 	
 	place_treasure_into_maze(Res.get_node("Objects/Barrel"), 20)
