@@ -134,7 +134,3 @@ func _on_animation_finished(anim_name):
 		in_action     = false
 	if "Punch" in anim_name:
 		in_action     = false
-
-
-func _on_attack_hit(area):
-	pass # replace with function body
