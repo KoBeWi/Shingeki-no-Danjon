@@ -101,7 +101,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=6]
 
 resource_name = "PunchRight"
 length = 4.0
@@ -120,9 +120,8 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
-resource_name = "PunchUp"
 length = 4.0
 loop = false
 step = 1.0
@@ -139,9 +138,8 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
-resource_name = "Special"
 length = 9.0
 loop = false
 step = 1.0
@@ -170,7 +168,7 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
 length = 4.0
 loop = true
@@ -188,27 +186,27 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=10]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=11]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10.6279, 10 )
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=12]
 
 custom_solver_bias = 0.0
 extents = Vector2( 39.8092, 47.0572 )
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=13]
 
 custom_solver_bias = 0.0
 extents = Vector2( 100.382, 85.7356 )
 
-[node name="Puncher" type="KinematicBody2D" index="0" groups=[
+[node name="Puncher" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -262,10 +260,10 @@ anims/Down = SubResource( 2 )
 anims/Left = SubResource( 3 )
 anims/PunchDown = SubResource( 4 )
 anims/PunchLeft = SubResource( 5 )
-anims/PunchRight = SubResource( 13 )
-anims/PunchUp = SubResource( 6 )
-anims/Special = SubResource( 7 )
-anims/Up = SubResource( 8 )
+anims/PunchRight = SubResource( 6 )
+anims/PunchUp = SubResource( 7 )
+anims/Special = SubResource( 8 )
+anims/Up = SubResource( 9 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -284,7 +282,7 @@ audio_bus_name = "Master"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
 
 scale = Vector2( 23.9231, 19.4231 )
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="3"]
@@ -292,7 +290,7 @@ _sections_unfolded = [ "Transform" ]
 visible = false
 position = Vector2( 0.290953, 47.2325 )
 scale = Vector2( 3.70602, 1 )
-shape = SubResource( 10 )
+shape = SubResource( 11 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="4"]
 
@@ -311,7 +309,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
 position = Vector2( 0.358475, -12.5471 )
-shape = SubResource( 11 )
+shape = SubResource( 12 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
@@ -327,7 +325,7 @@ audio_bus_name = "Master"
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
-shape = SubResource( 12 )
+shape = SubResource( 13 )
 disabled = true
 
 [node name="HealthBar" type="TextureProgress" parent="." index="6"]
