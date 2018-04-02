@@ -55,8 +55,7 @@ func _physics_process(delta):
 			if on_dialogue.has("choices"):
 				emit_signal("choice_selected", on_dialogue.choice)
 			else:
-				pass
-#				emit_signal("message_closed")
+				emit_signal("message_closed")
 		
 	elif Input.is_action_just_pressed("Menu") and !just_opened:
 		$"/root/Game".leave_menu = true
@@ -190,9 +189,11 @@ func initiate_dialogue(script):
 		$DialogueBox.visible = true
 		
 		$DialogueManager.dialogue(script)
-		
-		get_tree().paused = false
-		$DialogueBox.visible = false
+
+func dialogue_finished():
+	get_tree().paused = false
+	$DialogueBox.visible = false
+	on_dialogue = null
 
 func set_dialogue(dialogue):
 	on_dialogue = dialogue
