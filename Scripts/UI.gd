@@ -14,6 +14,9 @@ var dialogues = []
 var on_dialogue = false
 var shop = []
 
+signal message_closed
+signal choice_selected
+
 func _ready():
 	PlayerStats.connect("level_up", self, "level_up")
 	SkillBase.connect("new_skill", self, "new_skill")
@@ -49,7 +52,11 @@ func _physics_process(delta):
 			$DialogueBox/Chooser.rect_position.y = CHOOSER_BASE_Y + on_dialogue.choice * 48
 			
 		if Input.is_action_just_pressed("Interact") and !just_opened:
-			on_dialogue = load_next_dialogue()
+			if on_dialogue.has("choices"):
+				emit_signal("choice_selected", on_dialogue.choice)
+			else:
+				pass
+#				emit_signal("message_closed")
 		
 	elif Input.is_action_just_pressed("Menu") and !just_opened:
 		$"/root/Game".leave_menu = true
@@ -176,33 +183,31 @@ func add_dialogue(data):
 	dialogues.append(data)
 	init_dialogue()
 
-func init_dialogue():
+func initiate_dialogue(script):
 	if !on_dialogue:
 		get_tree().paused = true
 		player.get_node("Interact").visible = false
 		$DialogueBox.visible = true
-		on_dialogue = load_next_dialogue()
-
-func load_next_dialogue():
-	if dialogues.size() > 0:
-		var dialogue = dialogues.pop_front()
-		$DialogueBox/Name/Label.text = dialogue.name
-		$DialogueBox/Text.text = dialogue.text
 		
-		if dialogue.has("choices"):
-			$DialogueBox/Chooser.visible = true
-			$DialogueBox/Chooser.rect_position.y = CHOOSER_BASE_Y
-			dialogue.choice = 0
-			
-			for choice in dialogue.choices: $DialogueBox/Text.text = $DialogueBox/Text.text + "\n   " + choice
-		else:
-			$DialogueBox/Chooser.visible = false
+		$DialogueManager.dialogue(script)
 		
-		return dialogue
-	else:
 		get_tree().paused = false
 		$DialogueBox.visible = false
-		return false
+
+func set_dialogue(dialogue):
+	on_dialogue = dialogue
+	
+	$DialogueBox/Name/Label.text = dialogue.speaker
+	$DialogueBox/Text.text = dialogue.message
+	
+	if dialogue.has("choices"):
+		$DialogueBox/Chooser.visible = true
+		$DialogueBox/Chooser.rect_position.y = CHOOSER_BASE_Y
+		dialogue.choice = 0
+		
+		for choice in dialogue.choices: $DialogueBox/Text.text = $DialogueBox/Text.text + "\n   " + choice
+	else:
+		$DialogueBox/Chooser.visible = false
 
 func open_shop(name, items):
 	get_tree().paused = true
