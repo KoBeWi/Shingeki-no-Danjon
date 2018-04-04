@@ -38,7 +38,7 @@ editor/display_folded = true
 position = Vector2( 0, 80 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 0, 40, 80, 80 )
+region_rect = Rect2( 160, 80, 80, 80 )
 _sections_unfolded = [ "Region" ]
 
 [node name="Collider" type="StaticBody2D" parent="Roof4" index="0"]
