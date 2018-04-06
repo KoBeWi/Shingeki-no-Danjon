@@ -1,8 +1,11 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://Sprites/Enemies/FLA-G/FLA-G.png" type="Texture" id=1]
-[ext_resource path="res://Sprites/Enemies/FLA-G/FLA-G_NormalAtacks.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Enemies/FLA-G/FLAG-SPecials.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/FLA-G.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Enemies/FLA-G/FLA-G.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Enemies/FLA-G/FLA-G_NormalAtacks.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Enemies/FLA-G/FLAG-SPecials.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=2]
 
@@ -23,7 +26,7 @@ tracks/0/keys = {
 "values": [ 31, 32, 33, 34, 35, 35, 35 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=15]
 
 resource_name = "Down"
 length = 8.0
@@ -39,14 +42,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 2, 3, 4, 5, 6, 7, 8, 9 ]
+"values": [ 10, 11, 12, 13, 14, 15, 16, 17 ]
 }
 
 [sub_resource type="Animation" id=4]
 
 resource_name = "Idle"
 length = 2.0
-loop = false
+loop = true
 step = 1.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/1:frame")
@@ -251,7 +254,7 @@ tracks/0/keys = {
 "values": [ 24, 25, 26, 27, 28, 29, 28, 29, 30, 31, 25, 24 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=3]
 
 resource_name = "Up"
 length = 8.0
@@ -267,7 +270,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 10, 11, 12, 13, 14, 15, 16, 17 ]
+"values": [ 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -275,28 +278,51 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 75.7675, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0"]
+[sub_resource type="CircleShape2D" id=16]
 
+custom_solver_bias = 0.0
+radius = 10.0
+
+[sub_resource type="CapsuleShape2D" id=17]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
+
+[sub_resource type="RectangleShape2D" id=18]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
+"enemies",
+]]
+
+scale = Vector2( 0.75, 0.75 )
+z_index = 1
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
-visible = false
-texture = ExtResource( 1 )
+position = Vector2( 12, -5.33334 )
+texture = ExtResource( 2 )
 vframes = 6
 hframes = 6
+frame = 1
 _sections_unfolded = [ "Animation" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
 
 visible = false
-position = Vector2( 10.5514, 22.6102 )
-texture = ExtResource( 2 )
+position = Vector2( 13.2181, 22.6102 )
+texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
 frame = 5
@@ -304,8 +330,9 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
 
-position = Vector2( 13.5661, 16.5808 )
-texture = ExtResource( 3 )
+visible = false
+position = Vector2( 10.8994, 8.58076 )
+texture = ExtResource( 4 )
 vframes = 4
 hframes = 8
 frame = 17
@@ -319,7 +346,7 @@ playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
 anims/Dead = SubResource( 2 )
-anims/Down = SubResource( 3 )
+anims/Down = SubResource( 15 )
 anims/Idle = SubResource( 4 )
 anims/Left = SubResource( 5 )
 anims/PunchDown = SubResource( 6 )
@@ -331,14 +358,113 @@ anims/SpecialDown = SubResource( 11 )
 anims/SpecialLeft = SubResource( 12 )
 anims/SpecialRight = SubResource( 13 )
 anims/SpecialUp = SubResource( 14 )
-anims/Up = SubResource( 15 )
+anims/Up = SubResource( 3 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
-position = Vector2( 18.1537, 74.9075 )
-scale = Vector2( 0.712238, 1 )
+position = Vector2( 16.0352, 64.5375 )
+scale = Vector2( 0.712238, 2.89768 )
 shape = SubResource( 1 )
+
+[node name="Radar" type="Area2D" parent="." index="3"]
+
+visible = false
+position = Vector2( 24.0148, 21.9682 )
+scale = Vector2( 6.90081, 3.90967 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
+
+position = Vector2( -1.70736, 4.47633 )
+scale = Vector2( 5.55008, 8.41106 )
+shape = SubResource( 16 )
+
+[node name="DamageCollider" type="Area2D" parent="." index="4" groups=[
+"enemies",
+]]
+
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+collision_mask = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pickable", "Transform", "Visibility", "Z Index" ]
+
+[node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
+
+position = Vector2( 17.3951, -4.15159 )
+scale = Vector2( 5.62541, 3.95039 )
+shape = SubResource( 17 )
+
+[node name="AttackCollider" type="Area2D" parent="." index="5"]
+
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
+
+position = Vector2( 16.287, 11.9149 )
+scale = Vector2( 10.9099, 12.4015 )
+shape = SubResource( 18 )
+
+[node name="HealthBar" type="TextureProgress" parent="." index="6"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -56.0
+margin_top = -112.0
+margin_right = 80.0
+margin_bottom = -72.0
+rect_rotation = -1.04038
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+texture_under = ExtResource( 5 )
+texture_over = null
+texture_progress = ExtResource( 6 )
+radial_fill_degrees = 360.0
+radial_center_offset = Vector2( 0, 0 )
+nine_patch_stretch = false
+_sections_unfolded = [ "Radial Fill", "Textures", "Visibility" ]
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
+
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]
+
+[connection signal="body_entered" from="Radar" to="." method="_on_Area2D_body_entered"]
+
+[connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 
 
