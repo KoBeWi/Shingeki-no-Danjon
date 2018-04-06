@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Puncher.png-b99ff0a566c1f0ad5e88d4b1fbc9ed8a.stex"
+path="res://.import/FLAG-SPecials.png-b5260e180bc806166803b012f431691d.stex"
 
 [deps]
 
-source_file="res://Sprites/Enemies/Puncher/Puncher.png"
-source_md5="7669faf36bb5eea44f0679bb959fc714"
+source_file="res://Sprites/Enemies/FLA-G/FLAG-SPecials.png"
+source_md5="9b22da60347bccd60c014ee2ed6a2c2a"
 
-dest_files=[ "res://.import/Puncher.png-b99ff0a566c1f0ad5e88d4b1fbc9ed8a.stex" ]
-dest_md5="0047e5e7d3bd1156b77accaade734b6c"
+dest_files=[ "res://.import/FLAG-SPecials.png-b5260e180bc806166803b012f431691d.stex" ]
+dest_md5="853641b6d517967db58ad5ac96c1b0fb"
 
 [params]
 
