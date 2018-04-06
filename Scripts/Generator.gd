@@ -149,7 +149,7 @@ func place_enemy_into_maze(what, how_many):
 			ug_inst.item = randi()%2
 		elif what == Res.get_node("NPC") and randi()%3 == 0:
 			ug_inst.id = 1
-			ug_inst.get_node("Sprite").texture = load("res://Sprites/NPC/ShopGuy.png")
+			ug_inst.get_node("Sprite").texture = load("res://Sprites/NPC/Male1Basic.png")
 
 
 func get_possible_segments(spot):
