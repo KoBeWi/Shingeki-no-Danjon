@@ -227,7 +227,7 @@ extents = Vector2( 12.2459, 10 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -275,7 +275,7 @@ _sections_unfolded = [ "Z Index" ]
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 8
-frame = 3
+frame = 15
 _sections_unfolded = [ "Animation" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
@@ -299,7 +299,6 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="Radar" type="Area2D" parent="." index="3"]
 
-editor/display_folded = true
 visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -319,7 +318,6 @@ shape = SubResource( 13 )
 "enemies",
 ]]
 
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -339,7 +337,6 @@ shape = SubResource( 14 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
-editor/display_folded = true
 visible = false
 position = Vector2( 2.21718, 3.08687 )
 scale = Vector2( 4.10386, 8.58365 )
