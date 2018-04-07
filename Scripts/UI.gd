@@ -12,6 +12,7 @@ var skill_time = 0
 
 var dialogues = []
 var on_dialogue = false
+var dialogue_status
 var shop = []
 
 signal message_closed
@@ -52,10 +53,8 @@ func _physics_process(delta):
 			$DialogueBox/Chooser.rect_position.y = CHOOSER_BASE_Y + on_dialogue.choice * 48
 			
 		if Input.is_action_just_pressed("Interact") and !just_opened:
-			if on_dialogue.has("choices"):
-				emit_signal("choice_selected", on_dialogue.choice)
-			else:
-				emit_signal("message_closed")
+			if on_dialogue.has("choices"): dialogue_status.branch = dialogue_status.dialogue[dialogue_status.branch].branches[on_dialogue.choice]
+			next_message()
 		
 	elif Input.is_action_just_pressed("Menu") and !just_opened:
 		$"/root/Game".leave_menu = true
@@ -178,10 +177,6 @@ func got_item(id):
 	yield(get_tree().create_timer(1), "timeout")
 	$ItemGetPanel.visible = false
 
-func add_dialogue(data):
-	dialogues.append(data)
-	init_dialogue()
-
 func initiate_dialogue(script):
 	if !on_dialogue:
 		get_tree().paused = true
@@ -195,19 +190,30 @@ func dialogue_finished():
 	$DialogueBox.visible = false
 	on_dialogue = null
 
-func set_dialogue(dialogue):
+func start_dialogue(_dialogue):
+	dialogue_status = {branch = 0, message = 0, dialogue = _dialogue}
+	next_message()
+
+func next_message():
+	if dialogue_status.message >= dialogue_status.dialogue[dialogue_status.branch].messages.size():
+		dialogue_finished()
+		return
+	
+	var dialogue = dialogue_status.dialogue[dialogue_status.branch].messages[dialogue_status.message]
 	on_dialogue = dialogue
 	
 	$DialogueBox/Name/Label.text = dialogue.speaker
 	$DialogueBox/Text.text = dialogue.message
 	
 	if dialogue.has("choices"):
+		dialogue_status.message = 0
 		$DialogueBox/Chooser.visible = true
 		$DialogueBox/Chooser.rect_position.y = CHOOSER_BASE_Y
 		dialogue.choice = 0
 		
 		for choice in dialogue.choices: $DialogueBox/Text.text = $DialogueBox/Text.text + "\n   " + choice
 	else:
+		dialogue_status.message += 1
 		$DialogueBox/Chooser.visible = false
 
 func open_shop(name, items):

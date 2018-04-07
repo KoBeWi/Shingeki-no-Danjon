@@ -12,7 +12,7 @@ func _ready():
 #	seed(3136793389) #NEEDDEBUG
 #   seed(3037373601)
 #	seed(3179678355)
-#	seed(2212418176)
+	seed(1361251209)
 	$"Generator".generate(10, 10)
 
 func _process(delta):

@@ -2,31 +2,27 @@ extends Node
 
 onready var ui = get_parent()
 
-var dialogue
-var message_count = 0
-var choice = -1
+var dialogue = []
+var branch_stack = []
+var branch = 0
 
 func _ready():
 	get_parent().connect("choice_selected", self, "set_choice")
 
 func dialogue(script):
-	message_count = 0
-	dialogue = Node.new()
-	dialogue.name = "Line0"
-	dialogue.set_script(load("res://Resources/Dialogues/" + script + ".vs"))
-	add_child(dialogue)
+	dialogue = [{root = -1, messages = [], branches = []}]
+	branch_stack = []
+	branch = 0
 	
-	dialogue.main()
-	yield(dialogue, "end_dialogue")
+	var _dialogue = Node.new()
+	_dialogue.set_script(load("res://Resources/Dialogues/" + script + ".vs"))
+	add_child(_dialogue)
 	
-	dialogue.queue_free()
-	dialogue = null
-	get_parent().dialogue_finished()
+	_dialogue.queue_free()
+	get_parent().start_dialogue(dialogue)
 
 func show_message(_speaker, _message):
-	ui.set_dialogue({speaker = _speaker, message = _message})
-	yield(ui, "message_closed")
-	increment_message()
+	dialogue[branch].messages.append({speaker = _speaker, message = _message})
 
 func show_choice(_speaker, question, choice1, choice2, choice3):
 	var _choices = []
@@ -34,18 +30,17 @@ func show_choice(_speaker, question, choice1, choice2, choice3):
 	if choice2 != "Null": _choices.append(choice2)
 	if choice3 != "Null": _choices.append(choice3)
 #	if choice4 != "Null": _choices.append(choice4)
-	ui.set_dialogue({speaker = _speaker, message = question, choices = _choices})
 	
-	yield(ui, "choice_selected")
-	apply_choice()
+	for i in range(_choices.size()):
+		dialogue[branch].branches.append(dialogue.size())
+		dialogue.append({root = branch, messages = []})
+	
+	branch_stack.append(branch)
+	dialogue[branch].counter = _choices.size()
+	dialogue[branch].messages.append({speaker = _speaker, message = question, choices = _choices})
 
-func increment_message():
-	message_count += 1
-	dialogue.name = "Line" + str(message_count)
-
-func apply_choice():
-	message_count += 1
-	dialogue.name = "Line" + char(32 + message_count % 94) + str(choice)
-
-func set_choice(i):
-	choice = i
+func on_choice(i):
+	branch = dialogue[branch_stack.back()].branches[i]
+	dialogue[branch_stack.back()].counter -= 1
+	if dialogue[branch_stack.back()].counter == 0:
+		branch_stack.pop_back()
