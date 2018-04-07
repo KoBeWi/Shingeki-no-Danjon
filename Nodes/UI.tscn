@@ -46,7 +46,7 @@ shadow_size = 0
 anti_aliasing = true
 anti_aliasing_size = 1
 
-[node name="UI" type="CanvasLayer"]
+[node name="UI" type="CanvasLayer" index="0"]
 
 pause_mode = 2
 layer = 1
@@ -59,7 +59,6 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="HUD" type="Control" parent="." index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -98,9 +97,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 95.0
+margin_left = 122.0
 margin_top = 75.0
-margin_right = 300.0
+margin_right = 327.0
 margin_bottom = 98.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -167,9 +166,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 395.0
+margin_left = 422.0
 margin_top = 75.0
-margin_right = 600.0
+margin_right = 627.0
 margin_bottom = 98.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -190,7 +189,7 @@ texture_progress = ExtResource( 5 )
 radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
-_sections_unfolded = [ "Textures" ]
+_sections_unfolded = [ "Rect", "Textures" ]
 
 [node name="MPBarOver" type="TextureRect" parent="HUD" index="5"]
 

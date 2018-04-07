@@ -7,10 +7,10 @@ path="res://.import/PlayerHPMiddle.png-543ba96cc1445cabf19dcfba97e5053a.stex"
 [deps]
 
 source_file="res://Sprites/UI/PlayerHPMiddle.png"
-source_md5="95ae928264692ed18aff2b24d32235b3"
+source_md5="53e5852a348952af9b1e3ceb08bc61ac"
 
 dest_files=[ "res://.import/PlayerHPMiddle.png-543ba96cc1445cabf19dcfba97e5053a.stex" ]
-dest_md5="4ed92dcd1d327e6c002155e6c7b62211"
+dest_md5="5bf07d7b989ca8652e082e86898735f9"
 
 [params]
 
