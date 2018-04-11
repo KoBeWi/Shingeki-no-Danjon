@@ -63,7 +63,7 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 
-[node name="Item" type="Node2D" index="0"]
+[node name="Item" type="Node2D"]
 
 script = SubResource( 1 )
 
@@ -89,7 +89,6 @@ shape = SubResource( 2 )
 [node name="Frame" type="Sprite" parent="." index="2"]
 
 editor/display_folded = true
-visible = false
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Visibility" ]
 

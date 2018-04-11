@@ -65,6 +65,8 @@ func _physics_process(delta):
 	if rem.length() == 0: motion_time = 0
 	elif motion_time > 1: SkillBase.inc_stat("PixelsTravelled", int(rem.length()))
 	prev_move = move
+	
+	if Input.is_key_pressed(KEY_F3): print(int(position.x / 800), ", ", int(position.y / 800)) ##debug
 
 func damage(attacker, amount, knockback):
 	Res.create_instance("DamageNumber").damage(self, amount)

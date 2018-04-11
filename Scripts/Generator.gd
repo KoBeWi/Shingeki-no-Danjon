@@ -166,50 +166,48 @@ func get_possible_segments(spot):
 			
 			for i in range(ways.size()):
 				if !ways[i]: continue
-				var can_be = true
-				
 				offset = [Vector2(-i, -segment.height + 1), Vector2(0, -i), Vector2(-i, 0), Vector2(-segment.width + 1, -i)][dir]
-				for j in range(4):
-					var dim = ["width", "height"][j%2]
-					var piece = ["piece_x", "piece_y"][j%2]
-					for k in range(segment[dim]):
-						if !can_be: break
-						
-						var way = segment["ways" + str(j)][k]
-						var p = pos + offset + DIRECTIONS[j] + DOFFSET[j%2] * k
-						var seg = get_segment_data(p)
-						
-						if way and (p.x < 0 or p.y < 0 or p.x >= width or p.y >= width): can_be = false
-						if seg and seg.segment["ways" + str(OPPOSITE[j])][seg[piece]] != way: can_be = false
 				
-				if !can_be: continue
-				for x in range(segment.width):
-					for y in range(segment.height):
-						var p = pos + offset + Vector2(x, y)
-						if p.x < 0 or p.y < 0 or p.x >= width or p.y >= width or get_segment(p):
-							can_be = false
-				
-				if !can_be: continue
-				segments.append({"offset": offset, "segment": segment})
+				if can_fit(segment, pos + offset):
+					segments.append({"offset": offset, "segment": segment})
 		else:
-			var can_be = true
-			for j in range(4):
-				var dim = ["width", "height"][j%2]
-				var piece = ["piece_x", "piece_y"][j%2]
-				for k in range(segment[dim]):
-					if !can_be: break
-					
-					var way = segment["ways" + str(j)][k]
-					var p = pos + offset + DIRECTIONS[j] + DOFFSET[j%2] * k
-					var seg = get_segment_data(p)
-					
-					if way and (p.x < 0 or p.y < 0 or p.x >= width or p.y >= width): can_be = false
-					if seg and seg.segment["ways" + str(OPPOSITE[j])][seg[piece]] != way: can_be = false
-			
-			if can_be and pos.x + segment.width <= width and pos.y + segment.height <= height:
+			if can_fit(segment, pos):
 				segments.append({"offset": offset, "segment": segment})
 	
 	return segments
+
+func can_fit(segment, pos):
+	if pos == Vector2(8, 6): print(get_segment(Vector2(8, 6)))
+	var can_be = true
+	
+	for i in range(4):
+		var dim = ["width", "height"][i%2]
+		var piece = ["piece_x", "piece_y"][i%2]
+		
+		for k in range(segment[dim]):
+			var way = segment["ways" + str(i)][k]
+			var p = pos + DIRECTIONS[i] + DOFFSET[i%2] * k
+			var seg = get_segment_data(p)
+			if pos == Vector2(8, 5): print(i, " -> " , segment.name, ", ", p)
+			
+			if way and (p.x < 0 or p.y < 0 or p.x >= width or p.y >= width): can_be = false
+			if seg and seg.segment["ways" + str(OPPOSITE[i])][seg[piece]] != way: can_be = false
+			if pos == Vector2(8, 5) and i == 2 and seg:
+				print(seg.segment.name)
+				print(segment.name)
+				print(seg.segment["ways" + str(OPPOSITE[i])][seg[piece]], ", ", way)
+			
+			if !can_be: break
+		if !can_be: break
+	if !can_be: return false
+	
+	for x in range(segment.width):
+		for y in range(segment.height):
+			var p = pos + Vector2(x, y)
+			if p.x < 0 or p.y < 0 or p.x >= width or p.y >= width or get_segment(p):
+				can_be = false
+	
+	return can_be
 
 func get_segment(pos):
 	if pos.x < 0 or pos.y < 0 or pos.x >= width or pos.y >= height: return
