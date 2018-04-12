@@ -186,7 +186,7 @@ func can_fit(segment, pos):
 		
 		for k in range(segment[dim]):
 			var way = segment["ways" + str(i)][k]
-			var p = pos + DIRECTIONS[i] * segment[dim2] + DOFFSET[i%2] * k
+			var p = pos + DIRECTIONS[i] * [1, segment[dim2], segment[dim2], 1][i] + DOFFSET[i%2] * k
 			var seg = get_segment_data(p)
 			
 			if way and (p.x < 0 or p.y < 0 or p.x >= width or p.y >= width): can_be = false

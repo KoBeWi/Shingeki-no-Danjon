@@ -7,10 +7,10 @@ path="res://.import/Choice.png-80eacdabd05b84e8795ea020371ad481.stex"
 [deps]
 
 source_file="res://Sprites/UI/Choice.png"
-source_md5="c51ad1439e9ad514331d4a785118ec25"
+source_md5="a99866c995b8ff952768cb6a7a361e72"
 
 dest_files=[ "res://.import/Choice.png-80eacdabd05b84e8795ea020371ad481.stex" ]
-dest_md5="9024c55d05ddaa254b23f01febc79585"
+dest_md5="d785d8213af3f1daf756a67703452484"
 
 [params]
 
