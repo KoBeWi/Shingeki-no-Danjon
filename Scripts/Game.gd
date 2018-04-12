@@ -8,7 +8,7 @@ func _ready():
 	var siid = randi()
 	print("Seed: ", siid)
 	seed(siid)
-#	seed(3179678355) ##DEBUG
+#	seed(3995174247) ##DEBUG
 	SkillBase.acquired_skills.append("FastWalk") ##DEBUG
 	$"Generator".generate(10, 10)
 

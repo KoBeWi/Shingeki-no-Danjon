@@ -9,7 +9,7 @@ var skills = {}
 
 func _ready():
 	var dir = Directory.new()
-	if dir.open("res://Nodes/Segments/") == OK:
+	if dir.open("res://Resources/Segments/") == OK:
 		dir.list_dir_begin()
 		
 		var name = dir.get_next()
@@ -19,7 +19,7 @@ func _ready():
 				continue
 			
 			var file = File.new()
-			file.open("res://Nodes/Segments/" + name, file.READ)
+			file.open("res://Resources/Segments/" + name, file.READ)
 			var text = file.get_as_text()
 			file.close()
 			
