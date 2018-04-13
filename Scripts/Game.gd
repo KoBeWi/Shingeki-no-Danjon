@@ -1,6 +1,7 @@
 extends YSort
 
 var leave_menu = false
+var dungeon
 
 func _ready():
 	VisualServer.set_default_clear_color(Color(0.05, 0.05, 0.07))
@@ -10,7 +11,9 @@ func _ready():
 	seed(siid)
 #	seed(122424371) ##DEBUG
 	SkillBase.acquired_skills.append("FastWalk") ##DEBUG
-	$"Generator".generate(10, 10)
+	
+	dungeon = Res.dungeons["Workshop"]
+	$Generator.generate(10, 10)
 
 func _process(delta):
 	if Input.is_action_just_pressed("Menu") and !leave_menu:

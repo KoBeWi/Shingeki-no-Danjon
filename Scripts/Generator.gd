@@ -17,6 +17,7 @@ const ENABLE_FLAG = true
 
 var width = 100
 var height = 100
+var dungeon_type
 
 var empty_spots = []
 var segments = []
@@ -28,7 +29,8 @@ func generate(w, h):
 	width = w
 	height = h
 	map.resize(width * height)
-	var end =false
+	dungeon_type = get_parent().dungeon
+	var end = false
 	
 	var start = Vector2(randi() % width, randi() % height)
 	empty_spots.append({"pos": start})
@@ -131,7 +133,6 @@ func generate(w, h):
 	place_treasure_into_maze(Res.get_node("Objects/Barrel"), 20)
 	place_treasure_into_maze(Res.get_node("Objects/Chest"), 10)
 
-	
 func place_treasure_into_maze(what, how_many):
 	for nmb in range(how_many):
 		if floor_space.empty(): break
@@ -246,6 +247,8 @@ func remove_segment(segment):
 
 func create_segment(segment, pos):
 	var seg = Res.segment_nodes[segment].instance()
+	seg.get_node("BottomTiles").tile_set = Res.get_resource("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
+	seg.get_node("TopTiles").tile_set = Res.get_resource("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
 	seg.position = Vector2(pos.x * SEG_W, pos.y * SEG_H)
 	
 	for cell in seg.get_node("BottomTiles").get_used_cells():

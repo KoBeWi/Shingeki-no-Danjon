@@ -6,6 +6,7 @@ var segment_nodes = {}
 var tilesets = {}
 var items = []
 var skills = {}
+var dungeons = {}
 
 func _ready():
 	for segment in get_resource_list("Segments"):
@@ -25,6 +26,9 @@ func _ready():
 	
 	for skill in get_resource_list("Skills"):
 		skills[skill.name] = skill.data
+	
+	for dungeon in get_resource_list("Dungeons"):
+		dungeons[dungeon.name] = dungeon.data
 
 func get_resource_list(resource):
 	var resources = []

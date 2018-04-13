@@ -1,9 +1,9 @@
 {
-	"Name": "Mechanic's Workshop",
-	"Floors": 9,
-	"Tileset": "Dungeon",
-	"Progress": "UP",
-	"Containers": ["Chest"],
-	"Breakables": ["Barrel"],
-	"Enemies": ["Pusher", "Grinder", "Trochnalis", "FLA-G"]
+	"name": "Mechanic's Workshop",
+	"floors": 9,
+	"tileset": "Dungeon",
+	"progress": "UP",
+	"containers": ["Chest"],
+	"breakables": ["Barrel"],
+	"enemies": ["Pusher", "Grinder", "Trochnalis", "FLA-G"]
 }
