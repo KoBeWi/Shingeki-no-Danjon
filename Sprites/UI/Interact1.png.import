@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Interact.png-2ed9b4d9c649a8dddf3ffa68ec942114.stex"
+path="res://.import/Interact1.png-ac73dad18f6f002e259492ca80c8e782.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Interact.png"
-source_md5="5ffc2dcbc34e8228dfcc036abec800e5"
+source_file="res://Sprites/UI/Interact1.png"
+source_md5="c33cc580db4d96c6ca5414a667384952"
 
-dest_files=[ "res://.import/Interact.png-2ed9b4d9c649a8dddf3ffa68ec942114.stex" ]
-dest_md5="28db569001292630c353a1a373b4db8e"
+dest_files=[ "res://.import/Interact1.png-ac73dad18f6f002e259492ca80c8e782.stex" ]
+dest_md5="5032f1a204b0394188e3f1396c9fcea3"
 
 [params]
 

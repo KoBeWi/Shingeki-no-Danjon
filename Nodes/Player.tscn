@@ -7,7 +7,9 @@
 [ext_resource path="res://Sprites/Player/Left/ShieldOn.png" type="Texture" id=5]
 [ext_resource path="res://Nodes/UI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/UI/Interact.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/Interact0.png" type="Texture" id=8]
+
+
 
 [sub_resource type="RectangleShape2D" id=1]
 

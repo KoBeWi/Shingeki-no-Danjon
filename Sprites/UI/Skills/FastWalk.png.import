@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ItemHighligh.png-758f39b7080fa008f92952c1597639b2.stex"
+path="res://.import/FastWalk.png-59658c25d51d0205b13045bc2f7bfc38.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/ItemHighligh.png"
-source_md5="345f7e9236276caf438505d7df17d056"
+source_file="res://Sprites/UI/Skills/FastWalk.png"
+source_md5="78c2027a4087fa6eba3754cb26b15386"
 
-dest_files=[ "res://.import/ItemHighligh.png-758f39b7080fa008f92952c1597639b2.stex" ]
-dest_md5="123a6a1921e90dd6022de72304e61666"
+dest_files=[ "res://.import/FastWalk.png-59658c25d51d0205b13045bc2f7bfc38.stex" ]
+dest_md5="7ebf86a4f804961716ad127f74bba9fc"
 
 [params]
 

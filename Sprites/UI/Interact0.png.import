@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ItemHighligh.png-758f39b7080fa008f92952c1597639b2.stex"
+path="res://.import/Interact0.png-86d8f0d0d46905c60863562ff07728b4.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/ItemHighligh.png"
-source_md5="345f7e9236276caf438505d7df17d056"
+source_file="res://Sprites/UI/Interact0.png"
+source_md5="e37cf03ed7db29e00a01b4375786ce66"
 
-dest_files=[ "res://.import/ItemHighligh.png-758f39b7080fa008f92952c1597639b2.stex" ]
-dest_md5="123a6a1921e90dd6022de72304e61666"
+dest_files=[ "res://.import/Interact0.png-86d8f0d0d46905c60863562ff07728b4.stex" ]
+dest_md5="4d9858b9a65a40818ab492ea7257f690"
 
 [params]
 

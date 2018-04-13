@@ -52,7 +52,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[node name="Chest" type="StaticBody2D"]
+[node name="Chest" type="StaticBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -86,6 +86,7 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 2 )
+type = 0
 
 [node name="Shape" type="CollisionShape2D" parent="InteractArea" index="0"]
 

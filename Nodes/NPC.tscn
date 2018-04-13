@@ -67,6 +67,7 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 3 )
+type = 1
 
 [node name="Shape" type="CollisionShape2D" parent="InteractArea" index="0"]
 
