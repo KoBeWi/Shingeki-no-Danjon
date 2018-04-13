@@ -1,0 +1,9 @@
+{
+	"Name": "Mechanic's Workshop",
+	"Floors": 9,
+	"Tileset": "Dungeon",
+	"Progress": "UP",
+	"Containers": ["Chest"],
+	"Breakables": ["Barrel"],
+	"Enemies": ["Pusher", "Grinder", "Trochnalis", "FLA-G"]
+}

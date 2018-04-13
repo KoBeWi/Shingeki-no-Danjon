@@ -18,11 +18,11 @@ const ENABLE_FLAG = true
 var width = 100
 var height = 100
 
-var segments = []
 var empty_spots = []
-var map         = [] # Table for segments positions
-var map_Uganda  = [] # Table for positions of floor Segments
-var mapTresures = [] # Table for positions of barrels and treasures
+var segments = []
+var map = []
+var floor_space = []
+var wall_space = []
 
 func generate(w, h):
 	width = w
@@ -134,14 +134,13 @@ func generate(w, h):
 	
 func place_treasure_into_maze(what, how_many):
 	for nmb in range(how_many):
-		if map_Uganda.empty(): break
+		if floor_space.empty(): break
 		
 		var ug_inst = what.instance()
-		var i = randi()%map_Uganda.size()
-		var temp = map_Uganda[i]+ Vector2(40,40)
-		map_Uganda.remove(i)
+		var i = randi()%floor_space.size()
+		var temp = floor_space[i]+ Vector2(40,40)
+		floor_space.remove(i)
 			
-		mapTresures.append(temp) 
 		ug_inst.position = temp
 		
 		dungeon.get_parent().add_child(ug_inst)
@@ -152,12 +151,12 @@ func place_treasure_into_maze(what, how_many):
 
 func place_enemy_into_maze(what, how_many):
 	for nmb in range(how_many):
-		if map_Uganda.empty(): break
+		if floor_space.empty(): break
 		
 		var ug_inst = what.instance()
-		var i = randi()%map_Uganda.size()
-		ug_inst.position = map_Uganda[i]+ Vector2(40,40)
-		map_Uganda.remove(i)
+		var i = randi()%floor_space.size()
+		ug_inst.position = floor_space[i]+ Vector2(40,40)
+		floor_space.remove(i)
 		dungeon.get_parent().add_child(ug_inst)
 		if (what == Res.get_resource("res://Nodes/Objects/Barrel.tscn") and randi()%3 == 0) or what == Res.get_resource("res://Nodes/Objects/Chest.tscn"): ##hack ;_;
 			ug_inst.item = randi()%2
@@ -250,8 +249,9 @@ func create_segment(segment, pos):
 	seg.position = Vector2(pos.x * SEG_W, pos.y * SEG_H)
 	
 	for cell in seg.get_node("BottomTiles").get_used_cells():
-		if seg.get_node("BottomTiles").get_cellv(cell) == 19:
-			map_Uganda.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
+		match seg.get_node("BottomTiles").get_cellv(cell):
+			19: floor_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
+			10: wall_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
 	
 	dungeon.add_child(seg)
 	return seg
