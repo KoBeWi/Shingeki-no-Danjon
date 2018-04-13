@@ -7,6 +7,8 @@ const DIRECTIONS = [Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0)
 const DOFFSET = [Vector2(1, 0), Vector2(0, 1)]
 const OPPOSITE = [2, 3, 0, 1]
 
+const MIN_MAP_SIZE = 25
+
 const ENABLE_UGANDA = true
 const ENABLE_GRIDER = false
 const ENABLE_PUSHER = false
@@ -16,39 +18,51 @@ const ENABLE_FLAG = true
 var width = 100
 var height = 100
 
+var segments = []
+var empty_spots = []
 var map         = [] # Table for segments positions
 var map_Uganda  = [] # Table for positions of floor Segments
 var mapTresures = [] # Table for positions of barrels and treasures
-
-func _ready():
-	pass
 
 func generate(w, h):
 	width = w
 	height = h
 	map.resize(width * height)
+	var end =false
 	
 	var start = Vector2(randi() % width, randi() % height)
-	var empty_spots = [{"pos": start}]
+	empty_spots.append({"pos": start})
 	
-	while !empty_spots.empty():
-		var spot = empty_spots[randi() % empty_spots.size()]
-		empty_spots.erase(spot)
-		
-		var segments = get_possible_segments(spot)
-		
-		if !segments.empty():
-			var segment = segments[randi() % segments.size()]
-			var offset = segment.offset
-			segment = segment.segment
+	while !end:
+		while !empty_spots.empty():
+			var spot = empty_spots[randi() % empty_spots.size()]
+			empty_spots.erase(spot)
 			
-			set_segment(spot.pos + offset, segment)
+			var segments = get_possible_segments(spot)
 			
-			for dir in range(4):
-				var dim = ["width", "height"][dir%2]
-				for i in range(segment[dim]):
-					var ds = DIRECTIONS[dir] + DOFFSET[dir%2] * i
-					if segment["ways" + str(dir)][i]: empty_spots.append({"pos": spot.pos + offset + ds, "dir": dir})
+			if !segments.empty():
+				var segment = segments[randi() % segments.size()]
+				var offset = segment.offset
+				segment = segment.segment
+				
+				set_segment(spot.pos + offset, segment)
+				
+				for dir in range(4):
+					var dim = ["width", "height"][dir%2]
+					for i in range(segment[dim]):
+						var ds = DIRECTIONS[dir] + DOFFSET[dir%2] * i
+						if segment["ways" + str(dir)][i]: empty_spots.append({"pos": spot.pos + offset + ds, "dir": dir})
+		
+		if segments.size() >= MIN_MAP_SIZE:
+			end = true
+#		elif !segments.empty():
+#			remove_segment(segments[randi() % segments.size()])
+		else:
+			segments.clear()
+			map.clear()
+			map.resize(width * height)
+			start = Vector2(randi() % width, randi() % height)
+			empty_spots = [{"pos": start}]
 	
 	for x in range(width):
 		for y in range(height):
@@ -219,7 +233,17 @@ func get_segment_data(pos):
 func set_segment(pos, segment):
 	for x in range(segment.width):
 		for y in range(segment.height):
-			map[pos.x + x + (pos.y + y)  * width] = {"segment": segment, "piece_x": x, "piece_y": y}
+			map[pos.x + x + (pos.y + y)  * width] = {"segment": segment, "piece_x": x, "piece_y": y, "pos_x": pos.x, "pos_y": pos.y}
+	
+	segments.append({"segment": segment, "pos_x": pos.x, "pos_y": pos.y})
+
+func remove_segment(segment):
+	for x in range(segment.segment.width):
+		for y in range(segment.segment.height):
+			map[segment.pos_x + x + (segment.pos_y + y)  * width] = null
+	
+	empty_spots.append({"pos": Vector2(segment.pos_x, segment.pos_y)})
+	segments.erase(segment)
 
 func create_segment(segment, pos):
 	var seg = Res.segment_nodes[segment].instance()

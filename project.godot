@@ -24,6 +24,7 @@ PlayerStats="*res://Scripts/PlayerStats.gd"
 
 window/size/width=1366
 window/size/height=768
+window/size/fullscreen=true
 
 [importer_defaults]
 
