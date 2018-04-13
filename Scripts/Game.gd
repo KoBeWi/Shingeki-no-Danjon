@@ -24,6 +24,14 @@ func _process(delta):
 	
 	update()
 
+func change_floor():
+#	var packed_scene = PackedScene.new()
+#	packed_scene.pack($"/root/Game")
+#	ResourceSaver.save("user://Floor1.tscn", packed_scene)
+	
+	get_tree().change_scene_to(Res.get_resource("res://Scenes/Game.tscn"))
+#	get_tree().change_scene_to(Res.get_resource("user://Floor1.tscn"))
+
 #ta funkcja to hack i ma być usunięta razem z update, gdy set_default_clear_color() będzie naprawiony
 func _draw():
 	var camera = $"Player/Camera"

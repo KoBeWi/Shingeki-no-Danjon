@@ -72,7 +72,7 @@ func generate(w, h):
 			if segment and segment.piece_x + segment.piece_y == 0:
 				create_segment(segment.segment.name, Vector2(x, y))
 	
-	var tileset = Res.tilesets["Dungeon"]
+	var tileset = Res.tilesets[dungeon_type.tileset]
 	for segment in dungeon.get_children():
 		var bottom = segment.get_node("BottomTiles")
 		
@@ -275,3 +275,10 @@ func create_segment(segment, pos):
 	
 	dungeon.add_child(seg)
 	return seg
+
+func reset():
+	empty_spots.clear()
+	segments.clear()
+	map.clear()
+	floor_space.clear()
+	wall_space.clear()
