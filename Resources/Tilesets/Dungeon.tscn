@@ -619,6 +619,7 @@ _sections_unfolded = [ "Region" ]
 
 [node name="Wall7" type="Sprite" parent="." index="29"]
 
+editor/display_folded = true
 position = Vector2( 240, 240 )
 texture = ExtResource( 1 )
 region_enabled = true

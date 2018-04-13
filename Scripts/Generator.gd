@@ -72,12 +72,9 @@ func generate(w, h):
 			if segment and segment.piece_x + segment.piece_y == 0:
 				create_segment(segment.segment.name, Vector2(x, y))
 	
-	$"../Player".position = Vector2(start.x * SEG_W, start.y * SEG_H) + Vector2(SEG_W/2, SEG_H/2)
-	
+	var tileset = Res.tilesets["Dungeon"]
 	for segment in dungeon.get_children():
 		var bottom = segment.get_node("BottomTiles")
-		
-		var tileset = Res.tilesets["Dungeon"]
 		
 		var floor_id = tileset.floor[0]
 		var floor_size = tileset.floor.size()
@@ -121,7 +118,27 @@ func generate(w, h):
 					if !space: continue
 					for t in range(tile.pattern.size()):
 						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
-
+	
+	var wall = wall_space[randi() % wall_space.size()]
+	while !wall_space.has(wall + Vector2(-80, 0)): wall = wall_space[randi() % wall_space.size()]
+	var stairs = Res.create_instance("Objects/Stairs")
+	stairs.position = wall + Vector2(0, 80)
+	stairs.set_stairs("up" if dungeon_type.progress == "DOWN" else "down", tileset)
+	dungeon.add_child(stairs)
+	wall_space.erase(wall)
+	wall_space.erase(wall + Vector2(80, 0))
+	
+	$"../Player".position = wall + Vector2(0, 160)
+	
+	var wall2 = wall_space[randi() % wall_space.size()]
+	while wall.distance_to(wall2) < 800 or !wall_space.has(wall2 + Vector2(-80, 0)): wall2 = wall_space[randi() % wall_space.size()]
+	stairs = Res.create_instance("Objects/Stairs")
+	stairs.position = wall2 + Vector2(0, 80)
+	stairs.set_stairs("up" if dungeon_type.progress == "UP" else "down", tileset)
+	dungeon.add_child(stairs)
+	wall_space.erase(wall2)
+	wall_space.erase(wall2 + Vector2(80, 0))
+	
 	##ten fragment jest do zmiany
 	if ENABLE_GRIDER: place_enemy_into_maze(Res.get_node("Enemies/Grinder"), 50 )
 	if ENABLE_UGANDA: place_enemy_into_maze(Res.get_node("Uganda"),3)

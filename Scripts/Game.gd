@@ -9,7 +9,7 @@ func _ready():
 	var siid = randi()
 	print("Seed: ", siid)
 	seed(siid)
-#	seed(122424371) ##DEBUG
+#	seed(335011201) ##DEBUG
 	SkillBase.acquired_skills.append("FastWalk") ##DEBUG
 	
 	dungeon = Res.dungeons["Workshop"]
