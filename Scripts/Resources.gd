@@ -7,6 +7,7 @@ var tilesets = {}
 var items = []
 var skills = {}
 var dungeons = {}
+var crafting = []
 
 func _ready():
 	for segment in get_resource_list("Segments"):
@@ -29,6 +30,8 @@ func _ready():
 	
 	for dungeon in get_resource_list("Dungeons"):
 		dungeons[dungeon.name] = dungeon.data
+	
+	crafting = read_json("res://Resources/CraftingList")
 
 func get_resource_list(resource):
 	var resources = []
@@ -43,16 +46,18 @@ func get_resource_list(resource):
 				name = dir.get_next()
 				continue
 			
-			var file = File.new()
-			file.open("res://Resources/" + resource + "/" + name, file.READ)
-			var text = file.get_as_text()
-			file.close()
-			
-			resources.append({"name": name.left(name.length() - 5), "data": parse_json(text)})
+			resources.append({"name": name.left(name.length() - 5), "data": read_json("res://Resources/" + resource + "/" + name)})
 			
 			name = dir.get_next()
 	
 	return resources
+
+func read_json(f):
+	var file = File.new()
+	file.open(f, file.READ)
+	var text = file.get_as_text()
+	file.close()
+	return parse_json(text)
 
 func get_resource(path):
 	if !resources.has(path): resources[path] = load(path)
