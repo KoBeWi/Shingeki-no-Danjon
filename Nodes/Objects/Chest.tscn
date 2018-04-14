@@ -59,7 +59,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[node name="Chest" type="StaticBody2D" index="0"]
+[node name="Chest" type="StaticBody2D"]
 
 input_pickable = false
 collision_layer = 1

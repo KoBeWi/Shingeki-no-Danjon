@@ -15,6 +15,7 @@ func _ready():
 	health = max_health
 	health_bar.max_value = max_health
 	health_bar.value = health
+	$"/root/Game".perma_state(self, "queue_free")
 
 func _physics_process(delta):
 	bar_timeout -= 1
@@ -30,6 +31,7 @@ func damage(amount):
 	bar_timeout = 180
 	
 	if health <= 0:
+		$"/root/Game".save_state(self)
 		_dead = true
 		health_bar.visible = false
 		PlayerStats.add_experience(experience)

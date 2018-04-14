@@ -16,7 +16,6 @@ func _physics_process(delta):
 
 func on_enter(body):
 	if body.is_in_group("players"):
-		print("res://Sprites/UI/Interact" + str(type) + ".png")
 		icon.texture = Res.get_resource("res://Sprites/UI/Interact" + str(type) + ".png")
 		icon.visible = true
 		player_in = true

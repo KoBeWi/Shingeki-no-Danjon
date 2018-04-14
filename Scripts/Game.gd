@@ -6,10 +6,12 @@ var from = "UP"
 
 var my_seed
 var object_id = 0
-var id_table = {}
+var obj_properties = []
+var object_ids = {}
 
 func _ready():
 	VisualServer.set_default_clear_color(Color(0.05, 0.05, 0.07))
+	ProjectSettings.set_setting("rendering/environment/default_clear_color", "0c0e11")
 	
 	if !my_seed:
 		randomize()
@@ -19,7 +21,7 @@ func _ready():
 	else:
 		seed(my_seed)
 	
-#	seed(335011201) ##DEBUG
+#	seed(772450412) ##DEBUG
 	SkillBase.acquired_skills.append("FastWalk") ##DEBUG
 	
 	dungeon = Res.dungeons["Workshop"]
@@ -32,12 +34,10 @@ func _process(delta):
 		get_tree().paused = true
 	elif Input.is_action_just_released("Menu"):
 		leave_menu = false
-	
-	update()
 
 func change_floor(change):
 	name = "OldGame"
-	DungeonState.visited_floors[DungeonState.current_floor] = {"seed": my_seed, "objects": id_table}
+	DungeonState.visited_floors[DungeonState.current_floor] = {"seed": my_seed, "obj_properties": obj_properties}
 	
 	DungeonState.current_floor += change
 	
@@ -45,7 +45,7 @@ func change_floor(change):
 	if DungeonState.visited_floors.has(DungeonState.current_floor):
 		var state = DungeonState.visited_floors[DungeonState.current_floor]
 		game.my_seed = state.seed
-		game.id_table = state.objects
+		game.obj_properties = state.obj_properties
 	game.from = ("UP" if change > 0 else "DOWN")
 	
 	$"/root".add_child(game)
@@ -53,25 +53,16 @@ func change_floor(change):
 	
 	queue_free()
 
-func set_owner_recursive(who, node):
-	for nd in node.get_children():
-		nd.owner = who
-		set_owner_recursive(who, nd)
-
 func perma_state(object, method):
 	var already_saved = false
-	for obj in id_table.values():
-		if obj.id == object_id:
+	
+	for obj in obj_properties:
+		if obj.id == object_id and obj.saved:
 			object.call(method)
 			already_saved = true
 	
-	if !already_saved: id_table[object] = {"id": object_id, "method": method, "saved": false}
+	if !already_saved: object_ids[object] = object_id
 	object_id += 1
 
 func save_state(object):
-	id_table[object].saved = true
-
-#ta funkcja to hack i ma być usunięta razem z update, gdy set_default_clear_color() będzie naprawiony
-func _draw():
-	var camera = $"Player/Camera"
-	draw_rect(Rect2(camera.get_camera_position() - OS.get_window_size()/2, OS.get_window_size()), Color(0.05, 0.05, 0.07))
+	obj_properties.append({"id": object_ids[object], "saved": true})
