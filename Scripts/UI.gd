@@ -21,6 +21,7 @@ signal choice_selected
 func _ready():
 	PlayerStats.connect("level_up", self, "level_up")
 	SkillBase.connect("new_skill", self, "new_skill")
+	DungeonState.connect("floor_changed", self, "new_floor")
 	
 	for button in status_panel.get_node("AddStat").get_children():
 		button.connect("pressed", self, "on_add_stat", [button.name])
@@ -170,6 +171,15 @@ func level_up():
 	$LevelUpLabel.visible = true
 	yield(get_tree().create_timer(1), "timeout")
 	$LevelUpLabel.visible = false
+	
+func new_floor(f):
+	if f > 0: $FloorLabel.text = "F" + str(f)
+	elif f < 0: $FloorLabel.text = str(f) + "B"
+	else: $FloorLabel.text = "GF"
+	
+	$FloorLabel.visible = true
+	yield(get_tree().create_timer(1), "timeout")
+	$FloorLabel.visible = false
 
 func got_item(id):
 	$ItemGetPanel/Name.text = Res.items[id].name

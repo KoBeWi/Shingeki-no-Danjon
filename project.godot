@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 Res="*res://Scripts/Resources.gd"
 SkillBase="*res://Scripts/SkillSystem.gd"
 PlayerStats="*res://Scripts/PlayerStats.gd"
+DungeonState="*res://Scripts/DungeonState.gd"
 
 [display]
 

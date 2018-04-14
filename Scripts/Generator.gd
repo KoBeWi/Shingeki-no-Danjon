@@ -123,7 +123,7 @@ func generate(w, h):
 	while !wall_space.has(wall + Vector2(-80, 0)): wall = wall_space[randi() % wall_space.size()]
 	var stairs = Res.create_instance("Objects/Stairs")
 	stairs.position = wall + Vector2(0, 80)
-	stairs.set_stairs("up" if dungeon_type.progress == "DOWN" else "down", tileset)
+	stairs.set_stairs("up" if dungeon_type.progress != get_parent().from else "down", tileset)
 	dungeon.add_child(stairs)
 	wall_space.erase(wall)
 	wall_space.erase(wall + Vector2(80, 0))
@@ -134,7 +134,7 @@ func generate(w, h):
 	while wall.distance_to(wall2) < 800 or !wall_space.has(wall2 + Vector2(-80, 0)): wall2 = wall_space[randi() % wall_space.size()]
 	stairs = Res.create_instance("Objects/Stairs")
 	stairs.position = wall2 + Vector2(0, 80)
-	stairs.set_stairs("up" if dungeon_type.progress == "UP" else "down", tileset)
+	stairs.set_stairs("up" if dungeon_type.progress == get_parent().from else "down", tileset)
 	dungeon.add_child(stairs)
 	wall_space.erase(wall2)
 	wall_space.erase(wall2 + Vector2(80, 0))

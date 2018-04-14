@@ -2,18 +2,27 @@ extends YSort
 
 var leave_menu = false
 var dungeon
+var from = "UP"
+
+var my_seed
 
 func _ready():
 	VisualServer.set_default_clear_color(Color(0.05, 0.05, 0.07))
-	randomize()
-	var siid = randi()
-	print("Seed: ", siid)
-	seed(siid)
+	
+	if !my_seed:
+		randomize()
+		my_seed = randi()
+		print("Seed: ", my_seed)
+		seed(my_seed)
+	else:
+		seed(my_seed)
+	
 #	seed(335011201) ##DEBUG
 	SkillBase.acquired_skills.append("FastWalk") ##DEBUG
 	
 	dungeon = Res.dungeons["Workshop"]
 	$Generator.generate(10, 10)
+	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
 
 func _process(delta):
 	if Input.is_action_just_pressed("Menu") and !leave_menu:
@@ -24,13 +33,31 @@ func _process(delta):
 	
 	update()
 
-func change_floor():
+func change_floor(change):
+	name = "OldGame"
+#	no_generation = true
+#	set_owner_recursive(self, self)
 #	var packed_scene = PackedScene.new()
-#	packed_scene.pack($"/root/Game")
-#	ResourceSaver.save("user://Floor1.tscn", packed_scene)
+#	packed_scene.pack(self)
+	DungeonState.visited_floors[DungeonState.current_floor] = my_seed#packed_scene
 	
-	get_tree().change_scene_to(Res.get_resource("res://Scenes/Game.tscn"))
-#	get_tree().change_scene_to(Res.get_resource("user://Floor1.tscn"))
+	DungeonState.current_floor += change
+	
+	var game = load("res://Scenes/Game.tscn").instance()
+	if DungeonState.visited_floors.has(DungeonState.current_floor):
+		game.my_seed = DungeonState.visited_floors[DungeonState.current_floor]
+	game.from = ("UP" if change > 0 else "DOWN")
+	
+	$"/root".add_child(game)
+	get_tree().current_scene = game
+#	get_tree().change_scene_to(DungeonState.visited_floors[DungeonState.current_floor])
+	
+	queue_free()
+
+func set_owner_recursive(who, node):
+	for nd in node.get_children():
+		nd.owner = who
+		set_owner_recursive(who, nd)
 
 #ta funkcja to hack i ma być usunięta razem z update, gdy set_default_clear_color() będzie naprawiony
 func _draw():

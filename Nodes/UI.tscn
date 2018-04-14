@@ -1264,7 +1264,32 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Rect", "custom_colors", "custom_fonts" ]
 
-[node name="SkillAcquiredPanel" type="Panel" parent="." index="3"]
+[node name="FloorLabel" type="Label" parent="." index="3"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1014.0
+margin_top = 178.0
+margin_right = 1047.0
+margin_bottom = 221.0
+rect_scale = Vector2( 3, 3 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 8 )
+text = "1F"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect", "custom_colors", "custom_fonts" ]
+
+[node name="SkillAcquiredPanel" type="Panel" parent="." index="4"]
 
 editor/display_folded = true
 visible = false
@@ -1330,7 +1355,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="ItemGetPanel" type="Panel" parent="." index="4"]
+[node name="ItemGetPanel" type="Panel" parent="." index="5"]
 
 editor/display_folded = true
 visible = false
@@ -1375,7 +1400,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="DialogueBox" type="TextureRect" parent="." index="5"]
+[node name="DialogueBox" type="TextureRect" parent="." index="6"]
 
 editor/display_folded = true
 visible = false
@@ -1486,7 +1511,7 @@ texture = ExtResource( 15 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
-[node name="Shop" type="Panel" parent="." index="6"]
+[node name="Shop" type="Panel" parent="." index="7"]
 
 editor/display_folded = true
 visible = false
@@ -1917,7 +1942,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="DialogueManager" type="Node" parent="." index="7"]
+[node name="DialogueManager" type="Node" parent="." index="8"]
 
 script = ExtResource( 17 )
 
