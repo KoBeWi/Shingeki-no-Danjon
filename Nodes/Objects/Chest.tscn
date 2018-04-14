@@ -11,16 +11,23 @@ script/source = "extends StaticBody2D
 var item
 var player_in = false
 
+func _ready():
+	$\"/root/Game\".perma_state(self, \"open\")
+
 func interact():
 	Res.play_sample(self, \"Chest\")
-	$Animation.play(\"Open\")
-	$InteractArea.queue_free()
+	$\"/root/Game\".save_state(self)
+	open()
 	
 	if item != null:
 		var it = Res.create_instance(\"Item\")
 		it.position = position + Vector2(0, 50)
 		it.id = item
-		get_parent().add_child(it)"
+		get_parent().add_child(it)
+
+func open():
+	$Animation.play(\"Open\")
+	$InteractArea.queue_free()"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -52,7 +59,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[node name="Chest" type="StaticBody2D"]
+[node name="Chest" type="StaticBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1

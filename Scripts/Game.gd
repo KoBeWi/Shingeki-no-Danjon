@@ -5,6 +5,8 @@ var dungeon
 var from = "UP"
 
 var my_seed
+var object_id = 0
+var id_table = {}
 
 func _ready():
 	VisualServer.set_default_clear_color(Color(0.05, 0.05, 0.07))
@@ -35,22 +37,19 @@ func _process(delta):
 
 func change_floor(change):
 	name = "OldGame"
-#	no_generation = true
-#	set_owner_recursive(self, self)
-#	var packed_scene = PackedScene.new()
-#	packed_scene.pack(self)
-	DungeonState.visited_floors[DungeonState.current_floor] = my_seed#packed_scene
+	DungeonState.visited_floors[DungeonState.current_floor] = {"seed": my_seed, "objects": id_table}
 	
 	DungeonState.current_floor += change
 	
 	var game = load("res://Scenes/Game.tscn").instance()
 	if DungeonState.visited_floors.has(DungeonState.current_floor):
-		game.my_seed = DungeonState.visited_floors[DungeonState.current_floor]
+		var state = DungeonState.visited_floors[DungeonState.current_floor]
+		game.my_seed = state.seed
+		game.id_table = state.objects
 	game.from = ("UP" if change > 0 else "DOWN")
 	
 	$"/root".add_child(game)
 	get_tree().current_scene = game
-#	get_tree().change_scene_to(DungeonState.visited_floors[DungeonState.current_floor])
 	
 	queue_free()
 
@@ -58,6 +57,19 @@ func set_owner_recursive(who, node):
 	for nd in node.get_children():
 		nd.owner = who
 		set_owner_recursive(who, nd)
+
+func perma_state(object, method):
+	var already_saved = false
+	for obj in id_table.values():
+		if obj.id == object_id:
+			object.call(method)
+			already_saved = true
+	
+	if !already_saved: id_table[object] = {"id": object_id, "method": method, "saved": false}
+	object_id += 1
+
+func save_state(object):
+	id_table[object].saved = true
 
 #ta funkcja to hack i ma być usunięta razem z update, gdy set_default_clear_color() będzie naprawiony
 func _draw():
