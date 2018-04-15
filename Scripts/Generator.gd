@@ -12,7 +12,7 @@ const MIN_MAP_SIZE = 25
 const ENABLE_UGANDA = true
 const ENABLE_GRIDER = false
 const ENABLE_PUSHER = false
-const ENABLE_TROCHNALIS = false
+const ENABLE_TROCHNALIS = true
 const ENABLE_FLAG = true
 
 var width = 100

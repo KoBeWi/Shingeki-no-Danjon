@@ -46,14 +46,7 @@ func damage(amount):
 			item.position = position
 			item.id = drop
 			get_parent().add_child(item)
-		
-		return
-		if randi()%5 == 0:
-			var item = Res.create_instance("Item")
-			item.position = position
-			item.id = get_drop_id()
-			get_parent().add_child(item)
-		elif randi()%2 == 0:
+		elif randi() % 1000 < 100:
 			var item = Res.create_instance("Money")
 			item.position = position
 			get_parent().add_child(item)
