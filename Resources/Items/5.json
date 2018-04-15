@@ -1,0 +1,11 @@
+{
+	"type": "weapon",
+	"weapon": "one-handed",
+	"sprite": "Sword1",
+	"name": "Flamethrower Sword",
+	"description": "Sword enchanced with fire-generating robot parts. Absolutely insane!",
+	"price": 80,
+	"attack": 15,
+	"scalling": {"strength": 1},
+	"elements": {"fire": 1}
+}

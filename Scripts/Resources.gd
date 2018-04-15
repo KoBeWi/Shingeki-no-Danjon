@@ -31,7 +31,7 @@ func _ready():
 	for dungeon in get_resource_list("Dungeons"):
 		dungeons[dungeon.name] = dungeon.data
 	
-	crafting = read_json("res://Resources/CraftingList")
+	crafting = read_json("res://Resources/CraftingList.json")
 
 func get_resource_list(resource):
 	var resources = []
@@ -88,3 +88,16 @@ func get_skill_texture(skill):
 		return get_resource("res://Sprites/UI/Skills/" + skill + ".png")
 	else:
 		return get_resource("res://Sprites/UI/Skills/NoSkill.png")
+
+func weighted_random(chances):
+	var sum = 0
+	for value in chances.values(): sum += value
+	if sum == 0: return
+	
+	for i in range(chances.size()-1):
+		chances[chances.keys()[i+1]] = chances[chances.keys()[i]] + chances[chances.keys()[i+1]]
+	
+	var value = randi() % sum
+	for chance in chances.keys():
+		if chances[chance] >= value:
+			return chance

@@ -8,6 +8,8 @@ var experience = 5
 var damage = 10
 var knockback = 0
 
+var drops = []
+
 var bar_timeout = 0
 var _dead = false
 
@@ -37,10 +39,19 @@ func damage(amount):
 		PlayerStats.add_experience(experience)
 		_on_dead()
 		
+		var drop = get_drop_id()
+		
+		if drop > -1:
+			var item = Res.create_instance("Item")
+			item.position = position
+			item.id = drop
+			get_parent().add_child(item)
+		
+		return
 		if randi()%5 == 0:
 			var item = Res.create_instance("Item")
 			item.position = position
-			if randi()%2 == 0: item.id = 1
+			item.id = get_drop_id()
 			get_parent().add_child(item)
 		elif randi()%2 == 0:
 			var item = Res.create_instance("Money")
@@ -48,6 +59,18 @@ func damage(amount):
 			get_parent().add_child(item)
 	else:
 		_on_damage()
+
+func get_drop_id():
+	if drops.empty(): return -1
+	var nil = 0
+	
+	var chances = {}
+	for drop in drops:
+		chances[drop[0]] = drop[1]
+		nil += 1000 - drop[1]
+	
+	chances[-1] = nil
+	return Res.weighted_random(chances)
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group("players"):
