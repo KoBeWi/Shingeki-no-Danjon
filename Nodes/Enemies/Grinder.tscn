@@ -253,7 +253,7 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollider" index="0"]
+[node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
 shape = SubResource( 10 )
 

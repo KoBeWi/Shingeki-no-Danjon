@@ -64,3 +64,23 @@ func add_experience(amount):
 		level += 1
 		stat_points += 1
 		emit_signal("level_up")
+
+func add_item(id):
+	var item = Res.items[id]
+	
+	var slot = -1
+	for i in range(INVENTORY_SIZE):
+		if !inventory[i] or inventory[i].id == id and item.has("max_stack") and inventory[i].stack < item.max_stack:
+			slot = i
+			break
+	
+	if slot > -1:
+		$"/root/Game/Player".UI.got_item(id)
+		if !inventory[slot]:
+			inventory[slot] = {"id": id, "stack": 1}
+		else:
+			inventory[slot].stack += 1
+			
+		return true
+	
+	return false

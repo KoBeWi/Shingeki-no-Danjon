@@ -101,7 +101,8 @@ func refresh():
 		if PlayerStats.inventory[i] != null:
 			slot.disabled = false
 			slot.visible = true
-			slot.texture_normal = Res.get_item_texture(PlayerStats.inventory[i])
+			slot.texture_normal = Res.get_item_texture(PlayerStats.inventory[i].id)
+			slot.get_node("Amount").text = str(PlayerStats.inventory[i].stack)
 		else:
 			slot.disabled = true
 			slot.visible = false
@@ -132,11 +133,11 @@ func on_add_stat(stat):
 	refresh()
 
 func on_inventory_click(i):
-	var item = Res.items[PlayerStats.inventory[i]]
+	var item = Res.items[PlayerStats.inventory[i].id]
 	
 	if item.type == "consumable":
 		Res.play_sample(player, "Consume", false)
-		PlayerStats.inventory[i] = -1
+		PlayerStats.inventory[i] = null
 		PlayerStats.health += item.health
 		refresh()
 	else:
@@ -146,7 +147,9 @@ func on_inventory_click(i):
 			var old = null
 			if PlayerStats.equipment[slot] > -1: old = PlayerStats.equipment[slot]
 			PlayerStats.equipment[slot] = item.id
-			PlayerStats.inventory[i] = old
+			
+			if old != null: PlayerStats.inventory[i] = {"id": old, "stack": 1}
+			else: PlayerStats.inventory[i] = null
 			
 			if slot == 3:
 				player.update_weapon()
@@ -250,23 +253,18 @@ func refresh_shop():
 	
 	for i in range(PlayerStats.INVENTORY_SIZE):
 		var slot = $Shop/InventoryItems.get_child(i)
-		if PlayerStats.inventory[i] != null:
+		if PlayerStats.inventory[i]:
 			slot.visible = true
-			slot.texture = Res.get_item_texture(PlayerStats.inventory[i])
+			slot.texture = Res.get_item_texture(PlayerStats.inventory[i].id)
 		else:
 			slot.visible = false
 
 func on_buy(i):
 	var item = Res.items[shop[i]]
-	var slot = -1
-	for i in range(PlayerStats.INVENTORY_SIZE): if !PlayerStats.inventory[i]:
-		slot = i
-		break
 	
-	if PlayerStats.money >= item.price and slot > -1:
+	if PlayerStats.money >= item.price and PlayerStats.add_item(item.id):
 		Res.play_sample(player, "Buy", false)
 		PlayerStats.money -= item.price
-		PlayerStats.inventory[slot] = item.id
 		refresh_shop()
 	else:
 		Res.play_sample(player, "Buzzer", false)

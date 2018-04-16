@@ -22,20 +22,11 @@ func _process(delta):
 		$Frame.visible = false
 	elif !$Frame/Animation.is_playing():
 		$Frame/Animation.play(\"Idle\")
-		
 
 func _on_collect(body):
 	if body.is_in_group(\"players\"):
-		var slot = -1
-		for i in range(PlayerStats.INVENTORY_SIZE):
-			if !PlayerStats.inventory[i]:
-				slot = i
-				break
-		
-		if slot > -1:
-			$\"/root/Game/Player\".UI.got_item(id)
+		if PlayerStats.add_item(id):
 			Res.play_sample(self, \"Item\")
-			PlayerStats.inventory[slot] = id
 			queue_free()"
 _sections_unfolded = [ "Resource" ]
 

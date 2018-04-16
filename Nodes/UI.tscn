@@ -9,8 +9,8 @@
 [ext_resource path="res://Sprites/UI/Player.png" type="Texture" id=7]
 [ext_resource path="res://Resources/FancyFont.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Sprites/Items/0.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/UI/Money.png" type="Texture" id=10]
-[ext_resource path="res://Resources/SmallFont.tres" type="DynamicFont" id=11]
+[ext_resource path="res://Resources/SmallFont.tres" type="DynamicFont" id=10]
+[ext_resource path="res://Sprites/UI/Money.png" type="Texture" id=11]
 [ext_resource path="res://Sprites/UI/Skills/NoSkill.png" type="Texture" id=12]
 [ext_resource path="res://Sprites/UI/MessageBox.png" type="Texture" id=13]
 [ext_resource path="res://Sprites/UI/NameBox.png" type="Texture" id=14]
@@ -213,7 +213,6 @@ stretch_mode = 0
 
 [node name="Tabs" type="TabContainer" parent="." index="1"]
 
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -234,7 +233,7 @@ tabs_visible = true
 
 [node name="Inventory" type="Panel" parent="Tabs" index="0"]
 
-editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -813,7 +812,6 @@ stretch_mode = 4
 
 [node name="Inventory" type="Control" parent="Tabs/Inventory" index="4"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -829,6 +827,7 @@ size_flags_vertical = 1
 
 [node name="Slot1" type="TextureButton" parent="Tabs/Inventory/Inventory" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -853,8 +852,32 @@ expand = true
 stretch_mode = 3
 _sections_unfolded = [ "Textures" ]
 
+[node name="Amount" type="Label" parent="Tabs/Inventory/Inventory/Slot1" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 35.0
+margin_top = 23.0
+margin_right = 40.0
+margin_bottom = 45.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 10 )
+text = "1"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="Slot2" type="TextureButton" parent="Tabs/Inventory/Inventory" index="1"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -879,8 +902,32 @@ expand = true
 stretch_mode = 3
 _sections_unfolded = [ "Textures" ]
 
+[node name="Amount" type="Label" parent="Tabs/Inventory/Inventory/Slot2" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 38.0
+margin_top = 25.0
+margin_right = 43.0
+margin_bottom = 47.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 10 )
+text = "1"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="Slot3" type="TextureButton" parent="Tabs/Inventory/Inventory" index="2"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -905,8 +952,32 @@ expand = true
 stretch_mode = 3
 _sections_unfolded = [ "Textures" ]
 
+[node name="Amount" type="Label" parent="Tabs/Inventory/Inventory/Slot3" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 37.0
+margin_top = 24.0
+margin_right = 42.0
+margin_bottom = 46.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 10 )
+text = "1"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="Slot4" type="TextureButton" parent="Tabs/Inventory/Inventory" index="3"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -931,8 +1002,32 @@ expand = true
 stretch_mode = 3
 _sections_unfolded = [ "Textures" ]
 
+[node name="Amount" type="Label" parent="Tabs/Inventory/Inventory/Slot4" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 34.0
+margin_top = 23.0
+margin_right = 39.0
+margin_bottom = 45.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 10 )
+text = "1"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="Slot5" type="TextureButton" parent="Tabs/Inventory/Inventory" index="4"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -957,6 +1052,29 @@ expand = true
 stretch_mode = 3
 _sections_unfolded = [ "Textures" ]
 
+[node name="Amount" type="Label" parent="Tabs/Inventory/Inventory/Slot5" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 40.0
+margin_top = 25.0
+margin_right = 45.0
+margin_bottom = 47.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 10 )
+text = "1"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="Money" type="TextureRect" parent="Tabs/Inventory" index="5"]
 
 editor/display_folded = true
@@ -974,7 +1092,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 stretch_mode = 0
 
 [node name="Amount" type="Label" parent="Tabs/Inventory/Money" index="0"]
@@ -993,7 +1111,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 11 )
+custom_fonts/font = ExtResource( 10 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1898,7 +2016,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 stretch_mode = 0
 
 [node name="Amount" type="Label" parent="Shop/Money" index="0"]
@@ -1917,7 +2035,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 11 )
+custom_fonts/font = ExtResource( 10 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1959,7 +2077,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 stretch_mode = 0
 
 [node name="Amount" type="Label" parent="Shop/PriceTag" index="1"]
@@ -1978,7 +2096,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 11 )
+custom_fonts/font = ExtResource( 10 )
 text = "0"
 percent_visible = 1.0
 lines_skipped = 0

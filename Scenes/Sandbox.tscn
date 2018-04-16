@@ -15,7 +15,7 @@ func perma_state(object, method):
 func save_state(object):
 	pass"
 
-[node name="Game" type="YSort" index="0"]
+[node name="Game" type="YSort"]
 
 sort_enabled = true
 script = SubResource( 1 )
