@@ -91,13 +91,16 @@ func get_skill_texture(skill):
 
 func weighted_random(chances):
 	var sum = 0
-	for value in chances.values(): sum += value
+	for value in chances.values(): sum += int(value)
 	if sum == 0: return
 	
+	var chances2 = {}
+	chances2[chances.keys()[0]] = chances.values()[0]
+	
 	for i in range(chances.size()-1):
-		chances[chances.keys()[i+1]] = chances[chances.keys()[i]] + chances[chances.keys()[i+1]]
+		chances2[chances.keys()[i+1]] = int(chances2[chances.keys()[i]] + chances[chances.keys()[i+1]])
 	
 	var value = randi() % sum
-	for chance in chances.keys():
-		if chances[chance] >= value:
+	for chance in chances2.keys():
+		if chances2[chance] >= value:
 			return chance

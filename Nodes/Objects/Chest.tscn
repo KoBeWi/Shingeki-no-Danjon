@@ -8,8 +8,7 @@
 resource_name = "Chest"
 script/source = "extends StaticBody2D
 
-var item
-var player_in = false
+var item = -1
 
 func _ready():
 	$\"/root/Game\".perma_state(self, \"open\")
@@ -19,7 +18,7 @@ func interact():
 	$\"/root/Game\".save_state(self)
 	open()
 	
-	if item != null:
+	if item > -1:
 		var it = Res.create_instance(\"Item\")
 		it.position = position + Vector2(0, 50)
 		it.id = item
@@ -59,7 +58,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[node name="Chest" type="StaticBody2D"]
+[node name="Chest" type="StaticBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1

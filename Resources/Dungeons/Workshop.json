@@ -4,6 +4,11 @@
 	"tileset": "Dungeon",
 	"progress": "UP",
 	"containers": ["Chest"],
+	"container_contents": {"0": 1, "1": 1},
+	"container_count": 10,
 	"breakables": ["Barrel"],
-	"enemies": ["Pusher", "Grinder", "Trochnalis", "FLA-G"]
+	"breakable_contents": [[2, 200], [3, 400]],
+	"breakable_count": 20,
+	"enemies": ["Puncher", "Grinder", "Trochnalis", "FLA-G"],
+	"enemy_count": 30
 }

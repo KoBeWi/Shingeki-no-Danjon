@@ -9,11 +9,7 @@ const OPPOSITE = [2, 3, 0, 1]
 
 const MIN_MAP_SIZE = 25
 
-const ENABLE_UGANDA = true
-const ENABLE_GRIDER = false
-const ENABLE_PUSHER = false
-const ENABLE_TROCHNALIS = true
-const ENABLE_FLAG = true
+var disabled = []#["Puncher"] ##DEBUG
 
 var width = 100
 var height = 100
@@ -139,16 +135,54 @@ func generate(w, h):
 	wall_space.erase(wall2)
 	wall_space.erase(wall2 + Vector2(80, 0))
 	
-	##ten fragment jest do zmiany
-	if ENABLE_GRIDER: place_enemy_into_maze(Res.get_node("Enemies/Grinder"), 50 )
-	if ENABLE_UGANDA: place_enemy_into_maze(Res.get_node("Uganda"),3)
-	if ENABLE_PUSHER: place_enemy_into_maze(Res.get_node("Enemies/Puncher"),40)
-	if ENABLE_TROCHNALIS: place_enemy_into_maze(Res.get_node("Enemies/Trochnalis"),40)
-	if ENABLE_FLAG: place_enemy_into_maze(Res.get_node("Enemies/FLA-G"),50)
-	if true: place_enemy_into_maze(Res.get_node("NPC"),5)
+	place_containers()
+	place_breakables()
+	place_enemies()
+
+func place_breakables():
+	var breakables = dungeon_type.breakables
 	
-	place_treasure_into_maze(Res.get_node("Objects/Barrel"), 20)
-	place_treasure_into_maze(Res.get_node("Objects/Chest"), 10)
+	var nil = 0
+	
+	var chances = {}
+	for item in dungeon_type.breakable_contents:
+		chances[item[0]] = item[1]
+		nil += 1000 - item[1]
+	
+	chances[-1] = nil
+	
+	for i in range(dungeon_type.breakable_count):
+		var type = breakables[randi() % breakables.size()]
+		var instance = place_on_floor("Objects/" + type)
+		if instance: instance.item = int(Res.weighted_random(chances))
+
+func place_containers():
+	var containers = dungeon_type.containers
+	
+	for i in range(dungeon_type.container_count):
+		var type = containers[randi() % containers.size()]
+		var instance = place_on_floor("Objects/" + type)
+		if instance: instance.item = int(Res.weighted_random(dungeon_type.container_contents))
+
+func place_enemies():
+	var enemies = dungeon_type.enemies
+	
+	for i in range(dungeon_type.enemy_count):
+		var type = enemies[randi() % enemies.size()]
+		var instance = place_on_floor("Enemies/" + type)
+
+func place_on_floor(object):
+	for dis in disabled: if object.find(dis) > -1: return ##DEBUG
+	if floor_space.empty(): return null
+	
+	var instance = Res.get_node(object).instance()
+	var i = randi() % floor_space.size()
+	
+	instance.position = floor_space[i] + Vector2(40,40)
+	floor_space.remove(i)
+	dungeon.get_parent().add_child(instance)
+	
+	return instance
 
 func place_treasure_into_maze(what, how_many):
 	for nmb in range(how_many):
