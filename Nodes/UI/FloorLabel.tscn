@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Resources/FancyFont.tres" type="DynamicFont" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "FloorLabel"
+script/source = "extends Label
+
+func new_floor(f):
+	if f > 0: text = \"F\" + str(f)
+	elif f < 0: text = str(f) + \"B\"
+	else: text = \"GF\"
+	
+	visible = true
+	yield(get_tree().create_timer(1), \"timeout\")
+	visible = false"
+_sections_unfolded = [ "Resource" ]
+
+[node name="FloorLabel" type="Label" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1014.0
+margin_top = 178.0
+margin_right = 1047.0
+margin_bottom = 221.0
+rect_scale = Vector2( 3, 3 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+text = "1F"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = SubResource( 1 )
+_sections_unfolded = [ "Rect", "custom_colors", "custom_fonts" ]
+
+

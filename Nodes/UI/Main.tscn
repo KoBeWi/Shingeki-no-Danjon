@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/UI.gd" type="Script" id=1]
+[ext_resource path="res://Nodes/UI/HUD.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Nodes/UI/PlayerMenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Nodes/UI/LevelUpLabel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Nodes/UI/FloorLabel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Nodes/UI/SkillAcquiredPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Nodes/UI/ItemGetPanel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Nodes/UI/DialogueBox.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Nodes/UI/Shop.tscn" type="PackedScene" id=9]
+
+[node name="UI" type="CanvasLayer"]
+
+pause_mode = 2
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="HUD" parent="." index="0" instance=ExtResource( 2 )]
+
+[node name="PlayerMenu" parent="." index="1" instance=ExtResource( 3 )]
+
+visible = false
+
+[node name="LevelUpLabel" parent="." index="2" instance=ExtResource( 4 )]
+
+[node name="FloorLabel" parent="." index="3" instance=ExtResource( 5 )]
+
+visible = false
+
+[node name="SkillAcquiredPanel" parent="." index="4" instance=ExtResource( 6 )]
+
+visible = false
+
+[node name="ItemGetPanel" parent="." index="5" instance=ExtResource( 7 )]
+
+[node name="DialogueBox" parent="." index="6" instance=ExtResource( 8 )]
+
+visible = false
+
+[node name="Shop" parent="." index="7" instance=ExtResource( 9 )]
+
+

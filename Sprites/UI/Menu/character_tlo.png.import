@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayerMPTop.png-cd7a9e71b22fb5819830bfe1b8af8ee0.stex"
+path="res://.import/character_tlo.png-4aaf284ab9ade6ac0461062407944023.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/PlayerMPTop.png"
-source_md5="05a4b3d311bf2cd0e958db018f153c1e"
+source_file="res://Sprites/UI/Menu/character_tlo.png"
+source_md5="2d02fd3836da3d0820b502bdde51e325"
 
-dest_files=[ "res://.import/PlayerMPTop.png-cd7a9e71b22fb5819830bfe1b8af8ee0.stex" ]
-dest_md5="c4207e245b2a9e61fd1a6ce03c5905ca"
+dest_files=[ "res://.import/character_tlo.png-4aaf284ab9ade6ac0461062407944023.stex" ]
+dest_md5="b265fb4cbb5d91f4bf9d27336ed2f3e9"
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

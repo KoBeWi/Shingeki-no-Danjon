@@ -1,0 +1,524 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Resources/FancyFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Sprites/Items/2.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/Money.png" type="Texture" id=3]
+[ext_resource path="res://Resources/SmallFont.tres" type="DynamicFont" id=4]
+
+[sub_resource type="GDScript" id=3]
+
+resource_name = "Shop"
+script/source = "extends Panel
+
+var shop = []
+
+func open_shop(name, items):
+	get_tree().paused = true
+	visible = true
+	$Name.text = name
+	shop = items
+	
+	refresh_shop()
+
+func refresh_shop():
+	$Money/Amount.text = str(PlayerStats.money)
+	
+	for i in range($ShopItems.get_child_count()):
+		var slot = $ShopItems.get_child(i)
+		
+		if i < shop.size():
+			slot.disabled = false
+			slot.visible = true
+			slot.texture_normal = Res.get_item_texture(shop[i])
+		else:
+			slot.disabled = true
+			slot.visible = false
+	
+	for i in range(PlayerStats.INVENTORY_SIZE):
+		var slot = $InventoryItems.get_child(i)
+		if PlayerStats.inventory[i]:
+			slot.visible = true
+			slot.texture = Res.get_item_texture(PlayerStats.inventory[i].id)
+		else:
+			slot.visible = false
+
+func on_buy(i):
+	var item = Res.items[shop[i]]
+	
+	if PlayerStats.money >= item.price and PlayerStats.add_item(item.id):
+		Res.play_sample(get_parent().player, \"Buy\", false)
+		PlayerStats.money -= item.price
+		refresh_shop()
+	else:
+		Res.play_sample(get_parent().player, \"Buzzer\", false)
+
+func over_shop(i):
+	$PriceTag.visible = true
+	$PriceTag.rect_position = get_viewport().get_mouse_position() - rect_position
+	$PriceTag/Amount.text = str(Res.items[shop[i]].price)
+
+func out_shop(i):
+	$PriceTag.visible = false"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="StyleBoxFlat" id=2]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+bg_color = Color( 0.34375, 0.34375, 0.34375, 1 )
+draw_center = true
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color( 0.8, 0.8, 0.8, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 0.6 )
+shadow_size = 0
+anti_aliasing = true
+anti_aliasing_size = 1
+
+[node name="Shop" type="Panel" index="0"]
+
+editor/display_folded = true
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 77.0
+margin_top = 162.0
+margin_right = 1315.0
+margin_bottom = 684.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = SubResource( 3 )
+
+[node name="Name" type="Label" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 503.0
+margin_top = 27.0
+margin_right = 838.0
+margin_bottom = 70.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+text = "Shop Name Goes Here"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Labels" type="Label" parent="." index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 190.0
+margin_top = 121.0
+margin_right = 1130.0
+margin_bottom = 164.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+text = "Shop Items                                                            Your Items"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="ShopItems" type="Control" parent="." index="2"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="1" type="TextureButton" parent="ShopItems" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 73.0
+margin_top = 188.0
+margin_right = 123.0
+margin_bottom = 238.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 3
+_sections_unfolded = [ "Textures" ]
+
+[node name="2" type="TextureButton" parent="ShopItems" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 123.0
+margin_top = 188.0
+margin_right = 173.0
+margin_bottom = 238.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 3
+_sections_unfolded = [ "Textures" ]
+
+[node name="3" type="TextureButton" parent="ShopItems" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 173.0
+margin_top = 188.0
+margin_right = 223.0
+margin_bottom = 238.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 3
+_sections_unfolded = [ "Textures" ]
+
+[node name="4" type="TextureButton" parent="ShopItems" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 223.0
+margin_top = 188.0
+margin_right = 273.0
+margin_bottom = 238.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 3
+_sections_unfolded = [ "Textures" ]
+
+[node name="5" type="TextureButton" parent="ShopItems" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 273.0
+margin_top = 188.0
+margin_right = 323.0
+margin_bottom = 238.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 3
+_sections_unfolded = [ "Textures" ]
+
+[node name="InventoryItems" type="Control" parent="." index="3"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="1" type="TextureRect" parent="InventoryItems" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 923.0
+margin_top = 188.0
+margin_right = 973.0
+margin_bottom = 238.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+
+[node name="2" type="TextureRect" parent="InventoryItems" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 973.0
+margin_top = 188.0
+margin_right = 1023.0
+margin_bottom = 238.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+
+[node name="3" type="TextureRect" parent="InventoryItems" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1023.0
+margin_top = 188.0
+margin_right = 1073.0
+margin_bottom = 238.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+
+[node name="4" type="TextureRect" parent="InventoryItems" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1073.0
+margin_top = 188.0
+margin_right = 1123.0
+margin_bottom = 238.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+
+[node name="5" type="TextureRect" parent="InventoryItems" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1123.0
+margin_top = 188.0
+margin_right = 1173.0
+margin_bottom = 238.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+
+[node name="Money" type="TextureRect" parent="." index="4"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 78.0
+margin_top = 51.0
+margin_right = 85.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 3 )
+stretch_mode = 0
+
+[node name="Amount" type="Label" parent="Money" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 11.0
+margin_top = -4.0
+margin_right = 51.0
+margin_bottom = 18.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 4 )
+text = "0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="PriceTag" type="Panel" parent="." index="5"]
+
+editor/display_folded = true
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 87.0
+margin_bottom = 18.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/panel = SubResource( 2 )
+_sections_unfolded = [ "custom_styles" ]
+
+[node name="Icon" type="TextureRect" parent="PriceTag" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 10.0
+margin_bottom = 15.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 3 )
+stretch_mode = 0
+
+[node name="Amount" type="Label" parent="PriceTag" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 14.0
+margin_top = -1.0
+margin_right = 54.0
+margin_bottom = 21.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 4 )
+text = "0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+

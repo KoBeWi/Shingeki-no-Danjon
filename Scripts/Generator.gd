@@ -138,6 +138,7 @@ func generate(w, h):
 	place_containers()
 	place_breakables()
 	place_enemies()
+	for i in range(100): place_on_floor("NPC")
 
 func place_breakables():
 	var breakables = dungeon_type.breakables

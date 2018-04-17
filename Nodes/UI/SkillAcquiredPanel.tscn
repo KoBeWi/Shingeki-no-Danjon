@@ -1,0 +1,93 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Resources/FancyFont.tres" type="DynamicFont" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "SkillPanel"
+script/source = "extends Panel
+
+const SKILL_TIMEOUT = 3
+
+var skill_time = 0
+
+func _process(delta):
+	if skill_time > 0:
+		skill_time -= delta
+		modulate.a = clamp(skill_time / (SKILL_TIMEOUT-1), 0, 1)
+		
+		if skill_time <= 0: visible = false
+
+func new_skill(skill):
+	Res.play_sample(get_parent().player, \"SkillAcquired\", false)
+	visible = true
+	$Name.text = skill
+	skill_time = SKILL_TIMEOUT"
+_sections_unfolded = [ "Resource" ]
+
+[node name="SkillAcquiredPanel" type="Panel"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 508.0
+margin_top = 482.0
+margin_right = 911.0
+margin_bottom = 645.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = SubResource( 1 )
+
+[node name="Label" type="Label" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 89.0
+margin_top = 19.0
+margin_right = 316.0
+margin_bottom = 62.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+text = "Skill acquired!"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Name" type="Label" parent="." index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 72.0
+margin_top = 94.0
+margin_right = 362.0
+margin_bottom = 137.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+text = "This is a skill name"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+
