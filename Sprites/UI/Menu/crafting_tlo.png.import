@@ -7,10 +7,10 @@ path="res://.import/crafting_tlo.png-875a5b308411b5b73e2d5b8fdfc39c25.stex"
 [deps]
 
 source_file="res://Sprites/UI/Menu/crafting_tlo.png"
-source_md5="31a98d7f521eaf7e2d3c6948c9f45ebf"
+source_md5="6d9123484ea2c36f94fe363153451b8d"
 
 dest_files=[ "res://.import/crafting_tlo.png-875a5b308411b5b73e2d5b8fdfc39c25.stex" ]
-dest_md5="8a8f872617fdb66adbc2fc6ade8420ab"
+dest_md5="71e404580499a800311c33857a2af72b"
 
 [params]
 

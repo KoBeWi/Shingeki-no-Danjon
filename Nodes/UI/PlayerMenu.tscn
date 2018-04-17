@@ -11,8 +11,35 @@
 resource_name = "PlayerMenu"
 script/source = "extends Control
 
+onready var TABS = $Tabs.get_child_count()
+onready var FIRST_TAB_X = $TabsBar/Highlight.rect_position.x
+
+var in_tab = false
+var current_tab = 0
+
+func _ready():
+	update_tabs()
+
 func _process(delta):
-	if !visible: return"
+	if !visible: return
+	
+	if !in_tab:
+		var old_tab = current_tab
+		
+		if Input.is_action_just_pressed(\"ui_left\"):
+			current_tab -= 1
+			if current_tab < 0: current_tab = TABS-1
+		elif Input.is_action_just_pressed(\"ui_right\"):
+			current_tab += 1
+			if current_tab >= TABS: current_tab = 0
+		
+		if old_tab != current_tab: update_tabs()
+	
+func update_tabs():
+	for i in TABS:
+		$Tabs.get_child(i).visible = (current_tab == i)
+	
+	$TabsBar/Highlight.rect_position.x = FIRST_TAB_X + current_tab * 207"
 _sections_unfolded = [ "Resource" ]
 
 [node name="PlayerMenu" type="Control" index="0"]
