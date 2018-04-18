@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/crafting_tlo.png-875a5b308411b5b73e2d5b8fdfc39c25.stex"
+path="res://.import/TabSelected.png-4dc4fef8b31c06284b11ed68f88f5d2c.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Menu/crafting_tlo.png"
-source_md5="6d9123484ea2c36f94fe363153451b8d"
+source_file="res://Sprites/UI/Menu/TabSelected.png"
+source_md5="957e8d571e5b0c464f6c37618465b899"
 
-dest_files=[ "res://.import/crafting_tlo.png-875a5b308411b5b73e2d5b8fdfc39c25.stex" ]
-dest_md5="71e404580499a800311c33857a2af72b"
+dest_files=[ "res://.import/TabSelected.png-4dc4fef8b31c06284b11ed68f88f5d2c.stex" ]
+dest_md5="6d97a4ee0d703a4f3fc2d811986a17f4"
 
 [params]
 
