@@ -103,6 +103,9 @@ func generate(w, h):
 				var new_tile = randi() % wall_size
 				if new_tile > 0:
 					var tile = tileset.wall[new_tile]
+					var id = floor_id
+					if tile.has("id"): id = tile.id
+					else: id = tile.ids[randi() % tile.ids.size()]
 					
 					var space = true
 					for t in range(tile.pattern.size()):
@@ -113,7 +116,8 @@ func generate(w, h):
 					
 					if !space: continue
 					for t in range(tile.pattern.size()):
-						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), tile.id + tile.pattern[t])
+						if id == 37: print(Vector2(t % int(tile.cols), t / int(tile.cols)), " ", id + tile.pattern[t])
+						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), id + tile.pattern[t])
 	
 	var wall = wall_space[randi() % wall_space.size()]
 	while !wall_space.has(wall + Vector2(-80, 0)): wall = wall_space[randi() % wall_space.size()]
