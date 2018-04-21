@@ -72,20 +72,32 @@ func generate(w, h):
 	for segment in dungeon.get_children():
 		var bottom = segment.get_node("BottomTiles")
 		
-		var floor_id = tileset.floor[0]
-		var floor_size = tileset.floor.size()
+		##to powinno być liczone wcześniej dla każdego tileseta tylko raz
+		var floor_id = tileset.floor[0].id
+		var tile_to_floor = {}
+		var floor_ids_with_weights = {}
+		for flooor in tileset.floor:
+			if flooor.has("id"):
+				floor_ids_with_weights[flooor.id] = flooor.weight
+			else: for i in range(flooor.ids.size()):
+				floor_ids_with_weights[flooor.ids[i]] = flooor.weights[i]
+				tile_to_floor[flooor.ids[i]] = flooor
 		
-		var wall_id = tileset.wall[0]
-		var wall_size = tileset.wall.size()
+		var wall_id = tileset.wall[0].id
+		var tile_to_wall = {}
+		var wall_ids_with_weights = {}
+		for wall in tileset.wall:
+			if wall.has("id"):
+				wall_ids_with_weights[wall.id] = wall.weight
+			else: for i in range(wall.ids.size()):
+				wall_ids_with_weights[wall.ids[i]] = wall.weights[i]
+				tile_to_wall[wall.ids[i]] = wall
 		
 		for cell in bottom.get_used_cells():
 			if bottom.get_cellv(cell) == floor_id:
-				var new_tile = randi() % floor_size
-				if new_tile > 0:
-					var tile = tileset.floor[new_tile]
-					var id = floor_id
-					if tile.has("id"): id = tile.id
-					else: id = tile.ids[randi() % tile.ids.size()]
+				var new_tile = Res.weighted_random(floor_ids_with_weights)
+				if new_tile != floor_id:
+					var tile = tile_to_floor[new_tile]
 					
 					var space = true
 					for t in range(tile.pattern.size()):
@@ -97,15 +109,12 @@ func generate(w, h):
 					for t in range(tile.pattern.size()):
 						var flip = [false, false, false]
 						if tile.has("can_flip"): flip = [randi()%2 == 0, randi()%2 == 0, randi()%2 == 0]
-						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), id + tile.pattern[t], flip[0], flip[1], flip[2])
+						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), new_tile + tile.pattern[t], flip[0], flip[1], flip[2])
 				
 			if bottom.get_cellv(cell) == wall_id:
-				var new_tile = randi() % wall_size
-				if new_tile > 0:
-					var tile = tileset.wall[new_tile]
-					var id = floor_id
-					if tile.has("id"): id = tile.id
-					else: id = tile.ids[randi() % tile.ids.size()]
+				var new_tile = Res.weighted_random(wall_ids_with_weights)
+				if new_tile != wall_id:
+					var tile = tile_to_wall[new_tile]
 					
 					var space = true
 					for t in range(tile.pattern.size()):
@@ -116,8 +125,7 @@ func generate(w, h):
 					
 					if !space: continue
 					for t in range(tile.pattern.size()):
-						if id == 37: print(Vector2(t % int(tile.cols), t / int(tile.cols)), " ", id + tile.pattern[t])
-						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), id + tile.pattern[t])
+						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), new_tile + tile.pattern[t])
 	
 	var wall = wall_space[randi() % wall_space.size()]
 	while !wall_space.has(wall + Vector2(-80, 0)): wall = wall_space[randi() % wall_space.size()]

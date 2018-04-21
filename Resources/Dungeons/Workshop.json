@@ -10,5 +10,6 @@
 	"breakable_contents": [[2, 200], [3, 400]],
 	"breakable_count": 20,
 	"enemies": ["Puncher", "Grinder", "Trochnalis", "FLA-G"],
-	"enemy_count": 30
+	"enemy_count": 30,
+	"environment_objects": ["WaterPipe"]
 }
