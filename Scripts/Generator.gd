@@ -74,30 +74,13 @@ func generate(w, h):
 		
 		##to powinno być liczone wcześniej dla każdego tileseta tylko raz
 		var floor_id = tileset.floor[0].id
-		var tile_to_floor = {}
-		var floor_ids_with_weights = {}
-		for flooor in tileset.floor:
-			if flooor.has("id"):
-				floor_ids_with_weights[flooor.id] = flooor.weight
-			else: for i in range(flooor.ids.size()):
-				floor_ids_with_weights[flooor.ids[i]] = flooor.weights[i]
-				tile_to_floor[flooor.ids[i]] = flooor
-		
 		var wall_id = tileset.wall[0].id
-		var tile_to_wall = {}
-		var wall_ids_with_weights = {}
-		for wall in tileset.wall:
-			if wall.has("id"):
-				wall_ids_with_weights[wall.id] = wall.weight
-			else: for i in range(wall.ids.size()):
-				wall_ids_with_weights[wall.ids[i]] = wall.weights[i]
-				tile_to_wall[wall.ids[i]] = wall
 		
 		for cell in bottom.get_used_cells():
 			if bottom.get_cellv(cell) == floor_id:
-				var new_tile = Res.weighted_random(floor_ids_with_weights)
+				var new_tile = Res.weighted_random(tileset.floor_ids_with_weights)
 				if new_tile != floor_id:
-					var tile = tile_to_floor[new_tile]
+					var tile = tileset.tile_to_floor[new_tile]
 					
 					var space = true
 					for t in range(tile.pattern.size()):
@@ -112,9 +95,9 @@ func generate(w, h):
 						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), new_tile + tile.pattern[t], flip[0], flip[1], flip[2])
 				
 			if bottom.get_cellv(cell) == wall_id:
-				var new_tile = Res.weighted_random(wall_ids_with_weights)
+				var new_tile = Res.weighted_random(tileset.wall_ids_with_weights)
 				if new_tile != wall_id:
-					var tile = tile_to_wall[new_tile]
+					var tile = tileset.tile_to_wall[new_tile]
 					
 					var space = true
 					for t in range(tile.pattern.size()):

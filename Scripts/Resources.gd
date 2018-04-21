@@ -17,6 +17,30 @@ func _ready():
 	
 	for tileset in get_resource_list("Tilesets"):
 		tilesets[tileset.name] = tileset.data
+		
+		var tile_to_floor = {}
+		var floor_ids_with_weights = {}
+		for flooor in tileset.data.floor:
+			if flooor.has("id"):
+				floor_ids_with_weights[flooor.id] = flooor.weight
+			else: for i in range(flooor.ids.size()):
+				floor_ids_with_weights[flooor.ids[i]] = flooor.weights[i]
+				tile_to_floor[flooor.ids[i]] = flooor
+		
+		tileset.data.tile_to_floor = tile_to_floor
+		tileset.data.floor_ids_with_weights = floor_ids_with_weights
+		
+		var tile_to_wall = {}
+		var wall_ids_with_weights = {}
+		for wall in tileset.data.wall:
+			if wall.has("id"):
+				wall_ids_with_weights[wall.id] = wall.weight
+			else: for i in range(wall.ids.size()):
+				wall_ids_with_weights[wall.ids[i]] = wall.weights[i]
+				tile_to_wall[wall.ids[i]] = wall
+		
+		tileset.data.tile_to_wall = tile_to_wall
+		tileset.data.wall_ids_with_weights = wall_ids_with_weights
 	
 	var resources = get_resource_list("Items")
 	items.resize(resources.size())
