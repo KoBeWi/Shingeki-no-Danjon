@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/WaterPipe.png-1958a2ee120320702806888f2780bfdc.stex"
+path="res://.import/ParaffinBluePipe.png-081802bc6ee3f355c84594e38e82205c.stex"
 
 [deps]
 
-source_file="res://Sprites/Environment/WaterPipe.png"
-source_md5="d57e53ef5c2e6c5d9458c425182be086"
+source_file="res://Sprites/Environment/ParaffinBluePipe.png"
+source_md5="f797832a90a79a0318402de686328a5d"
 
-dest_files=[ "res://.import/WaterPipe.png-1958a2ee120320702806888f2780bfdc.stex" ]
-dest_md5="113d02f7fb341b64c3eb51be53113b48"
+dest_files=[ "res://.import/ParaffinBluePipe.png-081802bc6ee3f355c84594e38e82205c.stex" ]
+dest_md5="63853e0cb5f18a40edc91678fc3b7aa0"
 
 [params]
 

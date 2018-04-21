@@ -29,6 +29,7 @@ func _ready():
 		
 		tileset.data.tile_to_floor = tile_to_floor
 		tileset.data.floor_ids_with_weights = floor_ids_with_weights
+		tileset.data.floor_id = tileset.data.floor[0].id
 		
 		var tile_to_wall = {}
 		var wall_ids_with_weights = {}
@@ -41,6 +42,7 @@ func _ready():
 		
 		tileset.data.tile_to_wall = tile_to_wall
 		tileset.data.wall_ids_with_weights = wall_ids_with_weights
+		tileset.data.wall_id = tileset.data.wall[0].id
 	
 	var resources = get_resource_list("Items")
 	items.resize(resources.size())

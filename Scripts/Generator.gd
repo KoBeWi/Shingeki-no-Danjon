@@ -72,18 +72,15 @@ func generate(w, h):
 	for segment in dungeon.get_children():
 		var bottom = segment.get_node("BottomTiles")
 		
-		var floor_id = tileset.floor[0].id
-		var wall_id = tileset.wall[0].id
-		
 		for cell in bottom.get_used_cells():
-			if bottom.get_cellv(cell) == floor_id:
+			if bottom.get_cellv(cell) == tileset.floor_id:
 				var new_tile = Res.weighted_random(tileset.floor_ids_with_weights)
-				if new_tile != floor_id:
+				if new_tile != tileset.floor_id:
 					var tile = tileset.tile_to_floor[new_tile]
 					
 					var space = true
 					for t in range(tile.pattern.size()):
-						if bottom.get_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols))) != floor_id:
+						if bottom.get_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols))) != tileset.floor_id:
 							space = false
 							break
 					
@@ -93,15 +90,15 @@ func generate(w, h):
 						if tile.has("can_flip"): flip = [randi()%2 == 0, randi()%2 == 0, randi()%2 == 0]
 						bottom.set_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)), new_tile + tile.pattern[t], flip[0], flip[1], flip[2])
 				
-			if bottom.get_cellv(cell) == wall_id:
+			if bottom.get_cellv(cell) == tileset.wall_id:
 				var new_tile = Res.weighted_random(tileset.wall_ids_with_weights)
-				if new_tile != wall_id:
+				if new_tile != tileset.wall_id:
 					var tile = tileset.tile_to_wall[new_tile]
 					
 					var space = true
 					for t in range(tile.pattern.size()):
 						var celll = bottom.get_cellv(cell + Vector2(t % int(tile.cols), t / int(tile.cols)))
-						if celll != wall_id and celll != wall_id + 3:
+						if celll != tileset.wall_id and celll != tileset.wall_id + 3:
 							space = false
 							break
 					
@@ -129,10 +126,31 @@ func generate(w, h):
 	wall_space.erase(wall2)
 	wall_space.erase(wall2 + Vector2(80, 0))
 	
+	place_environment()
 	place_containers()
 	place_breakables()
 	place_enemies()
-	for i in range(100): place_on_floor("NPC")
+#	for i in range(100): place_on_floor("NPC")
+
+func place_environment():
+	for i in dungeon_type.environment_count:
+		var object = dungeon_type.environment_objects[randi() % dungeon_type.environment_objects.size()]
+		var instance = Res.get_node("Environment/" + object).instance()
+		
+		for j in range(100):
+			var k = randi() % floor_space.size()
+			var space = floor_space[k]
+			
+			if instance.placement == instance.SIDE_WALL and (space.has("left_wall") or space.has("right_wall")):
+				var offset = instance.offset_position
+				if instance.can_flip_h and space.has("right_wall"):
+					instance.flip_h = true
+					offset.x = -offset.x
+					
+				instance.position = space.pos + Vector2(40, 40) + offset
+				dungeon.get_parent().add_child(instance)
+				floor_space.remove(k)
+				break
 
 func place_breakables():
 	var breakables = dungeon_type.breakables
@@ -150,6 +168,7 @@ func place_breakables():
 		var type = breakables[randi() % breakables.size()]
 		var instance = place_on_floor("Objects/" + type)
 		if instance: instance.item = int(Res.weighted_random(chances))
+		else: break
 
 func place_containers():
 	var containers = dungeon_type.containers
@@ -158,13 +177,14 @@ func place_containers():
 		var type = containers[randi() % containers.size()]
 		var instance = place_on_floor("Objects/" + type)
 		if instance: instance.item = int(Res.weighted_random(dungeon_type.container_contents))
+		else: break
 
 func place_enemies():
 	var enemies = dungeon_type.enemies
 	
 	for i in range(dungeon_type.enemy_count):
 		var type = enemies[randi() % enemies.size()]
-		var instance = place_on_floor("Enemies/" + type)
+		if !place_on_floor("Enemies/" + type): break
 
 func place_on_floor(object):
 	for dis in disabled: if object.find(dis) > -1: return ##DEBUG
@@ -173,7 +193,7 @@ func place_on_floor(object):
 	var instance = Res.get_node(object).instance()
 	var i = randi() % floor_space.size()
 	
-	instance.position = floor_space[i] + Vector2(40,40)
+	instance.position = floor_space[i].pos + Vector2(40,40)
 	floor_space.remove(i)
 	dungeon.get_parent().add_child(instance)
 	
@@ -293,13 +313,28 @@ func remove_segment(segment):
 
 func create_segment(segment, pos):
 	var seg = Res.segment_nodes[segment].instance()
-	seg.get_node("BottomTiles").tile_set = Res.get_resource("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
-	seg.get_node("TopTiles").tile_set = Res.get_resource("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
+	var bottom = seg.get_node("BottomTiles")
+	var top = seg.get_node("TopTiles")
+	
+	bottom.tile_set = Res.get_resource("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
+	top.tile_set = Res.get_resource("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
 	seg.position = Vector2(pos.x * SEG_W, pos.y * SEG_H)
 	
-	for cell in seg.get_node("BottomTiles").get_used_cells():
-		match seg.get_node("BottomTiles").get_cellv(cell):
-			19: floor_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
+	for cell in bottom.get_used_cells():
+		var celll = {"pos": Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80, "no_walls": true}
+		
+		match bottom.get_cellv(cell):
+			19:
+				for i in range(4):
+					var dcell = cell + DIRECTIONS[i]
+					if bottom.get_cellv(dcell) != 19:
+						celll.no_walls = false
+						if i == 0 and cell.y > 0: celll.top_wall = true
+						elif i == 1 and cell.x < 9: celll.right_wall = true
+						elif i == 2 and cell.y < 9: celll.bottom_wall = true
+						elif i == 3 and cell.x > 0: celll.left_wall = true
+						
+				floor_space.append(celll)
 			10: wall_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
 	
 	dungeon.add_child(seg)
