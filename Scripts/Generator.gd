@@ -72,7 +72,6 @@ func generate(w, h):
 	for segment in dungeon.get_children():
 		var bottom = segment.get_node("BottomTiles")
 		
-		##to powinno być liczone wcześniej dla każdego tileseta tylko raz
 		var floor_id = tileset.floor[0].id
 		var wall_id = tileset.wall[0].id
 		
