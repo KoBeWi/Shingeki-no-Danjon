@@ -6,6 +6,7 @@ var just_opened = false
 
 func _ready():
 	PlayerStats.connect("level_up", $LevelUpLabel, "level_up")
+	PlayerStats.connect("got_item",$ItemGetPanel, "got_item")
 	SkillBase.connect("new_skill", $SkillAcquiredPanel, "new_skill")
 	DungeonState.connect("floor_changed", $FloorLabel, "new_floor")
 

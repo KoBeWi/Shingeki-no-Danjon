@@ -23,6 +23,7 @@ var equipment = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 var skill_slots = ["Fireball", null, null]
 
 signal level_up
+signal got_item
 
 func _ready():
 	inventory.resize(INVENTORY_SIZE)
@@ -75,7 +76,7 @@ func add_item(id):
 			break
 	
 	if slot > -1:
-		$"/root/Game/Player".UI.got_item(id)
+		emit_signal("got_item", id)
 		if !inventory[slot]:
 			inventory[slot] = {"id": id, "stack": 1}
 		else:
