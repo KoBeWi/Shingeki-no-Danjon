@@ -7,10 +7,10 @@ path="res://.import/EquipmentHighlight.png-5ef8fd054457acc019a8a0edc56ec92e.stex
 [deps]
 
 source_file="res://Sprites/UI/Menu/EquipmentHighlight.png"
-source_md5="c87b4f89108963e47fdf176551e836b2"
+source_md5="d65272a1678417ca897b6dc60e71f537"
 
 dest_files=[ "res://.import/EquipmentHighlight.png-5ef8fd054457acc019a8a0edc56ec92e.stex" ]
-dest_md5="5ff0e9a13aa5ea270b01ecebf0562e15"
+dest_md5="103039195d44b90a76aa2da8d471bb9f"
 
 [params]
 

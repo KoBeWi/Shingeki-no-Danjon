@@ -1,7 +1,7 @@
 extends Node
 
 const INVENTORY_SIZE = 1000
-const EQUIPMENT_SLOTS = ["helmet", "armor", "pants", "boots", "weapon", "shield", "ring", "ring", "gloves", "amulet"]
+const EQUIPMENT_SLOTS = ["amulet", "helmet", "shield", "weapon", "gloves", "armor", "ring2", "ring1", "boots", "pants"]
 
 var level = 1
 var experience = 0
@@ -26,8 +26,9 @@ signal level_up
 signal got_item
 
 func _ready():
-	pass
-#	inventory.resize(INVENTORY_SIZE)
+	inventory.append({id = 0, stack = 1})
+	inventory.append({id = 0, stack = 1})
+	inventory.append({id = 0, stack = 1})
 
 func get_damage():
 	var damage = strength
@@ -45,6 +46,9 @@ func get_damage():
 func get_skill(slot):
 	if skill_slots[slot]:
 		return Res.skills[skill_slots[slot]]
+
+func get_equipment(slot_name): ##niekoniecznie potrzebne
+	return equipment[EQUIPMENT_SLOTS.find(slot_name)]
 
 func recalc_stats():
 	max_health = 90 + vitality * 10
