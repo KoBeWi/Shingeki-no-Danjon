@@ -287,7 +287,7 @@ extents = Vector2( 12.2459, 10 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -391,10 +391,9 @@ _sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pickable", "Transf
 
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
-position = Vector2( 7.62743, -12.6671 )
-scale = Vector2( 8.98578, 10.6402 )
+position = Vector2( -1.40505, 0.563736 )
+scale = Vector2( 3.90695, 8.4349 )
 shape = SubResource( 14 )
-disabled = true
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 

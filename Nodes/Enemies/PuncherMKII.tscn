@@ -277,7 +277,7 @@ extents = Vector2( 10, 10 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="Template" type="KinematicBody2D" index="0" groups=[
+[node name="Template" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
