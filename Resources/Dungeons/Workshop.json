@@ -11,6 +11,6 @@
 	"breakable_count": 20,
 	"enemies": ["Puncher", "Grinder", "Trochnalis", "FLA-G"],
 	"enemy_count": 30,
-	"environment_objects": ["WaterPipe", "OilPipe", "ParaffinBluePipe", "ParaffinGreenPipe"],
-	"environment_count": 20
+	"environment_objects": ["WaterPipe", "OilPipe", "ParaffinBluePipe", "ParaffinGreenPipe", "Pipe"],
+	"environment_count": 50
 }

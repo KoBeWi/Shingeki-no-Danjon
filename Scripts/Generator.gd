@@ -140,17 +140,28 @@ func place_environment():
 		for j in range(100):
 			var k = randi() % floor_space.size()
 			var space = floor_space[k]
+			var ok = true
 			
-			if instance.placement == instance.SIDE_WALL and (space.has("left_wall") or space.has("right_wall")):
-				var offset = instance.offset_position
-				if instance.can_flip_h and space.has("right_wall"):
-					instance.flip_h = true
-					offset.x = -offset.x
-					
-				instance.position = space.pos + Vector2(40, 40) + offset
-				dungeon.get_parent().add_child(instance)
-				floor_space.remove(k)
-				break
+			match instance.placement:
+				instance.SIDE_WALL: ok = space.has("left_wall") or space.has("right_wall")
+				instance.NO_WALL: ok = space.no_walls
+			
+			if !ok: continue
+				
+			var offset = instance.offset_position
+			if instance.can_flip_h and space.has("right_wall"):
+				instance.flip_h = true
+				offset.x = -offset.x
+			
+			if instance.variants != "":
+				var variants = instance.variants.split(" ")
+				var variant = variants[randi() % variants.size()]
+				instance.texture = load("res://Sprites/Environment/" + variant + ".png")
+				
+			instance.position = space.pos + Vector2(40, 40) + offset
+			dungeon.get_parent().add_child(instance)
+			floor_space.remove(k)
+			break
 
 func place_breakables():
 	var breakables = dungeon_type.breakables
@@ -333,7 +344,7 @@ func create_segment(segment, pos):
 						elif i == 1 and cell.x < 9: celll.right_wall = true
 						elif i == 2 and cell.y < 9: celll.bottom_wall = true
 						elif i == 3 and cell.x > 0: celll.left_wall = true
-						
+				
 				floor_space.append(celll)
 			10: wall_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
 	
