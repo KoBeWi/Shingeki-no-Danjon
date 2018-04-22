@@ -8,7 +8,7 @@ const ATACK_SPEED          = 125
 
 const SPEED                = 120
 
-const KNOCKBACK_ATACK      = 3 
+const KNOCKBACK_ATACK      = 5 
 
 const FOLLOW_RANGE         = 400
 const PERSONAL_SPACE       = 10
@@ -26,6 +26,10 @@ var in_action       = false
 var special_ready   = false
 var atack_ready     = true
 var suesided        = false
+var in_special      = false
+
+var special_destination = Vector2(0,0)
+
 
 onready var sprites = $Sprites.get_children()
 
@@ -41,6 +45,23 @@ func _physics_process(delta):
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
 		return
 	#follow_player  = false
+	
+	if in_special :
+		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
+		
+		var x_distance = abs(position.x - player.position.x)
+		var y_distance = abs(position.y - player.position.y) 
+
+		var axix_X = x_distance >= PERSONAL_SPACE
+		var axix_Y = y_distance >= PERSONAL_SPACE
+		
+		if( x_distance < move.x*SPEED ): move.x = x_distance/SPEED
+		if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
+		
+		#if( axix_X and axix_Y):
+		move_and_slide(move * SPEED)
+		
+		return
 	
 	if suesided:
 		health = 0
@@ -94,9 +115,13 @@ func _physics_process(delta):
 			if special_ready and can_use_special :
 				in_action = true
 				play_animation_if_not_playing("Special"+direction)
+				$"AttackCollider/Shape".disabled = false
 				damage = SPECIAL_DAMAGE
 				knockback = KNOCKBACK_ATACK
+				in_special = true
+				special_destination = player.position - ( position - player.position )
 			elif atack_ready:
+				$"AttackCollider/Shape".disabled = false
 				in_action = true
 				atack_ready = false
 				punch_in_direction()
@@ -137,8 +162,11 @@ func _on_damage():
 
 func _on_animation_finished(anim_name):
 	if "Special" in anim_name:
+		$"AttackCollider/Shape".disabled = true
 		special_ready = false
 		in_action     = false
+		in_special    = false
 		#suesided = true
 	if "Punch" in anim_name:
+		$"AttackCollider/Shape".disabled = true
 		in_action     = false

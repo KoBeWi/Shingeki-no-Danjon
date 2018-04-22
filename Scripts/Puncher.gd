@@ -30,10 +30,17 @@ onready var sprites = $Sprites.get_children()
 
 func _ready():
 	._ready()
+	
+	#$"DamageCollider/Shape".disabled = false
+	#$"AttackCollider/Shape".disabled = false
+	
 	drops.append([3, 200])
 
 func _physics_process(delta):
 	._physics_process(delta)
+	
+	#$"DamageCollider/Shape".disabled = false
+	#$"AttackCollider/Shape".disabled = false
 	
 	if dead :
 		dead_time += delta

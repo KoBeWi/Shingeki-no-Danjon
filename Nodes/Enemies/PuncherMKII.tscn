@@ -49,7 +49,7 @@ tracks/0/keys = {
 
 resource_name = "Idle"
 length = 2.0
-loop = false
+loop = true
 step = 1.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/1:frame")
@@ -237,7 +237,7 @@ position = Vector2( -4.61584, 2.47018 )
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 8
-frame = 5
+frame = 7
 _sections_unfolded = [ "Animation", "Offset" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
@@ -281,8 +281,9 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
-position = Vector2( 1.76114, 70.4491 )
-scale = Vector2( 5.05366, 1.41971 )
+visible = false
+position = Vector2( -2.90001, 70.4491 )
+scale = Vector2( 5.41221, 1.41971 )
 shape = SubResource( 1 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="3"]
@@ -292,10 +293,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -19.0
-margin_top = -41.0
-margin_right = 41.0
-margin_bottom = -3.0
+margin_left = -20.0
+margin_top = -47.0
+margin_right = 40.0
+margin_bottom = -9.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -359,7 +360,6 @@ shape = SubResource( 3 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="6"]
 
-visible = false
 position = Vector2( 39.5593, 12.9759 )
 scale = Vector2( 2.33919, 2.25183 )
 input_pickable = true
@@ -373,7 +373,7 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
-position = Vector2( -19.6499, -3.04242 )
+position = Vector2( -17.1359, -2.0631 )
 scale = Vector2( 4.68421, 4.68421 )
 shape = SubResource( 4 )
 

@@ -52,7 +52,8 @@ bounce = 0.0
 
 [node name="Shape" type="CollisionShape2D" parent="Collider" index="0"]
 
-position = Vector2( 0, 24 )
+position = Vector2( 0.229951, 32.9496 )
+scale = Vector2( 1.21376, 1.33147 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
