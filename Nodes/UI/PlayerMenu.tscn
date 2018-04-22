@@ -26,9 +26,11 @@
 resource_name = "PlayerMenu"
 script/source = "extends Control
 
+const MAX_STATS = 6
+const INVENTORY_SLOTS = 8
 const CRAFTING_SIZE = 12
 const MAX_INGREDIENTS = 5
-const INVENTORY_SLOTS = 8
+const STAT_LIST = [\"attack\"]
 
 onready var TABS = $Tabs.get_child_count()
 
@@ -65,6 +67,12 @@ func _ready():
 		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
 		clone.rect_position = sheep.rect_position + Vector2((i+1)%2 * 378, (i+1)/2 * 100)
 		$Tabs/Equipment/Inventory/Inner/Slots.add_child(clone)
+	
+	sheep = $Tabs/Equipment/Stats/Stat1
+	for i in range(MAX_STATS-1):
+		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
+		clone.rect_position = sheep.rect_position + Vector2(0, (i+1) * 20)
+		$Tabs/Equipment/Stats.add_child(clone)
 	
 	if PlayerStats.inventory.empty(): inventory_select = -1
 	
@@ -231,7 +239,7 @@ func select_inventory():
 		$Tabs/Equipment/Character/Highlight.visible = false
 	else:
 		if PlayerStats.equipment[-inventory_select - 1] > -1:
-			item = Res.items[PlayerStats.equipment[-inventory_select - 1].id]
+			item = Res.items[PlayerStats.equipment[-inventory_select - 1]]
 		else:
 			item = {description = \"Equipment slot (\" + PlayerStats.EQUIPMENT_SLOTS[-inventory_select - 1] + \") empty\"}
 		
@@ -241,8 +249,13 @@ func select_inventory():
 	
 	$Tabs/Equipment/Description.visible = true
 	$Tabs/Equipment/Description/Text.text = item.description
-	if item.has(\"id\"): $Tabs/Equipment/Description/Icon.texture = Res.get_item_texture(item.id)
-	else: $Tabs/Equipment/Description/Icon.texture = null##no item
+	if item.has(\"id\"):
+		$Tabs/Equipment/Description/Icon.texture = Res.get_item_texture(item.id)
+		update_stats(item, inventory_select > -1)
+		$Tabs/Equipment/Stats.visible = true
+	else:
+		$Tabs/Equipment/Description/Icon.texture = null##no item
+		$Tabs/Equipment/Stats.visible = false
 
 func enter_tab():
 	match current_tab:
@@ -266,7 +279,42 @@ func exit_tab():
 			$Tabs/Crafting/Info.visible = false
 
 func get_eq_slot(item):
-	return PlayerStats.EQUIPMENT_SLOTS.find(item.type)"
+	return PlayerStats.EQUIPMENT_SLOTS.find(item.type)
+
+func update_stats(item, compare):
+	var stats = {}
+	for stat in STAT_LIST:
+		if item.has(stat):
+			stats[stat] = item[stat]
+	
+	for i in range($Tabs/Equipment/Stats.get_child_count()):
+		var stat_label = $Tabs/Equipment/Stats.get_child(i)
+		
+		if i >= stats.keys().size(): stat_label.visible = false
+		else:
+			var stat = stats.keys()[i]
+			var value = stats[stat]
+			var eq_slot = PlayerStats.equipment[get_eq_slot(item)]
+			
+			stat_label.text = stat.capitalize() + \": \" + str(value)
+			
+			if compare and eq_slot > -1:
+				var eq = Res.items[eq_slot]
+				var cmp = stats[stat] - eq[stat]
+				
+				if cmp != 0:
+					if cmp > 0:
+						stat_label.add_color_override(\"font_color\", Color(0, 1, 1))
+					else:
+						stat_label.add_color_override(\"font_color\", Color(1, 0.5, 0))
+					
+					stat_label.text = stat_label.text + \"(\" + (\"+\" if cmp > 0  else \"\") + str(cmp) + \")\"
+				else:
+					stat_label.add_color_override(\"font_color\", Color(0, 0, 0))
+			else:
+				stat_label.add_color_override(\"font_color\", Color(0, 0, 0))
+			
+			stat_label.visible = true"
 _sections_unfolded = [ "Resource" ]
 
 [node name="PlayerMenu" type="Control" index="0"]
@@ -376,6 +424,7 @@ size_flags_vertical = 1
 
 [node name="Character" type="TextureRect" parent="Tabs/Equipment" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -395,6 +444,7 @@ stretch_mode = 0
 
 [node name="EquipmentSlots" type="Control" parent="Tabs/Equipment/Character" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -796,6 +846,7 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="Stats" type="TextureRect" parent="Tabs/Equipment" index="2"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -813,6 +864,30 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 12 )
 stretch_mode = 0
+
+[node name="Stat1" type="Label" parent="Tabs/Equipment/Stats" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 234.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Atttack: 20 (+5)"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect", "custom_colors", "custom_fonts" ]
 
 [node name="Description" type="TextureRect" parent="Tabs/Equipment" index="3"]
 
