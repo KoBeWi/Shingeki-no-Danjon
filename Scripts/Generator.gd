@@ -199,7 +199,7 @@ func place_for_test(what):
 	if NewToTest == "": return
 	
 	var ug_inst = what.instance()
-	ug_inst.position = $"../Player".position + Vector2(80,80)
+	ug_inst.position = $"../Player".position + Vector2(200,200)
 	dungeon.get_parent().add_child(ug_inst)
 	
 
