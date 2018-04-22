@@ -1,7 +1,11 @@
 extends "res://Scripts/BaseEnemy.gd"
 
-const BASIC_DAMAGE         = 10
-const SPECIAL_DAMAGE       = 20
+const HP  = 20
+const XP  = 10
+const ARM = 0.05
+
+const BASIC_DAMAGE         = 5
+const SPECIAL_DAMAGE       = 10
 
 const SPECIAL_PROBABILITY  = 200
 const ATACK_SPEED          = 125
@@ -30,10 +34,18 @@ onready var sprites = $Sprites.get_children()
 
 func _ready():
 	._ready()
+	
+	#$"DamageCollider/Shape".disabled = false
+	#$"AttackCollider/Shape".disabled = false
+	
 	drops.append([3, 200])
+	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 
 func _physics_process(delta):
 	._physics_process(delta)
+	
+	#$"DamageCollider/Shape".disabled = false
+	#$"AttackCollider/Shape".disabled = false
 	
 	if dead :
 		dead_time += delta

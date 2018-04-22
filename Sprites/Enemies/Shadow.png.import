@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/GearGrinder3000.png-8cd1374ac096c45a4622fd1ac7d922a0.stex"
+path="res://.import/Shadow.png-a52bb4584ce524ae82084fed1547df7d.stex"
 
 [deps]
 
-source_file="res://Sprites/Enemies/GearGrinder3000.png"
-source_md5="c8cf5c52021a5f1d169050ee0f1af714"
+source_file="res://Sprites/Enemies/Shadow.png"
+source_md5="be737fa4ad3e475a80f81ed8c7ab2367"
 
-dest_files=[ "res://.import/GearGrinder3000.png-8cd1374ac096c45a4622fd1ac7d922a0.stex" ]
-dest_md5="783f28ff555b8342edc3674d075220f2"
+dest_files=[ "res://.import/Shadow.png-a52bb4584ce524ae82084fed1547df7d.stex" ]
+dest_md5="b54f13c139dfe13340e29e729a2140ab"
 
 [params]
 

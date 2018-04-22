@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const DEBBUG_RUN = false
+
 onready var health_bar = $HealthBar
 
 var max_health = 5
@@ -7,6 +9,7 @@ var health = 5
 var experience = 5
 var damage = 10
 var knockback = 0
+var armour = 0
 
 var drops = []
 
@@ -19,14 +22,22 @@ func _ready():
 	health_bar.value = health
 	$"/root/Game".perma_state(self, "queue_free")
 
+func set_statistics( max_hp, given_exp, ar ):
+	max_health = max_hp
+	health = max_hp
+	health_bar.max_value = max_hp
+	health_bar.value = health
+	experience = given_exp 
+	armour = ar
+
 func _physics_process(delta):
 	bar_timeout -= 1
 	if bar_timeout == 0: health_bar.visible = false
 
 func damage(amount):
 	if _dead: return
-	Res.create_instance("DamageNumber").damage(self, amount)
-	health -= amount
+	Res.create_instance("DamageNumber").damage(self, amount*(1-armour))
+	health -= amount*(1-armour)
 	
 	health_bar.visible = true
 	health_bar.value = health
@@ -37,6 +48,7 @@ func damage(amount):
 		_dead = true
 		health_bar.visible = false
 		PlayerStats.add_experience(experience)
+
 		_on_dead()
 		
 		var drop = get_drop_id()
