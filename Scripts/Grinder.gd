@@ -65,15 +65,12 @@ func _physics_process(delta):
 		
 	
 		
-		if axix_X:
-
-			if abs(move.x) > 1: 
+		if( x_distance > y_distance and axix_X ):
+			if abs(move.x) != 0: 
 				sprites[0].flip_h = move.x > 0
 				play_animation_if_not_playing("Left")
 				direction = "Right" if move.x > 0 else "Left"
-#				elif move.x > 0: play_animation_if_not_playing("Right") na później
-		elif axix_Y:
-
+		elif(x_distance < y_distance and axix_Y):
 			if move.y < 0: 
 				play_animation_if_not_playing("Down")
 				direction = "Up"
