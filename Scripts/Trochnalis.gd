@@ -1,5 +1,9 @@
 extends "res://Scripts/BaseEnemy.gd"
 
+const HP  = 50
+const XP  = 60
+const ARM = 0.1
+
 const BASIC_DAMAGE         = 12
 const SPECIAL_DAMAGE       = 50
 
@@ -33,6 +37,7 @@ func _ready():
 	._ready()
 	drops.append([3, 200])
 	drops.append([4, 50])
+	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 
 func _physics_process(delta):
 	._physics_process(delta)
@@ -92,11 +97,12 @@ func _physics_process(delta):
 			play_animation_if_not_playing("Idle")
 		
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
-			if special_ready and can_use_special and health == 1:
+			if special_ready and can_use_special and health <= 0.25 * HP:
 				in_action = true
 				play_animation_if_not_playing("Special")
 				damage = SPECIAL_DAMAGE
 				knockback = KNOCKBACK_ATACK
+				armour += 0.3
 			elif atack_ready:
 				in_action = true
 				atack_ready = false

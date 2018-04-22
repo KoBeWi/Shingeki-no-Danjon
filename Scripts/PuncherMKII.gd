@@ -160,7 +160,7 @@ func call_special_atack():
 	else:
 		special_nav_poit.y = player.position.y - (position.y - player.position.y)
 	
-	print(special_nav_poit, position)
+	#print(special_nav_poit, position)
 	
 func call_normal_atack():
 	in_action = true
