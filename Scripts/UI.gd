@@ -17,6 +17,7 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("Menu") and !just_opened:
 			$"/root/Game".leave_menu = true
 			$PlayerMenu.visible = false
+			$PlayerMenu.in_tab = false
 			$Shop.visible = false
 			$HUD.visible = true
 			get_tree().paused = false

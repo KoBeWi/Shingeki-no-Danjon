@@ -1,7 +1,7 @@
 extends Node
 
-const INVENTORY_SIZE = 5
-const EQUIPMENT_SLOTS = ["helmet", "armor", "boots", "weapon", "shield", "ring", "ring", "boots", "gloves", "amulet"]
+const INVENTORY_SIZE = 1000
+const EQUIPMENT_SLOTS = ["helmet", "armor", "pants", "boots", "weapon", "shield", "ring", "ring", "gloves", "amulet"]
 
 var level = 1
 var experience = 0
@@ -26,7 +26,8 @@ signal level_up
 signal got_item
 
 func _ready():
-	inventory.resize(INVENTORY_SIZE)
+	pass
+#	inventory.resize(INVENTORY_SIZE)
 
 func get_damage():
 	var damage = strength
@@ -70,18 +71,17 @@ func add_item(id):
 	var item = Res.items[id]
 	
 	var slot = -1
-	for i in range(INVENTORY_SIZE):
-		if !inventory[i] or inventory[i].id == id and item.has("max_stack") and inventory[i].stack < item.max_stack:
+	for i in range(inventory.size()):
+		if inventory[i].id == id and item.has("max_stack") and inventory[i].stack < item.max_stack:
 			slot = i
 			break
 	
 	if slot > -1:
-		emit_signal("got_item", id)
-		if !inventory[slot]:
-			inventory[slot] = {"id": id, "stack": 1}
-		else:
-			inventory[slot].stack += 1
-			
-		return true
+		inventory[slot].stack += 1
+	elif inventory.size() < PlayerStats.INVENTORY_SIZE:
+		inventory.append({"id": id, "stack": 1})
+	else:
+		return false
 	
-	return false
+	emit_signal("got_item", id)
+	return true
