@@ -26,9 +26,8 @@ signal level_up
 signal got_item
 
 func _ready():
-	inventory.append({id = 0, stack = 1})
-	inventory.append({id = 0, stack = 1})
-	inventory.append({id = 0, stack = 1})
+	for item in Res.items:
+		inventory.append({id = item.id, stack = 1})
 
 func get_damage():
 	var damage = strength
@@ -49,6 +48,11 @@ func get_skill(slot):
 
 func get_equipment(slot_name): ##niekoniecznie potrzebne
 	return equipment[EQUIPMENT_SLOTS.find(slot_name)]
+
+func consume(item):
+	Res.play_sample($"/root/Game/Player", "Consume", false)
+	PlayerStats.health += item.health
+	return true
 
 func recalc_stats():
 	max_health = 90 + vitality * 10

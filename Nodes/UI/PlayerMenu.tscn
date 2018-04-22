@@ -103,6 +103,27 @@ func _process(delta):
 				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, PlayerStats.inventory.size()-1)
 				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = max(inventory_select-2, 0)
 				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = min(inventory_select+2, PlayerStats.inventory.size()-1)
+				
+				var item = PlayerStats.inventory[inventory_select]
+				var eq = get_eq_slot(Res.items[item.id])
+				if eq > -1 and Input.is_action_just_pressed(\"Interact\"):
+					if PlayerStats.equipment[eq] > -1:
+						var id = item.id
+						item.id = PlayerStats.equipment[eq]
+						PlayerStats.equipment[eq] = id
+					else:
+						PlayerStats.inventory.erase(item)
+						PlayerStats.equipment[eq] = item.id
+					
+					update_inventory()
+					update_equipment()
+					select_inventory()
+				elif Res.items[item.id].type == \"consumable\" and Input.is_action_just_pressed(\"Interact\"):
+					if PlayerStats.consume(Res.items[item.id]):
+						item.stack -= 1
+						if item.stack == 0: PlayerStats.inventory.erase(item)
+						update_inventory()
+						select_inventory()
 			else:
 				if Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, -1)
 				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == -1 and !PlayerStats.inventory.empty(): inventory_select = min(-inventory_select-1, PlayerStats.inventory.size()-1)
@@ -199,6 +220,9 @@ func select_crafting():
 			ingredient.visible = false
 
 func select_inventory():
+	if inventory_select > -1 and PlayerStats.inventory.empty(): inventory_select = -1
+	if inventory_select >= PlayerStats.inventory.size(): inventory_select = PlayerStats.inventory.size()-1
+	
 	var item
 	if inventory_select > -1:
 		item = Res.items[PlayerStats.inventory[inventory_select].id]
@@ -209,7 +233,7 @@ func select_inventory():
 		if PlayerStats.equipment[-inventory_select - 1] > -1:
 			item = Res.items[PlayerStats.equipment[-inventory_select - 1].id]
 		else:
-			item = {description = \"Equipment slot empty\"}
+			item = {description = \"Equipment slot (\" + PlayerStats.EQUIPMENT_SLOTS[-inventory_select - 1] + \") empty\"}
 		
 		$Tabs/Equipment/Character/Highlight.rect_position = $Tabs/Equipment/Character/EquipmentSlots.get_child(-inventory_select - 1).rect_position
 		$Tabs/Equipment/Inventory/Inner/Highlight.visible = false
@@ -239,7 +263,10 @@ func exit_tab():
 		2:
 			$Tabs/Crafting/Highlight.visible = false
 			$Tabs/Crafting/Ingredients.visible = false
-			$Tabs/Crafting/Info.visible = false"
+			$Tabs/Crafting/Info.visible = false
+
+func get_eq_slot(item):
+	return PlayerStats.EQUIPMENT_SLOTS.find(item.type)"
 _sections_unfolded = [ "Resource" ]
 
 [node name="PlayerMenu" type="Control" index="0"]
