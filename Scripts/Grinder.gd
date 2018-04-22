@@ -119,8 +119,8 @@ func punch_in_direction():
 func play_animation_if_not_playing(anim):
 	if $AnimationPlayer.current_animation != anim:
 		$"AnimationPlayer".play(anim)
-		if( $AnimationPlayer.has_animation(anim)):
-			print( anim + " ONLINE " )
+		#if( $AnimationPlayer.has_animation(anim)):
+		#	print( anim + " ONLINE " )
 
 func _on_Radar_body_entered(body):
 	if body.name == "Player":
@@ -144,7 +144,8 @@ func _on_dead():
 	$"AttackCollider/Shape".disabled = true
 
 func _on_damage():
-	print("oof")
+	#print("oof")
+	pass
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Special":

@@ -120,13 +120,13 @@ func _physics_process(delta):
 			if special_ready and can_use_special :
 				in_action = true
 				play_animation_if_not_playing("Special"+direction)
-				$"AttackCollider/Shape".disabled = false
+
 				damage = SPECIAL_DAMAGE
 				knockback = KNOCKBACK_ATACK
 				in_special = true
 				special_destination = player.position - ( position - player.position )
 			elif atack_ready:
-				$"AttackCollider/Shape".disabled = false
+
 				in_action = true
 				atack_ready = false
 				punch_in_direction()

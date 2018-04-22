@@ -101,6 +101,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3, 2, 1, 0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackCollider/Shape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=6]
 
@@ -119,6 +131,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 8, 9, 10, 11, 10, 9, 8 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackCollider/Shape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -139,6 +163,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 12, 13, 14, 15, 14, 13, 12 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackCollider/Shape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=8]
 
@@ -157,6 +193,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 4, 5, 6, 7, 6, 5, 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackCollider/Shape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -205,7 +253,7 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 8, 9 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ false, true, false ]
 }
 
@@ -236,7 +284,7 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 8, 9 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ true, false, true ]
 }
 
@@ -267,7 +315,7 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 8, 9 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ true, false, true ]
 }
 
@@ -298,7 +346,7 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 8, 9 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ true, false, true ]
 }
 
@@ -358,20 +406,20 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
-visible = false
 position = Vector2( 12, -5.33334 )
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 6
-frame = 35
 _sections_unfolded = [ "Animation" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
 
+visible = false
 position = Vector2( 13.2181, 22.6102 )
 texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
+frame = 3
 _sections_unfolded = [ "Animation" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
@@ -381,7 +429,7 @@ position = Vector2( 10.8994, 8.58076 )
 texture = ExtResource( 4 )
 vframes = 4
 hframes = 8
-frame = 10
+frame = 23
 _sections_unfolded = [ "Animation" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -467,8 +515,8 @@ audio_bus_name = "Master"
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
-position = Vector2( 7.57329, 11.9149 )
-scale = Vector2( 11.2712, 12.4015 )
+position = Vector2( 9.61782, 12.2602 )
+scale = Vector2( 10.0623, 10.3125 )
 shape = SubResource( 18 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="6"]
