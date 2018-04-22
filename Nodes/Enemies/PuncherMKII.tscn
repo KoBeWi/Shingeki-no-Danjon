@@ -1,13 +1,13 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://Scripts/Puncher.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Enemies/Puncher/Puncher.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Enemies/Puncher/Puncher_LeftAtack.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/Enemies/Puncher/Puncher_Special_Up_Down_Atack.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Template.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Enemies/PuncherMKII/PuncherMKII.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Enemies/PuncherMKII/PuncherMKII_LeftAtack.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Enemies/PuncherMKII/PuncherMKII_Special_Up_Down_Atack.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=5]
 
 resource_name = "Dead"
 length = 4.0
@@ -26,10 +26,11 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=6]
 
+resource_name = "Down"
 length = 4.0
-loop = true
+loop = false
 step = 1.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/1:frame")
@@ -44,84 +45,9 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=3]
-
-resource_name = "Left"
-length = 4.0
-loop = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprites/1:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3 ]
-}
-
-[sub_resource type="Animation" id=4]
-
-resource_name = "PunchDown"
-length = 4.0
-loop = false
-step = 1.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprites/3:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 4, 5, 6, 7 ]
-}
-
-[sub_resource type="Animation" id=5]
-
-resource_name = "PunchLeft"
-length = 4.0
-loop = false
-step = 1.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprites/2:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3 ]
-}
-
-[sub_resource type="Animation" id=6]
-
-resource_name = "PunchRight"
-length = 4.0
-loop = false
-step = 1.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprites/2:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 4, 5, 6, 7 ]
-}
-
 [sub_resource type="Animation" id=7]
 
+resource_name = "DownPunch"
 length = 4.0
 loop = false
 step = 1.0
@@ -140,9 +66,86 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=8]
 
-length = 9.0
+resource_name = "Idle"
+length = 2.0
 loop = false
 step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 4, 7 ]
+}
+
+[sub_resource type="Animation" id=9]
+
+resource_name = "Left"
+length = 4.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=10]
+
+resource_name = "LeftPunch"
+length = 4.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=11]
+
+resource_name = "RightPunch"
+length = 4.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=12]
+
+resource_name = "Special"
+length = 4.0
+loop = false
+step = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/3:frame")
 tracks/0/interp = 1
@@ -150,28 +153,17 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("AttackCollider/Shape:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 9 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
+"values": [ 8, 9, 10, 11, 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=13]
 
+resource_name = "Up"
 length = 4.0
-loop = true
+loop = false
 step = 1.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/1:frame")
@@ -186,27 +178,46 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="Animation" id=14]
+
+resource_name = "UpPunch"
+length = 4.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="CircleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10.6279, 10 )
+radius = 10.0
 
-[sub_resource type="RectangleShape2D" id=12]
-
-custom_solver_bias = 0.0
-extents = Vector2( 39.8092, 47.0572 )
-
-[sub_resource type="RectangleShape2D" id=13]
+[sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 100.382, 85.7356 )
+extents = Vector2( 10, 10 )
 
-[node name="Puncher" type="KinematicBody2D" index="0" groups=[
+[sub_resource type="CircleShape2D" id=4]
+
+custom_solver_bias = 0.0
+radius = 10.0
+
+[node name="Template" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -216,32 +227,30 @@ collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision", "Z Index" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
+visible = false
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 8
-frame = 7
-_sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index" ]
+frame = 12
+_sections_unfolded = [ "Animation", "Offset" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
 
 visible = false
-position = Vector2( 5, -18 )
 texture = ExtResource( 3 )
 vframes = 2
 hframes = 4
 frame = 7
-_sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index" ]
+_sections_unfolded = [ "Animation", "Z Index" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
 
-visible = false
-position = Vector2( 1, -34 )
 texture = ExtResource( 4 )
 vframes = 4
 hframes = 4
@@ -251,84 +260,29 @@ _sections_unfolded = [ "Animation" ]
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 
 root_node = NodePath("..")
-autoplay = "Up"
+autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
-playback_speed = 8.0
-anims/Dead = SubResource( 1 )
-anims/Down = SubResource( 2 )
-anims/Left = SubResource( 3 )
-anims/PunchDown = SubResource( 4 )
-anims/PunchLeft = SubResource( 5 )
-anims/PunchRight = SubResource( 6 )
-anims/PunchUp = SubResource( 7 )
-anims/Special = SubResource( 8 )
-anims/Up = SubResource( 9 )
+playback_speed = 1.0
+anims/Dead = SubResource( 5 )
+anims/Down = SubResource( 6 )
+anims/DownPunch = SubResource( 7 )
+anims/Idle = SubResource( 8 )
+anims/Left = SubResource( 9 )
+anims/LeftPunch = SubResource( 10 )
+anims/RightPunch = SubResource( 11 )
+anims/Special = SubResource( 12 )
+anims/Up = SubResource( 13 )
+anims/UpPunch = SubResource( 14 )
 blend_times = [  ]
-_sections_unfolded = [ "Playback Options" ]
 
-[node name="Radar" type="Area2D" parent="." index="2"]
+[node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
-visible = false
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
+position = Vector2( 1.76114, 70.4491 )
+scale = Vector2( 5.05366, 1.41971 )
+shape = SubResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
-
-scale = Vector2( 23.9231, 19.4231 )
-shape = SubResource( 10 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="Shape" type="CollisionShape2D" parent="." index="3"]
-
-visible = false
-position = Vector2( 0.290953, 47.2325 )
-scale = Vector2( 3.70602, 1 )
-shape = SubResource( 11 )
-
-[node name="DamageCollider" type="Area2D" parent="." index="4"]
-
-visible = false
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-collision_layer = 2
-collision_mask = 2
-audio_bus_override = false
-audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
-
-[node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
-
-position = Vector2( 0.358475, -12.5471 )
-shape = SubResource( 12 )
-
-[node name="AttackCollider" type="Area2D" parent="." index="5"]
-
-visible = false
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
-
-[node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
-
-shape = SubResource( 13 )
-disabled = true
-
-[node name="HealthBar" type="TextureProgress" parent="." index="6"]
+[node name="HealthBar" type="TextureProgress" parent="." index="3"]
 
 visible = false
 anchor_left = 0.0
@@ -336,9 +290,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -19.0
-margin_top = -88.0
-margin_right = 21.0
-margin_bottom = -48.0
+margin_top = -41.0
+margin_right = 41.0
+margin_bottom = -3.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -360,11 +314,71 @@ radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
 _sections_unfolded = [ "Anchor", "Margin", "Textures", "Visibility" ]
 
+[node name="Radar" type="Area2D" parent="." index="4"]
+
+visible = false
+position = Vector2( 127.796, -44.6476 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="Shape" type="CollisionShape2D" parent="Radar" index="0"]
+
+position = Vector2( -126.657, 65.1638 )
+scale = Vector2( 21.6947, 21.6947 )
+shape = SubResource( 2 )
+
+[node name="DamageCollider" type="Area2D" parent="." index="5"]
+
+position = Vector2( 98.6777, 31.3828 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+collision_mask = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
+
+visible = false
+position = Vector2( -97.761, -22.957 )
+scale = Vector2( 2.66346, 3.75135 )
+shape = SubResource( 3 )
+
+[node name="AttackCollider" type="Area2D" parent="." index="6"]
+
+visible = false
+position = Vector2( 39.5593, 12.9759 )
+scale = Vector2( 2.33919, 2.25183 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
+
+position = Vector2( -17.5124, 3.6188 )
+scale = Vector2( 4.68421, 4.68421 )
+shape = SubResource( 4 )
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]
 
-[connection signal="body_entered" from="Radar" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Radar" to="." method="_on_Radar_body_entered"]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 

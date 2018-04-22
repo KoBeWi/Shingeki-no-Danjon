@@ -7,10 +7,10 @@ path="res://.import/PuncherMKII.png-c9d5ab914e8fcead11386b67d5530fa8.stex"
 [deps]
 
 source_file="res://Sprites/Enemies/PuncherMKII/PuncherMKII.png"
-source_md5="0bce5cdf44c46864bc4a91a2d9c46594"
+source_md5="acef6fcb51d68d2b61cf242e6360247a"
 
 dest_files=[ "res://.import/PuncherMKII.png-c9d5ab914e8fcead11386b67d5530fa8.stex" ]
-dest_md5="2d988971e8e155e624cfb5c59b666328"
+dest_md5="46a017aaaae173c829af5e77b34cff04"
 
 [params]
 

@@ -37,6 +37,7 @@ func damage(amount):
 		_dead = true
 		health_bar.visible = false
 		PlayerStats.add_experience(experience)
+
 		_on_dead()
 		
 		var drop = get_drop_id()

@@ -1,6 +1,10 @@
 extends Node
 onready var dungeon = $"../Segments"
 
+#zostawic, sluzy testowaniu nowych mobkow
+const NewToTest = "Enemies/PuncherMKII"
+
+
 const SEG_W = 800
 const SEG_H = 800
 const DIRECTIONS = [Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0)]
@@ -190,12 +194,27 @@ func place_containers():
 		if instance: instance.item = int(Res.weighted_random(dungeon_type.container_contents))
 		else: break
 
+func place_for_test(what):
+	
+	if NewToTest == "": return
+	
+	var ug_inst = what.instance()
+	ug_inst.position = $"../Player".position + Vector2(80,80)
+	dungeon.get_parent().add_child(ug_inst)
+	
+
+
 func place_enemies():
 	var enemies = dungeon_type.enemies
 	
 	for i in range(dungeon_type.enemy_count):
 		var type = enemies[randi() % enemies.size()]
 		if !place_on_floor("Enemies/" + type): break
+	
+	place_for_test(Res.get_node(NewToTest))
+
+
+		
 
 func place_on_floor(object):
 	for dis in disabled: if object.find(dis) > -1: return ##DEBUG
@@ -230,6 +249,7 @@ func place_treasure_into_maze(what, how_many):
 func place_enemy_into_maze(what, how_many):
 	for nmb in range(how_many):
 		if floor_space.empty(): break
+		
 		
 		var ug_inst = what.instance()
 		var i = randi()%floor_space.size()
