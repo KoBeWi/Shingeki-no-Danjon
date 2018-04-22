@@ -1,11 +1,8 @@
 extends "res://Scripts/BaseEnemy.gd"
 
-
-
 const HP  = 100
 const XP  = 200
 const ARM = 0.5
-
 
 const BASIC_DAMAGE         = 20
 const SPECIAL_DAMAGE       = 40
@@ -107,7 +104,7 @@ func _physics_process(delta):
 
 		if player_monster_distance_x > FOLLOW_RANGE and player_monster_distance_y > FOLLOW_RANGE:
 			follow_player = false
-		
+			play_animation_if_not_playing("Idle")
 		
 			
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:

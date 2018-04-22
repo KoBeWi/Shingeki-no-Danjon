@@ -1,5 +1,10 @@
 extends "res://Scripts/BaseEnemy.gd"
 
+const HP  = 75
+const XP  = 150
+const ARM = 0.3
+
+
 const BASIC_DAMAGE         = 12
 const SPECIAL_DAMAGE       = 50
 
@@ -36,6 +41,7 @@ onready var sprites = $Sprites.get_children()
 func _ready():
 	._ready()
 	drops.append([3, 250])
+	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 
 func _physics_process(delta):
 	._physics_process(delta)
