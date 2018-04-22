@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FLA-G.png-4a72b55c277b971f78446518c02468d1.stex"
+path="res://.import/FLA-B_Special.png-288031ee04383fe7fb66e5825247f99d.stex"
 
 [deps]
 
-source_file="res://Sprites/Enemies/FLA-G/FLA-G.png"
-source_md5="69725522ab819f9b4657cb9b381003e3"
+source_file="res://Sprites/Enemies/FLA-B/FLA-B_Special.png"
+source_md5="3bfff7130cba72c61fd7b8571ffa9dab"
 
-dest_files=[ "res://.import/FLA-G.png-4a72b55c277b971f78446518c02468d1.stex" ]
-dest_md5="60832ec1ab13b1c13924cb0afe9e2c81"
+dest_files=[ "res://.import/FLA-B_Special.png-288031ee04383fe7fb66e5825247f99d.stex" ]
+dest_md5="f922aa46363b79f24ed56226cb552e6a"
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FLA-G.png-4a72b55c277b971f78446518c02468d1.stex"
+path="res://.import/PuncherMKII_LeftAtack.png-8a3fb87836568e5701f923028625fe89.stex"
 
 [deps]
 
-source_file="res://Sprites/Enemies/FLA-G/FLA-G.png"
-source_md5="69725522ab819f9b4657cb9b381003e3"
+source_file="res://Sprites/Enemies/PuncherMKII/PuncherMKII_LeftAtack.png"
+source_md5="0e71fd1aded67038bf2f2b3f5f0a5811"
 
-dest_files=[ "res://.import/FLA-G.png-4a72b55c277b971f78446518c02468d1.stex" ]
-dest_md5="60832ec1ab13b1c13924cb0afe9e2c81"
+dest_files=[ "res://.import/PuncherMKII_LeftAtack.png-8a3fb87836568e5701f923028625fe89.stex" ]
+dest_md5="62c38f076af272da3026baf17b5c7da3"
 
 [params]
 

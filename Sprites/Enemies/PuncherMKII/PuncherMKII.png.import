@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/GearGrinder3000.png-bd69c9765ccb7927b7ce40e8b5a21f49.stex"
+path="res://.import/PuncherMKII.png-c9d5ab914e8fcead11386b67d5530fa8.stex"
 
 [deps]
 
-source_file="res://Sprites/Enemies/Puncher/GearGrinder3000.png"
-source_md5="c8cf5c52021a5f1d169050ee0f1af714"
+source_file="res://Sprites/Enemies/PuncherMKII/PuncherMKII.png"
+source_md5="0bce5cdf44c46864bc4a91a2d9c46594"
 
-dest_files=[ "res://.import/GearGrinder3000.png-bd69c9765ccb7927b7ce40e8b5a21f49.stex" ]
-dest_md5="783f28ff555b8342edc3674d075220f2"
+dest_files=[ "res://.import/PuncherMKII.png-c9d5ab914e8fcead11386b67d5530fa8.stex" ]
+dest_md5="2d988971e8e155e624cfb5c59b666328"
 
 [params]
 
