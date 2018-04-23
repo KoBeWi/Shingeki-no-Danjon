@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scripts/FLA-G.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/FLA-G/FLA-G.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sprites/Enemies/FLA-G/FLAG-SPecials.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 
@@ -551,6 +552,14 @@ radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
 _sections_unfolded = [ "Radial Fill", "Textures", "Visibility" ]
+
+[node name="Shadow" type="Sprite" parent="." index="7"]
+
+position = Vector2( 13.167, 73.5479 )
+scale = Vector2( 1.35301, 1.65246 )
+z_index = -1
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Z Index" ]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scripts/Puncher.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/Puncher/Puncher.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sprites/Enemies/Puncher/Puncher_Special_Up_Down_Atack.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 
@@ -407,6 +408,13 @@ radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
 _sections_unfolded = [ "Anchor", "Margin", "Textures", "Visibility" ]
+
+[node name="Sprite" type="Sprite" parent="." index="7"]
+
+position = Vector2( -2.39493, 47.899 )
+z_index = -1
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Z Index" ]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/Grinder.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/GearGrinder300/GearGrinder3000.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sprites/Enemies/GearGrinder300/GG3000_D_U.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 
@@ -342,6 +343,14 @@ position = Vector2( 9.54746, -3.98993 )
 scale = Vector2( 18.7885, 19.6979 )
 shape = SubResource( 11 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="Sprite" type="Sprite" parent="." index="7"]
+
+position = Vector2( -2.8517, 31.9163 )
+scale = Vector2( 1.27088, -3.35489 )
+z_index = -1
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Z Index" ]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 

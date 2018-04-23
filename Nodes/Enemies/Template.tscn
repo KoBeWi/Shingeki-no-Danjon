@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Template.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -139,6 +140,13 @@ _sections_unfolded = [ "Collision" ]
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
 shape = SubResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="." index="7"]
+
+position = Vector2( 0.583984, 31.2428 )
+z_index = -1
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Z Index" ]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 

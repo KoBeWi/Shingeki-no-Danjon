@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/Trochnalis.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/Trochnalis/Trochnalis_basics.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Enemies/Trochnalis/Specials_Trochnalis.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=1]
 
@@ -237,7 +238,7 @@ tracks/0/keys = {
 "values": [ 20, 21, 22, 16, 17, 18, 19, 23 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("DamageCollider/Shape:disabled")
+tracks/1/path = NodePath("AttackCollider/Shape:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -333,6 +334,7 @@ _sections_unfolded = [ "Z Index" ]
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
+visible = false
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 8
@@ -340,7 +342,6 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
 
-visible = false
 position = Vector2( 0, -13 )
 texture = ExtResource( 3 )
 vframes = 6
@@ -397,7 +398,6 @@ shape = SubResource( 14 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
-visible = false
 position = Vector2( 2.21718, 3.08687 )
 scale = Vector2( 4.10386, 8.58365 )
 input_pickable = true
@@ -411,9 +411,10 @@ _sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pause", "Pickable"
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
-position = Vector2( 0.496182, -0.474453 )
+position = Vector2( 0.27626, -0.579596 )
 scale = Vector2( 2.9313, 1.39416 )
 shape = SubResource( 15 )
+disabled = true
 
 [node name="HealthBar" type="TextureProgress" parent="." index="6"]
 
@@ -446,6 +447,13 @@ radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
 _sections_unfolded = [ "Anchor", "Focus", "Hint", "Margin", "Material", "Mouse", "Radial Fill", "Rect", "Size Flags", "Textures", "Theme", "Visibility" ]
+
+[node name="Shadow" type="Sprite" parent="." index="7"]
+
+position = Vector2( 0.384567, 71.4612 )
+scale = Vector2( 1.91853, 3.07858 )
+texture = ExtResource( 6 )
+_sections_unfolded = [ "Z Index" ]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/PuncherMKII.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/PuncherMKII/PuncherMKII.png" type="Texture" id=2]
@@ -6,8 +6,9 @@
 [ext_resource path="res://Sprites/Enemies/PuncherMKII/PuncherMKII_Special_Up_Down_Atack.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=7]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=1]
 
 resource_name = "Dead"
 length = 4.0
@@ -26,7 +27,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 
 resource_name = "Down"
 length = 4.0
@@ -45,7 +46,7 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 
 resource_name = "Idle"
 length = 2.0
@@ -64,7 +65,7 @@ tracks/0/keys = {
 "values": [ 4, 7 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=4]
 
 resource_name = "Left"
 length = 4.0
@@ -83,7 +84,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 
 resource_name = "PunchDown"
 length = 4.0
@@ -114,7 +115,7 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=6]
 
 resource_name = "PunchLeft"
 length = 4.0
@@ -145,7 +146,7 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=7]
 
 resource_name = "PunchRight"
 length = 4.0
@@ -176,7 +177,7 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=8]
 
 resource_name = "PunchUp"
 length = 4.0
@@ -207,7 +208,7 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=9]
 
 resource_name = "Special"
 length = 4.0
@@ -238,7 +239,7 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=10]
 
 resource_name = "Up"
 length = 4.0
@@ -257,22 +258,22 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=11]
 
 custom_solver_bias = 0.0
 extents = Vector2( 4.16951, 10 )
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=12]
 
 custom_solver_bias = 0.0
 radius = 10.0
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=13]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=14]
 
 custom_solver_bias = 0.0
 radius = 10.0
@@ -326,16 +327,16 @@ autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
-anims/Dead = SubResource( 5 )
-anims/Down = SubResource( 6 )
-anims/Idle = SubResource( 8 )
-anims/Left = SubResource( 9 )
-anims/PunchDown = SubResource( 7 )
-anims/PunchLeft = SubResource( 10 )
-anims/PunchRight = SubResource( 11 )
-anims/PunchUp = SubResource( 14 )
-anims/Special = SubResource( 12 )
-anims/Up = SubResource( 13 )
+anims/Dead = SubResource( 1 )
+anims/Down = SubResource( 2 )
+anims/Idle = SubResource( 3 )
+anims/Left = SubResource( 4 )
+anims/PunchDown = SubResource( 5 )
+anims/PunchLeft = SubResource( 6 )
+anims/PunchRight = SubResource( 7 )
+anims/PunchUp = SubResource( 8 )
+anims/Special = SubResource( 9 )
+anims/Up = SubResource( 10 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -343,7 +344,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 position = Vector2( -2.90001, 70.4491 )
 scale = Vector2( 5.41221, 1.41971 )
-shape = SubResource( 1 )
+shape = SubResource( 11 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="3"]
 
@@ -395,7 +396,7 @@ _sections_unfolded = [ "Collision" ]
 visible = false
 position = Vector2( -134.657, 50.1639 )
 scale = Vector2( 21.6947, 21.6947 )
-shape = SubResource( 2 )
+shape = SubResource( 12 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="5"]
 
@@ -417,7 +418,7 @@ _sections_unfolded = [ "Collision" ]
 visible = false
 position = Vector2( -97.761, -22.957 )
 scale = Vector2( 2.66346, 3.75135 )
-shape = SubResource( 3 )
+shape = SubResource( 13 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="6"]
 
@@ -437,8 +438,15 @@ _sections_unfolded = [ "Collision" ]
 
 position = Vector2( -17.1359, -2.0631 )
 scale = Vector2( 4.68421, 4.68421 )
-shape = SubResource( 4 )
+shape = SubResource( 14 )
 disabled = true
+
+[node name="Sprite" type="Sprite" parent="." index="7"]
+
+position = Vector2( -3.57494, 76.2652 )
+z_index = -1
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Z Index" ]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 
