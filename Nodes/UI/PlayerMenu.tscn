@@ -112,10 +112,12 @@ func _process(delta):
 					inventory_scroll += 2
 					$Tabs/Equipment/Inventory/Inner/Scrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 342
 					update_inventory()
+					select_inventory()
 				elif inventory_scroll > 0 and inventory_select - inventory_scroll < 2:
 					inventory_scroll -= 2
 					$Tabs/Equipment/Inventory/Inner/Scrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 342
 					update_inventory()
+					select_inventory()
 				
 				if Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 1: inventory_select = max(inventory_select-1, 0)
 				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 0: inventory_select = -1

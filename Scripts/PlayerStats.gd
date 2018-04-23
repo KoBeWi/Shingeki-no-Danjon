@@ -38,8 +38,8 @@ func get_damage():
 		eq = Res.items[eq]
 		
 		damage = eq.attack
-		for stat in eq.scalling.keys():
-			damage += int(PlayerStats[stat] * eq.scalling[stat])
+		for stat in eq.scaling.keys():
+			damage += int(PlayerStats[stat] * eq.scaling[stat])
 	
 	return damage
 

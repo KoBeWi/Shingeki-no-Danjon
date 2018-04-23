@@ -1,0 +1,10 @@
+{
+	"type": "weapon",
+	"weapon": "one-handed",
+	"sprite": "Sword3",
+	"name": "Steel Sword",
+	"description": "A well-polished sword made of steel.",
+	"price": 20,
+	"attack": 10,
+	"scaling": {"strength": 1}
+}

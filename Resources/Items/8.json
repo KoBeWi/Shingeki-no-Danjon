@@ -1,0 +1,10 @@
+{
+	"type": "weapon",
+	"weapon": "one-handed",
+	"sprite": "Sword4",
+	"name": "Infusion Blade",
+	"description": "Blade enhanced with magic crystal. Increased your magic power.",
+	"price": 30,
+	"attack": 20,
+	"scaling": {"strength": 1, "intelligence": 0.2}
+}
