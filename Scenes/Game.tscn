@@ -6,6 +6,7 @@
 
 [node name="Game" type="YSort"]
 
+position = Vector2( 0, -1 )
 sort_enabled = true
 script = ExtResource( 1 )
 _sections_unfolded = [ "Sort" ]

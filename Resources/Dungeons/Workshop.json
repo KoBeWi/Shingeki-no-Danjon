@@ -9,7 +9,7 @@
 	"breakables": ["Barrel"],
 	"breakable_contents": [[2, 200], [3, 400]],
 	"breakable_count": 20,
-	"enemies": ["Puncher", "Grinder", "Trochnalis", "FLA-G"],
+	"enemies": ["Puncher", "Grinder", "Trochnalis", "FLA-G", "PuncherMKII"],
 	"enemy_count": 30,
 	"environment_objects": ["WaterPipe", "OilPipe", "ParaffinBluePipe", "ParaffinGreenPipe", "Pipe", "FloorWheel"],
 	"environment_count": 50

@@ -20,6 +20,9 @@ func save_state(object):
 sort_enabled = true
 script = SubResource( 1 )
 _sections_unfolded = [ "Sort" ]
+__meta__ = {
+"_edit_vertical_guides_": [ -102.838 ]
+}
 
 [node name="Segments" type="Node2D" parent="." index="0"]
 
