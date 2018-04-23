@@ -151,6 +151,20 @@ func _process(delta):
 				crafting_select = min(crafting_select+1, crafting_list.size()-1)
 				select_crafting()
 			
+			if Input.is_action_just_pressed(\"Interact\"):
+				var can_craft = true
+				
+				var materials = crafting_list[crafting_select].materials
+				for i in range(materials.keys().size()):
+					can_craft = PlayerStats.count_item(int(materials.keys()[i])) >= materials.values()[i]
+					if !can_craft: break
+				
+				if can_craft:
+					PlayerStats.add_item(crafting_list[crafting_select].item)
+					for i in range(materials.keys().size()):
+						PlayerStats.subtract_items(int(materials.keys()[i]), materials.values()[i])
+					select_crafting()
+			
 			if Input.is_action_just_pressed(\"ui_cancel\"):
 				self.in_tab = false
 		_:
@@ -221,8 +235,14 @@ func select_crafting():
 		
 		if i < materials.keys().size():
 			ingredient.visible = true
+			
+			var need = materials.values()[i]
+			var have = PlayerStats.count_item(int(materials.keys()[i]))
+			if have >= need: ingredient.get_node(\"Amount\").add_color_override(\"font_color\", Color(0, 1, 0))
+			else: ingredient.get_node(\"Amount\").add_color_override(\"font_color\", Color(1, 0, 0))
+			
 			ingredient.get_node(\"Name\").text = Res.items[int(materials.keys()[i])].name
-			ingredient.get_node(\"Amount\").text = str(\"XXX\") + \" / \" + str(materials.values()[i])
+			ingredient.get_node(\"Amount\").text = str(have) + \" / \" + str(need)
 			ingredient.get_node(\"Icon\").texture = Res.get_item_texture(materials.keys()[i])
 		else:
 			ingredient.visible = false

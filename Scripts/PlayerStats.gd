@@ -27,7 +27,7 @@ signal got_item
 
 func _ready():
 	for item in Res.items:
-		inventory.append({id = item.id, stack = 1})
+		inventory.append({id = item.id, stack = 2})
 
 func get_damage():
 	var damage = strength
@@ -48,6 +48,28 @@ func get_skill(slot):
 
 func get_equipment(slot_name): ##niekoniecznie potrzebne
 	return equipment[EQUIPMENT_SLOTS.find(slot_name)]
+
+func count_item(id):
+	var amount = 0
+	for item in inventory: if item.id == id: amount += item.stack
+	return amount
+
+func subtract_items(id, amount):
+	var removed_stacks = []
+	
+	for item in inventory:
+		if item.id == id:
+			if item.stack >= amount:
+				var am = amount
+				amount -= am
+				item.stack -= am
+			else:
+				amount = 0
+				item.stack = 0
+			
+			if item.stack == 0: removed_stacks.append(item)
+	
+	for item in removed_stacks: inventory.erase(item)
 
 func consume(item):
 	Res.play_sample($"/root/Game/Player", "Consume", false)
