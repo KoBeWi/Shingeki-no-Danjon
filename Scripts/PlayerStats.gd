@@ -27,7 +27,8 @@ signal got_item
 
 func _ready():
 	for item in Res.items:
-		inventory.append({id = item.id, stack = 2})
+		inventory.append({id = item.id, stack = 1})
+	for i in range(20): inventory.append({id = 0, stack = 1})
 
 func get_damage():
 	var damage = strength
@@ -97,7 +98,7 @@ func add_experience(amount):
 		stat_points += 1
 		emit_signal("level_up")
 
-func add_item(id):
+func add_item(id, amount = 1, notify = true): ##dorobić obsługę amount
 	var item = Res.items[id]
 	
 	var slot = -1
@@ -113,5 +114,5 @@ func add_item(id):
 	else:
 		return false
 	
-	emit_signal("got_item", id)
+	if notify: emit_signal("got_item", id)
 	return true
