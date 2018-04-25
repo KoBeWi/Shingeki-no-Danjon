@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FLA-B_atacks.png-6405fa64635ac2b40b6001a0b532f77b.stex"
+path="res://.import/arrow_fly_150ms.png-a1a71e2f95609e66f3b820079a2c5174.stex"
 
 [deps]
 
-source_file="res://Sprites/Enemies/FLA-B/FLA-B_atacks.png"
-source_md5="437181e495eb1378e7b8f2edf1b68172"
+source_file="res://Sprites/Objects/arrow_fly_150ms.png"
+source_md5="f6eed2b44251b276d60477f49adbdefb"
 
-dest_files=[ "res://.import/FLA-B_atacks.png-6405fa64635ac2b40b6001a0b532f77b.stex" ]
-dest_md5="0bf9f535c7f7dcc222a1fc050302a178"
+dest_files=[ "res://.import/arrow_fly_150ms.png-a1a71e2f95609e66f3b820079a2c5174.stex" ]
+dest_md5="f1ea28cbcf56291a457b4494bd8113c5"
 
 [params]
 

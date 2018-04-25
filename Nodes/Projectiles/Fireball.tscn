@@ -89,7 +89,6 @@ shape = SubResource( 3 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="3"]
 
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
