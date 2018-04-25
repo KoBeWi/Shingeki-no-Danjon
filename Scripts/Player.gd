@@ -140,6 +140,10 @@ func cast_spell(slot):
 	var projectile = Res.create_instance("Projectiles/" + spell.projectile)
 	get_parent().add_child(projectile)
 	projectile.position = position
+	if( direction == 2 ):
+		projectile.position = position + Vector2(0,80)
+	
+	
 	projectile.direction = direction
 	projectile.intiated()
 	

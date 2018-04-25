@@ -44,6 +44,7 @@ func _ready():
 	._ready()
 	drops.append([3, 200])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
+	play_animation_if_not_playing("Idle")
 	
 	
 func calculate_dead(delta):
@@ -161,6 +162,62 @@ func call_special_atack():
 	play_animation_if_not_playing("Special" + direction)
 	damage = SPECIAL_DAMAGE
 	knockback = KNOCKBACK_ATACK
+	
+	var rotation = -15
+	 
+	var arrows = []
+	for i in range(3):
+		arrows.append(Res.create_instance("Projectiles/FireArrow"))
+		
+	for arrow in arrows:
+		get_parent().add_child(arrow)
+		arrow.position  = position  #+ Vector2(100,100)
+		
+		match direction:
+			"Left":
+				arrow.new_dir(3)
+				arrow.set_rot(-rotation)
+			"Right":
+				arrow.new_dir(1)
+				arrow.set_rot(-rotation)
+			"Up":
+				arrow.new_dir(2)
+				arrow.set_rot(rotation)
+			"Down":
+				arrow.new_dir(0)
+				arrow.set_rot(rotation)
+				
+		rotation += 15
+		
+
+	
+	match direction:
+		"Left":
+			arrows[0].position -= Vector2(0,30) 
+			arrows[0].set_mod( Vector2(0,-0.3) )
+			arrows[2].position += Vector2(0,30)
+			arrows[2].set_mod( Vector2(0,0.3) )
+		"Right":
+			arrows[2].position -= Vector2(0,30) 
+			arrows[2].set_mod( Vector2(0,-0.3) )
+			arrows[0].position += Vector2(0,30)
+			arrows[0].set_mod( Vector2(0,0.3) )
+		"Up":
+			arrows[0].set_mod( Vector2(-0.3,0) )
+			arrows[0].position -= Vector2(30,0) 
+			arrows[2].set_mod( Vector2(0.3,0) )
+			arrows[2].position += Vector2(30,0)
+		"Down":
+			arrows[0].set_mod( Vector2(-0.3,0) )
+			arrows[0].position -= Vector2(30,0) 
+			arrows[2].set_mod( Vector2(0.3,0) )
+			arrows[2].position += Vector2(30,0)
+				
+	for arrow in arrows:
+		arrow.intiated()
+		arrow.damage = SPECIAL_DAMAGE
+		
+	
 
 	
 func call_normal_atack():
@@ -178,7 +235,7 @@ func call_normal_atack():
 		"Down":
 			projectile.direction = 0
 	
-#	projectile.direction = 0
+	
 	projectile.intiated()
 	projectile.damage = BASIC_DAMAGE
 	

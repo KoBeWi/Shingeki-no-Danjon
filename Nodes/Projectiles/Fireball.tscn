@@ -25,6 +25,7 @@ func new_dir(dir):
 	rotation_degrees = dir * 90
 
 func _on_attack_hit(collider):
+	
 	if collider.get_parent().is_in_group(\"enemies\"):
 		SkillBase.inc_stat(\"FireMagic\")
 		SkillBase.inc_stat(\"Ranged\")
@@ -55,11 +56,11 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 14.6171, 20.7013 )
 
-[node name="Fireball" type="KinematicBody2D"]
+[node name="Fireball" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 0
-collision_mask = 4
+collision_mask = 12
 collision/safe_margin = 0.08
 script = SubResource( 1 )
 _sections_unfolded = [ "Collision", "Z Index" ]

@@ -9,10 +9,6 @@
 [ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/UI/Interact0.png" type="Texture" id=8]
 
-
-
-
-
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
@@ -618,8 +614,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="DamageCollider" type="Area2D" parent="." index="4"]
 
-editor/display_folded = true
-visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -631,7 +625,8 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
-position = Vector2( -1.46303, -1.95068 )
+position = Vector2( -1.46303, 9.11594 )
+scale = Vector2( 1, 1.181 )
 shape = SubResource( 3 )
 
 [node name="ArmAnimator" type="AnimationPlayer" parent="." index="5"]
