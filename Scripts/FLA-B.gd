@@ -108,7 +108,7 @@ func calculate_move(delta):
 			play_animation_if_not_playing("Down")
 			direction = "Down"
 		
-		print( second_vertical, " ", first_vertical)
+		#print( second_vertical, " ", first_vertical)
 		
 		if( second_vertical == 0 and abs(first_vertical) < 0.5 ) : play_animation_if_not_playing("Idle")
 		
@@ -164,6 +164,25 @@ func call_special_atack():
 
 	
 func call_normal_atack():
+	var projectile = Res.create_instance("Projectiles/FireArrow")
+	get_parent().add_child(projectile)
+	projectile.position  = position  #+ Vector2(100,100)
+	
+	match direction:
+		"Left":
+			projectile.direction = 3
+		"Right":
+			projectile.direction = 1
+		"Up":
+			projectile.direction = 2
+		"Down":
+			projectile.direction = 0
+	
+#	projectile.direction = 0
+	projectile.intiated()
+	projectile.damage = BASIC_DAMAGE
+	
+	
 	in_action = true
 	atack_ready = false
 	punch_in_direction()
