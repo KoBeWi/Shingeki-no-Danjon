@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scripts/FLA-G.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/FLA-G/FLA-G.png" type="Texture" id=2]
@@ -86,7 +86,25 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=5]
 
-resource_name = "PunchDown"
+resource_name = "Magic"
+length = 6.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 32, 33, 34, 35, 36, 37 ]
+}
+
+[sub_resource type="Animation" id=6]
+
 length = 7.0
 loop = false
 step = 1.0
@@ -115,9 +133,8 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
-resource_name = "PunchLeft"
 length = 7.0
 loop = false
 step = 1.0
@@ -146,9 +163,8 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
-resource_name = "PunchRight"
 length = 7.0
 loop = false
 step = 1.0
@@ -177,9 +193,8 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
-resource_name = "PunchUp"
 length = 7.0
 loop = false
 step = 1.0
@@ -208,9 +223,8 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
-resource_name = "Right"
 length = 6.0
 loop = false
 step = 1.0
@@ -227,9 +241,8 @@ tracks/0/keys = {
 "values": [ 24, 25, 26, 27, 28, 29 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 
-resource_name = "SpecialDown"
 length = 11.0
 loop = false
 step = 1.0
@@ -258,9 +271,8 @@ tracks/1/keys = {
 "values": [ false, true, false ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
 
-resource_name = "SpecialLeft"
 length = 11.0
 loop = false
 step = 1.0
@@ -289,9 +301,8 @@ tracks/1/keys = {
 "values": [ true, false, true ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 
-resource_name = "SpecialRight"
 length = 11.0
 loop = false
 step = 1.0
@@ -320,9 +331,8 @@ tracks/1/keys = {
 "values": [ true, false, true ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 
-resource_name = "SpecialUp"
 length = 12.0
 loop = false
 step = 1.0
@@ -351,7 +361,7 @@ tracks/1/keys = {
 "values": [ true, false, true ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=15]
 
 length = 8.0
 loop = false
@@ -369,28 +379,28 @@ tracks/0/keys = {
 "values": [ 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[sub_resource type="RectangleShape2D" id=15]
+[sub_resource type="RectangleShape2D" id=16]
 
 custom_solver_bias = 0.0
 extents = Vector2( 75.7675, 10 )
 
-[sub_resource type="CircleShape2D" id=16]
+[sub_resource type="CircleShape2D" id=17]
 
 custom_solver_bias = 0.0
 radius = 10.0
 
-[sub_resource type="CapsuleShape2D" id=17]
+[sub_resource type="CapsuleShape2D" id=18]
 
 custom_solver_bias = 0.0
 radius = 10.0
 height = 20.0
 
-[sub_resource type="RectangleShape2D" id=18]
+[sub_resource type="RectangleShape2D" id=19]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10.2959, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -407,6 +417,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
+visible = false
 position = Vector2( 12, -5.33334 )
 texture = ExtResource( 2 )
 vframes = 6
@@ -425,12 +436,11 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
 
-visible = false
 position = Vector2( 10.8994, 8.58076 )
 texture = ExtResource( 4 )
-vframes = 4
+vframes = 5
 hframes = 8
-frame = 23
+frame = 38
 _sections_unfolded = [ "Animation" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -444,16 +454,17 @@ anims/Dead = SubResource( 1 )
 anims/Down = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 anims/Left = SubResource( 4 )
-anims/PunchDown = SubResource( 5 )
-anims/PunchLeft = SubResource( 6 )
-anims/PunchRight = SubResource( 7 )
-anims/PunchUp = SubResource( 8 )
-anims/Right = SubResource( 9 )
-anims/SpecialDown = SubResource( 10 )
-anims/SpecialLeft = SubResource( 11 )
-anims/SpecialRight = SubResource( 12 )
-anims/SpecialUp = SubResource( 13 )
-anims/Up = SubResource( 14 )
+anims/Magic = SubResource( 5 )
+anims/PunchDown = SubResource( 6 )
+anims/PunchLeft = SubResource( 7 )
+anims/PunchRight = SubResource( 8 )
+anims/PunchUp = SubResource( 9 )
+anims/Right = SubResource( 10 )
+anims/SpecialDown = SubResource( 11 )
+anims/SpecialLeft = SubResource( 12 )
+anims/SpecialRight = SubResource( 13 )
+anims/SpecialUp = SubResource( 14 )
+anims/Up = SubResource( 15 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -461,7 +472,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 position = Vector2( 16.4588, 70.8931 )
 scale = Vector2( 0.717616, 2.40879 )
-shape = SubResource( 15 )
+shape = SubResource( 16 )
 
 [node name="Radar" type="Area2D" parent="." index="3"]
 
@@ -480,7 +491,7 @@ audio_bus_name = "Master"
 
 position = Vector2( -1.70736, 4.47633 )
 scale = Vector2( 5.55008, 8.41106 )
-shape = SubResource( 16 )
+shape = SubResource( 17 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="4" groups=[
 "enemies",
@@ -502,7 +513,7 @@ _sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pickable", "Transf
 
 position = Vector2( 17.3951, -4.15159 )
 scale = Vector2( 5.62541, 3.95039 )
-shape = SubResource( 17 )
+shape = SubResource( 18 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
@@ -518,7 +529,7 @@ audio_bus_name = "Master"
 
 position = Vector2( 9.61782, 12.2602 )
 scale = Vector2( 10.0623, 10.3125 )
-shape = SubResource( 18 )
+shape = SubResource( 19 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="6"]
 

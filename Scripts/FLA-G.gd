@@ -7,10 +7,11 @@ const ARM = 0.3
 const BASIC_DAMAGE         = 12
 const SPECIAL_DAMAGE       = 50
 
+const MAGIC_PROBABILITY    = 500
 const SPECIAL_PROBABILITY  = 200
-const ATACK_SPEED          = 125
+var ATACK_SPEED          = 125
 
-const SPEED                = 120
+var SPEED                = 120
 
 const KNOCKBACK_ATACK      = 5 
 
@@ -31,6 +32,9 @@ var special_ready   = false
 var atack_ready     = true
 var suesided        = false
 var in_special      = false
+var in_special_state = false
+var magic_ready     = false 
+var  special_countown = 0.0
 
 var special_destination = Vector2(0,0)
 
@@ -69,12 +73,18 @@ func _physics_process(delta):
 		
 		return
 	
+	if in_special_state:
+		special_countown -= delta
+		if special_countown < 0:
+			turn_down_special()
+	
 	if suesided:
 		health = 0
 		_on_dead()
 		return
 	
 	if follow_player and !in_action :
+		if( !magic_ready and !in_special_state )   : magic_ready =   (randi()%MAGIC_PROBABILITY == 0)
 		if( !special_ready ) : special_ready = (randi()%SPECIAL_PROBABILITY == 0)
 		if( !  atack_ready ) : atack_ready   = (randi()%ATACK_SPEED         == 0)
 		
@@ -115,6 +125,11 @@ func _physics_process(delta):
 			follow_player = false
 			play_animation_if_not_playing("Idle")
 		
+		if magic_ready:
+			magic_ready = false
+			call_special_atack()
+			return
+		
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if special_ready and can_use_special :
 				in_action = true
@@ -133,12 +148,48 @@ func _physics_process(delta):
 				knockback = 0
 
 
+func turn_down_special():
+	
+	.set_statistics(health, experience , ARM)
+	ATACK_SPEED -= 50
+	
+	special_countown = 0.0
+	SPEED += 50
+	in_special_state = false
+	.scale_stats_to(HP,ARM)
+	in_action = true
+	play_animation_if_not_playing("Magic", true)
+
+func call_special_atack():
+	
+	#change_color()
+	
+	
+	in_action = true
+	play_animation_if_not_playing("Magic")
+	#damage = SPECIAL_DAMAGE
+	#knockback = KNOCKBACK_ATACK
+	in_special_state = true
+	#special_used = true
+	.scale_stats_to(300, 0.9)
+	#.set_statistics(300, XP, ARM+0.6)
+	ATACK_SPEED += 50
+	
+	special_countown = 15.0
+	SPEED -= 50
+	
+	
+
+
 func punch_in_direction():
 	play_animation_if_not_playing("Punch" + direction)
 
-func play_animation_if_not_playing(anim):
+func play_animation_if_not_playing(anim, fb = false):
 	if $AnimationPlayer.current_animation != anim:
 		$"AnimationPlayer".play(anim)
+		
+	if fb:
+		$"AnimationPlayer".play_backwards(anim)
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Player":
@@ -152,6 +203,10 @@ func _on_animation_started(anim_name):
 	
 		for i in range(sprites.size()):
 			sprites[i].visible = (i+1 == main_sprite)
+			if in_special_state : 
+				sprites[i].set_modulate(Color(0,1, 256))
+			else:
+				sprites[i].set_modulate(Color(1,1,1))
 
 func _on_dead():
 	dead = true
@@ -165,6 +220,9 @@ func _on_damage():
 	pass
 
 func _on_animation_finished(anim_name):
+	if "Magic" in anim_name:
+		in_action     = false
+	
 	if "Special" in anim_name:
 		$"AttackCollider/Shape".disabled = true
 		special_ready = false

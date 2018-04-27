@@ -23,6 +23,14 @@ func _ready():
 	$"/root/Game".perma_state(self, "queue_free")
 	$"AnimationPlayer".play("Idle")
 
+func scale_stats_to( max_hp, ar ):
+	armour = ar
+	var t = health/max_health
+	health = t*max_hp
+	health_bar.max_value = max_hp
+	health_bar.value = health
+	max_health = max_hp
+
 func set_statistics( max_hp, given_exp, ar ):
 	max_health = max_hp
 	health = max_hp

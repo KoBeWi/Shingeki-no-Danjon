@@ -333,7 +333,7 @@ extents = Vector2( 10, 10 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="FLA-S" type="KinematicBody2D" index="0" groups=[
+[node name="FLA-S" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -353,6 +353,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 6
+frame = 1
 _sections_unfolded = [ "Animation", "Region" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
