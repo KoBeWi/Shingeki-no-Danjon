@@ -41,6 +41,7 @@ func _ready():
 	._ready()
 	drops.append([3, 250])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
+	$"AnimationPlayer".play("Idle")
 
 func _physics_process(delta):
 	._physics_process(delta)

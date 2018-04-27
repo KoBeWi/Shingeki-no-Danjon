@@ -44,7 +44,7 @@ func _ready():
 	._ready()
 	drops.append([3, 200])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
-	play_animation_if_not_playing("Idle")
+	$"AnimationPlayer".play("Idle")
 	
 	
 func calculate_dead(delta):
@@ -134,9 +134,7 @@ func _physics_process(delta):
 		var player_monster_distance_x = abs(position.x - player.position.x) 
 		var player_monster_distance_y = abs(position.y - player.position.y) 
 
-		if player_monster_distance_x > FOLLOW_RANGE and player_monster_distance_y > FOLLOW_RANGE:
-			follow_player = false
-			play_animation_if_not_playing("Idle")
+
 		
 			
 			
@@ -145,11 +143,14 @@ func _physics_process(delta):
 				call_special_atack()
 			elif atack_ready: 
 				call_normal_atack()
-			
-		#if player_monster_distance_x < 79 and player_monster_distance_y < 79:
-			
+				
+		if player_monster_distance_x > FOLLOW_RANGE and player_monster_distance_y > FOLLOW_RANGE:
+			follow_player = false
+			play_animation_if_not_playing("Idle")
+				
+	elif !in_action:
+		play_animation_if_not_playing("Idle")
 
-		#if player_monster_distance_x < 300 and player_monster_distance_y < 300:
 			
 		
 
@@ -157,12 +158,26 @@ func in_special_state(delta):
 	 play_animation_if_not_playing("Special" + direction)
 
 
-func call_special_atack():
-	in_action = true
-	play_animation_if_not_playing("Special" + direction)
-	damage = SPECIAL_DAMAGE
-	knockback = KNOCKBACK_ATACK
+func shoot_arrow():
+	var projectile = Res.create_instance("Projectiles/FireArrow")
+	get_parent().add_child(projectile)
+	projectile.position  = position  #+ Vector2(100,100)
 	
+	match direction:
+		"Left":
+			projectile.direction = 3
+		"Right":
+			projectile.direction = 1
+		"Up":
+			projectile.direction = 2
+		"Down":
+			projectile.direction = 0
+	
+	
+	projectile.intiated()
+	projectile.damage = BASIC_DAMAGE
+
+func shoot_arrows():
 	var rotation = -15
 	 
 	var arrows = []
@@ -217,29 +232,15 @@ func call_special_atack():
 		arrow.intiated()
 		arrow.damage = SPECIAL_DAMAGE
 		
-	
 
+func call_special_atack():
+	in_action = true
+	play_animation_if_not_playing("Special" + direction)
+	damage = SPECIAL_DAMAGE
+	knockback = KNOCKBACK_ATACK
+	
 	
 func call_normal_atack():
-	var projectile = Res.create_instance("Projectiles/FireArrow")
-	get_parent().add_child(projectile)
-	projectile.position  = position  #+ Vector2(100,100)
-	
-	match direction:
-		"Left":
-			projectile.direction = 3
-		"Right":
-			projectile.direction = 1
-		"Up":
-			projectile.direction = 2
-		"Down":
-			projectile.direction = 0
-	
-	
-	projectile.intiated()
-	projectile.damage = BASIC_DAMAGE
-	
-	
 	in_action = true
 	atack_ready = false
 	punch_in_direction()

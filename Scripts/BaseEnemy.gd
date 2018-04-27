@@ -21,6 +21,7 @@ func _ready():
 	health_bar.max_value = max_health
 	health_bar.value = health
 	$"/root/Game".perma_state(self, "queue_free")
+	$"AnimationPlayer".play("Idle")
 
 func set_statistics( max_hp, given_exp, ar ):
 	max_health = max_hp
