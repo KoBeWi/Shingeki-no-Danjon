@@ -27,7 +27,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
 }
 
-[node name="ParaffinGreenPipe" type="Sprite" index="0"]
+[node name="ParaffinGreenPipe" type="Sprite"]
 
 z_index = 1
 texture = ExtResource( 1 )
@@ -38,6 +38,7 @@ script = ExtResource( 2 )
 _sections_unfolded = [ "Animation", "Transform", "Z Index" ]
 placement = 1
 offset_position = Vector2( 11, 0 )
+size = Vector2( 1, 1 )
 variants = ""
 can_flip_h = true
 

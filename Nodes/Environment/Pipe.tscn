@@ -12,16 +12,19 @@ extents = Vector2( 96, 20 )
 
 z_index = 1
 texture = ExtResource( 1 )
+offset = Vector2( 80, 0 )
 script = ExtResource( 2 )
 _sections_unfolded = [ "Animation", "Offset", "Transform", "Z Index" ]
 placement = 2
 offset_position = Vector2( 0, 0 )
+size = Vector2( 2, 1 )
 variants = "Pipe1 Pipe2 Pipe3"
 can_flip_h = false
 
 [node name="Collider" type="StaticBody2D" parent="." index="0"]
 
 editor/display_folded = true
+position = Vector2( 80, 0 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -29,6 +32,7 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
+_sections_unfolded = [ "Transform" ]
 
 [node name="Shape" type="CollisionShape2D" parent="Collider" index="0"]
 

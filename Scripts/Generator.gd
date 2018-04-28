@@ -146,10 +146,18 @@ func place_environment():
 			var space = floor_space[k]
 			var ok = true
 			
-			match instance.placement:
-				instance.SIDE_WALL: ok = space.has("left_wall") or space.has("right_wall")
-				instance.NO_WALL: ok = space.no_walls
-			
+			for l in range(instance.size.x * instance.size.y):
+				var space2 = find_space(space.pos + Vector2(l % int(instance.size.x), l / int(instance.size.x)))
+				
+				if !space2:
+					ok = false
+					break
+				
+				match instance.placement:
+					instance.SIDE_WALL: ok = space2.has("left_wall") or space2.has("right_wall")
+					instance.NO_WALL: ok = space2.no_walls
+				
+				if !ok: break
 			if !ok: continue
 				
 			var offset = instance.offset_position
@@ -195,14 +203,11 @@ func place_containers():
 		else: break
 
 func place_for_test(what):
-	
 	if NewToTest == "": return
 	
 	var ug_inst = what.instance()
 	ug_inst.position = $"../Player".position + Vector2(200,200)
 	dungeon.get_parent().add_child(ug_inst)
-	
-
 
 func place_enemies():
 	var enemies = dungeon_type.enemies
@@ -213,8 +218,7 @@ func place_enemies():
 	
 	place_for_test(Res.get_node(NewToTest))
 
-
-		
+func find_space(vec): for flo in floor_space: if flo.pos == vec: return flo
 
 func place_on_floor(object):
 	for dis in disabled: if object.find(dis) > -1: return ##DEBUG
@@ -243,8 +247,6 @@ func place_treasure_into_maze(what, how_many):
 		dungeon.get_parent().add_child(ug_inst)
 		if (what == Res.get_node("Objects/Barrel") and randi()%6 == 0) or what == Res.get_node("Objects/Chest"): ##hack ;_;
 			ug_inst.item = randi()%2
-
-	
 
 func place_enemy_into_maze(what, how_many):
 	for nmb in range(how_many):

@@ -21,7 +21,7 @@ func _ready():
 	else:
 		seed(my_seed)
 	
-#	seed(848390430) ##DEBUG
+	seed(2553894368) ##DEBUG
 	SkillBase.acquired_skills.append("FastWalk") ##DEBUG
 	
 	dungeon = Res.dungeons["Workshop"]
