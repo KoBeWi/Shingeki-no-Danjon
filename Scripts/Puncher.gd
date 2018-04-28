@@ -106,6 +106,8 @@ func _physics_process(delta):
 				punch_in_direction()
 				damage = BASIC_DAMAGE
 				knockback = 0
+	elif !in_action:
+		play_animation_if_not_playing("Idle")
 
 
 func punch_in_direction():
@@ -137,7 +139,9 @@ func _on_dead():
 	$"AttackCollider/Shape".disabled = true
 
 func _on_damage():
-	pass
+	follow_player = true
+	player = $"../Player"
+
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Special":

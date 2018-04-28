@@ -359,6 +359,7 @@ _sections_unfolded = [ "Animation", "Region" ]
 [node name="2" type="Sprite" parent="Sprites" index="1"]
 
 visible = false
+position = Vector2( 0, 10.6667 )
 texture = ExtResource( 3 )
 vframes = 4
 hframes = 6

@@ -26,6 +26,7 @@ func _ready():
 func scale_stats_to( max_hp, ar ):
 	armour = ar
 	var t = health/max_health
+	print(t)
 	health = t*max_hp
 	health_bar.max_value = max_hp
 	health_bar.value = health
@@ -45,6 +46,7 @@ func _physics_process(delta):
 
 func damage(amount):
 	if _dead: return
+	
 	Res.create_instance("DamageNumber").damage(self, amount*(1-armour))
 	health -= amount*(1-armour)
 	
@@ -64,12 +66,12 @@ func damage(amount):
 		
 		if drop > -1:
 			var item = Res.create_instance("Item")
-			item.position = position
+			item.position = position + Vector2(randi()%60-30,randi()%60-30)
 			item.id = drop
 			get_parent().add_child(item)
 		elif randi() % 1000 < 100:
 			var item = Res.create_instance("Money")
-			item.position = position
+			item.position = position + Vector2(randi()%60-30,randi()%60-30)
 			get_parent().add_child(item)
 	else:
 		_on_damage()

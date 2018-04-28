@@ -4,10 +4,10 @@ const HP  = 100
 const XP  = 200
 const ARM = 0.3
 
-var BASIC_DAMAGE         = 10
+var   BASIC_DAMAGE         = 10
 const SPECIAL_DAMAGE       = 0
 
-const SPECIAL_PROBABILITY  = 500
+const MAGIC_PROBABILITY  = 500
 var ATACK_SPEED          = 125
 
 var   SPEED                = 100
@@ -29,11 +29,10 @@ var can_use_special = true
 var dead            = false
 var follow_player   = false
 var in_action       = false
-var special_ready   = false
+var magic_ready     = false
 var atack_ready     = true
 
 var in_special_state = false
-var special_nav_poit = Vector2(0,0)
 var special_countown = 0.0
 
 onready var sprites = $Sprites.get_children()
@@ -50,8 +49,8 @@ func calculate_dead(delta):
 	if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
 
 func check_atacks_prepeare():
-	if( !special_ready and !in_special_state ) : special_ready = (randi()%SPECIAL_PROBABILITY == 0)
-	if( !  atack_ready  ) : atack_ready   = (randi()%ATACK_SPEED         == 0)
+	if( !magic_ready and !in_special_state )   : magic_ready   = (randi()%MAGIC_PROBABILITY == 0)
+	if( !  atack_ready  )                      : atack_ready   = (randi()%ATACK_SPEED         == 0)
 
 func calculate_move(delta):
 		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
@@ -108,96 +107,58 @@ func _physics_process(delta):
 			follow_player = false
 			play_animation_if_not_playing("Idle")
 		
-		if special_ready and can_use_special and !in_special_state:
+		if magic_ready and can_use_special and !in_special_state:
 			call_special_atack()
 			return
 		
-			
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if atack_ready: 
 				call_normal_atack()
 	
 	elif !in_action:
 		play_animation_if_not_playing("Idle")
-		
-
-func move_to_nav_point(delta):
-		var move = Vector2(sign(special_nav_poit.x - position.x), sign(special_nav_poit.y - position.y)).normalized() * SPEED * delta
-		
-		var x_player_monster_distance = abs(position.x - player.position.x)
-		var y_player_monster_distance = abs(position.y - player.position.y) 
-
-		var x_distance = abs(position.x - special_nav_poit.x)
-		var y_distance = abs(position.y - special_nav_poit.y) 
-
-		if( x_distance < move.x*(SPEED+20) ): move.x = x_distance/(SPEED+20)
-		if( y_distance < move.y*(SPEED+20) ): move.y = y_distance/(SPEED+20)
-		
-		#if( axix_X and axix_Y):
-		move_and_slide(move * (SPEED+20))
-		
-		if move.x == 0 and move.y == 0:
-			 in_special_state = false
-
 
 
 func in_special_state(delta):
-	 #play_animation_if_not_playing("Special")
 	 pass
-	 #move_to_nav_point(delta)
 	
 
 func turn_down_special():
 	
-	.set_statistics(health, experience , ARM)
+	.scale_stats_to(HP, ARM)
 	ATACK_SPEED += 50
-	BASIC_DAMAGE -= 10
+	BASIC_DAMAGE -= 30
 	
 	special_countown = 0.0
 	SPEED -= 50
-	in_special_state = false
 	
+	in_special_state = false
 	in_action = true
 	play_animation_if_not_playing("Special", true)
 
 
 func call_special_atack():
 	
-	#change_color()
-	
-	
 	in_action = true
 	play_animation_if_not_playing("Special")
 	damage = SPECIAL_DAMAGE
 	knockback = KNOCKBACK_ATACK
 	in_special_state = true
-	#special_used = true
 	
-	.set_statistics(HP, XP, ARM+0.3)
+	.scale_stats_to(120, ARM-0.1)
 	ATACK_SPEED -= 50
-	BASIC_DAMAGE += 10
-	
-	special_countown = 15.0
+	BASIC_DAMAGE += 30
 	SPEED += 50
-	
-	#if player.position.x > position.x:
-	#	special_nav_poit.x = player.position.x + (player.position.x - position.x)
-	#else:
-	#	special_nav_poit.x = player.position.x - (position.x - player.position.x)
-	
-	#if player.position.y > position.y:
-	#	special_nav_poit.y = player.position.y + (player.position.y - position.y)
-	#else:
-	#	special_nav_poit.y = player.position.y - (position.y - player.position.y)
-	
-	#print(special_nav_poit, position)
+	special_countown = 15.0
 	
 func call_normal_atack():
 	in_action = true
 	atack_ready = false
-	punch_in_direction()
+	
 	damage = BASIC_DAMAGE
 	knockback = 0
+	
+	punch_in_direction()
 
 func punch_in_direction():
 	play_animation_if_not_playing("Punch" + direction)
@@ -236,12 +197,12 @@ func _on_dead():
 	$"AttackCollider/Shape".disabled = true
 
 func _on_damage():
-	pass
+	follow_player = true
+	player = $"../Player"
 
 func _on_animation_finished(anim_name):
-	if anim_name == "Special":
-		#in_special_state = false
-		special_ready = false
+	if "Special" in  anim_name :
+		magic_ready = false
 		in_action     = false
 	if "Punch" in anim_name:
 		in_action     = false

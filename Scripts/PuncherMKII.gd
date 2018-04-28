@@ -217,7 +217,8 @@ func _on_dead():
 	$"AttackCollider/Shape".disabled = true
 
 func _on_damage():
-	pass
+	follow_player = true
+	player = $"../Player"
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Special":
