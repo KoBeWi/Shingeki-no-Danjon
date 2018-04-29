@@ -130,7 +130,7 @@ func generate(w, h):
 	wall_space.erase(wall2)
 	wall_space.erase(wall2 + Vector2(80, 0))
 	
-	place_environment()
+#	place_environment()
 	place_containers()
 	place_breakables()
 	place_enemies()

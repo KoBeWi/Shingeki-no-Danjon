@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GhostEnter.ogg-659b72da39644bfdfa7d02001fb2475b.oggstr"
+
+[deps]
+
+source_file="res://Samples/GhostEnter.ogg"
+source_md5="6acffe46a51a571346aa2ea92f8f7f2b"
+
+dest_files=[ "res://.import/GhostEnter.ogg-659b72da39644bfdfa7d02001fb2475b.oggstr" ]
+dest_md5="d7ce347d18ba72cc5fbc1726fab7d314"
+
+[params]
+
+loop=false
+loop_offset=0

@@ -18,7 +18,7 @@ func on_enter(body):
 	if body.is_in_group("players"):
 		icon.texture = Res.get_resource("res://Sprites/UI/Interact" + str(type) + ".png")
 		icon.visible = true
-		player_in = true
+		player_in = body
 
 func on_exit(body):
 	if body.is_in_group("players"):

@@ -31,7 +31,7 @@ func _physics_process(delta):
 	motion_time += delta
 	if static_time >= MEDITATION_TIME: SkillBase.inc_stat("Meditation")
 	
-	if !ghost_mode:
+	if !ghost_mode and typeof(is_ghost) != TYPE_STRING:
 		if Input.is_action_pressed("Up"):
 			move.y = -1
 			if prev_move.x == 0 or (direction == 0 and prev_move.y > 0): change_dir(0)
@@ -47,7 +47,7 @@ func _physics_process(delta):
 	
 	move = move.normalized() * SPEED
 	
-	if !attacking and !ghost_mode and Input.is_action_just_pressed("Attack"):
+	if !is_ghost and !attacking and !ghost_mode and Input.is_action_just_pressed("Attack"):
 		Res.play_sample(self, "Sword")
 		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
@@ -64,11 +64,19 @@ func _physics_process(delta):
 		if is_ghost:
 			get_parent().cancel_ghost()
 		elif !ghost_mode:
+			Res.play_sample(self, "GhostEnter")
+#			GHOST_EFFECT.material.set_shader_param("",value)
+			GHOST_EFFECT.get_node("../AnimationPlayer").play("Activate")
 			ghost_mode = GHOST.instance()
-			ghost_mode.is_ghost = true
-			GHOST_EFFECT.visible = true
+			ghost_mode.is_ghost = "stop"
 			ghost_mode.position.y += 8
+			ghost_mode.get_node("Body/RightArm/Weapon").visible = false
+#			ghost_mode.get_node("Body/LeftArm/Shield").visible = false
+			
 			add_child(ghost_mode)
+			GHOST_EFFECT.visible = true
+			yield(get_tree().create_timer(1), "timeout")
+			ghost_mode.is_ghost = true
 	
 	if move.length() > 0:
 		static_time = 0
@@ -149,6 +157,7 @@ func update_weapon():
 	change_texture($Body/RightArm/Weapon, "Weapons/" + weapon_sprite(), ["Front", "Right", "Left", "Back"])
 
 func cancel_ghost():
+	Res.play_sample(self, "GhostExit")
 	ghost_mode.queue_free()
 	ghost_mode = null
 	GHOST_EFFECT.visible = false
