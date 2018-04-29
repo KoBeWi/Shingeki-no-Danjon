@@ -49,6 +49,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="InteractArea" type="Area2D" parent="." index="2"]
 
+editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -58,6 +59,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 2 )
 type = 0
+mode = 2
 
 [node name="Shape" type="CollisionShape2D" parent="InteractArea" index="0"]
 

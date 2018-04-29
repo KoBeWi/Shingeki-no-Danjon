@@ -65,7 +65,6 @@ func _physics_process(delta):
 			get_parent().cancel_ghost()
 		elif !ghost_mode:
 			Res.play_sample(self, "GhostEnter")
-#			GHOST_EFFECT.material.set_shader_param("",value)
 			ghost_mode = GHOST.instance()
 			ghost_mode.is_ghost = true
 			ghost_mode.position.y += 8

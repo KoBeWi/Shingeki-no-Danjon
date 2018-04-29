@@ -93,6 +93,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 2 )
 type = 0
+mode = 1
 
 [node name="Shape" type="CollisionShape2D" parent="InteractArea" index="0"]
 
