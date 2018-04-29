@@ -210,7 +210,7 @@ extents = Vector2( 57.0542, 68.5652 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="Grinder" type="KinematicBody2D" groups=[
+[node name="Grinder" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -222,6 +222,9 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
+
+editor/display_folded = true
+position = Vector2( 0, -32 )
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
@@ -270,12 +273,13 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
-position = Vector2( 0.290953, 47.2325 )
+position = Vector2( 0.290953, 15.2325 )
 scale = Vector2( 3.70602, 1 )
 shape = SubResource( 9 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="3"]
 
+editor/display_folded = true
 visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -295,6 +299,7 @@ shape = SubResource( 10 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="4"]
 
+editor/display_folded = true
 visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -362,7 +367,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="." index="7"]
 
-position = Vector2( -2.8517, 31.9163 )
+position = Vector2( -2.8517, -0.0836993 )
 scale = Vector2( 1.27088, -3.35489 )
 z_index = -1
 texture = ExtResource( 7 )

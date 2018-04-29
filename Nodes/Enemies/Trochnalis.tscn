@@ -288,7 +288,7 @@ extents = Vector2( 12.2459, 10 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -329,6 +329,8 @@ shape = SubResource( 12 )
 
 [node name="Sprites" type="Node2D" parent="." index="2"]
 
+editor/display_folded = true
+position = Vector2( 0, -69 )
 z_index = 1
 _sections_unfolded = [ "Z Index" ]
 
@@ -360,6 +362,7 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="Radar" type="Area2D" parent="." index="3"]
 
+editor/display_folded = true
 visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -379,6 +382,8 @@ shape = SubResource( 13 )
 "enemies",
 ]]
 
+editor/display_folded = true
+position = Vector2( 0, -69 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -398,7 +403,8 @@ shape = SubResource( 14 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
-position = Vector2( 2.21718, 3.08687 )
+editor/display_folded = true
+position = Vector2( 2.21718, -65.9133 )
 scale = Vector2( 4.10386, 8.58365 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -450,7 +456,7 @@ _sections_unfolded = [ "Anchor", "Focus", "Hint", "Margin", "Material", "Mouse",
 
 [node name="Shadow" type="Sprite" parent="." index="7"]
 
-position = Vector2( 0.384567, 71.4612 )
+position = Vector2( 0.384567, 2.46119 )
 scale = Vector2( 1.91853, 3.07858 )
 texture = ExtResource( 6 )
 _sections_unfolded = [ "Z Index" ]

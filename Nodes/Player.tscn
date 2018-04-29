@@ -507,7 +507,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
 }
 
-[node name="Player" type="KinematicBody2D" index="0" groups=[
+[node name="Player" type="KinematicBody2D" groups=[
 "players",
 ]]
 
@@ -521,16 +521,16 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Body" type="Sprite" parent="." index="0"]
 
+editor/display_folded = true
+position = Vector2( 0, -55 )
 texture = ExtResource( 2 )
 hframes = 2
 frame = 1
-_sections_unfolded = [ "Animation", "Z Index" ]
-__meta__ = {
-"_edit_lock_": true
-}
+_sections_unfolded = [ "Animation", "Transform", "Z Index" ]
 
 [node name="RightArm" type="Sprite" parent="Body" index="0"]
 
+editor/display_folded = true
 texture = ExtResource( 3 )
 hframes = 10
 _sections_unfolded = [ "Animation", "Visibility" ]
@@ -584,15 +584,17 @@ __meta__ = {
 
 [node name="Collider" type="CollisionShape2D" parent="." index="2"]
 
-visible = false
-position = Vector2( 0.975357, 53.7922 )
+position = Vector2( 0, -2 )
 shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AttackCollider" type="Area2D" parent="." index="3"]
 
+editor/display_folded = true
+position = Vector2( 0, -55 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -602,6 +604,7 @@ collision_layer = 2
 collision_mask = 2
 audio_bus_override = false
 audio_bus_name = "Master"
+_sections_unfolded = [ "Transform" ]
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
@@ -614,6 +617,8 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="DamageCollider" type="Area2D" parent="." index="4"]
 
+editor/display_folded = true
+position = Vector2( 0, -55 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -621,7 +626,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
+_sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
@@ -661,9 +666,9 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Interact" type="Sprite" parent="." index="7"]
 
-visible = false
-position = Vector2( 0, -100 )
+position = Vector2( 0, -155 )
 texture = ExtResource( 8 )
+_sections_unfolded = [ "Transform" ]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 

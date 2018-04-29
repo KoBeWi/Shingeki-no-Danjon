@@ -404,7 +404,7 @@ extents = Vector2( 10, 17.8173 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="FLA-B" type="KinematicBody2D" groups=[
+[node name="FLA-B" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -418,6 +418,9 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
+
+editor/display_folded = true
+position = Vector2( 0, -82.6665 )
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
@@ -470,7 +473,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
-position = Vector2( 2.61285, 69.5504 )
+position = Vector2( 2.61285, -13.1162 )
 scale = Vector2( 2.62816, 1.82712 )
 shape = SubResource( 15 )
 
@@ -482,9 +485,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -20.0
-margin_top = -82.0
+margin_top = -170.0
 margin_right = 20.0
-margin_bottom = 11.0
+margin_bottom = -77.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -508,6 +511,7 @@ _sections_unfolded = [ "Anchor", "Margin", "Radial Fill", "Textures", "Visibilit
 
 [node name="Radar" type="Area2D" parent="." index="4"]
 
+editor/display_folded = true
 visible = false
 position = Vector2( 141.574, -53.4956 )
 input_pickable = true
@@ -527,7 +531,8 @@ shape = SubResource( 16 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="5"]
 
-position = Vector2( -135.09, 3.78252 )
+editor/display_folded = true
+position = Vector2( -135.09, -78.884 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -547,7 +552,8 @@ shape = SubResource( 17 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="6"]
 
-position = Vector2( 146.978, 31.2972 )
+editor/display_folded = true
+position = Vector2( 146.978, -51.3694 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -565,7 +571,7 @@ disabled = true
 
 [node name="Sprite" type="Sprite" parent="." index="7"]
 
-position = Vector2( 4.24136, 79.3715 )
+position = Vector2( 4.24136, -3.29517 )
 scale = Vector2( 1.63487, 1.65012 )
 z_index = -1
 texture = ExtResource( 7 )

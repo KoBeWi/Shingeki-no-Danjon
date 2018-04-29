@@ -32,7 +32,7 @@ func scale_stats_to( max_hp, ar ):
 	health_bar.value = health
 	max_health = max_hp
 
-func set_statistics( max_hp, given_exp, ar ):
+func set_statistics(max_hp, given_exp, ar):
 	max_health = max_hp
 	health = max_hp
 	health_bar.max_value = max_hp
@@ -47,8 +47,9 @@ func _physics_process(delta):
 func damage(amount):
 	if _dead: return
 	
-	Res.create_instance("DamageNumber").damage(self, amount*(1-armour))
-	health -= amount*(1-armour)
+	var damage = max(1, int(amount * (1-armour)))
+	Res.create_instance("DamageNumber").damage(self, damage)
+	health -= damage
 	
 	health_bar.visible = true
 	health_bar.value = health

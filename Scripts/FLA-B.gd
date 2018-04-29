@@ -161,7 +161,7 @@ func in_special_state(delta):
 func shoot_arrow():
 	var projectile = Res.create_instance("Projectiles/FireArrow")
 	get_parent().add_child(projectile)
-	projectile.position  = position  #+ Vector2(100,100)
+	projectile.position  = position + Vector2(0, -40)  #+ Vector2(100,100)
 	
 	match direction:
 		"Left":
@@ -186,7 +186,7 @@ func shoot_arrows():
 		
 	for arrow in arrows:
 		get_parent().add_child(arrow)
-		arrow.position  = position  #+ Vector2(100,100)
+		arrow.position  = position + Vector2(0, -40)  #+ Vector2(100,100)
 		
 		match direction:
 			"Left":

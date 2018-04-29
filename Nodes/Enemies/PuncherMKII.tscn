@@ -278,7 +278,7 @@ extents = Vector2( 10, 10 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="Template" type="KinematicBody2D" groups=[
+[node name="Template" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -291,6 +291,9 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
+
+editor/display_folded = true
+position = Vector2( 0, -76 )
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
@@ -342,7 +345,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
-position = Vector2( -2.90001, 70.4491 )
+position = Vector2( -2.90001, -5.55091 )
 scale = Vector2( 5.41221, 1.41971 )
 shape = SubResource( 11 )
 
@@ -380,6 +383,7 @@ _sections_unfolded = [ "Anchor", "Margin", "Textures", "Visibility" ]
 
 [node name="Radar" type="Area2D" parent="." index="4"]
 
+editor/display_folded = true
 visible = false
 position = Vector2( 127.796, -44.6476 )
 input_pickable = true
@@ -400,6 +404,7 @@ shape = SubResource( 12 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="5"]
 
+editor/display_folded = true
 visible = false
 position = Vector2( 98.6777, 31.3828 )
 input_pickable = true
@@ -422,6 +427,7 @@ shape = SubResource( 13 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="6"]
 
+editor/display_folded = true
 visible = false
 position = Vector2( 39.5593, 12.9759 )
 scale = Vector2( 2.33919, 2.25183 )
@@ -443,7 +449,7 @@ disabled = true
 
 [node name="Sprite" type="Sprite" parent="." index="7"]
 
-position = Vector2( -3.57494, 76.2652 )
+position = Vector2( -3.57494, 0.265198 )
 z_index = -1
 texture = ExtResource( 7 )
 _sections_unfolded = [ "Z Index" ]
