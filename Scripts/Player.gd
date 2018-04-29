@@ -10,17 +10,20 @@ onready var GHOST_EFFECT = $"/root/Game/GhostLayer/Effect"
 var direction = -1
 var static_time = 0
 var motion_time = 0
-var body_animation
+var prev_move = Vector2()
+
+var animations = {Body = "Idle", RightArm = "SwordAttack", LeftArm = "ShieldOn"}
 var sprite_direction = "Front"
 
 var ghost_mode = false
 var is_ghost = false
 
-var prev_move = Vector2()
 var attacking = false
+var shielding = false
 
 func _ready():
-	change_body_animation("Idle")
+	change_animation("Body", "Idle")
+	change_animation("LeftArm", "ShieldOff")
 	change_dir(2)
 	reset_arms()
 
@@ -52,6 +55,13 @@ func _physics_process(delta):
 		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
 	
+	if !shielding and Input.is_action_just_pressed("Shield"):
+		change_animation("LeftArm", "ShieldOn")
+		shielding = true
+	elif shielding and Input.is_action_just_released("Shield"):
+		change_animation("LeftArm", "ShieldOff")
+		shielding = false
+	
 	if Input.is_action_just_pressed("Spell1") and PlayerStats.get_skill(0) and PlayerStats.mana > PlayerStats.get_skill(0).cost:
 		cast_spell(0)
 	
@@ -77,10 +87,10 @@ func _physics_process(delta):
 	
 	if move.length() > 0:
 		static_time = 0
-		change_body_animation("Walk")
+		change_animation("Body", "Walk")
 	else:
 		motion_time = 0
-		change_body_animation("Idle")
+		change_animation("Body", "Idle")
 	
 	var rem = move_and_slide(move)
 	if rem.length() == 0: motion_time = 0
@@ -110,10 +120,10 @@ func change_dir(dir):
 	if direction == dir: return
 	direction = dir
 	sprite_direction = ["Back", "Right", "Front", "Left"][dir]
-	change_texture($Body, "Body" + body_animation)
+	change_texture($Body, "Body" + animations["Body"])
 	change_texture($Body/RightArm, "SwordAttack", ["Left", "Back"])
 	update_weapon()
-	change_texture($Body/LeftArm, "ShieldOn", ["Right", "Back"], {"Back": 1, "Front": 0})
+	change_texture($Body/LeftArm, animations["LeftArm"], ["Right", "Back"], {"Back": 1, "Front": 0})
 
 func change_texture(sprite, texture, on_back = [], move_child = {}):
 	sprite.texture = Res.get_resource("res://Sprites/Player/" + sprite_direction + "/" + texture + ".png")
@@ -121,8 +131,8 @@ func change_texture(sprite, texture, on_back = [], move_child = {}):
 	if move_child.has(sprite_direction):
 		$Body.move_child(sprite, move_child[sprite_direction])
 
-func change_body_animation(animation):
-	if body_animation == animation: return
+func change_animation(part, animation):
+	if animations[part] == animation: return
 	
 	match animation:
 		"Idle":
@@ -133,9 +143,17 @@ func change_body_animation(animation):
 			change_texture($Body, "BodyWalk")
 			$Body.hframes = 9
 			$BodyAnimator.playback_speed = 16
+		"ShieldOn":
+			change_texture($Body/LeftArm, "ShieldOn", ["Right", "Back"])
+			$Body/LeftArm.hframes = 3
+		"ShieldOff":
+			change_texture($Body/LeftArm, "ShieldOff", ["Right", "Back"])
+			$Body/LeftArm.hframes = 2
 	
-	$BodyAnimator.play(animation)
-	body_animation = animation
+	match part:
+		"Body": $BodyAnimator.play(animation)
+		_: $ArmAnimator.play(animation)
+	animations[part] = animation
 
 func reset_arms():
 	$Body/LeftArm.frame = 0
@@ -144,7 +162,6 @@ func reset_arms():
 	$AttackCollider/Shape.disabled = true
 
 func weapon_sprite():
-	var weapon
 	if PlayerStats.equipment[3] > -1:
 		return Res.items[PlayerStats.equipment[3]].sprite
 	else:
