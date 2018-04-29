@@ -22,7 +22,7 @@ var dungeon_type
 var empty_spots = []
 var segments = []
 var map = []
-var floor_space = []
+var floor_space = {}
 var wall_space = []
 
 func generate(w, h):
@@ -130,7 +130,7 @@ func generate(w, h):
 	wall_space.erase(wall2)
 	wall_space.erase(wall2 + Vector2(80, 0))
 	
-#	place_environment()
+	place_environment()
 	place_containers()
 	place_breakables()
 	place_enemies()
@@ -142,16 +142,17 @@ func place_environment():
 		var instance = Res.get_node("Environment/" + object).instance()
 		
 		for j in range(100):
-			var k = randi() % floor_space.size()
+			var k = floor_space.keys()[randi() % floor_space.keys().size()]
 			var space = floor_space[k]
 			var ok = true
 			
 			for l in range(instance.size.x * instance.size.y):
-				var space2 = find_space(space.pos + Vector2(l % int(instance.size.x), l / int(instance.size.x)))
-				
-				if !space2:
+				var kk = k + Vector2(l % int(instance.size.x), l / int(instance.size.x))
+				if !floor_space.has(kk):
 					ok = false
 					break
+				
+				var space2 = floor_space[kk]
 				
 				match instance.placement:
 					instance.SIDE_WALL: ok = space2.has("left_wall") or space2.has("right_wall")
@@ -162,17 +163,17 @@ func place_environment():
 				
 			var offset = instance.offset_position
 			if instance.can_flip_h and space.has("right_wall"):
-				instance.flip_h = true
+				instance.get_node("Sprite").flip_h = true
 				offset.x = -offset.x
 			
 			if instance.variants != "":
 				var variants = instance.variants.split(" ")
 				var variant = variants[randi() % variants.size()]
-				instance.texture = load("res://Sprites/Environment/" + variant + ".png")
+				instance.get_node("Sprite").texture = load("res://Sprites/Environment/" + variant + ".png")
 				
-			instance.position = space.pos + Vector2(40, 40) + offset
+			instance.position = k + Vector2(40, 40) + offset
 			dungeon.get_parent().add_child(instance)
-			floor_space.remove(k)
+			floor_space.erase(k)
 			break
 
 func place_breakables():
@@ -218,17 +219,15 @@ func place_enemies():
 	
 	place_for_test(Res.get_node(NewToTest))
 
-func find_space(vec): for flo in floor_space: if flo.pos == vec: return flo
-
 func place_on_floor(object):
 	for dis in disabled: if object.find(dis) > -1: return ##DEBUG
 	if floor_space.empty(): return null
 	
 	var instance = Res.get_node(object).instance()
-	var i = randi() % floor_space.size()
+	var k = floor_space.keys()[randi() % floor_space.keys().size()]
 	
-	instance.position = floor_space[i].pos + Vector2(40,40)
-	floor_space.remove(i)
+	instance.position = k + Vector2(40,40)
+	floor_space.erase(k)
 	dungeon.get_parent().add_child(instance)
 	
 	return instance
@@ -247,23 +246,6 @@ func place_treasure_into_maze(what, how_many):
 		dungeon.get_parent().add_child(ug_inst)
 		if (what == Res.get_node("Objects/Barrel") and randi()%6 == 0) or what == Res.get_node("Objects/Chest"): ##hack ;_;
 			ug_inst.item = randi()%2
-
-func place_enemy_into_maze(what, how_many):
-	for nmb in range(how_many):
-		if floor_space.empty(): break
-		
-		
-		var ug_inst = what.instance()
-		var i = randi()%floor_space.size()
-		ug_inst.position = floor_space[i]+ Vector2(40,40)
-		floor_space.remove(i)
-		dungeon.get_parent().add_child(ug_inst)
-		if (what == Res.get_resource("res://Nodes/Objects/Barrel.tscn") and randi()%3 == 0) or what == Res.get_resource("res://Nodes/Objects/Chest.tscn"): ##hack ;_;
-			ug_inst.item = randi()%2
-		elif what == Res.get_node("NPC") and randi()%3 == 0:
-			ug_inst.id = 1
-			ug_inst.get_node("Sprite").texture = load("res://Sprites/NPC/Male1Basic.png")
-
 
 func get_possible_segments(spot):
 	var pos = spot.pos
@@ -354,7 +336,8 @@ func create_segment(segment, pos):
 	seg.position = Vector2(pos.x * SEG_W, pos.y * SEG_H)
 	
 	for cell in bottom.get_used_cells():
-		var celll = {"pos": Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80, "no_walls": true}
+		var poss = Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80
+		var celll = {"no_walls": true}
 		
 		match bottom.get_cellv(cell):
 			19:
@@ -367,7 +350,7 @@ func create_segment(segment, pos):
 						elif i == 2 and cell.y < 9: celll.bottom_wall = true
 						elif i == 3 and cell.x > 0: celll.left_wall = true
 				
-				floor_space.append(celll)
+				floor_space[poss] = celll
 			10: wall_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
 	
 	dungeon.add_child(seg)

@@ -1,4 +1,4 @@
-extends Sprite
+extends Node2D
 
 enum PLACEMENT{ANY, SIDE_WALL, NO_WALL}
 

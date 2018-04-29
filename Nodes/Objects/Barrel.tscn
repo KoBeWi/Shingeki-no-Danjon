@@ -55,7 +55,7 @@ extents = Vector2( 24.9147, 34.5188 )
 [sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
-extents = Vector2( 24.9147, 31.3505 )
+extents = Vector2( 24, 20 )
 
 [node name="Barrel" type="StaticBody2D" index="0"]
 
@@ -71,6 +71,7 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
+position = Vector2( 0, -30 )
 z_index = 1
 texture = ExtResource( 1 )
 hframes = 3
@@ -90,6 +91,7 @@ _sections_unfolded = [ "Playback Options" ]
 [node name="DamageCollider" type="Area2D" parent="." index="2"]
 
 editor/display_folded = true
+position = Vector2( 0, -30 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -108,7 +110,7 @@ shape = SubResource( 3 )
 
 [node name="Shape" type="CollisionShape2D" parent="." index="3"]
 
-position = Vector2( -0.803871, 19.5271 )
+position = Vector2( -0.803871, -10.4729 )
 shape = SubResource( 4 )
 
 [connection signal="area_entered" from="DamageCollider" to="." method="_on_hit"]
