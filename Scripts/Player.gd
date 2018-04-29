@@ -2,14 +2,19 @@ extends KinematicBody2D
 
 const SPEED = 320
 const MEDITATION_TIME = 3
+var GHOST = load("res://Nodes/Ghost.tscn")
 
 onready var UI = $Camera/UI
+onready var GHOST_EFFECT = $"/root/Game/GhostLayer/Effect"
 
 var direction = -1
 var static_time = 0
 var motion_time = 0
 var body_animation
 var sprite_direction = "Front"
+
+var ghost_mode = false
+var is_ghost = false
 
 var prev_move = Vector2()
 var attacking = false
@@ -26,22 +31,23 @@ func _physics_process(delta):
 	motion_time += delta
 	if static_time >= MEDITATION_TIME: SkillBase.inc_stat("Meditation")
 	
-	if Input.is_key_pressed(KEY_UP):
-		move.y = -1
-		if prev_move.x == 0 or (direction == 0 and prev_move.y > 0): change_dir(0)
-	if Input.is_key_pressed(KEY_DOWN):
-		move.y = 1
-		if prev_move.x == 0 or (direction == 2 and prev_move.y < 0): change_dir(2)
-	if Input.is_key_pressed(KEY_LEFT):
-		move.x = -1
-		if prev_move.y == 0 or (direction == 1 and prev_move.x > 0): change_dir(3)
-	if Input.is_key_pressed(KEY_RIGHT):
-		move.x = 1
-		if prev_move.y == 0 or (direction == 3 and prev_move.x < 0): change_dir(1)
+	if !ghost_mode:
+		if Input.is_action_pressed("Up"):
+			move.y = -1
+			if prev_move.x == 0 or (direction == 0 and prev_move.y > 0): change_dir(0)
+		if Input.is_action_pressed("Down"):
+			move.y = 1
+			if prev_move.x == 0 or (direction == 2 and prev_move.y < 0): change_dir(2)
+		if Input.is_action_pressed("Left"):
+			move.x = -1
+			if prev_move.y == 0 or (direction == 1 and prev_move.x > 0): change_dir(3)
+		if Input.is_action_pressed("Right"):
+			move.x = 1
+			if prev_move.y == 0 or (direction == 3 and prev_move.x < 0): change_dir(1)
 	
 	move = move.normalized() * SPEED
 	
-	if !attacking and Input.is_action_just_pressed("Attack"):
+	if !attacking and !ghost_mode and Input.is_action_just_pressed("Attack"):
 		Res.play_sample(self, "Sword")
 		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
@@ -53,6 +59,16 @@ func _physics_process(delta):
 	UI.soft_refresh()
 	
 	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
+	
+	if Input.is_action_just_pressed("Ghost"):
+		if is_ghost:
+			get_parent().cancel_ghost()
+		elif !ghost_mode:
+			ghost_mode = GHOST.instance()
+			ghost_mode.is_ghost = true
+			GHOST_EFFECT.visible = true
+			ghost_mode.position.y += 8
+			add_child(ghost_mode)
 	
 	if move.length() > 0:
 		static_time = 0
@@ -74,6 +90,7 @@ func damage(attacker, amount, knockback):
 	PlayerStats.health -= amount
 	UI.soft_refresh()
 	move_and_slide((position - attacker.position).normalized() * 1000 * knockback)
+	if ghost_mode: cancel_ghost()
 
 func _on_animation_finished(anim_name):
 	if anim_name.find("SwordAttack") > -1: attacking = false
@@ -130,6 +147,11 @@ func weapon_sprite():
 
 func update_weapon():
 	change_texture($Body/RightArm/Weapon, "Weapons/" + weapon_sprite(), ["Front", "Right", "Left", "Back"])
+
+func cancel_ghost():
+	ghost_mode.queue_free()
+	ghost_mode = null
+	GHOST_EFFECT.visible = false
 
 func cast_spell(slot):
 	var spell = PlayerStats.get_skill(slot)

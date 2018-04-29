@@ -107,20 +107,8 @@ func _process(delta):
 			var prev_sel = inventory_select
 			
 			if inventory_select >= 0:
-				var max_scroll = PlayerStats.inventory.size()-7
-				if inventory_scroll < max_scroll and inventory_select - inventory_scroll > 5:
-					inventory_scroll += 2
-					$Tabs/Equipment/Inventory/Inner/Scrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 342
-					update_inventory()
-					select_inventory()
-				elif inventory_scroll > 0 and inventory_select - inventory_scroll < 2:
-					inventory_scroll -= 2
-					$Tabs/Equipment/Inventory/Inner/Scrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 342
-					update_inventory()
-					select_inventory()
-				
 				if Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 1: inventory_select = max(inventory_select-1, 0)
-				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 0: inventory_select = -1
+				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 0: inventory_select = max(-inventory_select-1, -PlayerStats.EQUIPMENT_SLOTS.size()-1)
 				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, PlayerStats.inventory.size()-1)
 				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = max(inventory_select-2, 0)
 				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = min(inventory_select+2, PlayerStats.inventory.size()-1)
@@ -136,6 +124,8 @@ func _process(delta):
 						PlayerStats.inventory.erase(item)
 						PlayerStats.equipment[eq] = item.id
 					
+					if eq == 3: $\"/root/Game/Player\".update_weapon()
+					
 					update_inventory()
 					update_equipment()
 					select_inventory()
@@ -147,16 +137,10 @@ func _process(delta):
 						select_inventory()
 			else:
 				if Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, -1)
-				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == -1 and !PlayerStats.inventory.empty(): inventory_select = (inventory_scroll+2 if inventory_scroll > 0 else 0)
+				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == -1 and !PlayerStats.inventory.empty(): inventory_select = min(-inventory_select-1, PlayerStats.inventory.size()-1)
 				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == -1: inventory_select = max(inventory_select-1, -PlayerStats.EQUIPMENT_SLOTS.size())
 				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = min(inventory_select+2, -1)
 				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = max(inventory_select-2, -PlayerStats.EQUIPMENT_SLOTS.size())
-				
-				if Input.is_action_just_pressed(\"Interact\") and PlayerStats.equipment[-inventory_select-1] > -1:
-					PlayerStats.add_item(PlayerStats.equipment[-inventory_select-1], 1, false)
-					PlayerStats.equipment[-inventory_select-1] = -1
-					update_inventory()
-					update_equipment()
 			
 			if inventory_select != prev_sel: select_inventory()
 			
@@ -169,20 +153,6 @@ func _process(delta):
 			elif Input.is_action_just_pressed(\"ui_right\"):
 				crafting_select = min(crafting_select+1, crafting_list.size()-1)
 				select_crafting()
-			
-			if Input.is_action_just_pressed(\"Interact\"):
-				var can_craft = true
-				
-				var materials = crafting_list[crafting_select].materials
-				for i in range(materials.keys().size()):
-					can_craft = PlayerStats.count_item(int(materials.keys()[i])) >= materials.values()[i]
-					if !can_craft: break
-				
-				if can_craft:
-					PlayerStats.add_item(crafting_list[crafting_select].item)
-					for i in range(materials.keys().size()):
-						PlayerStats.subtract_items(int(materials.keys()[i]), materials.values()[i])
-					select_crafting()
 			
 			if Input.is_action_just_pressed(\"ui_cancel\"):
 				self.in_tab = false
@@ -207,9 +177,8 @@ func update_crafting():
 			item.visible = false
 
 func update_inventory(whatever = null):
-	for j in range(INVENTORY_SLOTS):
-		var i = j + inventory_scroll
-		var item = $Tabs/Equipment/Inventory/Inner/Slots.get_child(j)
+	for i in range(INVENTORY_SLOTS):
+		var item = $Tabs/Equipment/Inventory/Inner/Slots.get_child(i)
 		
 		if i < PlayerStats.inventory.size():
 			item.visible = true
@@ -255,14 +224,8 @@ func select_crafting():
 		
 		if i < materials.keys().size():
 			ingredient.visible = true
-			
-			var need = materials.values()[i]
-			var have = PlayerStats.count_item(int(materials.keys()[i]))
-			if have >= need: ingredient.get_node(\"Amount\").add_color_override(\"font_color\", Color(0, 1, 0))
-			else: ingredient.get_node(\"Amount\").add_color_override(\"font_color\", Color(1, 0, 0))
-			
 			ingredient.get_node(\"Name\").text = Res.items[int(materials.keys()[i])].name
-			ingredient.get_node(\"Amount\").text = str(have) + \" / \" + str(need)
+			ingredient.get_node(\"Amount\").text = str(\"XXX\") + \" / \" + str(materials.values()[i])
 			ingredient.get_node(\"Icon\").texture = Res.get_item_texture(materials.keys()[i])
 		else:
 			ingredient.visible = false
@@ -270,12 +233,11 @@ func select_crafting():
 func select_inventory():
 	if inventory_select > -1 and PlayerStats.inventory.empty(): inventory_select = -1
 	if inventory_select >= PlayerStats.inventory.size(): inventory_select = PlayerStats.inventory.size()-1
-	var scrolled_select = (inventory_select - inventory_scroll)
 	
 	var item
 	if inventory_select > -1:
 		item = Res.items[PlayerStats.inventory[inventory_select].id]
-		$Tabs/Equipment/Inventory/Inner/Highlight.rect_position = $Tabs/Equipment/Inventory/Inner/Slots.rect_position + $Tabs/Equipment/Inventory/Inner/Slots/Slot1.rect_position + Vector2(scrolled_select % 2 * 378, scrolled_select / 2 * 100)
+		$Tabs/Equipment/Inventory/Inner/Highlight.rect_position = $Tabs/Equipment/Inventory/Inner/Slots.rect_position + $Tabs/Equipment/Inventory/Inner/Slots/Slot1.rect_position + Vector2(inventory_select % 2 * 378, inventory_select / 2 * 100)
 		$Tabs/Equipment/Inventory/Inner/Highlight.visible = true
 		$Tabs/Equipment/Character/Highlight.visible = false
 	else:
@@ -340,7 +302,8 @@ func update_stats(item, compare):
 			stat_label.text = stat.capitalize() + \": \" + str(value)
 			
 			if compare and eq_slot > -1:
-				var cmp = stats[stat] - Res.items[eq_slot][stat]
+				var eq = Res.items[eq_slot]
+				var cmp = stats[stat] - eq[stat]
 				
 				if cmp != 0:
 					if cmp > 0:

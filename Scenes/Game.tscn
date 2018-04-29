@@ -1,22 +1,85 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Generator.gd" type="Script" id=2]
 [ext_resource path="res://Nodes/Player.tscn" type="PackedScene" id=3]
 
-[node name="Game" type="YSort" index="0"]
+[sub_resource type="Shader" id=5]
+
+code = "shader_type canvas_item;
+
+float gold_noise(in vec2 coordinate, in float seed)
+{
+    float PHI = 1.61803398874989484820459 * 00000.1;
+    float PI  = 3.14159265358979323846264 * 00000.1;
+    float SRT = 1.41421356237309504880169 * 10000.0;
+    seed+=PHI;
+    return fract(sin(dot(coordinate*seed, vec2(PHI, PI)))*SRT);
+}
+
+void fragment() {
+	vec2 uv = SCREEN_UV;
+	uv.x += gold_noise(uv, TIME) * 0.002;
+	uv.x = clamp(uv.x, 0, 1);
+	
+	vec3 c = textureLod(SCREEN_TEXTURE,uv, 0.0).rgb;
+	
+	COLOR.rgb = vec3((c.r + c.g + c.b)/3.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+
+render_priority = 0
+shader = SubResource( 5 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="GradientTexture" id=4]
+
+flags = 4
+width = 2048
+
+[node name="Game" type="YSort"]
 
 sort_enabled = true
 script = ExtResource( 1 )
 _sections_unfolded = [ "Sort" ]
 
-[node name="Generator" type="Node" parent="." index="0"]
+[node name="GhostLayer" type="CanvasLayer" parent="." index="0"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="Effect" type="TextureRect" parent="GhostLayer" index="0"]
+
+visible = false
+material = SubResource( 6 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1366.0
+margin_bottom = 768.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 0
+_sections_unfolded = [ "Material", "Rect" ]
+
+[node name="Generator" type="Node" parent="." index="1"]
 
 script = ExtResource( 2 )
 
-[node name="Segments" type="Node2D" parent="." index="1"]
+[node name="Segments" type="Node2D" parent="." index="2"]
 
-[node name="Player" parent="." index="2" instance=ExtResource( 3 )]
+[node name="Player" parent="." index="3" instance=ExtResource( 3 )]
 
 position = Vector2( 124.122, 184.554 )
 _sections_unfolded = [ "Collision", "Material", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
