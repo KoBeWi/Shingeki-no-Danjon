@@ -7,10 +7,10 @@ path="res://.import/GhostEnter.ogg-659b72da39644bfdfa7d02001fb2475b.oggstr"
 [deps]
 
 source_file="res://Samples/GhostEnter.ogg"
-source_md5="6acffe46a51a571346aa2ea92f8f7f2b"
+source_md5="59f12b753bec90f238271d7876ca80da"
 
 dest_files=[ "res://.import/GhostEnter.ogg-659b72da39644bfdfa7d02001fb2475b.oggstr" ]
-dest_md5="d7ce347d18ba72cc5fbc1726fab7d314"
+dest_md5="74c0b96e8bc6bb595911af715bc44321"
 
 [params]
 
