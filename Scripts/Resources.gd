@@ -90,15 +90,10 @@ func get_resource(path):
 	
 	return resources[path]
 
-func play_sample(source, sample, pausable = true):
-	var player = AudioStreamPlayer2D.new()
-	player.pause_mode = (PAUSE_MODE_INHERIT if pausable else PAUSE_MODE_PROCESS)
+func play_sample(source, sample, pausable = true, follow_source = true):
+	var player = create_instance("SampleInstance")
+	player.init(source, sample, pausable, follow_source)
 	get_parent().get_node("Game").add_child(player)
-	player.connect("finished", player, "queue_free")
-	
-	player.stream = get_resource("res://Samples/" + sample + ".ogg")
-	player.position = source.position
-	player.play()
 
 func create_instance(node):
 	return get_node(node).instance()

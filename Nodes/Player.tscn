@@ -473,7 +473,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[node name="Player" type="KinematicBody2D" index="0" groups=[
+[node name="Player" type="KinematicBody2D" groups=[
 "players",
 ]]
 
@@ -682,7 +682,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Select" type="Sprite" parent="Elements" index="5"]
 
 editor/display_folded = true
-rotation = 2.32328
+rotation = 3.63028
 texture = ExtResource( 10 )
 _sections_unfolded = [ "Transform" ]
 

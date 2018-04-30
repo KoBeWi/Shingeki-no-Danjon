@@ -22,7 +22,6 @@ func _ready():
 		seed(my_seed)
 	
 #	seed(4044205418) ##DEBUG
-	SkillBase.acquired_skills.append("FastWalk") ##DEBUG
 	
 	dungeon = Res.dungeons["Workshop"]
 	$Generator.generate(10, 10)

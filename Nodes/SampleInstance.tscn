@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "SampleInstance"
+script/source = "extends AudioStreamPlayer2D
+
+var follow
+
+func _ready():
+	connect(\"finished\", self, \"queue_free\")
+
+func init(source, sample, pausable, follow_source):
+	stream = Res.get_resource(\"res://Samples/\" + sample + \".ogg\")
+	pause_mode = (PAUSE_MODE_INHERIT if pausable else PAUSE_MODE_PROCESS)
+	position = source.position
+	if follow_source: follow = source
+
+func _process(delta):
+	if follow:
+		if follow.is_queued_for_deletion(): follow = null
+		else: position = follow.position"
+_sections_unfolded = [ "Resource" ]
+
+[node name="SampleInstance" type="AudioStreamPlayer2D"]
+
+stream = null
+volume_db = 0.0
+autoplay = true
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+script = SubResource( 1 )
+
+

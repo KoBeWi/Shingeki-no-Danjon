@@ -8,15 +8,19 @@ resource_name = "Stairs"
 script/source = "extends Sprite
 
 var change = 1
+var player_in
 
 func set_stairs(updown, tileset):
 	if updown == \"down\": change = -1
 	var pos = tileset[\"stairs_\" + updown]
 	region_rect = Rect2(Vector2(pos[0], pos[1]), Vector2(160, 160))
 
-func _on_enter(body):
-	if body.is_in_group(\"players\"):
-		get_tree().current_scene.change_floor(change)"
+func _process(delta):
+	if player_in and Input.is_action_pressed(\"Up\"):
+		get_tree().current_scene.change_floor(change)
+
+func _on_enter(body): if body.is_in_group(\"players\"): player_in = true
+func _on_exit(body): if body.is_in_group(\"players\"): player_in = false"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -24,7 +28,7 @@ _sections_unfolded = [ "Resource" ]
 custom_solver_bias = 0.0
 extents = Vector2( 40, 10 )
 
-[node name="Stairs" type="Sprite"]
+[node name="Stairs" type="Sprite" index="0"]
 
 texture = ExtResource( 1 )
 region_enabled = true
@@ -49,5 +53,7 @@ position = Vector2( 0, 80 )
 shape = SubResource( 2 )
 
 [connection signal="body_entered" from="Enter" to="." method="_on_enter"]
+
+[connection signal="body_exited" from="Enter" to="." method="_on_exit"]
 
 

@@ -26,9 +26,12 @@ signal level_up
 signal got_item
 
 func _ready():
+	##DEBUG \/
 	for item in Res.items:
 		inventory.append({id = item.id, stack = 1})
 	for i in range(20): inventory.append({id = 0, stack = 1})
+	SkillBase.acquired_skills.append("FastWalk")
+	SkillBase.acquired_skills.append("Fireball")
 
 func get_damage():
 	var damage = strength
@@ -42,10 +45,6 @@ func get_damage():
 			damage += int(PlayerStats[stat] * eq.scaling[stat])
 	
 	return damage
-
-func get_skill(slot):
-	if skill_slots[slot]:
-		return Res.skills[skill_slots[slot]]
 
 func get_equipment(slot_name): ##niekoniecznie potrzebne
 	return equipment[EQUIPMENT_SLOTS.find(slot_name)]

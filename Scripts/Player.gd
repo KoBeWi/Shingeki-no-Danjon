@@ -35,7 +35,8 @@ func _physics_process(delta):
 	motion_time += delta
 	if static_time >= MEDITATION_TIME: SkillBase.inc_stat("Meditation")
 	
-	var not_move = (ghost_mode or $Elements.visible)
+	var elements_on = (!is_ghost and $Elements.visible)
+	var not_move = (ghost_mode or elements_on)
 	
 	if !not_move:
 		if Input.is_action_pressed("Up"):
@@ -73,7 +74,7 @@ func _physics_process(delta):
 	
 	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
 	
-	if !$Elements.visible:
+	if !elements_on:
 		if SkillBase.check_combo(["Magic", "Magic_"]):
 			print(SkillBase.current_combo)
 			$Elements.visible = true
@@ -87,6 +88,9 @@ func _physics_process(delta):
 		$Elements/Select.position = $Elements.get_child(current_element).position
 		
 		if Input.is_action_just_released("Magic"): $Elements.visible = false
+	
+	if !elements_on and Input.is_action_pressed("Magic"):
+		use_magic()
 	
 	if Input.is_action_just_pressed("Ghost"):
 		if is_ghost:
@@ -194,24 +198,27 @@ func cancel_ghost():
 	ghost_mode = null
 	GHOST_EFFECT.visible = false
 
-func cast_spell(slot):
-	var spell = PlayerStats.get_skill(slot)
-	PlayerStats.mana -= spell.cost
-	for stat in spell.stats:
-		SkillBase.inc_stat(stat)
-	
-	var projectile = Res.create_instance("Projectiles/" + spell.projectile)
-	get_parent().add_child(projectile)
-	projectile.position = position
-	if( direction == 2 ):
-		projectile.position = position + Vector2(0,80)
-	
-	
-	projectile.direction = direction
-	projectile.intiated()
-	
-	projectile.damage = spell.damage
-	for stat in spell.scalling.keys():
-		projectile.damage += int(PlayerStats[stat] * spell.scalling[stat])
-	
-	if SkillBase.has_skill("FireAffinity"): projectile.damage *= 3 ##hack
+func use_magic(): ##nie tylko magia :|
+	for skill in SkillBase.get_active_skills():
+		skill = Res.skills[skill]
+		
+		if SkillBase.check_combo(skill.combo):
+			if skill.has("cost"): PlayerStats.mana -= skill.cost
+			if skill.has("stats"): for stat in skill.stats: SkillBase.inc_stat(stat)
+			
+			if skill.has("projectile"):
+				var projectile = Res.create_instance("Projectiles/" + skill.projectile)
+				get_parent().add_child(projectile)
+				projectile.position = position
+				if( direction == 2 ):
+					projectile.position = position + Vector2(0,80)
+				
+				
+				projectile.direction = direction
+				projectile.intiated()
+				
+				projectile.damage = skill.damage
+				for stat in skill.scalling.keys():
+					projectile.damage += int(PlayerStats[stat] * skill.scalling[stat])
+				
+				if SkillBase.has_skill("FireAffinity"): projectile.damage *= 3 ##hack
