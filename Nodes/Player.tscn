@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Left/BodyIdle.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Nodes/UI/Main.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/UI/Interact0.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/ElementIcons.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -455,7 +456,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "players",
 ]]
 
@@ -469,6 +470,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Body" type="Sprite" parent="." index="0"]
 
+editor/display_folded = true
 position = Vector2( 0, -55 )
 texture = ExtResource( 2 )
 hframes = 2
@@ -615,6 +617,50 @@ visible = false
 position = Vector2( 0, -155 )
 texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="Elements" type="Node2D" parent="." index="8"]
+
+editor/display_folded = true
+visible = false
+position = Vector2( 0, -55.9997 )
+
+[node name="1" type="Sprite" parent="Elements" index="0"]
+
+texture = ExtResource( 9 )
+hframes = 5
+_sections_unfolded = [ "Animation" ]
+
+[node name="2" type="Sprite" parent="Elements" index="1"]
+
+position = Vector2( -128, 0 )
+texture = ExtResource( 9 )
+hframes = 5
+frame = 1
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="3" type="Sprite" parent="Elements" index="2"]
+
+position = Vector2( 128, 0 )
+texture = ExtResource( 9 )
+hframes = 5
+frame = 2
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="4" type="Sprite" parent="Elements" index="3"]
+
+position = Vector2( 0, -128 )
+texture = ExtResource( 9 )
+hframes = 5
+frame = 3
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="5" type="Sprite" parent="Elements" index="4"]
+
+position = Vector2( 0, 128 )
+texture = ExtResource( 9 )
+hframes = 5
+frame = 4
+_sections_unfolded = [ "Animation", "Transform" ]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 
