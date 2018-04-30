@@ -20,6 +20,7 @@ var is_ghost = false
 
 var attacking = false
 var shielding = false
+var current_element = 0
 
 func _ready():
 	change_animation("Body", "Idle")
@@ -34,7 +35,9 @@ func _physics_process(delta):
 	motion_time += delta
 	if static_time >= MEDITATION_TIME: SkillBase.inc_stat("Meditation")
 	
-	if !ghost_mode:
+	var not_move = (ghost_mode or $Elements.visible)
+	
+	if !not_move:
 		if Input.is_action_pressed("Up"):
 			move.y = -1
 			if prev_move.x == 0 or (direction == 0 and prev_move.y > 0): change_dir(0)
@@ -69,6 +72,21 @@ func _physics_process(delta):
 	UI.soft_refresh()
 	
 	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
+	
+	if !$Elements.visible:
+		if SkillBase.check_combo(["Magic", "Magic_"]):
+			print(SkillBase.current_combo)
+			$Elements.visible = true
+			SkillBase.current_combo.clear()
+	else:
+		if Input.is_action_pressed("Up"): current_element = 3
+		elif Input.is_action_pressed("Right"): current_element = 2
+		elif Input.is_action_pressed("Down"): current_element = 4
+		elif Input.is_action_pressed("Left"): current_element = 1
+		else: current_element = 0
+		$Elements/Select.position = $Elements.get_child(current_element).position
+		
+		if Input.is_action_just_released("Magic"): $Elements.visible = false
 	
 	if Input.is_action_just_pressed("Ghost"):
 		if is_ghost:
