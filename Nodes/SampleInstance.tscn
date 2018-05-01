@@ -14,15 +14,16 @@ func init(source, sample, pausable, follow_source):
 	stream = Res.get_resource(\"res://Samples/\" + sample + \".ogg\")
 	pause_mode = (PAUSE_MODE_INHERIT if pausable else PAUSE_MODE_PROCESS)
 	position = source.position
-	if follow_source: follow = source
+	if follow_source: follow = weakref(source)
 
 func _process(delta):
-	if follow:
-		if follow.is_queued_for_deletion(): follow = null
-		else: position = follow.position"
+	if follow and follow.get_ref():
+		position = follow.get_ref().position
+	else:
+		follow = null"
 _sections_unfolded = [ "Resource" ]
 
-[node name="SampleInstance" type="AudioStreamPlayer2D"]
+[node name="SampleInstance" type="AudioStreamPlayer2D" index="0"]
 
 stream = null
 volume_db = 0.0
