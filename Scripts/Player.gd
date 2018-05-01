@@ -202,7 +202,9 @@ func use_magic(): ##nie tylko magia :|
 	for skill in SkillBase.get_active_skills():
 		skill = Res.skills[skill]
 		
-		if SkillBase.check_combo(skill.combo):
+		if (!skill.has("magic") or current_element == skill.magic) and SkillBase.check_combo(skill.combo):
+			SkillBase.current_combo.clear()
+			
 			if skill.has("cost"): PlayerStats.mana -= skill.cost
 			if skill.has("stats"): for stat in skill.stats: SkillBase.inc_stat(stat)
 			

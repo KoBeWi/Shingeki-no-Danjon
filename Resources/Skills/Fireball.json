@@ -7,7 +7,7 @@
 	"stats": ["OffensiveMagic"],
 	"cost": 10,
 	"damage": 5,
-	"magic": true,
+	"magic": 1,
 	"elements": {"fire": 1},
 	"scalling": {"intelligence": 1}
 }

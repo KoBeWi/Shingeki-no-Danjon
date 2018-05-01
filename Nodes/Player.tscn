@@ -682,7 +682,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Select" type="Sprite" parent="Elements" index="5"]
 
 editor/display_folded = true
-rotation = 3.63028
+rotation = 5.80278
 texture = ExtResource( 10 )
 _sections_unfolded = [ "Transform" ]
 
