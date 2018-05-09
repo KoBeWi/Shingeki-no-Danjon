@@ -76,7 +76,7 @@ func _physics_process(delta):
 	
 	if !elements_on:
 		if SkillBase.check_combo(["Magic", "Magic_"]):
-			print(SkillBase.current_combo)
+			#print(SkillBase.current_combo)
 			$Elements.visible = true
 			SkillBase.current_combo.clear()
 	else:
@@ -214,7 +214,7 @@ func use_magic(): ##nie tylko magia :|
 			if skill.has("projectile"):
 				var projectile = Res.create_instance("Projectiles/" + skill.projectile)
 				get_parent().add_child(projectile)
-				projectile.position = position
+				projectile.position = position + Vector2(0,80)
 				if( direction == 2 ):
 					projectile.position = position + Vector2(0,80)
 				

@@ -1,0 +1,13 @@
+{
+	"type": "passive",
+	"name": "Fire Affinity",
+	"description": "Increases fire damage.",
+	"combo": ["Dir__", "Special"],
+	"projectile": "Fireball",
+	"stats": ["OffensiveMagic"],
+	"cost": 10,
+	"damage": 5,
+	"magic": 1,
+	"elements": {"fire": 1},
+	"scalling": {"intelligence": 1}
+}

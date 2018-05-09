@@ -400,7 +400,7 @@ height = 20.0
 custom_solver_bias = 0.0
 extents = Vector2( 10.2959, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -416,34 +416,38 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
 position = Vector2( 0, -73.3331 )
+_sections_unfolded = [ "Material" ]
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
+use_parent_material = true
 position = Vector2( 12, -5.33334 )
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 6
-_sections_unfolded = [ "Animation" ]
+_sections_unfolded = [ "Animation", "Material" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
 
 visible = false
+use_parent_material = true
 position = Vector2( 13.2181, 22.6102 )
 texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
 frame = 3
-_sections_unfolded = [ "Animation" ]
+_sections_unfolded = [ "Animation", "Material" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
 
 visible = false
+use_parent_material = true
 position = Vector2( 10.8994, 8.58076 )
 texture = ExtResource( 4 )
 vframes = 5
 hframes = 8
 frame = 38
-_sections_unfolded = [ "Animation" ]
+_sections_unfolded = [ "Animation", "Material" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 

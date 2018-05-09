@@ -19,6 +19,8 @@ const FOLLOW_RANGE         = 400
 const PERSONAL_SPACE       = 10
 const TIME_OF_LIYUGN_CORPS = 3
 
+var MAT = load("res://Resources/Materials/ColorShader.tres")
+
 var player
 var direction       = "Down"
 var dead_time       = 0
@@ -46,6 +48,7 @@ func _ready():
 	drops.append([3, 250])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 	$"AnimationPlayer".play("Idle")
+	MAT.set_shader_param("ucolor", Color(0.1, 0.4, 1))
 
 func _physics_process(delta):
 	._physics_process(delta)
@@ -203,10 +206,11 @@ func _on_animation_started(anim_name):
 	
 		for i in range(sprites.size()):
 			sprites[i].visible = (i+1 == main_sprite)
-			if in_special_state : 
-				sprites[i].set_modulate(Color(0,1, 256))
-			else:
-				sprites[i].set_modulate(Color(1,1,1))
+		
+		if in_special_state : 
+			$Sprites.material = MAT
+		else:
+			$Sprites.material = null
 
 func _on_dead():
 	dead = true
