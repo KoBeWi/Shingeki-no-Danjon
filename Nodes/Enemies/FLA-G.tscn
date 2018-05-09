@@ -415,12 +415,10 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
-editor/display_folded = true
 position = Vector2( 0, -73.3331 )
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
-visible = false
 position = Vector2( 12, -5.33334 )
 texture = ExtResource( 2 )
 vframes = 6
@@ -439,6 +437,7 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
 
+visible = false
 position = Vector2( 10.8994, 8.58076 )
 texture = ExtResource( 4 )
 vframes = 5
@@ -540,16 +539,14 @@ shape = SubResource( 19 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="6"]
 
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -56.0
-margin_top = -112.0
-margin_right = 80.0
-margin_bottom = -72.0
-rect_rotation = -1.04038
+margin_left = -6.0
+margin_top = -165.0
+margin_right = 119.0
+margin_bottom = -124.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -569,7 +566,7 @@ texture_progress = ExtResource( 6 )
 radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
-_sections_unfolded = [ "Radial Fill", "Textures", "Visibility" ]
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Radial Fill", "Rect", "Textures", "Visibility" ]
 
 [node name="Shadow" type="Sprite" parent="." index="7"]
 

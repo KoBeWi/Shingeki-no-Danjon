@@ -404,15 +404,14 @@ shape = SubResource( 12 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="3"]
 
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -17.0
-margin_top = -81.0
-margin_right = 32.0
-margin_bottom = -43.0
+margin_left = -19.0
+margin_top = -159.0
+margin_right = 30.0
+margin_bottom = -121.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -457,7 +456,7 @@ shape = SubResource( 13 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="5"]
 
-editor/display_folded = true
+visible = false
 position = Vector2( 2.75243, -87.547 )
 scale = Vector2( 2.63763, 2.63763 )
 input_pickable = true
@@ -473,6 +472,7 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
+visible = false
 position = Vector2( 0.744134, 3.38981 )
 scale = Vector2( 1.41907, 2.90764 )
 shape = SubResource( 14 )
