@@ -404,6 +404,7 @@ shape = SubResource( 12 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="3"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

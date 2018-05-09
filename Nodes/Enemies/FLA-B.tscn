@@ -404,7 +404,7 @@ extents = Vector2( 10, 17.8173 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="FLA-B" type="KinematicBody2D" index="0" groups=[
+[node name="FLA-B" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 

@@ -278,7 +278,7 @@ extents = Vector2( 10, 10 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="Template" type="KinematicBody2D" index="0" groups=[
+[node name="Template" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -351,6 +351,7 @@ shape = SubResource( 11 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="3"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

@@ -25,12 +25,15 @@ func _ready():
 
 func scale_stats_to( max_hp, ar ):
 	armour = ar
-	var t = health/max_health
-	print(t)
+	var t = float(health)/float(max_health)
+	#print("Callculating  :: ",  t , "From :: ", health, " divided by :: ", max_health  )
 	health = t*max_hp
 	health_bar.max_value = max_hp
 	health_bar.value = health
 	max_health = max_hp
+	
+	#print( " Coll :: ", t,"  Max_HP_New :: ",  max_hp," Current_HP ::", health, " new_armour ::", ar )
+	
 
 func set_statistics(max_hp, given_exp, ar):
 	max_health = max_hp

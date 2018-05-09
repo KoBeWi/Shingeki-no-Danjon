@@ -400,7 +400,7 @@ height = 20.0
 custom_solver_bias = 0.0
 extents = Vector2( 10.2959, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -539,6 +539,7 @@ shape = SubResource( 19 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="6"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

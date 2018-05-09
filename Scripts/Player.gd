@@ -54,12 +54,12 @@ func _physics_process(delta):
 	
 	move = move.normalized() * SPEED
 	
-	if !is_ghost and !attacking and !ghost_mode and Input.is_action_just_pressed("Attack"):
+	if !is_ghost and !attacking and !ghost_mode and !shielding and Input.is_action_just_pressed("Attack"):
 		Res.play_sample(self, "Sword")
 		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
 	
-	if !shielding and Input.is_action_just_pressed("Shield"):
+	if !attacking and !shielding and Input.is_action_pressed("Shield"):
 		change_animation("LeftArm", "ShieldOn")
 		shielding = true
 	elif shielding and Input.is_action_just_released("Shield"):
@@ -122,9 +122,12 @@ func _physics_process(delta):
 	if Input.is_key_pressed(KEY_F3): print(int(position.x / 800), ", ", int(position.y / 800)) ##debug
 
 func damage(attacker, amount, knockback):
-	Res.create_instance("DamageNumber").damage(self, amount)
-	SkillBase.inc_stat("DamageTaken", amount)
-	PlayerStats.health -= amount
+	if shielding : 
+		Res.create_instance("DamageNumber").damage(self, "BLOCKED")
+	else:
+		Res.create_instance("DamageNumber").damage(self, amount)
+		SkillBase.inc_stat("DamageTaken", amount)
+		PlayerStats.health -= amount
 	UI.soft_refresh()
 	move_and_slide((position - attacker.position).normalized() * 1000 * knockback)
 	if ghost_mode: cancel_ghost()

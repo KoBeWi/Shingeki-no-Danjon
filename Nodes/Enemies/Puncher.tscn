@@ -270,7 +270,7 @@ extents = Vector2( 39.8092, 47.0572 )
 custom_solver_bias = 0.0
 extents = Vector2( 100.382, 85.7356 )
 
-[node name="Puncher" type="KinematicBody2D" index="0" groups=[
+[node name="Puncher" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -401,6 +401,7 @@ disabled = true
 
 [node name="HealthBar" type="TextureProgress" parent="." index="6"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
