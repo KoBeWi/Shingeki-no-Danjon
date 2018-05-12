@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/GG300_leftAtack.png-25189fd9ee72a8040f05fa97ac8e8330.stex"
+path="res://.import/GG3000_D_U.png-a8657650a805a13f8be37fb9656cb5d1.stex"
 
 [deps]
 
-source_file="res://Sprites/Enemies/GearGrinder300/GG300_leftAtack.png"
-source_md5="2c102312bd1f087a060bbcf34e261bb4"
+source_file="res://Sprites/Enemies/GearGrinder300/Green/GG3000_D_U.png"
+source_md5="22592c8cb0ea04115ca1cb84fd6f7e1c"
 
-dest_files=[ "res://.import/GG300_leftAtack.png-25189fd9ee72a8040f05fa97ac8e8330.stex" ]
-dest_md5="64c84970d6842d4c4eb4b5b8859a2f69"
+dest_files=[ "res://.import/GG3000_D_U.png-a8657650a805a13f8be37fb9656cb5d1.stex" ]
+dest_md5="dbc21426ac35b6c7191cfa2a7754ef56"
 
 [params]
 

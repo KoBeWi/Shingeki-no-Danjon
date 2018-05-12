@@ -1,17 +1,17 @@
 extends "res://Scripts/BaseEnemy.gd"
 
-const BASIC_DAMAGE         = 5
+const BASIC_DAMAGE         = 2
 const SPECIAL_DAMAGE       = 20
 
 const SPECIAL_PROBABILITY  = 200
-const ATACK_SPEED          = 125
+const ATACK_SPEED          = 75
 
 const SPEED                = 120
 
 const KNOCKBACK_ATACK      = 0
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 20
+const PERSONAL_SPACE       = 8
 const TIME_OF_LIYUGN_CORPS = 3
 
 var player
@@ -24,7 +24,7 @@ var dead            = false
 var follow_player   = false
 var in_action       = false
 var special_ready   = false
-var atack_ready     = true
+var atack_ready     = false
 
 onready var sprites = $Sprites.get_children()
 
@@ -59,8 +59,8 @@ func _physics_process(delta):
 		
 		
 		
-
-		move_and_slide(move * SPEED)
+		if (axix_X or axix_Y):
+			move_and_slide(move * SPEED)
 		
 		
 	
@@ -108,7 +108,7 @@ func _physics_process(delta):
 
 
 func punch_in_direction():
-#	print(direction)
+
 	if direction == "Right" : 
 		sprites[1].flip_h = true
 		play_animation_if_not_playing("PunchLeft")
@@ -120,8 +120,6 @@ func punch_in_direction():
 func play_animation_if_not_playing(anim):
 	if $AnimationPlayer.current_animation != anim:
 		$"AnimationPlayer".play(anim)
-		#if( $AnimationPlayer.has_animation(anim)):
-		#	print( anim + " ONLINE " )
 
 func _on_Radar_body_entered(body):
 	if body.name == "Player":
@@ -152,9 +150,5 @@ func _on_animation_finished(anim_name):
 	if anim_name == "Special":
 		special_ready = false
 		in_action     = false
-	if anim_name == "PunchDown":
-		in_action     = false
-	if anim_name == "PunchLeft":
-		in_action     = false
-	if anim_name == "PunchUp":
+	if "Punch" in anim_name:	 
 		in_action     = false

@@ -45,6 +45,7 @@ _sections_unfolded = [ "Z Index" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
+position = Vector2( 0, -48 )
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 10
@@ -52,13 +53,14 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="1"]
 
-position = Vector2( 0, 41 )
+position = Vector2( 0, -7 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="InteractArea" type="Area2D" parent="." index="2"]
 
 editor/display_folded = true
+position = Vector2( 0, -48 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -68,6 +70,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 3 )
 type = 1
+mode = 0
 
 [node name="Shape" type="CollisionShape2D" parent="InteractArea" index="0"]
 

@@ -7,10 +7,10 @@ path="res://.import/GG3000_D_U.png-7eb45fcc799fbebcfa27c3f52e89f597.stex"
 [deps]
 
 source_file="res://Sprites/Enemies/GearGrinder300/GG3000_D_U.png"
-source_md5="f47b59de4146be0143dd937d77197492"
+source_md5="38ff99702a27398d2f80916b08e09d02"
 
 dest_files=[ "res://.import/GG3000_D_U.png-7eb45fcc799fbebcfa27c3f52e89f597.stex" ]
-dest_md5="26be55ecdec0cf006f9b9e573010366a"
+dest_md5="1f43ed5bb4fcccebe454490074f58195"
 
 [params]
 

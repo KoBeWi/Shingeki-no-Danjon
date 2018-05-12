@@ -400,7 +400,7 @@ height = 20.0
 custom_solver_bias = 0.0
 extents = Vector2( 10.2959, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -415,7 +415,8 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
-position = Vector2( 0, -73.3331 )
+editor/display_folded = true
+position = Vector2( -12, -73.3331 )
 _sections_unfolded = [ "Material" ]
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
@@ -476,13 +477,12 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
-position = Vector2( 16.4588, -2.44019 )
+position = Vector2( 1.79215, -2.44019 )
 scale = Vector2( 0.717616, 2.40879 )
 shape = SubResource( 16 )
 
 [node name="Radar" type="Area2D" parent="." index="3"]
 
-editor/display_folded = true
 visible = false
 position = Vector2( 24.0148, 21.9682 )
 scale = Vector2( 6.90081, 3.90967 )
@@ -496,7 +496,7 @@ audio_bus_name = "Master"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
 
-position = Vector2( -1.70736, 4.47633 )
+position = Vector2( -6.58599, -17.7458 )
 scale = Vector2( 5.55008, 8.41106 )
 shape = SubResource( 17 )
 
@@ -504,8 +504,8 @@ shape = SubResource( 17 )
 "enemies",
 ]]
 
-editor/display_folded = true
 visible = false
+position = Vector2( -1.33333, -30.6666 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -519,13 +519,12 @@ _sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pickable", "Transf
 
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
-position = Vector2( 17.3951, -4.15159 )
+position = Vector2( 5.07147, -34.0804 )
 scale = Vector2( 5.62541, 3.95039 )
 shape = SubResource( 18 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
-editor/display_folded = true
 position = Vector2( 0, -73.3331 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
