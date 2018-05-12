@@ -123,7 +123,13 @@ func _physics_process(delta):
 
 func damage(attacker, amount, knockback):
 	if shielding : 
-		Res.create_instance("DamageNumber").damage(self, "BLOCKED")
+		var dps = amount*(1-PlayerStats.shield_block)-PlayerStats.shield_amout
+		
+		if dps < 0 : 
+			Res.create_instance("DamageNumber").damage(self, "BLOCKED" )
+		else:
+			Res.create_instance("DamageNumber").damage(self, dps )
+		
 	else:
 		Res.create_instance("DamageNumber").damage(self, amount)
 		SkillBase.inc_stat("DamageTaken", amount)
@@ -214,7 +220,7 @@ func use_magic(): ##nie tylko magia :|
 			if skill.has("projectile"):
 				var projectile = Res.create_instance("Projectiles/" + skill.projectile)
 				get_parent().add_child(projectile)
-				projectile.position = position + Vector2(0,80)
+				projectile.position = position - Vector2(0,45)
 				if( direction == 2 ):
 					projectile.position = position + Vector2(0,80)
 				

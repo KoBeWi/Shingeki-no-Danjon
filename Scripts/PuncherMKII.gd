@@ -15,7 +15,7 @@ const SPEED                = 150
 const KNOCKBACK_ATACK      = 3 
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 10
+const PERSONAL_SPACE       = 70
 const TIME_OF_LIYUGN_CORPS = 3
 
 var player
@@ -31,6 +31,7 @@ var follow_player   = false
 var in_action       = false
 var special_ready   = false
 var atack_ready     = true
+var last_animation = ""
 
 var in_special_state = false
 var special_nav_poit = Vector2(0,0)
@@ -63,24 +64,27 @@ func calculate_move(delta):
 		if( x_distance < move.x*SPEED ): move.x = x_distance/SPEED
 		if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
 		
-		#if( axix_X and axix_Y):
-		move_and_slide(move * SPEED)
+		if (axix_X or axix_Y):
+			move_and_slide(move * SPEED)
 		
 		if( x_distance > y_distance and axix_X ):
 			if abs(move.x) != 0: 
 				sprites[0].flip_h = move.x > 0
 				play_animation_if_not_playing("Left")
+				last_animation = "Left"
 				direction = "Right" if move.x > 0 else "Left"
 		elif(x_distance < y_distance and axix_Y):
 			if move.y < 0: 
 				play_animation_if_not_playing("Down")
-				direction = "Up"
+				last_animation = "Down"				
+				direction = "Down"
 			elif move.y > 0: 
 				play_animation_if_not_playing("Up")
-				direction = "Down"
+				last_animation = "Up"			
+				direction = "Up"
 		else:
-			play_animation_if_not_playing("Down")
-			direction = "Down"
+			play_animation_if_not_playing(last_animation)
+			pass
 		
 		
 		

@@ -92,9 +92,8 @@ func calculate_move(delta):
 		var axix_Y = y_distance >= PERSONAL_SPACE
 		
 		
-		#if( axix_X and axix_Y):
-		
-		move_and_slide(move * SPEED)
+		if (axix_X or axix_Y):
+			move_and_slide(move * SPEED)
 		
 		if( x_distance > y_distance and axix_X ):
 			if abs(move.x) != 0: 

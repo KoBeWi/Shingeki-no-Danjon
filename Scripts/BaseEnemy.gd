@@ -46,6 +46,7 @@ func set_statistics(max_hp, given_exp, ar):
 func _physics_process(delta):
 	bar_timeout -= 1
 	if bar_timeout == 0: health_bar.visible = false
+	
 
 func damage(amount):
 	if _dead: return

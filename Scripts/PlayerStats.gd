@@ -12,6 +12,9 @@ var max_health = 100
 var mana = 100
 var max_mana = 100
 
+var shield_block = 0.7
+var shield_amout = 12 
+
 var strength = 1
 var dexterity = 1
 var intelligence = 1

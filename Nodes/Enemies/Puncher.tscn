@@ -82,8 +82,9 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=8]
 
+resource_name = "PunchDown"
 length = 4.0
 loop = false
 step = 1.0
@@ -97,7 +98,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 4, 5, 6, 7 ]
+"values": [ 0, 1, 2, 3 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("AttackCollider/Shape:disabled")
@@ -172,8 +173,9 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=5]
 
+resource_name = "PunchUp"
 length = 4.0
 loop = false
 step = 1.0
@@ -187,7 +189,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 4, 5, 6, 7 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("AttackCollider/Shape:disabled")
@@ -284,7 +286,6 @@ _sections_unfolded = [ "Collision", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
-editor/display_folded = true
 position = Vector2( 0, -49 )
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
@@ -292,7 +293,7 @@ position = Vector2( 0, -49 )
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 8
-frame = 8
+frame = 7
 _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility", "Z Index" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
@@ -326,10 +327,10 @@ anims/Dead = SubResource( 1 )
 anims/Down = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 anims/Left = SubResource( 4 )
-anims/PunchDown = SubResource( 5 )
+anims/PunchDown = SubResource( 8 )
 anims/PunchLeft = SubResource( 6 )
 anims/PunchRight = SubResource( 7 )
-anims/PunchUp = SubResource( 8 )
+anims/PunchUp = SubResource( 5 )
 anims/Special = SubResource( 9 )
 anims/Up = SubResource( 10 )
 blend_times = [  ]
@@ -356,14 +357,12 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="3"]
 
-visible = false
-position = Vector2( 0.290953, 47.2325 )
-scale = Vector2( 3.70602, 1 )
+position = Vector2( -0.631054, -4.96567 )
+scale = Vector2( 4.65708, 2.61691 )
 shape = SubResource( 12 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="4"]
 
-editor/display_folded = true
 visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -378,13 +377,13 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
-position = Vector2( 0.358475, -12.5471 )
+visible = false
+position = Vector2( 0.358475, -53.2723 )
+scale = Vector2( 1, 1.1662 )
 shape = SubResource( 13 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
-editor/display_folded = true
-visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -396,6 +395,7 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
+position = Vector2( -0.598755, -44.9053 )
 shape = SubResource( 14 )
 disabled = true
 

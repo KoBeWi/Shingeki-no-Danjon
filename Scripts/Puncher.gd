@@ -15,7 +15,7 @@ const SPEED                = 100
 const KNOCKBACK_ATACK      = 3 
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 10
+const PERSONAL_SPACE       = 40
 const TIME_OF_LIYUGN_CORPS = 3
 
 var player
@@ -23,40 +23,37 @@ var direction       = "Down"
 var dead_time       = 0
 
 var can_use_special = true
-var dead            = false
 
+############################################################################################
+
+var dead            = false
 var follow_player   = false
 var in_action       = false
 var special_ready   = false
 var atack_ready     = true
+var last_animation = ""
+
+var in_special_state = false
+var special_nav_poit = Vector2(0,0)
 
 onready var sprites = $Sprites.get_children()
 
 func _ready():
 	._ready()
-	
-	#$"DamageCollider/Shape".disabled = false
-	#$"AttackCollider/Shape".disabled = false
-	
 	drops.append([3, 200])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
+	$"AnimationPlayer".play("Idle")
+	
+	
+func calculate_dead(delta):
+	dead_time += delta
+	if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
 
-func _physics_process(delta):
-	._physics_process(delta)
-	
-	#$"DamageCollider/Shape".disabled = false
-	#$"AttackCollider/Shape".disabled = false
-	
-	if dead :
-		dead_time += delta
-		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
-		return
-	#follow_player  = false
-	
-	if follow_player and !in_action :
-		if( !special_ready ) : special_ready = (randi()%SPECIAL_PROBABILITY == 0)
-		if( !  atack_ready ) : atack_ready   = (randi()%ATACK_SPEED         == 0)
-		
+func check_atacks_prepeare():
+	if( !special_ready ) : special_ready = (randi()%SPECIAL_PROBABILITY == 0)
+	if( !  atack_ready ) : atack_ready   = (randi()%ATACK_SPEED         == 0)
+
+func calculate_move(delta):
 		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
 		
 		var x_distance = abs(position.x - player.position.x)
@@ -68,47 +65,134 @@ func _physics_process(delta):
 		if( x_distance < move.x*SPEED ): move.x = x_distance/SPEED
 		if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
 		
-		#if( axix_X and axix_Y):
-		move_and_slide(move * SPEED)
+		if (axix_X or axix_Y):
+			move_and_slide(move * SPEED)
 		
 		if( x_distance > y_distance and axix_X ):
 			if abs(move.x) != 0: 
 				sprites[0].flip_h = move.x > 0
 				play_animation_if_not_playing("Left")
+				last_animation = "Left"
 				direction = "Right" if move.x > 0 else "Left"
 		elif(x_distance < y_distance and axix_Y):
 			if move.y < 0: 
 				play_animation_if_not_playing("Down")
-				direction = "Up"
+				last_animation = "Down"				
+				direction = "Down"
 			elif move.y > 0: 
 				play_animation_if_not_playing("Up")
-				direction = "Down"
+				last_animation = "Up"			
+				direction = "Up"
 		else:
-			play_animation_if_not_playing("Down")
-			direction = "Down"
+			play_animation_if_not_playing(last_animation)
+			pass
+		
+		
+		#if axix_X:
+		#	if abs(move.x) != 0: 
+				
+		#		sprites[0].flip_h = move.x > 0
+		#		play_animation_if_not_playing("Left")
+		#		direction = "Right" if move.x > 0 else "Left"
+#				elif move.x > 0: play_animation_if_not_playing("Right") na później
+		#elif axix_Y:
+		#	if move.y < 0: 
+		#		play_animation_if_not_playing("Down")
+		#		direction = "Up"
+		#	elif move.y > 0: 
+		#		play_animation_if_not_playing("Up")
+		#		direction = "Down"
+		#else:
+		#	play_animation_if_not_playing("Down")
+		#	direction = "Down"
+
+func _physics_process(delta):
+	._physics_process(delta)
+	
+	if dead :
+		calculate_dead(delta)
+		return
+		
+	if in_special_state:
+		in_special_state(delta)
+		return
+	
+	if !follow_player :
+		play_animation_if_not_playing("Idle")
+	
+	if follow_player and !in_action :
+		check_atacks_prepeare()
+		calculate_move(delta)
 	
 		var player_monster_distance_x = abs(position.x - player.position.x) 
 		var player_monster_distance_y = abs(position.y - player.position.y) 
 
 		if player_monster_distance_x > FOLLOW_RANGE and player_monster_distance_y > FOLLOW_RANGE:
 			follow_player = false
+		#	play_animation_if_not_playing("Idle")
 		
+			
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if special_ready and can_use_special:
-				in_action = true
-				play_animation_if_not_playing("Special")
-				damage = SPECIAL_DAMAGE
-				knockback = KNOCKBACK_ATACK
-			elif atack_ready:
-				in_action = true
-				atack_ready = false
+				call_special_atack()
+			elif atack_ready: 
+				call_normal_atack()
 				
-				punch_in_direction()
-				damage = BASIC_DAMAGE
-				knockback = 0
-	elif !in_action:
-		play_animation_if_not_playing("Idle")
+			
+		
 
+func move_to_nav_point(delta):
+		var move = Vector2(sign(special_nav_poit.x - position.x), sign(special_nav_poit.y - position.y)).normalized() * SPEED * delta
+		
+		var x_player_monster_distance = abs(position.x - player.position.x)
+		var y_player_monster_distance = abs(position.y - player.position.y) 
+
+		var x_distance = abs(position.x - special_nav_poit.x)
+		var y_distance = abs(position.y - special_nav_poit.y) 
+
+		if( x_distance < move.x*(SPEED+20) ): move.x = x_distance/(SPEED+20)
+		if( y_distance < move.y*(SPEED+20) ): move.y = y_distance/(SPEED+20)
+		
+		#if( axix_X and axix_Y):
+		move_and_slide(move * (SPEED+20))
+		
+		if move.x == 0 and move.y == 0:
+			 in_special_state = false
+
+
+
+func in_special_state(delta):
+	 play_animation_if_not_playing("Special")
+	
+	 #move_to_nav_point(delta)
+	
+
+
+func call_special_atack():
+	in_action = true
+	play_animation_if_not_playing("Special")
+	damage = SPECIAL_DAMAGE
+	knockback = KNOCKBACK_ATACK
+	in_special_state = true
+	
+	if player.position.x > position.x:
+		special_nav_poit.x = player.position.x + (player.position.x - position.x)
+	else:
+		special_nav_poit.x = player.position.x - (position.x - player.position.x)
+	
+	if player.position.y > position.y:
+		special_nav_poit.y = player.position.y + (player.position.y - position.y)
+	else:
+		special_nav_poit.y = player.position.y - (position.y - player.position.y)
+	
+	#print(special_nav_poit, position)
+	
+func call_normal_atack():
+	in_action = true
+	atack_ready = false
+	punch_in_direction()
+	damage = BASIC_DAMAGE
+	knockback = 0
 
 func punch_in_direction():
 	play_animation_if_not_playing("Punch" + direction)
@@ -142,10 +226,11 @@ func _on_damage():
 	follow_player = true
 	player = $"../Player"
 
-
 func _on_animation_finished(anim_name):
 	if anim_name == "Special":
+		in_special_state = false
 		special_ready = false
 		in_action     = false
 	if "Punch" in anim_name:
 		in_action     = false
+

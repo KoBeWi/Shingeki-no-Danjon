@@ -16,7 +16,7 @@ var SPEED                = 120
 const KNOCKBACK_ATACK      = 5 
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 10
+const PERSONAL_SPACE       = 50
 const TIME_OF_LIYUGN_CORPS = 3
 
 var MAT = load("res://Resources/Materials/ColorShader.tres")
@@ -25,6 +25,7 @@ var player
 var direction       = "Down"
 var dead_time       = 0
 
+var last_animation = ""
 var can_use_special = true
 var dead            = false
 
@@ -59,22 +60,22 @@ func _physics_process(delta):
 		return
 	#follow_player  = false
 	
-	if in_special :
-		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
-		
-		var x_distance = abs(position.x - player.position.x)
-		var y_distance = abs(position.y - player.position.y) 
-
-		var axix_X = x_distance >= PERSONAL_SPACE
-		var axix_Y = y_distance >= PERSONAL_SPACE
-		
-		if( x_distance < move.x*SPEED ): move.x = x_distance/SPEED
-		if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
-		
-		#if( axix_X and axix_Y):
-		move_and_slide(move * SPEED)
-		
-		return
+#	if in_special :
+#		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
+#		
+#		var x_distance = abs(position.x - player.position.x)
+#		var y_distance = abs(position.y - player.position.y) 
+#
+#		var axix_X = x_distance >= PERSONAL_SPACE
+#		var axix_Y = y_distance >= PERSONAL_SPACE
+#		
+#		if( x_distance < move.x*SPEED ): move.x = x_distance/SPEED
+#		if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
+#		
+#		if (axix_X or axix_Y):
+#			move_and_slide(move * SPEED)
+#		
+#		return
 	
 	if in_special_state:
 		special_countown -= delta
@@ -102,24 +103,29 @@ func _physics_process(delta):
 		if( x_distance < move.x*SPEED ): move.x = x_distance/SPEED
 		if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
 		
-		#if( axix_X and axix_Y):
-		move_and_slide(move * SPEED)
+		if (axix_X or axix_Y):
+			move_and_slide(move * SPEED)
+		
+		#print(axix_X , " ",x_distance," ", y_distance, " " , move)
 		
 		if( x_distance > y_distance and axix_X ):
 			if abs(move.x) != 0: 
 				sprites[0].flip_h = move.x > 0
 				play_animation_if_not_playing("Left")
+				last_animation = "Left"
 				direction = "Right" if move.x > 0 else "Left"
 		elif(x_distance < y_distance and axix_Y):
 			if move.y < 0: 
 				play_animation_if_not_playing("Down")
+				last_animation = "Down"				
 				direction = "Up"
 			elif move.y > 0: 
 				play_animation_if_not_playing("Up")
+				last_animation = "Up"			
 				direction = "Down"
 		else:
-			play_animation_if_not_playing("Down")
-			direction = "Down"
+			play_animation_if_not_playing(last_animation)
+			pass
 	
 		var player_monster_distance_x = abs(position.x - player.position.x) 
 		var player_monster_distance_y = abs(position.y - player.position.y) 
@@ -141,7 +147,7 @@ func _physics_process(delta):
 				damage = SPECIAL_DAMAGE
 				knockback = KNOCKBACK_ATACK
 				in_special = true
-				special_destination = player.position - ( position - player.position )
+				#special_destination = player.position - ( position - player.position )
 			elif atack_ready:
 
 				in_action = true

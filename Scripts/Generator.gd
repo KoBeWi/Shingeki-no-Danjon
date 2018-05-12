@@ -2,7 +2,7 @@ extends Node
 onready var dungeon = $"../Segments"
 
 #zostawic, sluzy testowaniu nowych mobkow
-const NewToTest = "Enemies/Grinder"
+const NewToTest = "Enemies/FLA-G"
 
 #3358948719
 #1584724892

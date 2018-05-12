@@ -382,7 +382,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=16]
 
 custom_solver_bias = 0.0
-extents = Vector2( 75.7675, 10 )
+extents = Vector2( 57.1874, 10 )
 
 [sub_resource type="CircleShape2D" id=17]
 
@@ -400,7 +400,7 @@ height = 20.0
 custom_solver_bias = 0.0
 extents = Vector2( 10.2959, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -477,8 +477,8 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
-position = Vector2( 1.79215, -2.44019 )
-scale = Vector2( 0.717616, 2.40879 )
+position = Vector2( 1.89845, -3.30193 )
+scale = Vector2( 0.543869, 2.47508 )
 shape = SubResource( 16 )
 
 [node name="Radar" type="Area2D" parent="." index="3"]
@@ -525,6 +525,7 @@ shape = SubResource( 18 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
+visible = false
 position = Vector2( 0, -73.3331 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -574,7 +575,7 @@ _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Radial Fill", "Rec
 
 [node name="Shadow" type="Sprite" parent="." index="7"]
 
-position = Vector2( 13.167, 0.214562 )
+position = Vector2( 3.83367, -1.11877 )
 scale = Vector2( 1.35301, 1.65246 )
 z_index = -1
 texture = ExtResource( 7 )

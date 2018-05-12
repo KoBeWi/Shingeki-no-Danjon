@@ -15,7 +15,7 @@ var   SPEED                = 100
 const KNOCKBACK_ATACK      = 0
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 10
+const PERSONAL_SPACE       = 45
 const TIME_OF_LIYUGN_CORPS = 3
 
 var player
@@ -32,6 +32,7 @@ var in_action       = false
 var magic_ready     = false
 var atack_ready     = true
 
+var last_animation = ""
 var in_special_state = false
 var special_countown = 0.0
 
@@ -64,24 +65,27 @@ func calculate_move(delta):
 		if( x_distance < move.x*SPEED ): move.x = x_distance/SPEED
 		if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
 		
-		#if( axix_X and axix_Y):
-		move_and_slide(move * SPEED)
+		if (axix_X or axix_Y):
+			move_and_slide(move * SPEED)
 		
 		if( x_distance > y_distance and axix_X ):
 			if abs(move.x) != 0: 
-				#sprites[0].flip_h = move.x > 0
-				play_animation_if_not_playing("Right") if move.x > 0 else play_animation_if_not_playing("Left")
+				sprites[0].flip_h = move.x > 0
+				play_animation_if_not_playing("Left")
+				last_animation = "Left"
 				direction = "Right" if move.x > 0 else "Left"
 		elif(x_distance < y_distance and axix_Y):
 			if move.y < 0: 
 				play_animation_if_not_playing("Down")
+				last_animation = "Down"				
 				direction = "Up"
 			elif move.y > 0: 
 				play_animation_if_not_playing("Up")
+				last_animation = "Up"			
 				direction = "Down"
 		else:
-			play_animation_if_not_playing("Down")
-			direction = "Down"
+			play_animation_if_not_playing(last_animation)
+			pass
 
 
 func _physics_process(delta):
