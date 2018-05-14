@@ -2,17 +2,43 @@
 
 [ext_resource path="res://Resources/Breathe Fire.otf" type="DynamicFontData" id=1]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 
 resource_name = "DamageNumber"
 script/source = "extends Node2D
 
 var life_time = 1
 
-func damage(node, amount):
+const RED    = Color(1,0,0)
+const WHITE  = Color(1,1,1)
+const PURPLE = Color(0.5,0,0.5)
+const GREEN  = Color(0,0.75,0.25)
+const DBLUE  = Color(0,0,0.6)
+const LBLUE  = Color(0,0.75,1) 
+const ORANGE = Color(1,0.27,0)
+
+
+
+
+func damage(node, amount, type = \"physical\"):
 	node.get_parent().add_child(self)
 	position = node.position
 	$Label.text = str(amount)
+	
+	match(type):
+		\"physical\":
+			$Label.add_color_override(\"font_color\", RED)
+		\"fire\":
+			$Label.add_color_override(\"font_color\", ORANGE)
+		\"heal\":
+			$Label.add_color_override(\"font_color\", GREEN)
+		\"true\":
+			$Label.add_color_override(\"font_color\", WHITE)
+		\"dead\":
+			$Label.add_color_override(\"font_color\", PURPLE)
+		\"ice\":
+			$Label.add_color_override(\"font_color\", LBLUE)
+		
 
 func _physics_process(delta):
 	position.y -= delta * 50
@@ -20,7 +46,7 @@ func _physics_process(delta):
 	if life_time <= 0: queue_free()"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 
 size = 20
 use_mipmaps = false
@@ -28,10 +54,10 @@ use_filter = false
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="DamageNumber" type="Node2D" index="0"]
+[node name="DamageNumber" type="Node2D"]
 
 z_index = 5
-script = SubResource( 2 )
+script = SubResource( 1 )
 _sections_unfolded = [ "Material", "Z Index" ]
 
 [node name="Label" type="Label" parent="." index="0"]
@@ -48,7 +74,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "100"
 percent_visible = 1.0

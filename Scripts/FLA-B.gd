@@ -169,8 +169,10 @@ func shoot_arrow():
 			projectile.direction = 1
 		"Up":
 			projectile.direction = 2
+		#	projectile.position  = position + Vector2(0, 20) 
 		"Down":
 			projectile.direction = 0
+		#	projectile.position  = position + Vector2(0, -20) 
 	
 	
 	projectile.intiated()
@@ -191,12 +193,13 @@ func shoot_arrows():
 			"Left":
 				arrow.new_dir(3)
 				arrow.set_rot(-rotation)
+			#	print("lefy")
 			"Right":
 				arrow.new_dir(1)
 				arrow.set_rot(-rotation)
 			"Up":
 				arrow.new_dir(2)
-				arrow.set_rot(rotation)
+				arrow.set_rot(-rotation)
 			"Down":
 				arrow.new_dir(0)
 				arrow.set_rot(rotation)
@@ -218,9 +221,9 @@ func shoot_arrows():
 			arrows[0].set_mod( Vector2(0,0.3) )
 		"Up":
 			arrows[0].set_mod( Vector2(-0.3,0) )
-			arrows[0].position -= Vector2(30,0) 
+			arrows[0].position -= Vector2(40,0) 
 			arrows[2].set_mod( Vector2(0.3,0) )
-			arrows[2].position += Vector2(30,0)
+			arrows[2].position += Vector2(40,0)
 		"Down":
 			arrows[0].set_mod( Vector2(-0.3,0) )
 			arrows[0].position -= Vector2(30,0) 

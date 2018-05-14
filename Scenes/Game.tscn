@@ -22,6 +22,8 @@ script = ExtResource( 3 )
 [node name="Player" parent="." index="3" instance=ExtResource( 4 )]
 
 position = Vector2( 124.122, 184.554 )
+collision_layer = 16385
+collision_mask = 16385
 _sections_unfolded = [ "Collision", "Material", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
 
 
