@@ -12,7 +12,7 @@ var static_time = 0
 var motion_time = 0
 var prev_move = Vector2()
 
-var animations = {Body = "Idle", RightArm = "SwordAttack", LeftArm = "ShieldOn"}
+var animations = {Body = "Idle", RightArm = "SwordAttack", LeftArm = "Shield"}
 var sprite_direction = "Front"
 
 var ghost_mode = false
@@ -154,7 +154,12 @@ func change_dir(dir):
 	change_texture($Body, "Body" + animations["Body"])
 	change_texture($Body/RightArm, "SwordAttack", ["Left", "Back"])
 	update_weapon()
-	change_texture($Body/LeftArm, animations["LeftArm"], ["Right", "Back"], {"Back": 1, "Front": 0})
+	change_texture($Body/LeftArm, alt_animation(animations["LeftArm"]), ["Right", "Back"], {"Back": 1, "Front": 0})
+
+func alt_animation(anim):
+	match anim:
+		"ShieldOn", "ShieldOff": return "Shield"
+		_: return anim
 
 func change_texture(sprite, texture, on_back = [], move_child = {}):
 	sprite.texture = Res.get_resource("res://Sprites/Player/" + sprite_direction + "/" + texture + ".png")
@@ -175,10 +180,10 @@ func change_animation(part, animation):
 			$Body.hframes = 9
 			$BodyAnimator.playback_speed = 16
 		"ShieldOn":
-			change_texture($Body/LeftArm, "ShieldOn", ["Right", "Back"])
-			$Body/LeftArm.hframes = 3
+			change_texture($Body/LeftArm, "Shield", ["Right", "Back"]) ##yyy nie trzeba?
+			$Body/LeftArm.hframes = 2 ##to chyba też
 		"ShieldOff":
-			change_texture($Body/LeftArm, "ShieldOff", ["Right", "Back"])
+			change_texture($Body/LeftArm, "Shield", ["Right", "Back"])
 			$Body/LeftArm.hframes = 2
 	
 	match part:

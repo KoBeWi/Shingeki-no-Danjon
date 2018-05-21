@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ShieldOn.png-bbc4be1cb425c9a1c3ef890c20ed241e.stex"
+path="res://.import/Shield.png-f5833d57c934f2d1471c52808bcdec8f.stex"
 
 [deps]
 
-source_file="res://Sprites/Player/Front/ShieldOn.png"
-source_md5="4abe2452916850b8701f69fd7386f1e0"
+source_file="res://Sprites/Player/Back/Shield.png"
+source_md5="b5295f9944ed85263258e5fb97e67461"
 
-dest_files=[ "res://.import/ShieldOn.png-bbc4be1cb425c9a1c3ef890c20ed241e.stex" ]
-dest_md5="1be37c2949757efc6f20daff2aa524dd"
+dest_files=[ "res://.import/Shield.png-f5833d57c934f2d1471c52808bcdec8f.stex" ]
+dest_md5="1f670659ac1c811265b87d18a6a50757"
 
 [params]
 

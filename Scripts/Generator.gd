@@ -2,7 +2,7 @@ extends Node
 onready var dungeon = $"../Segments"
 
 #zostawic, sluzy testowaniu nowych mobkow
-const NewToTest = "" # "Enemies/Mechanic"
+var NewToTest #= "Enemies/Mechanic" #jak zrobisz tak to masz fajny null
 
 #3358948719
 #1584724892
@@ -222,7 +222,7 @@ func place_enemies():
 		var type = enemies[randi() % enemies.size()]
 		if !place_on_floor("Enemies/" + type): break
 	
-	place_for_test(Res.get_node(NewToTest))
+	if NewToTest: place_for_test(Res.get_node(NewToTest))
 
 func place_on_floor(object):
 	for dis in disabled: if object.find(dis) > -1: return ##DEBUG

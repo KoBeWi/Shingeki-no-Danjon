@@ -1,12 +1,12 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Left/BodyIdle.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Player/Left/SwordAttack.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Player/Right/SwordAttack.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Player/Left/Weapons/Sword1.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/Player/Left/ShieldOff.png" type="Texture" id=5]
-[ext_resource path="res://Nodes/UI/Main.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Player/Left/Shield.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Player/Left/Shields/Shield1.png" type="Texture" id=6]
+[ext_resource path="res://Nodes/UI/Main.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sprites/UI/Interact0.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/UI/ElementIcons.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/UI/ElementSelect.png" type="Texture" id=10]
@@ -26,89 +26,35 @@ extents = Vector2( 30.7129, 58.1424 )
 custom_solver_bias = 0.0
 extents = Vector2( 30.7129, 58.1424 )
 
-[sub_resource type="Animation" id=4]
-
-length = 4.0
-loop = false
-step = 1.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Body/RightArm:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ ExtResource( 7 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Body/LeftArm:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 4 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Body/RightArm:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3 ]
-}
-
 [sub_resource type="Animation" id=5]
 
 resource_name = "ShieldOff"
-length = 2.0
+length = 3.0
 loop = false
 step = 1.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body:frame")
+tracks/0/path = NodePath("Body/LeftArm:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 1, 0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/RightArm:frame")
+tracks/1/path = NodePath("Body/LeftArm/Shield:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Body/LeftArm:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 0, 1 ]
+"values": [ 2, 1, 0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -118,36 +64,24 @@ length = 3.0
 loop = false
 step = 1.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body:frame")
+tracks/0/path = NodePath("Body/LeftArm:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 0, 1 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/RightArm:frame")
+tracks/1/path = NodePath("Body/LeftArm/Shield:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Body/LeftArm:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0, 1, 2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
@@ -473,7 +407,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "players",
 ]]
 
@@ -487,7 +421,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Body" type="Sprite" parent="." index="0"]
 
-editor/display_folded = true
 position = Vector2( 0, -55 )
 texture = ExtResource( 2 )
 hframes = 2
@@ -510,10 +443,17 @@ _sections_unfolded = [ "Animation", "Visibility" ]
 
 [node name="LeftArm" type="Sprite" parent="Body" index="1"]
 
+editor/display_folded = true
 position = Vector2( 0, 1 )
 texture = ExtResource( 5 )
 hframes = 2
 _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
+
+[node name="Shield" type="Sprite" parent="Body/LeftArm" index="0"]
+
+texture = ExtResource( 6 )
+hframes = 3
+_sections_unfolded = [ "Animation" ]
 
 [node name="Camera" type="Camera2D" parent="." index="1"]
 
@@ -545,7 +485,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="UI" parent="Camera" index="0" instance=ExtResource( 6 )]
+[node name="UI" parent="Camera" index="0" instance=ExtResource( 7 )]
 
 [node name="Collider" type="CollisionShape2D" parent="." index="2"]
 
@@ -606,7 +546,6 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/IdleRight = SubResource( 4 )
 anims/ShieldOff = SubResource( 5 )
 anims/ShieldOn = SubResource( 6 )
 anims/SwordAttackBack = SubResource( 7 )

@@ -21,7 +21,7 @@ func _ready():
 	else:
 		seed(my_seed)
 	
-#	seed(4044205418) ##DEBUG
+	seed(4044205418) ##DEBUG
 	
 	dungeon = Res.dungeons["Workshop"]
 	$Generator.generate(10, 10)
