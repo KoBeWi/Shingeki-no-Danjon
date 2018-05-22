@@ -36,12 +36,11 @@ const STAT_LIST = [\"attack\"]
 onready var TABS = $Tabs.get_child_count()
 
 var in_tab = false setget in_out_tab
-var current_tab = 0 setget update_tabs
+var current_tab = 0
 
 var inventory_scroll = 0
 var inventory_select = 0
 
-var crafting_station setget set_station
 var crafting_list = []
 var crafting_select = 0
 var crafting_scroll = 0
@@ -94,14 +93,16 @@ func _process(delta):
 		var old_tab = current_tab
 		
 		if Input.is_action_just_pressed(\"ui_left\"):
-			self.current_tab -= 1
-			if current_tab < 0: self.current_tab = TABS-1
+			current_tab -= 1
+			if current_tab < 0: current_tab = TABS-1
 		elif Input.is_action_just_pressed(\"ui_right\"):
-			self.current_tab += 1
-			if current_tab >= TABS: self.current_tab = 0
+			current_tab += 1
+			if current_tab >= TABS: current_tab = 0
 		elif Input.is_action_just_pressed(\"Interact\"):
 			self.in_tab = true
 			enter_tab()
+		
+		if old_tab != current_tab: update_tabs()
 	else: match current_tab:
 		1:
 			var prev_sel = inventory_select
@@ -189,15 +190,10 @@ func _process(delta):
 			if Input.is_action_just_pressed(\"ui_cancel\"):
 				self.in_tab = false
 
-func set_station(station):
-	crafting_station = station
-	update_crafting()
-
 func update_crafting():
 	crafting_list.clear()
 	for item in Res.crafting:
 		##tu sprawdzanie, czy powinno się pojawić
-		if item.has(\"station\") and crafting_station != item.station: continue
 		crafting_list.append(item)
 	
 	for i in range(CRAFTING_SIZE):
@@ -243,9 +239,7 @@ func in_out_tab(in_out):
 		$TabsBar/Highlight.texture = Res.get_resource(\"res://Sprites/UI/Menu/TabHighlight.png\")
 		exit_tab()
 
-func update_tabs(tab = current_tab):
-	current_tab = tab
-	
+func update_tabs():
 	for i in TABS:
 		$Tabs.get_child(i).visible = (current_tab == i)
 	

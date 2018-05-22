@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const SPEED = 320
 const MEDITATION_TIME = 3
-var GHOST = load("res://Nodes/Ghost.tscn")
+var GHOST = load("res://Nodes/Player.tscn")
 
 onready var UI = $Camera/UI
 onready var GHOST_EFFECT = $"/root/Game/GhostLayer/Effect"
@@ -11,6 +11,7 @@ var direction = -1
 var static_time = 0
 var motion_time = 0
 var prev_move = Vector2()
+var running = false
 
 var animations = {Body = "Idle", RightArm = "SwordAttack", LeftArm = "Shield"}
 var sprite_direction = "Front"
@@ -53,6 +54,7 @@ func _physics_process(delta):
 			if prev_move.y == 0 or (direction == 3 and prev_move.x < 0): change_dir(1)
 	
 	move = move.normalized() * SPEED
+	if move.length_squared() == 0: running = false
 	
 	if !is_ghost and !attacking and !ghost_mode and !shielding and Input.is_action_just_pressed("Attack"):
 		Res.play_sample(self, "Sword")
@@ -72,11 +74,12 @@ func _physics_process(delta):
 	if randi()%10 == 0: PlayerStats.mana += 1
 	UI.soft_refresh()
 	
-	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
+	if SkillBase.has_skill("FastWalk") and SkillBase.check_combo(["Dir", "Dir"]): running = true
+	if running: move *= 3
 	
 	if !elements_on:
 		if SkillBase.check_combo(["Magic", "Magic_"]):
-			#print(SkillBase.current_combo)
+#			print(SkillBase.current_combo)
 			$Elements.visible = true
 			SkillBase.current_combo.clear()
 	else:
@@ -98,10 +101,11 @@ func _physics_process(delta):
 		elif !ghost_mode:
 			Res.play_sample(self, "GhostEnter")
 			ghost_mode = GHOST.instance()
+			ghost_mode.modulate = Color(1, 1, 1, 0.5)
 			ghost_mode.is_ghost = true
 			ghost_mode.position.y += 8
 			ghost_mode.get_node("Body/RightArm/Weapon").visible = false
-#			ghost_mode.get_node("Body/LeftArm/Shield").visible = false
+			ghost_mode.get_node("Body/LeftArm/Shield").visible = false
 			
 			add_child(ghost_mode)
 			GHOST_EFFECT.visible = true
@@ -127,6 +131,7 @@ func damage(attacker, amount, knockback):
 		
 		if dps < 0:
 			PlayerStats.damage_equipment(2)
+			Res.play_sample(self, "ShieldBlock")
 			Res.create_instance("DamageNumber").damage(self, "BLOCKED")
 		else:
 			Res.create_instance("DamageNumber").damage(self, dps )
@@ -150,6 +155,7 @@ func _on_attack_hit(collider):
 
 func change_dir(dir):
 	if direction == dir: return
+	running = false
 	direction = dir
 	sprite_direction = ["Back", "Right", "Front", "Left"][dir]
 	change_texture($Body, "Body" + animations["Body"])

@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ShieldBlock.ogg-3a24e965e63ff237168025c089a166a4.oggstr"
+
+[deps]
+
+source_file="res://Samples/ShieldBlock.ogg"
+source_md5="7ec64d79cad3d3ce82b52255069d753b"
+
+dest_files=[ "res://.import/ShieldBlock.ogg-3a24e965e63ff237168025c089a166a4.oggstr" ]
+dest_md5="c90ecd22a522e5a022f8ad0ed6adc23b"
+
+[params]
+
+loop=false
+loop_offset=0
