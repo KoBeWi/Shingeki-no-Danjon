@@ -167,6 +167,7 @@ func in_special_state(delta):
 
 
 func call_special_atack():
+	Res.play_sample(self, "SpinAttack")
 	in_action = true
 	play_animation_if_not_playing("Special")
 	damage = SPECIAL_DAMAGE
@@ -186,6 +187,7 @@ func call_special_atack():
 	#print(special_nav_poit, position)
 	
 func call_normal_atack():
+	Res.play_sample(self, "Punch")
 	in_action = true
 	atack_ready = false
 	punch_in_direction()

@@ -141,6 +141,7 @@ func _physics_process(delta):
 		
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if special_ready and can_use_special :
+				Res.play_sample(self, "FLAGSpecial")
 				in_action = true
 				play_animation_if_not_playing("Special"+direction)
 
@@ -158,7 +159,6 @@ func _physics_process(delta):
 
 
 func turn_down_special():
-	
 	.set_statistics(health, experience , ARM)
 	ATACK_SPEED -= 50
 	
@@ -170,7 +170,7 @@ func turn_down_special():
 	play_animation_if_not_playing("Magic", true)
 
 func call_special_atack():
-	
+	Res.play_sample(self, "FLABuff")
 	#change_color()
 	
 	
@@ -191,6 +191,7 @@ func call_special_atack():
 
 
 func punch_in_direction():
+	Res.play_sample(self, "Axe")
 	play_animation_if_not_playing("Punch" + direction)
 
 func play_animation_if_not_playing(anim, fb = false):

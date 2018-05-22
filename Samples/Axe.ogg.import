@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Axe.ogg-55b45460eef90cb907713f444492696b.oggstr"
+
+[deps]
+
+source_file="res://Samples/Axe.ogg"
+source_md5="25fc34d3c36f611db6084d297926430c"
+
+dest_files=[ "res://.import/Axe.ogg-55b45460eef90cb907713f444492696b.oggstr" ]
+dest_md5="509ce15097c195ef612f00ae4c112c96"
+
+[params]
+
+loop=false
+loop_offset=0

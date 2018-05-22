@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/FLABuff.ogg-9a832d013c43bbae068d200228fd7e8b.oggstr"
+
+[deps]
+
+source_file="res://Samples/FLABuff.ogg"
+source_md5="8913ea98510cb07119bcaa8179a80cc9"
+
+dest_files=[ "res://.import/FLABuff.ogg-9a832d013c43bbae068d200228fd7e8b.oggstr" ]
+dest_md5="be7be68252e447b9b1efb59c94a28792"
+
+[params]
+
+loop=false
+loop_offset=0

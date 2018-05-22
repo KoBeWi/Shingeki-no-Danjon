@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Punch.ogg-ab0093bb9acb345f1530ea686183784c.oggstr"
+
+[deps]
+
+source_file="res://Samples/Punch.ogg"
+source_md5="42105937853a725bac9ddbc72eecffa3"
+
+dest_files=[ "res://.import/Punch.ogg-ab0093bb9acb345f1530ea686183784c.oggstr" ]
+dest_md5="7b134d5bbab094bf0a35960237879892"
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/SpinAttack.ogg-5006bee9a2e2bdc7eb800f5051ac6f76.oggstr"
+
+[deps]
+
+source_file="res://Samples/SpinAttack.ogg"
+source_md5="ffe16ef879f1832a74699321b2629951"
+
+dest_files=[ "res://.import/SpinAttack.ogg-5006bee9a2e2bdc7eb800f5051ac6f76.oggstr" ]
+dest_md5="6b5abdab589a974dd6792fdc9424487d"
+
+[params]
+
+loop=false
+loop_offset=0

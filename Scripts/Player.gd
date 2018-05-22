@@ -74,7 +74,7 @@ func _physics_process(delta):
 	if randi()%10 == 0: PlayerStats.mana += 1
 	UI.soft_refresh()
 	
-	if SkillBase.has_skill("FastWalk") and SkillBase.check_combo(["Dir", "Dir"]): running = true
+	if SkillBase.has_skill("FastWalk") and SkillBase.check_combo(["Dir", "Dir"]): running = true ##zrobić, że w tym samym kierunku trzeba (teraz mi się nie chce lol)
 	if running: move *= 3
 	
 	if !elements_on:

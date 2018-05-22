@@ -96,6 +96,7 @@ func _physics_process(delta):
 		
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if special_ready and can_use_special and health <= 0.25 * HP:
+				Res.play_sample(self, "Explosion")
 				in_action = true
 				play_animation_if_not_playing("Special")
 				damage = SPECIAL_DAMAGE
@@ -104,6 +105,7 @@ func _physics_process(delta):
 			elif atack_ready:
 				in_action = true
 				atack_ready = false
+				Res.play_sample(self, "Flamethrower")
 				punch_in_direction()
 				damage = BASIC_DAMAGE
 				knockback = 0

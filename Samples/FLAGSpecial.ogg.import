@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/FLAGSpecial.ogg-dc1f9445b099ef0ce1f4359c0a096c9a.oggstr"
+
+[deps]
+
+source_file="res://Samples/FLAGSpecial.ogg"
+source_md5="87e8fec01c092b94a9a1abae5665fb2d"
+
+dest_files=[ "res://.import/FLAGSpecial.ogg-dc1f9445b099ef0ce1f4359c0a096c9a.oggstr" ]
+dest_md5="1b853614ac98a62f826ef95065662a28"
+
+[params]
+
+loop=false
+loop_offset=0

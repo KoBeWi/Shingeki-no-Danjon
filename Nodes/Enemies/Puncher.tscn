@@ -82,7 +82,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=5]
 
 resource_name = "PunchDown"
 length = 4.0
@@ -173,9 +173,8 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=8]
 
-resource_name = "PunchUp"
 length = 4.0
 loop = false
 step = 1.0
@@ -272,7 +271,7 @@ extents = Vector2( 39.8092, 47.0572 )
 custom_solver_bias = 0.0
 extents = Vector2( 100.382, 85.7356 )
 
-[node name="Puncher" type="KinematicBody2D" groups=[
+[node name="Puncher" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -327,10 +326,10 @@ anims/Dead = SubResource( 1 )
 anims/Down = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 anims/Left = SubResource( 4 )
-anims/PunchDown = SubResource( 8 )
+anims/PunchDown = SubResource( 5 )
 anims/PunchLeft = SubResource( 6 )
 anims/PunchRight = SubResource( 7 )
-anims/PunchUp = SubResource( 5 )
+anims/PunchUp = SubResource( 8 )
 anims/Special = SubResource( 9 )
 anims/Up = SubResource( 10 )
 blend_times = [  ]

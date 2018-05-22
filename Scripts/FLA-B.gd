@@ -158,6 +158,7 @@ func in_special_state(delta):
 
 
 func shoot_arrow():
+	Res.play_sample(self, "Arrow")
 	var projectile = Res.create_instance("Projectiles/FireArrow")
 	get_parent().add_child(projectile)
 	projectile.position  = position + Vector2(0, -40)  #+ Vector2(100,100)
@@ -179,6 +180,7 @@ func shoot_arrow():
 	projectile.damage = BASIC_DAMAGE
 
 func shoot_arrows():
+	Res.play_sample(self, "MultiArrow")
 	var rotation = -15
 	 
 	var arrows = []

@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Flamethrower.ogg-d7bf049b5c732932c9f52da288ed775c.oggstr"
+
+[deps]
+
+source_file="res://Samples/Flamethrower.ogg"
+source_md5="7859a8807e0c5fa2f4019d423467da4c"
+
+dest_files=[ "res://.import/Flamethrower.ogg-d7bf049b5c732932c9f52da288ed775c.oggstr" ]
+dest_md5="f2c2f5596193e1daf41bea7e0ca066d9"
+
+[params]
+
+loop=false
+loop_offset=0
