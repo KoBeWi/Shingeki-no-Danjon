@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Mechanic_NoWeapon.png-f8f16f5f88287488d7cca7c560af8763.stex"
+path="res://.import/Symbol of block.png-78c5ce4214c8357d42296b6c5f042943.stex"
 
 [deps]
 
-source_file="res://Sprites/Enemies/Mechanic/Mechanic_NoWeapon.png"
-source_md5="0089214c8fa4656f590c93b3a84e754f"
+source_file="res://Sprites/Enemies/Mechanic/Symbol of block.png"
+source_md5="44b2418b54b71a9705815d88f8c15e87"
 
-dest_files=[ "res://.import/Mechanic_NoWeapon.png-f8f16f5f88287488d7cca7c560af8763.stex" ]
-dest_md5="82874535fc05802a56c3f92151b87893"
+dest_files=[ "res://.import/Symbol of block.png-78c5ce4214c8357d42296b6c5f042943.stex" ]
+dest_md5="5431dd6aadd1e5af5e244c18ee3ab2ae"
 
 [params]
 
