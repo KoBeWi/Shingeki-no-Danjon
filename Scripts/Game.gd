@@ -24,15 +24,18 @@ func _ready():
 #	seed(4044205418) ##DEBUG
 	
 	dungeon = Res.dungeons["Workshop"]
-	$Generator.generate(10, 10)
+	if has_node("Generator"): $Generator.generate(10, 10) ##warunek to debug
 	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
 
 func _process(delta):
 	if Input.is_action_just_pressed("Menu") and !leave_menu:
-		$Player/Camera/UI.enable()
-		get_tree().paused = true
+		open_menu()
 	elif Input.is_action_just_released("Menu"):
 		leave_menu = false
+
+func open_menu():
+	$Player/Camera/UI.enable()
+	get_tree().paused = true
 
 func change_floor(change):
 	name = "OldGame"
