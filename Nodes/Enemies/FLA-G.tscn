@@ -400,7 +400,7 @@ height = 20.0
 custom_solver_bias = 0.0
 extents = Vector2( 10.2959, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -415,7 +415,6 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
-editor/display_folded = true
 position = Vector2( -12, -73.3331 )
 _sections_unfolded = [ "Material" ]
 

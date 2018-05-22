@@ -323,7 +323,7 @@ _sections_unfolded = [ "Playback Options" ]
 [node name="Shape" type="CollisionShape2D" parent="." index="1"]
 
 visible = false
-position = Vector2( 2.70749, 68.8615 )
+position = Vector2( 0.70749, -6.13849 )
 scale = Vector2( 1, 1.83971 )
 shape = SubResource( 12 )
 
@@ -458,7 +458,6 @@ _sections_unfolded = [ "Anchor", "Focus", "Hint", "Margin", "Material", "Mouse",
 
 [node name="Shadow" type="Sprite" parent="." index="7"]
 
-visible = false
 position = Vector2( 0.384567, 2.46119 )
 scale = Vector2( 1.91853, 3.07858 )
 texture = ExtResource( 6 )

@@ -132,10 +132,7 @@ func _physics_process(delta):
 	
 		var player_monster_distance_x = abs(position.x - player.position.x) 
 		var player_monster_distance_y = abs(position.y - player.position.y) 
-
-
 		
-			
 			
 		if( abs(player.position.x - position.x) < 10 or abs(player.position.y - position.y) < 10 ):
 			if special_ready and can_use_special:
@@ -150,8 +147,6 @@ func _physics_process(delta):
 	elif !in_action:
 		play_animation_if_not_playing("Idle")
 
-			
-		
 
 func in_special_state(delta):
 	 play_animation_if_not_playing("Special" + direction)
@@ -284,7 +279,6 @@ func _on_damage():
 
 func _on_animation_finished(anim_name):
 	if "Special" in anim_name:
-	#	in_special_state = false
 		special_ready = false
 		in_action     = false
 	if "Punch" in anim_name:

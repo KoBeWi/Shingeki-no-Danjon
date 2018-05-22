@@ -51,7 +51,7 @@ func _physics_process(delta):
 func damage(amount):
 	if _dead: return
 	
-	var damage = max(1, int(amount * (1-armour)))
+	var damage = max(0, amount * (1-armour))
 	Res.create_instance("DamageNumber").damage(self, damage)
 	health -= damage
 	

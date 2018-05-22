@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Mechanic_NoWeapon.png-f8f16f5f88287488d7cca7c560af8763.stex"
+path="res://.import/Left_Side_Mechanic.png-6e02b0e37a3d9893850929f54ec8d459.stex"
 
 [deps]
 
-source_file="res://Sprites/Enemies/Mechanic/Mechanic_NoWeapon.png"
-source_md5="89f44017fa170cc0065ab0b789efe9b1"
+source_file="res://Sprites/Enemies/Mechanic/Left_Side_Mechanic.png"
+source_md5="4eb127b16b2f2f1e7f5172ff4f7f06fc"
 
-dest_files=[ "res://.import/Mechanic_NoWeapon.png-f8f16f5f88287488d7cca7c560af8763.stex" ]
-dest_md5="f108edb408c9bb1f59b6415c667d2250"
+dest_files=[ "res://.import/Left_Side_Mechanic.png-6e02b0e37a3d9893850929f54ec8d459.stex" ]
+dest_md5="b6bc6b5bac383dd6a7fcc77d5dcbc632"
 
 [params]
 

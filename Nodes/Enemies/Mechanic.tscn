@@ -1,16 +1,18 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Scripts/Mechanic.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/Mechanic/Mechanik.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Enemies/Mechanic/Mechanic_NoWeapon.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Enemies/Mechanic/Left_Side_Mechanic.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Enemies/Mechanic/Shield.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 73.2012, 50.56 )
 
 [sub_resource type="CircleShape2D" id=2]
 
@@ -20,18 +22,293 @@ radius = 10.0
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 10, 11.0597 )
 
 [sub_resource type="CircleShape2D" id=4]
 
 custom_solver_bias = 0.0
 radius = 10.0
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="GDScript" id=19]
+
+script/source = "extends KinematicBody2D
+
+var destroyed = false
+var hp        = 100
+var max_hp    = 100
+var armour    = 0.8
+
+var time = 0.0
+var freeze = false
+var bar_timeout = 0
+var _dead = false
+
+onready var health_bar = $HealthBar2
+
+func kill_shield():
+	hp = 0
+	_on_dead()
+
+func _ready():
+	$Sprite.flip_h = true
+	
+	health_bar.max_value = max_hp
+	health_bar.value = hp
+	
+	$\"/root/Game\".perma_state(self, \"queue_free\")
+	$\"AnimationPlayer\".play(\"Idle\")
+	
+	pass
+
+func damage(amount):
+	if _dead: return
+	
+	var damage = max(1, int(amount * (1-armour)))
+	Res.create_instance(\"DamageNumber\").damage(self, damage)
+	hp -= damage
+	
+	health_bar.visible = true
+	health_bar.value = hp
+	bar_timeout = 180
+	
+	if hp <= 0:
+		$\"/root/Game\".save_state(self)
+		_dead = true
+		health_bar.visible = false
+		
+		_on_dead()
+		
+	else:
+		_on_damage()
+	
+
+func _on_damage():
+	pass
+
+func _on_dead():
+	play_animation_if_not_playing(\"Dead\")
+	destroyed = true
+	$\"Shape\".disabled = true
+	$\"DamageCollider/Shape\".disabled = true
+	
+
+func _process(delta):
+	bar_timeout -= 1
+	if bar_timeout == 0: health_bar.visible = false
+	
+	
+	if destroyed:
+		#play_animation_if_not_playing(\"Dead\")
+		time+=delta
+		if time > 3:
+			queue_free()
+	
+	# Called every frame. Delta is time since last frame.
+	# Update game logic here.
+	pass
+
+func play_animation_if_not_playing(anim, fb = false):
+	if !freeze: 
+		if $AnimationPlayer.current_animation != anim:
+			$\"AnimationPlayer\".play(anim)
+		
+		if fb:
+			$\"AnimationPlayer\".play_backwards(anim)
+		
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if \"Dead\" in anim_name:
+		freeze = true
+	pass # replace with function body
+
+func _on_attack_hit(collider):
+	pass
+#	if collider.get_parent().is_in_group(\"players\"):
+#		collider.get_parent().damage(self, damage, knockback)"
+
+[sub_resource type="RectangleShape2D" id=14]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 43.7893 )
+
+[sub_resource type="Animation" id=17]
+
+resource_name = "Dead"
+length = 4.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="Animation" id=18]
+
+resource_name = "Idle"
+length = 2.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="GDScript" id=22]
+
+script/source = "extends KinematicBody2D
+
+var destroyed = false
+var hp        = 100
+var max_hp    = 100
+var armour    = 0.8
+
+var time = 0.0
+var freeze = false
+var bar_timeout = 0
+var _dead = false
+
+onready var health_bar = $HealthBar2
+
+func kill_shield():
+	hp = 0
+	_on_dead()
+
+func _ready():
+	#$Sprite.flip_h = true
+	
+	health_bar.max_value = max_hp
+	health_bar.value = hp
+	
+	$\"/root/Game\".perma_state(self, \"queue_free\")
+	$\"AnimationPlayer\".play(\"Idle\")
+	
+	pass
+
+func damage(amount):
+	if _dead: return
+	
+	var damage = max(1, int(amount * (1-armour)))
+	Res.create_instance(\"DamageNumber\").damage(self, damage)
+	hp -= damage
+	
+	health_bar.visible = true
+	health_bar.value = hp
+	bar_timeout = 180
+	
+	if hp <= 0:
+		$\"/root/Game\".save_state(self)
+		_dead = true
+		health_bar.visible = false
+		
+		_on_dead()
+		
+	else:
+		_on_damage()
+	
+
+func _on_damage():
+	pass
+
+func _on_dead():
+	play_animation_if_not_playing(\"Dead\")
+	destroyed = true
+	$\"Shape\".disabled = true
+	$\"DamageCollider/Shape\".disabled = true
+	
+
+func _process(delta):
+	bar_timeout -= 1
+	if bar_timeout == 0: health_bar.visible = false
+	
+	
+	if destroyed:
+		#play_animation_if_not_playing(\"Dead\")
+		time+=delta
+		if time > 3:
+			queue_free()
+	
+	# Called every frame. Delta is time since last frame.
+	# Update game logic here.
+	pass
+
+func play_animation_if_not_playing(anim, fb = false):
+	if !freeze: 
+		if $AnimationPlayer.current_animation != anim:
+			$\"AnimationPlayer\".play(anim)
+		
+		if fb:
+			$\"AnimationPlayer\".play_backwards(anim)
+		
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if \"Dead\" in anim_name:
+		freeze = true
+	pass # replace with function body
+
+func _on_attack_hit(collider):
+	pass
+#	if collider.get_parent().is_in_group(\"players\"):
+#		collider.get_parent().damage(self, damage, knockback)"
+
+[sub_resource type="Animation" id=20]
+
+resource_name = "Dead"
+length = 4.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="Animation" id=21]
+
+resource_name = "Idle"
+length = 2.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=5]
 
 resource_name = "Dead"
 length = 22.0
-loop = true
+loop = false
 step = 1.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/2:frame")
@@ -46,9 +323,8 @@ tracks/0/keys = {
 "values": [ 9, 10, 11, 12, 11, 12, 11, 12, 30, 18, 19, 20, 21, 27, 27, 28, 29 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
-resource_name = "Down"
 length = 6.0
 loop = true
 step = 1.0
@@ -65,9 +341,8 @@ tracks/0/keys = {
 "values": [ 3, 4, 5, 6, 7, 8 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
-resource_name = "Idle"
 length = 3.0
 loop = true
 step = 1.0
@@ -84,10 +359,85 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
+[sub_resource type="Animation" id=8]
+
+resource_name = "Left"
+length = 6.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 13, 14, 11, 12, 10 ]
+}
+
 [sub_resource type="Animation" id=9]
 
-resource_name = "ShieldBlock"
-length = 9.0
+resource_name = "ShieldBlockHOLD"
+length = 2.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 31, 32 ]
+}
+
+[sub_resource type="Animation" id=10]
+
+resource_name = "ShieldBlockOFF"
+length = 3.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 32, 31, 35 ]
+}
+
+[sub_resource type="Animation" id=11]
+
+resource_name = "ShieldBlockON"
+length = 3.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 35, 31, 32 ]
+}
+
+[sub_resource type="Animation" id=12]
+
+length = 2.0
 loop = true
 step = 1.0
 tracks/0/type = "value"
@@ -97,15 +447,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 5, 6, 7, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 35, 31, 32, 32, 32, 33, 34, 31, 35 ]
+"values": [ 33, 34, 33, 34, 31, 35 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=13]
 
-resource_name = "Tired"
 length = 26.0
 loop = true
 step = 1.0
@@ -140,38 +489,50 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
 visible = false
+use_parent_material = true
 position = Vector2( 0.35849, -10.0376 )
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 3
-_sections_unfolded = [ "Animation" ]
+_sections_unfolded = [ "Animation", "Material" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
 
+use_parent_material = true
 texture = ExtResource( 3 )
-vframes = 4
+vframes = 5
 hframes = 9
-frame = 31
-_sections_unfolded = [ "Animation" ]
+frame = 32
+_sections_unfolded = [ "Animation", "Material" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
 
 visible = false
+use_parent_material = true
+texture = ExtResource( 4 )
+vframes = 4
+hframes = 9
+frame = 12
+_sections_unfolded = [ "Animation", "Material" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="1"]
 
+position = Vector2( -3.27242, 16.156 )
+scale = Vector2( 0.943428, 1.35436 )
 shape = SubResource( 1 )
 
 [node name="HealthBar" type="TextureProgress" parent="." index="2"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -73.0
-margin_top = -114.0
-margin_right = 85.0
-margin_bottom = -76.0
+margin_left = -95.0
+margin_top = -109.0
+margin_right = -55.0
+margin_bottom = -101.0
+rect_scale = Vector2( 5, 1 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -185,9 +546,9 @@ page = 0.0
 value = 0.0
 exp_edit = false
 rounded = false
-texture_under = ExtResource( 4 )
+texture_under = ExtResource( 5 )
 texture_over = null
-texture_progress = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
 radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
@@ -195,6 +556,10 @@ _sections_unfolded = [ "Anchor", "Margin", "Rect", "Textures" ]
 
 [node name="Radar" type="Area2D" parent="." index="3"]
 
+editor/display_folded = true
+visible = false
+position = Vector2( 54.8449, -57.6189 )
+scale = Vector2( 2.7139, 2.80059 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -206,10 +571,15 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="Radar" index="0"]
 
+position = Vector2( -12.5549, 40.1877 )
+scale = Vector2( 22.1174, 19.0943 )
 shape = SubResource( 2 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="4"]
 
+visible = false
+position = Vector2( -2.69691, -42.6587 )
+scale = Vector2( 3.22409, 2.33309 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -219,15 +589,20 @@ collision_layer = 2
 collision_mask = 2
 audio_bus_override = false
 audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
+_sections_unfolded = [ "Collision", "Visibility", "Z Index" ]
 
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
+position = Vector2( -0.252633, 18.0393 )
+scale = Vector2( 1.18542, 3.59853 )
 shape = SubResource( 3 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
-position = Vector2( 2.39491, -5.37387 )
+editor/display_folded = true
+visible = false
+position = Vector2( 5.02616, -21.725 )
+scale = Vector2( 1.08223, 1.51097 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -239,32 +614,228 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
+position = Vector2( -8.85372, 15.1441 )
+scale = Vector2( 12.5081, 8.0687 )
 shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="." index="6"]
 
-position = Vector2( 0.583984, 31.2428 )
+visible = false
+position = Vector2( 3.22009, 74.8411 )
+scale = Vector2( 4.928, 3.00986 )
 z_index = -1
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 _sections_unfolded = [ "Z Index" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+[node name="RightShield" type="KinematicBody2D" parent="." index="7" groups=[
+"enemies",
+]]
+
+position = Vector2( 106.666, -12 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = SubResource( 19 )
+_sections_unfolded = [ "Material", "Transform", "Z Index" ]
+
+[node name="Shape" type="CollisionShape2D" parent="RightShield" index="0"]
+
+position = Vector2( -51.9742, 24.964 )
+scale = Vector2( 3.21101, 1.277 )
+shape = SubResource( 14 )
+
+[node name="HealthBar2" type="TextureProgress" parent="RightShield" index="1"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -90.0
+margin_top = -44.0
+margin_right = -50.0
+margin_bottom = -36.0
+rect_scale = Vector2( 2, 1 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+texture_under = ExtResource( 5 )
+texture_over = null
+texture_progress = ExtResource( 6 )
+radial_fill_degrees = 360.0
+radial_center_offset = Vector2( 0, 0 )
+nine_patch_stretch = false
+_sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin", "Material", "Mouse", "Rect", "Size Flags", "Textures", "Theme" ]
+
+[node name="DamageCollider" type="Area2D" parent="RightShield" index="2"]
+
+position = Vector2( -2.01085, 38.399 )
+scale = Vector2( 1.64965, 0.857156 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+collision_mask = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="Shape" type="CollisionShape2D" parent="RightShield/DamageCollider" index="0"]
+
+position = Vector2( -21.8834, 3.50968 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 14 )
+
+[node name="Sprite" type="Sprite" parent="RightShield" index="3"]
+
+use_parent_material = true
+position = Vector2( -51.3334, 14.6666 )
+texture = ExtResource( 8 )
+hframes = 5
+frame = 4
+_sections_unfolded = [ "Animation", "Material", "Region", "Transform", "Z Index" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RightShield" index="4"]
 
 root_node = NodePath("..")
-autoplay = "Dead"
+autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
-anims/Dead = SubResource( 8 )
-anims/Down = SubResource( 5 )
-anims/Idle = SubResource( 6 )
-anims/ShieldBlock = SubResource( 9 )
-anims/Tired = SubResource( 7 )
+anims/Dead = SubResource( 17 )
+anims/Idle = SubResource( 18 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="LeftShield" type="KinematicBody2D" parent="." index="8" groups=[
+"enemies",
+]]
+
+position = Vector2( -8.0008, -12 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = SubResource( 22 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Shape" type="CollisionShape2D" parent="LeftShield" index="0"]
+
+position = Vector2( -51.9742, 24.964 )
+scale = Vector2( 3.21101, 1.277 )
+shape = SubResource( 14 )
+
+[node name="HealthBar2" type="TextureProgress" parent="LeftShield" index="1"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -90.0
+margin_top = -44.0
+margin_right = -50.0
+margin_bottom = -36.0
+rect_scale = Vector2( 2, 1 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+texture_under = ExtResource( 5 )
+texture_over = null
+texture_progress = ExtResource( 6 )
+radial_fill_degrees = 360.0
+radial_center_offset = Vector2( 0, 0 )
+nine_patch_stretch = false
+_sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin", "Material", "Mouse", "Rect", "Size Flags", "Textures", "Theme" ]
+
+[node name="DamageCollider" type="Area2D" parent="LeftShield" index="2"]
+
+position = Vector2( -80.2203, 38.399 )
+scale = Vector2( 2.32832, 0.857156 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+collision_mask = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="Shape" type="CollisionShape2D" parent="LeftShield/DamageCollider" index="0"]
+
+position = Vector2( 6.26984, 5.61547 )
+scale = Vector2( 0.806447, 1 )
+shape = SubResource( 14 )
+
+[node name="Sprite" type="Sprite" parent="LeftShield" index="3"]
+
+position = Vector2( -51.3334, 14.6666 )
+texture = ExtResource( 8 )
+hframes = 5
+_sections_unfolded = [ "Animation", "Region", "Z Index" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LeftShield" index="4"]
+
+root_node = NodePath("..")
+autoplay = "Idle"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 8.0
+anims/Dead = SubResource( 20 )
+anims/Idle = SubResource( 21 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+
+root_node = NodePath("..")
+autoplay = "Left"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 8.0
+anims/Dead = SubResource( 5 )
+anims/Down = SubResource( 6 )
+anims/Idle = SubResource( 7 )
+anims/Left = SubResource( 8 )
+anims/ShieldBlockHOLD = SubResource( 9 )
+anims/ShieldBlockOFF = SubResource( 10 )
+anims/ShieldBlockON = SubResource( 11 )
+anims/ShieldBlockPayback = SubResource( 12 )
+anims/Tired = SubResource( 13 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [connection signal="body_entered" from="Radar" to="." method="_on_Radar_body_entered"]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
+
+[connection signal="animation_finished" from="RightShield/AnimationPlayer" to="RightShield" method="_on_AnimationPlayer_animation_finished"]
+
+[connection signal="animation_finished" from="LeftShield/AnimationPlayer" to="LeftShield" method="_on_AnimationPlayer_animation_finished"]
 
 

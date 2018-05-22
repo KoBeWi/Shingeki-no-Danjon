@@ -35,7 +35,7 @@ func _physics_process(delta):
 	motion_time += delta
 	if static_time >= MEDITATION_TIME: SkillBase.inc_stat("Meditation")
 	
-	var elements_on = (!is_ghost and $Elements.visible)
+	var elements_on = (!is_ghost and $Camera/UI/Elements.visible)
 	var not_move = (ghost_mode or elements_on)
 	
 	if !not_move:
@@ -72,12 +72,12 @@ func _physics_process(delta):
 	if randi()%10 == 0: PlayerStats.mana += 1
 	UI.soft_refresh()
 	
-	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
+#	if SkillBase.has_skill("FastWalk") and Input.is_key_pressed(KEY_SHIFT): move *= 3
 	
 	if !elements_on:
 		if SkillBase.check_combo(["Magic", "Magic_"]):
 			#print(SkillBase.current_combo)
-			$Elements.visible = true
+			$Camera/UI/Elements.visible = true
 			SkillBase.current_combo.clear()
 	else:
 		if Input.is_action_pressed("Up"): current_element = 3
@@ -85,9 +85,9 @@ func _physics_process(delta):
 		elif Input.is_action_pressed("Down"): current_element = 4
 		elif Input.is_action_pressed("Left"): current_element = 1
 		else: current_element = 0
-		$Elements/Select.position = $Elements.get_child(current_element).position
+		$Camera/UI/Elements/Select.position = $Camera/UI/Elements.get_child(current_element).position
 		
-		if Input.is_action_just_released("Magic"): $Elements.visible = false
+		if Input.is_action_just_released("Magic"): $Camera/UI/Elements.visible = false
 	
 	if !elements_on and Input.is_action_pressed("Magic"):
 		use_magic()
@@ -125,13 +125,13 @@ func damage(attacker, amount, knockback):
 	if shielding : 
 		var dps = amount*(1-PlayerStats.shield_block)-PlayerStats.shield_amout
 		
-		if dps < 0 : 
-			Res.create_instance("DamageNumber").damage(self, "BLOCKED" )
+		if int(dps) <= 0 : 
+			Res.create_instance("DamageNumber").damage(self, "BLOCKED","blocked" )
 		else:
 			Res.create_instance("DamageNumber").damage(self, dps )
 		
 	else:
-		Res.create_instance("DamageNumber").damage(self, amount)
+		Res.create_instance("DamageNumber").damage(self, amount )
 		SkillBase.inc_stat("DamageTaken", amount)
 		PlayerStats.health -= amount
 	UI.soft_refresh()

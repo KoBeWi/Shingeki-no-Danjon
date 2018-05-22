@@ -80,7 +80,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 33.7777, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0"]
+[node name="KinematicBody2D" type="KinematicBody2D"]
 
 z_index = 2
 input_pickable = false

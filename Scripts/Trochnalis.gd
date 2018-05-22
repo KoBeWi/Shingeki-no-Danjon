@@ -15,7 +15,7 @@ const SPEED                = 120
 const KNOCKBACK_ATACK      = 3 
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 10
+const PERSONAL_SPACE       = 40
 const TIME_OF_LIYUGN_CORPS = 3
 
 var player
@@ -25,6 +25,9 @@ var dead_time       = 0
 var can_use_special = true
 var dead            = false
 
+
+
+var last_animation = ""
 var follow_player   = false
 var in_action       = false
 var special_ready   = false
@@ -75,17 +78,20 @@ func _physics_process(delta):
 			if abs(move.x) != 0: 
 				sprites[0].flip_h = move.x > 0
 				play_animation_if_not_playing("Left")
+				last_animation = "Left"
 				direction = "Right" if move.x > 0 else "Left"
 		elif(x_distance < y_distance and axix_Y):
 			if move.y < 0: 
 				play_animation_if_not_playing("Down")
+				last_animation = "Down"				
 				direction = "Up"
 			elif move.y > 0: 
 				play_animation_if_not_playing("Up")
+				last_animation = "Up"			
 				direction = "Down"
 		else:
-			play_animation_if_not_playing("Down")
-			direction = "Down"
+			play_animation_if_not_playing(last_animation)
+			pass
 	
 		var player_monster_distance_x = abs(position.x - player.position.x) 
 		var player_monster_distance_y = abs(position.y - player.position.y) 

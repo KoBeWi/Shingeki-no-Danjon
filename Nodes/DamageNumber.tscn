@@ -18,12 +18,9 @@ const LBLUE  = Color(0,0.75,1)
 const ORANGE = Color(1,0.27,0)
 
 
-
-
 func damage(node, amount, type = \"physical\"):
 	node.get_parent().add_child(self)
 	position = node.position
-	$Label.text = str(amount)
 	
 	match(type):
 		\"physical\":
@@ -32,18 +29,24 @@ func damage(node, amount, type = \"physical\"):
 			$Label.add_color_override(\"font_color\", ORANGE)
 		\"heal\":
 			$Label.add_color_override(\"font_color\", GREEN)
+			amount = \"+\" + str(amount)
 		\"true\":
 			$Label.add_color_override(\"font_color\", WHITE)
 		\"dead\":
 			$Label.add_color_override(\"font_color\", PURPLE)
 		\"ice\":
 			$Label.add_color_override(\"font_color\", LBLUE)
+		\"blocked\":
+			$Label.add_color_override(\"font_color\", DBLUE)
+	
+	$Label.text = str(amount)
 		
 
 func _physics_process(delta):
 	position.y -= delta * 50
 	life_time -= delta
-	if life_time <= 0: queue_free()"
+	if life_time <= 0: queue_free()
+	"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="DynamicFont" id=2]

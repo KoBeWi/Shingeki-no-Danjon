@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Left/BodyIdle.png" type="Texture" id=2]
@@ -6,27 +6,47 @@
 [ext_resource path="res://Sprites/Player/Left/Weapons/Sword1.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Player/Left/ShieldOff.png" type="Texture" id=5]
 [ext_resource path="res://Nodes/UI/Main.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/UI/Interact0.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/UI/ElementIcons.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/UI/ElementSelect.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/UI/ElementIcons.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/UI/ElementSelect.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Player/Left/Weapons/Fire.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Player/Right/ShieldOn.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/UI/Interact0.png" type="Texture" id=11]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="Animation" id=1]
 
-custom_solver_bias = 0.0
-extents = Vector2( 12.7266, 3.18475 )
+resource_name = "Idle"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
 
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 30.7129, 58.1424 )
+extents = Vector2( 29.7111, 3.18475 )
 
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 30.7129, 58.1424 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 30.7129, 58.1424 )
+
+[sub_resource type="Animation" id=5]
 
 length = 4.0
 loop = false
@@ -41,7 +61,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 7 ) ]
+"values": [ ExtResource( 10 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Body/LeftArm:hframes")
@@ -68,9 +88,8 @@ tracks/2/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
-resource_name = "ShieldOff"
 length = 2.0
 loop = false
 step = 1.0
@@ -111,9 +130,8 @@ tracks/2/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
-resource_name = "ShieldOn"
 length = 3.0
 loop = false
 step = 1.0
@@ -154,7 +172,7 @@ tracks/2/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
 length = 11.0
 loop = false
@@ -220,7 +238,7 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
 length = 11.0
 loop = false
@@ -286,7 +304,7 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
 length = 11.0
 loop = false
@@ -322,10 +340,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 4, 5, 6, 7, 8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 4, 5, 6, 7, 8, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 23.2196, -19.3379 ), Vector2( -33.0854, -40.7127 ), Vector2( -69.6396, -9.47833 ), Vector2( -66.0436, 24.0241 ), Vector2( -45.4889, 65.3969 ) ]
+"values": [ Vector2( 23.2196, -19.3379 ), Vector2( -33.0854, -40.7127 ), Vector2( -69.6396, -9.47833 ), Vector2( -66.0436, 24.0241 ), Vector2( -45.4889, 65.3969 ), Vector2( -43.8712, 46.3084 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("AttackCollider/Shape:rotation_degrees")
@@ -334,10 +352,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 4, 5, 6, 7, 8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 4, 5, 6, 7, 8, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 162.234, 87.4609, 210.308, 196.932, 135.911 ]
+"values": [ 162.234, 87.4609, 210.308, 196.932, 135.911, 168.868 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("AttackCollider/Shape:disabled")
@@ -352,7 +370,7 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 
 length = 11.0
 loop = false
@@ -418,7 +436,7 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
 
 length = 2.0
 loop = true
@@ -436,7 +454,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 
 length = 9.0
 loop = true
@@ -454,25 +472,6 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
 }
 
-[sub_resource type="Animation" id=13]
-
-resource_name = "Idle"
-length = 1.0
-loop = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 360.0 ]
-}
-
 [node name="Player" type="KinematicBody2D" groups=[
 "players",
 ]]
@@ -487,7 +486,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Body" type="Sprite" parent="." index="0"]
 
-editor/display_folded = true
 position = Vector2( 0, -55 )
 texture = ExtResource( 2 )
 hframes = 2
@@ -495,7 +493,6 @@ _sections_unfolded = [ "Animation", "Transform", "Z Index" ]
 
 [node name="RightArm" type="Sprite" parent="Body" index="0"]
 
-editor/display_folded = true
 texture = ExtResource( 3 )
 hframes = 10
 _sections_unfolded = [ "Animation", "Visibility" ]
@@ -505,7 +502,6 @@ _sections_unfolded = [ "Animation", "Visibility" ]
 show_behind_parent = true
 texture = ExtResource( 4 )
 hframes = 10
-frame = 1
 _sections_unfolded = [ "Animation", "Visibility" ]
 
 [node name="LeftArm" type="Sprite" parent="Body" index="1"]
@@ -517,7 +513,6 @@ _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [node name="Camera" type="Camera2D" parent="." index="1"]
 
-editor/display_folded = true
 z_index = 10
 anchor_mode = 1
 rotating = false
@@ -547,10 +542,71 @@ __meta__ = {
 
 [node name="UI" parent="Camera" index="0" instance=ExtResource( 6 )]
 
+[node name="Elements" type="Node2D" parent="Camera/UI" index="8"]
+
+editor/display_folded = true
+visible = false
+position = Vector2( 0, -55.9997 )
+
+[node name="1" type="Sprite" parent="Camera/UI/Elements" index="0"]
+
+texture = ExtResource( 7 )
+hframes = 5
+_sections_unfolded = [ "Animation" ]
+
+[node name="2" type="Sprite" parent="Camera/UI/Elements" index="1"]
+
+position = Vector2( -128, 0 )
+texture = ExtResource( 7 )
+hframes = 5
+frame = 1
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="3" type="Sprite" parent="Camera/UI/Elements" index="2"]
+
+position = Vector2( 128, 0 )
+texture = ExtResource( 7 )
+hframes = 5
+frame = 2
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="4" type="Sprite" parent="Camera/UI/Elements" index="3"]
+
+position = Vector2( 0, -128 )
+texture = ExtResource( 7 )
+hframes = 5
+frame = 3
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="5" type="Sprite" parent="Camera/UI/Elements" index="4"]
+
+position = Vector2( 0, 128 )
+texture = ExtResource( 7 )
+hframes = 5
+frame = 4
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="Select" type="Sprite" parent="Camera/UI/Elements" index="5"]
+
+editor/display_folded = true
+rotation = 5.80278
+texture = ExtResource( 8 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/UI/Elements/Select" index="0"]
+
+root_node = NodePath("..")
+autoplay = "Idle"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/Idle = SubResource( 1 )
+blend_times = [  ]
+
 [node name="Collider" type="CollisionShape2D" parent="." index="2"]
 
 position = Vector2( 0, -2 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]
 __meta__ = {
 "_edit_lock_": true
@@ -558,7 +614,6 @@ __meta__ = {
 
 [node name="AttackCollider" type="Area2D" parent="." index="3"]
 
-editor/display_folded = true
 position = Vector2( 0, -55 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -573,12 +628,20 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
-position = Vector2( 42, 20.5983 )
-rotation = 2.82274
+position = Vector2( -43.8712, 46.3084 )
+rotation = 2.9473
 scale = Vector2( 0.922973, 0.136567 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 disabled = true
 _sections_unfolded = [ "Transform" ]
+
+[node name="Effect" type="Sprite" parent="AttackCollider/Shape" index="0"]
+
+visible = false
+show_behind_parent = true
+position = Vector2( 1.896, -5.80151 )
+texture = ExtResource( 9 )
+_sections_unfolded = [ "Animation", "Transform", "Visibility" ]
 
 [node name="DamageCollider" type="Area2D" parent="." index="4"]
 
@@ -597,7 +660,7 @@ _sections_unfolded = [ "Collision", "Transform" ]
 
 position = Vector2( -1.46303, 9.11594 )
 scale = Vector2( 1, 1.181 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="ArmAnimator" type="AnimationPlayer" parent="." index="5"]
 
@@ -606,13 +669,13 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/IdleRight = SubResource( 4 )
-anims/ShieldOff = SubResource( 5 )
-anims/ShieldOn = SubResource( 6 )
-anims/SwordAttackBack = SubResource( 7 )
-anims/SwordAttackFront = SubResource( 8 )
-anims/SwordAttackLeft = SubResource( 9 )
-anims/SwordAttackRight = SubResource( 10 )
+anims/IdleRight = SubResource( 5 )
+anims/ShieldOff = SubResource( 6 )
+anims/ShieldOn = SubResource( 7 )
+anims/SwordAttackBack = SubResource( 8 )
+anims/SwordAttackFront = SubResource( 9 )
+anims/SwordAttackLeft = SubResource( 10 )
+anims/SwordAttackRight = SubResource( 11 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -623,8 +686,8 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/Idle = SubResource( 11 )
-anims/Walk = SubResource( 12 )
+anims/Idle = SubResource( 12 )
+anims/Walk = SubResource( 13 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -632,69 +695,8 @@ _sections_unfolded = [ "Playback Options" ]
 
 visible = false
 position = Vector2( 0, -155 )
-texture = ExtResource( 8 )
+texture = ExtResource( 11 )
 _sections_unfolded = [ "Transform" ]
-
-[node name="Elements" type="Node2D" parent="." index="8"]
-
-editor/display_folded = true
-visible = false
-position = Vector2( 0, -55.9997 )
-
-[node name="1" type="Sprite" parent="Elements" index="0"]
-
-texture = ExtResource( 9 )
-hframes = 5
-_sections_unfolded = [ "Animation" ]
-
-[node name="2" type="Sprite" parent="Elements" index="1"]
-
-position = Vector2( -128, 0 )
-texture = ExtResource( 9 )
-hframes = 5
-frame = 1
-_sections_unfolded = [ "Animation", "Transform" ]
-
-[node name="3" type="Sprite" parent="Elements" index="2"]
-
-position = Vector2( 128, 0 )
-texture = ExtResource( 9 )
-hframes = 5
-frame = 2
-_sections_unfolded = [ "Animation", "Transform" ]
-
-[node name="4" type="Sprite" parent="Elements" index="3"]
-
-position = Vector2( 0, -128 )
-texture = ExtResource( 9 )
-hframes = 5
-frame = 3
-_sections_unfolded = [ "Animation", "Transform" ]
-
-[node name="5" type="Sprite" parent="Elements" index="4"]
-
-position = Vector2( 0, 128 )
-texture = ExtResource( 9 )
-hframes = 5
-frame = 4
-_sections_unfolded = [ "Animation", "Transform" ]
-
-[node name="Select" type="Sprite" parent="Elements" index="5"]
-
-editor/display_folded = true
-rotation = 5.80278
-texture = ExtResource( 10 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Elements/Select" index="0"]
-
-root_node = NodePath("..")
-autoplay = "Idle"
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
-anims/Idle = SubResource( 13 )
-blend_times = [  ]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
 

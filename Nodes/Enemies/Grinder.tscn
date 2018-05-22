@@ -210,7 +210,7 @@ extents = Vector2( 57.0542, 68.5652 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 14.3514 )
 
-[node name="Grinder" type="KinematicBody2D" index="0" groups=[
+[node name="Grinder" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
