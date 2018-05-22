@@ -128,7 +128,7 @@ func in_special_state(delta):
 	
 
 func turn_down_special():
-	
+	Res.play_sample(self, "FLABuffCancel")
 	.scale_stats_to(HP, ARM)
 	ATACK_SPEED += 50
 	BASIC_DAMAGE -= 30
@@ -194,6 +194,7 @@ func _on_animation_started(anim_name):
 				sprites[i].set_modulate(Color(1,1,1))
 
 func _on_dead():
+	Res.play_sample(self, "RobotCrash")
 	dead = true
 	in_special_state = false
 	$"AnimationPlayer".play("Dead")

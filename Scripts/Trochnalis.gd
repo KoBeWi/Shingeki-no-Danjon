@@ -132,6 +132,7 @@ func _on_animation_started(anim_name):
 			sprites[i].visible = (i+1 == main_sprite)
 
 func _on_dead():
+	Res.play_sample(self, "RobotCrash")
 	dead = true
 	$"AnimationPlayer".play("Dead2")
 	if suesided : $"AnimationPlayer".play("Dead")

@@ -10,6 +10,7 @@ var obj_properties = []
 var object_ids = {}
 
 func _ready():
+	Res.call_deferred("play_music", "LowerWorkshop")
 	VisualServer.set_default_clear_color(Color(0.05, 0.05, 0.07))
 	ProjectSettings.set_setting("rendering/environment/default_clear_color", "1a1918") ##usunąć, gdy naprawią powyższe :/
 	

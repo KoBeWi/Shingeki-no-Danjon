@@ -99,6 +99,12 @@ func play_sample(source, sample, pausable = true, follow_source = true):
 	player.init(source, sample, pausable, follow_source)
 	get_parent().get_node("Game").add_child(player)
 
+func play_music(music):
+	var player = AudioStreamPlayer.new()
+	player.stream = get_resource("res://Music/" + music + ".ogg")
+	player.play()
+	get_parent().get_node("Game").add_child(player)
+
 func create_instance(node):
 	return get_node(node).instance()
 

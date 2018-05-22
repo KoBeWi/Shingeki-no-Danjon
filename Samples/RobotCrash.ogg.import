@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/RobotCrash.ogg-178ac946a8f3ac0775233fe6e4dfdd4c.oggstr"
+
+[deps]
+
+source_file="res://Samples/RobotCrash.ogg"
+source_md5="6a2226fe13b589a7fb8f179cb7e50231"
+
+dest_files=[ "res://.import/RobotCrash.ogg-178ac946a8f3ac0775233fe6e4dfdd4c.oggstr" ]
+dest_md5="85b37a15db9ed4e7f007223f33bf0ae8"
+
+[params]
+
+loop=false
+loop_offset=0

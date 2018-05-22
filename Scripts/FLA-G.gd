@@ -159,6 +159,7 @@ func _physics_process(delta):
 
 
 func turn_down_special():
+	Res.play_sample(self, "FLABuffCancel")
 	.set_statistics(health, experience , ARM)
 	ATACK_SPEED -= 50
 	
@@ -220,6 +221,7 @@ func _on_animation_started(anim_name):
 			$Sprites.material = null
 
 func _on_dead():
+	Res.play_sample(self, "RobotCrash")
 	dead = true
 	$"AnimationPlayer".play("Dead")
 	#if suesided : $"AnimationPlayer".play("Dead")

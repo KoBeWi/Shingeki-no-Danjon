@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/FLABuffCancel.ogg-e34c7761c9274ec099f470ad975544aa.oggstr"
+
+[deps]
+
+source_file="res://Samples/FLABuffCancel.ogg"
+source_md5="1d87a2990ecac4b88a49fe6a6f6ceacf"
+
+dest_files=[ "res://.import/FLABuffCancel.ogg-e34c7761c9274ec099f470ad975544aa.oggstr" ]
+dest_md5="a03df68b47c2ff01048e307e5d0cc596"
+
+[params]
+
+loop=false
+loop_offset=0

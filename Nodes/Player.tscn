@@ -407,7 +407,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "players",
 ]]
 
@@ -580,6 +580,8 @@ _sections_unfolded = [ "Transform" ]
 editor/display_folded = true
 visible = false
 position = Vector2( 0, -55.9997 )
+z_index = 100
+_sections_unfolded = [ "Z Index" ]
 
 [node name="1" type="Sprite" parent="Elements" index="0"]
 

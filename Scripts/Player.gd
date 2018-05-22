@@ -74,7 +74,7 @@ func _physics_process(delta):
 	if randi()%10 == 0: PlayerStats.mana += 1
 	UI.soft_refresh()
 	
-	if SkillBase.has_skill("FastWalk") and SkillBase.check_combo(["Dir", "Dir"]): running = true ##zrobić, że w tym samym kierunku trzeba (teraz mi się nie chce lol)
+	if SkillBase.has_skill("FastWalk") and SkillBase.check_combo(["Dir", "Same"]): running = true
 	if running: move *= 3
 	
 	if !elements_on:
@@ -154,7 +154,7 @@ func _on_attack_hit(collider):
 		collider.get_parent().damage(PlayerStats.get_damage())
 
 func change_dir(dir):
-	if direction == dir: return
+	if direction == dir or Input.is_action_pressed("Attack"): return
 	running = false
 	direction = dir
 	sprite_direction = ["Back", "Right", "Front", "Left"][dir]
