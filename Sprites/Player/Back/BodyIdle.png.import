@@ -7,10 +7,10 @@ path="res://.import/BodyIdle.png-47475510f23bf2455fd9b0f1f0f7ce41.stex"
 [deps]
 
 source_file="res://Sprites/Player/Back/BodyIdle.png"
-source_md5="922c32ac3be441b6e71ddd85cfc77277"
+source_md5="4ebc6bb009b64b9c2a4aaf3f195903c5"
 
 dest_files=[ "res://.import/BodyIdle.png-47475510f23bf2455fd9b0f1f0f7ce41.stex" ]
-dest_md5="85a0e545e1f2a389a4be524743f406ca"
+dest_md5="d172eda4a965a8d41d8b967702d4da5c"
 
 [params]
 

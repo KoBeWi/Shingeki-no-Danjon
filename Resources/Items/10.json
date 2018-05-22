@@ -1,0 +1,8 @@
+{
+	"type": "shield",
+	"sprite": "Shield2",
+	"name": "Barrel Shield",
+	"description": "Shield made of barrel lid. How creative!",
+	"price": 10,
+	"durability": 10
+}

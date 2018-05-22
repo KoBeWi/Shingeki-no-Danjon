@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shield.png-ab19416fc6d3f6a8ad1467e41844de3b.stex"
+path="res://.import/11.png-11faccc78a2b6cb93ff1e3e01443098d.stex"
 
 [deps]
 
-source_file="res://Sprites/Player/Right/Shield.png"
-source_md5="9386e97f7233a9b60c63931571ea26fd"
+source_file="res://Sprites/Items/11.png"
+source_md5="d1fff6bbac05eb5e97cd32b7dad764ff"
 
-dest_files=[ "res://.import/Shield.png-ab19416fc6d3f6a8ad1467e41844de3b.stex" ]
-dest_md5="de8afe3bb562e0d1ee9e43aa8314d26c"
+dest_files=[ "res://.import/11.png-11faccc78a2b6cb93ff1e3e01443098d.stex" ]
+dest_md5="931d6209f64cacc6823aea56e90e224e"
 
 [params]
 

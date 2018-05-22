@@ -1,0 +1,8 @@
+{
+	"type": "shield",
+	"sprite": "Shield1",
+	"name": "Iron Shield",
+	"description": "A shield made of iron. Slightly worn out.",
+	"price": 50,
+	"durability": 30
+}

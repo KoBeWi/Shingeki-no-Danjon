@@ -125,8 +125,9 @@ func damage(attacker, amount, knockback):
 	if shielding : 
 		var dps = amount*(1-PlayerStats.shield_block)-PlayerStats.shield_amout
 		
-		if dps < 0 : 
-			Res.create_instance("DamageNumber").damage(self, "BLOCKED" )
+		if dps < 0:
+			PlayerStats.damage_equipment(2)
+			Res.create_instance("DamageNumber").damage(self, "BLOCKED")
 		else:
 			Res.create_instance("DamageNumber").damage(self, dps )
 		
@@ -153,8 +154,9 @@ func change_dir(dir):
 	sprite_direction = ["Back", "Right", "Front", "Left"][dir]
 	change_texture($Body, "Body" + animations["Body"])
 	change_texture($Body/RightArm, "SwordAttack", ["Left", "Back"])
-	update_weapon()
 	change_texture($Body/LeftArm, alt_animation(animations["LeftArm"]), ["Right", "Back"], {"Back": 1, "Front": 0})
+	update_weapon()
+	update_shield()
 
 func alt_animation(anim):
 	match anim:
@@ -173,14 +175,14 @@ func change_animation(part, animation):
 	match animation:
 		"Idle":
 			change_texture($Body, "BodyIdle")
-			$Body.hframes = 2
-			$BodyAnimator.playback_speed = 4
+			$Body.hframes = 10
+			$BodyAnimator.playback_speed = 10
 		"Walk":
 			change_texture($Body, "BodyWalk")
 			$Body.hframes = 9
 			$BodyAnimator.playback_speed = 16
 		"ShieldOn":
-			change_texture($Body/LeftArm, "Shield", ["Right", "Back"]) ##yyy nie trzeba?
+			change_texture($Body/LeftArm, "Shield", ["Back"]) ##yyy nie trzeba?
 			$Body/LeftArm.hframes = 2 ##to chyba też
 		"ShieldOff":
 			change_texture($Body/LeftArm, "Shield", ["Right", "Back"])
@@ -203,8 +205,17 @@ func weapon_sprite():
 	else:
 		return "Sword1" ##nie
 
+func shield_sprite():
+	if PlayerStats.equipment[2]:
+		return Res.items[PlayerStats.equipment[2].id].sprite
+	else:
+		return "Shield1" ##nope
+
 func update_weapon():
 	change_texture($Body/RightArm/Weapon, "Weapons/" + weapon_sprite(), ["Front", "Right", "Left", "Back"])
+
+func update_shield():
+	change_texture($Body/LeftArm/Shield, "Shields/" + shield_sprite(), ["Back"])
 
 func cancel_ghost():
 	Res.play_sample(self, "GhostExit")

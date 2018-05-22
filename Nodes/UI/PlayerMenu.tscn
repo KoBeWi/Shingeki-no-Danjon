@@ -130,10 +130,11 @@ func _process(delta):
 				var eq = get_eq_slot(Res.items[item.id])
 				if eq > -1 and Input.is_action_just_pressed(\"Interact\"):
 					if PlayerStats.equipment[eq]: PlayerStats.inventory.append(PlayerStats.equipment[eq])
-					else: PlayerStats.inventory.erase(item)
+					PlayerStats.inventory.erase(item)
 					PlayerStats.equipment[eq] = item
 					
 					if eq == 3: $\"/root/Game/Player\".update_weapon()
+					if eq == 2: $\"/root/Game/Player\".update_shield()
 					update_inventory()
 					update_equipment()
 					select_inventory()
@@ -227,6 +228,8 @@ func update_equipment():
 			item.texture = Res.get_item_texture(PlayerStats.equipment[i].id)
 		else:
 			item.visible = false
+			if i == 2: $\"/root/Game/Player\".update_shield()
+			if i == 3: $\"/root/Game/Player\".update_weapon()
 
 func in_out_tab(in_out):
 	in_tab = in_out
