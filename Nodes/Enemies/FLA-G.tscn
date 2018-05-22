@@ -435,7 +435,7 @@ position = Vector2( 13.2181, 22.6102 )
 texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
-frame = 3
+frame = 13
 _sections_unfolded = [ "Animation", "Material" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
@@ -539,6 +539,7 @@ audio_bus_name = "Master"
 position = Vector2( 9.61782, 12.2602 )
 scale = Vector2( 10.0623, 10.3125 )
 shape = SubResource( 19 )
+disabled = true
 
 [node name="HealthBar" type="TextureProgress" parent="." index="6"]
 

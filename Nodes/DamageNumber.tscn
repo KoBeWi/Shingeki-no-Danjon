@@ -18,7 +18,7 @@ const LBLUE  = Color(0,0.75,1)
 const ORANGE = Color(1,0.27,0)
 
 
-func damage(node, amount, type = \"physical\"):
+func damage(node, amount, is_player_hit = false, type = \"physical\" ):
 	node.get_parent().add_child(self)
 	position = node.position
 	
@@ -40,6 +40,11 @@ func damage(node, amount, type = \"physical\"):
 			$Label.add_color_override(\"font_color\", DBLUE)
 	
 	$Label.text = str(amount)
+	
+	if is_player_hit:
+		$Label.set_scale(Vector2(10,10))
+	else:
+		$Label.set_scale(Vector2(1,1))# = 1 
 		
 
 func _physics_process(delta):
@@ -57,7 +62,7 @@ use_filter = false
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="DamageNumber" type="Node2D"]
+[node name="DamageNumber" type="Node2D" index="0"]
 
 z_index = 5
 script = SubResource( 1 )
@@ -83,6 +88,6 @@ text = "100"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+_sections_unfolded = [ "Rect", "custom_colors", "custom_fonts" ]
 
 

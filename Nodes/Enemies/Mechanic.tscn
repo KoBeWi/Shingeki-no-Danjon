@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Scripts/Mechanic.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/Mechanic/Mechanik.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/Enemies/Mechanic/Shield.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Enemies/Mechanic/Symbol of block.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -364,7 +365,7 @@ tracks/0/keys = {
 resource_name = "Left"
 length = 6.0
 loop = true
-step = 1.0
+step = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/3:frame")
 tracks/0/interp = 1
@@ -438,7 +439,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=12]
 
 length = 2.0
-loop = true
+loop = false
 step = 1.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/2:frame")
@@ -452,11 +453,47 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 33, 34, 33, 34, 31, 35 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackCollider/Shape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RightShield:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("LeftShield:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=13]
 
 length = 26.0
-loop = true
+loop = false
 step = 1.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/2:frame")
@@ -471,7 +508,7 @@ tracks/0/keys = {
 "values": [ 9, 10, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 10, 9 ]
 }
 
-[node name="Mechanic" type="KinematicBody2D" index="0" groups=[
+[node name="Mechanic" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -485,6 +522,8 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
+
+editor/display_folded = true
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
@@ -502,7 +541,7 @@ use_parent_material = true
 texture = ExtResource( 3 )
 vframes = 5
 hframes = 9
-frame = 32
+frame = 34
 _sections_unfolded = [ "Animation", "Material" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
@@ -512,11 +551,12 @@ use_parent_material = true
 texture = ExtResource( 4 )
 vframes = 4
 hframes = 9
-frame = 12
+frame = 11
 _sections_unfolded = [ "Animation", "Material" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="1"]
 
+visible = false
 position = Vector2( -3.27242, 16.156 )
 scale = Vector2( 0.943428, 1.35436 )
 shape = SubResource( 1 )
@@ -599,7 +639,6 @@ shape = SubResource( 3 )
 
 [node name="AttackCollider" type="Area2D" parent="." index="5"]
 
-editor/display_folded = true
 visible = false
 position = Vector2( 5.02616, -21.725 )
 scale = Vector2( 1.08223, 1.51097 )
@@ -610,7 +649,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
+_sections_unfolded = [ "Collision", "Visibility" ]
 
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
@@ -620,7 +659,6 @@ shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="." index="6"]
 
-visible = false
 position = Vector2( 3.22009, 74.8411 )
 scale = Vector2( 4.928, 3.00986 )
 z_index = -1
@@ -631,13 +669,14 @@ _sections_unfolded = [ "Z Index" ]
 "enemies",
 ]]
 
-position = Vector2( 106.666, -12 )
+editor/display_folded = true
+position = Vector2( 108, -12 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = SubResource( 19 )
-_sections_unfolded = [ "Material", "Transform", "Z Index" ]
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 
 [node name="Shape" type="CollisionShape2D" parent="RightShield" index="0"]
 
@@ -705,7 +744,6 @@ use_parent_material = true
 position = Vector2( -51.3334, 14.6666 )
 texture = ExtResource( 8 )
 hframes = 5
-frame = 4
 _sections_unfolded = [ "Animation", "Material", "Region", "Transform", "Z Index" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="RightShield" index="4"]
@@ -724,13 +762,14 @@ _sections_unfolded = [ "Playback Options" ]
 "enemies",
 ]]
 
-position = Vector2( -8.0008, -12 )
+editor/display_folded = true
+position = Vector2( -8.00083, -11.3334 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = SubResource( 22 )
-_sections_unfolded = [ "Transform", "Z Index" ]
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Shape" type="CollisionShape2D" parent="LeftShield" index="0"]
 
@@ -814,7 +853,7 @@ _sections_unfolded = [ "Playback Options" ]
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 
 root_node = NodePath("..")
-autoplay = "Left"
+autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
@@ -830,6 +869,25 @@ anims/Tired = SubResource( 13 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
+[node name="EfectsAnimator" type="Node2D" parent="." index="10"]
+
+[node name="Payback" type="Sprite" parent="EfectsAnimator" index="0"]
+
+visible = false
+position = Vector2( -1.80503, -85.4367 )
+texture = ExtResource( 9 )
+hframes = 4
+_sections_unfolded = [ "Animation" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EfectsAnimator" index="1"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+blend_times = [  ]
+
 [connection signal="body_entered" from="Radar" to="." method="_on_Radar_body_entered"]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
@@ -837,5 +895,7 @@ _sections_unfolded = [ "Playback Options" ]
 [connection signal="animation_finished" from="RightShield/AnimationPlayer" to="RightShield" method="_on_AnimationPlayer_animation_finished"]
 
 [connection signal="animation_finished" from="LeftShield/AnimationPlayer" to="LeftShield" method="_on_AnimationPlayer_animation_finished"]
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 
 

@@ -126,9 +126,9 @@ func damage(attacker, amount, knockback):
 		var dps = amount*(1-PlayerStats.shield_block)-PlayerStats.shield_amout
 		
 		if int(dps) <= 0 : 
-			Res.create_instance("DamageNumber").damage(self, "BLOCKED","blocked" )
+			Res.create_instance("DamageNumber").damage(self, "BLOCKED", true ,"blocked" )
 		else:
-			Res.create_instance("DamageNumber").damage(self, dps )
+			Res.create_instance("DamageNumber").damage(self, dps, true )
 		
 	else:
 		Res.create_instance("DamageNumber").damage(self, amount )
