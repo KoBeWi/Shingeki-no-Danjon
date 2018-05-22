@@ -5,6 +5,7 @@
 	"name": "Infusion Blade",
 	"description": "Blade enhanced with magic crystal. Increases your magic power.",
 	"price": 30,
+	"durability": 35,
 	"attack": 20,
 	"scaling": {"strength": 1, "intelligence": 0.2}
 }

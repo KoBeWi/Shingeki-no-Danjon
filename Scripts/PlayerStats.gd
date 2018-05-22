@@ -22,26 +22,29 @@ var vitality = 1
 
 var money = 0
 var inventory = []
-var equipment = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-var skill_slots = ["Fireball", null, null]
+var equipment = []
+#var skill_slots = ["Fireball", null, null]
 
 signal level_up
 signal got_item
+signal equipment_changed
 
 func _ready():
+	equipment.resize(10)
 	##DEBUG \/
 	for item in Res.items:
-		inventory.append({id = item.id, stack = 1})
-	for i in range(20): inventory.append({id = 0, stack = 1})
+		add_item(item.id)
+#	for i in range(20): inventory.append({id = 0, stack = 1})
 	SkillBase.acquired_skills.append("FastWalk")
 	SkillBase.acquired_skills.append("Fireball")
 
 func get_damage():
 	var damage = strength
-	var eq = equipment[3]##bez stałej
+	var eq = equipment[3] ##bez stałej (?)
 	
-	if eq > -1:
-		eq = Res.items[eq]
+	if eq:
+		PlayerStats.damage_equipment(3)
+		eq = Res.items[eq.id]
 		
 		damage = eq.attack
 		for stat in eq.scaling.keys():
@@ -51,6 +54,15 @@ func get_damage():
 
 func get_equipment(slot_name): ##niekoniecznie potrzebne
 	return equipment[EQUIPMENT_SLOTS.find(slot_name)]
+
+func damage_equipment(i, damage = 1):
+	if equipment[i]:
+		PlayerStats.equipment[i].durability -= damage
+		
+		if PlayerStats.equipment[i].durability <= 0:
+			Res.play_sample($"/root/Game/Player", "ItemBreak")
+			PlayerStats.equipment[i] = null
+			emit_signal("equipment_changed")
 
 func count_item(id):
 	var amount = 0
@@ -112,7 +124,12 @@ func add_item(id, amount = 1, notify = true): ##dorobić obsługę amount
 	if slot > -1:
 		inventory[slot].stack += 1
 	elif inventory.size() < PlayerStats.INVENTORY_SIZE:
-		inventory.append({"id": id, "stack": 1})
+		var _item = {"id": id, "stack": 1}
+		if item.has("durability"):
+			_item.durability = item.durability
+			_item.max_durability = item.durability
+		
+		inventory.append(_item)
 	else:
 		return false
 	

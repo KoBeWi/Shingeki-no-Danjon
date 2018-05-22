@@ -6,6 +6,7 @@
 	"description": "Sword enchanced with fire-generating robot parts. Absolutely insane!",
 	"price": 80,
 	"attack": 15,
+	"durability": 25,
 	"scaling": {"strength": 1},
 	"elements": {"fire": 1}
 }

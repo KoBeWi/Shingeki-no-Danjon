@@ -5,6 +5,7 @@
 	"name": "Steel Sword",
 	"description": "A well-polished sword made of steel.",
 	"price": 20,
+	"durability": 40,
 	"attack": 10,
 	"scaling": {"strength": 1}
 }

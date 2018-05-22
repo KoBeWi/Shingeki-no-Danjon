@@ -5,6 +5,7 @@
 	"name": "Violent Razor",
 	"description": "Cuts steel like it was butter.",
 	"price": 100,
+	"durability": 60,
 	"attack": 40,
 	"scaling": {"strength": 0.7, "dexterity": 0.3}
 }

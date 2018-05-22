@@ -5,6 +5,7 @@
 	"name": "Iron Sword",
 	"description": "One-handed sword made of iron.",
 	"price": 10,
+	"durability": 5,
 	"attack": 5,
 	"scaling": {"strength": 1}
 }

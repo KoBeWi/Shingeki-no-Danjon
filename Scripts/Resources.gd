@@ -11,13 +11,11 @@ var crafting = []
 
 func _ready():
 	for segment in get_resource_list("Segments"):
-		assert(segment.data != null)
 		segments[segment.name] = segment.data
 		segments[segment.name].name = segment.name
 		segment_nodes[segment.name] = load("res://Nodes/Segments/" + segment.name + ".tscn")
 	
 	for tileset in get_resource_list("Tilesets"):
-		assert(tileset.data != null)
 		tilesets[tileset.name] = tileset.data
 		
 		var tile_to_floor = {}
@@ -49,21 +47,17 @@ func _ready():
 	var resources = get_resource_list("Items")
 	items.resize(resources.size())
 	for item in resources:
-		assert(item.data != null)
 		var item_id = int(item.name)
 		items[item_id] = item.data
 		items[item_id].id = item_id
 	
 	for skill in get_resource_list("Skills"):
-		assert(skill.data != null)
 		skills[skill.name] = skill.data
 	
 	for dungeon in get_resource_list("Dungeons"):
-		assert(dungeon.data != null)
 		dungeons[dungeon.name] = dungeon.data
 	
 	crafting = read_json("res://Resources/CraftingList.json")
-	assert(crafting != null)
 
 func get_resource_list(resource):
 	var resources = []
@@ -89,7 +83,11 @@ func read_json(f):
 	file.open(f, file.READ)
 	var text = file.get_as_text()
 	file.close()
-	return parse_json(text)
+	
+	var json = parse_json(text)
+	assert(json != null)
+	
+	return json
 
 func get_resource(path):
 	if !resources.has(path): resources[path] = load(path)

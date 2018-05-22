@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Samples/Buzzer.ogg" type="AudioStream" id=1]
 
 [sub_resource type="GDScript" id=1]
 
@@ -25,7 +27,7 @@ _sections_unfolded = [ "Resource" ]
 
 [node name="SampleInstance" type="AudioStreamPlayer2D" index="0"]
 
-stream = null
+stream = ExtResource( 1 )
 volume_db = 0.0
 autoplay = true
 max_distance = 2000.0

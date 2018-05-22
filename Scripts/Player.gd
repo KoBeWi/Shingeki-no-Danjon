@@ -198,10 +198,10 @@ func reset_arms():
 	$AttackCollider/Shape.disabled = true
 
 func weapon_sprite():
-	if PlayerStats.equipment[3] > -1:
-		return Res.items[PlayerStats.equipment[3]].sprite
+	if PlayerStats.equipment[3]:
+		return Res.items[PlayerStats.equipment[3].id].sprite
 	else:
-		return "Sword1"
+		return "Sword1" ##nie
 
 func update_weapon():
 	change_texture($Body/RightArm/Weapon, "Weapons/" + weapon_sprite(), ["Front", "Right", "Left", "Back"])

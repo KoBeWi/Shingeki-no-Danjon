@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Sprites/UI/Menu/Tabs.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/UI/Menu/TabHighlight.png" type="Texture" id=2]
@@ -47,6 +47,7 @@ var crafting_scroll = 0
 
 func _ready():
 	PlayerStats.connect(\"got_item\", self, \"update_inventory\")
+	PlayerStats.connect(\"equipment_changed\", self, \"update_equipment\")
 	
 	var sheep = $Tabs/Crafting/Items/Item1
 	for i in range(CRAFTING_SIZE-1):
@@ -128,13 +129,9 @@ func _process(delta):
 				var item = PlayerStats.inventory[inventory_select]
 				var eq = get_eq_slot(Res.items[item.id])
 				if eq > -1 and Input.is_action_just_pressed(\"Interact\"):
-					if PlayerStats.equipment[eq] > -1:
-						var id = item.id
-						item.id = PlayerStats.equipment[eq]
-						PlayerStats.equipment[eq] = id
-					else:
-						PlayerStats.inventory.erase(item)
-						PlayerStats.equipment[eq] = item.id
+					if PlayerStats.equipment[eq]: PlayerStats.inventory.append(PlayerStats.equipment[eq])
+					else: PlayerStats.inventory.erase(item)
+					PlayerStats.equipment[eq] = item
 					
 					if eq == 3: $\"/root/Game/Player\".update_weapon()
 					update_inventory()
@@ -153,11 +150,12 @@ func _process(delta):
 				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = min(inventory_select+2, -1)
 				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = max(inventory_select-2, -PlayerStats.EQUIPMENT_SLOTS.size())
 				
-				if Input.is_action_just_pressed(\"Interact\") and PlayerStats.equipment[-inventory_select-1] > -1:
-					PlayerStats.add_item(PlayerStats.equipment[-inventory_select-1], 1, false)
-					PlayerStats.equipment[-inventory_select-1] = -1
+				if Input.is_action_just_pressed(\"Interact\") and PlayerStats.equipment[-inventory_select-1]:
+					PlayerStats.inventory.append(PlayerStats.equipment[-inventory_select-1])
+					PlayerStats.equipment[-inventory_select-1] = null
 					update_inventory()
 					update_equipment()
+					select_inventory()
 			
 			if inventory_select != prev_sel: select_inventory()
 			
@@ -224,9 +222,9 @@ func update_equipment():
 	for i in range(PlayerStats.EQUIPMENT_SLOTS.size()):
 		var item = $Tabs/Equipment/Character/EquipmentSlots.get_child(i)
 		
-		if PlayerStats.equipment[i] > -1:
+		if PlayerStats.equipment[i]:
 			item.visible = true
-			item.texture = Res.get_item_texture(PlayerStats.equipment[i])
+			item.texture = Res.get_item_texture(PlayerStats.equipment[i].id)
 		else:
 			item.visible = false
 
@@ -274,14 +272,17 @@ func select_inventory():
 	var scrolled_select = (inventory_select - inventory_scroll)
 	
 	var item
+	var itemstance
 	if inventory_select > -1:
-		item = Res.items[PlayerStats.inventory[inventory_select].id]
+		itemstance = PlayerStats.inventory[inventory_select]
+		item = Res.items[itemstance.id]
 		$Tabs/Equipment/Inventory/Inner/Highlight.rect_position = $Tabs/Equipment/Inventory/Inner/Slots.rect_position + $Tabs/Equipment/Inventory/Inner/Slots/Slot1.rect_position + Vector2(scrolled_select % 2 * 378, scrolled_select / 2 * 100)
 		$Tabs/Equipment/Inventory/Inner/Highlight.visible = true
 		$Tabs/Equipment/Character/Highlight.visible = false
 	else:
-		if PlayerStats.equipment[-inventory_select - 1] > -1:
-			item = Res.items[PlayerStats.equipment[-inventory_select - 1]]
+		if PlayerStats.equipment[-inventory_select - 1]:
+			itemstance = PlayerStats.equipment[-inventory_select - 1]
+			item = Res.items[itemstance.id]
 		else:
 			item = {description = \"Equipment slot (\" + PlayerStats.EQUIPMENT_SLOTS[-inventory_select - 1] + \") empty\"}
 		
@@ -290,6 +291,11 @@ func select_inventory():
 		$Tabs/Equipment/Character/Highlight.visible = true
 	
 	$Tabs/Equipment/Description.visible = true
+	if item.has(\"durability\"):
+		$Tabs/Equipment/Description/Durability.visible = true
+		$Tabs/Equipment/Description/Durability.max_value = itemstance.max_durability
+		$Tabs/Equipment/Description/Durability.value = itemstance.durability
+	else: $Tabs/Equipment/Description/Durability.visible = false
 	$Tabs/Equipment/Description/Text.text = item.description
 	if item.has(\"id\"):
 		$Tabs/Equipment/Description/Icon.texture = Res.get_item_texture(item.id)
@@ -340,8 +346,8 @@ func update_stats(item, compare):
 			
 			stat_label.text = stat.capitalize() + \": \" + str(value)
 			
-			if compare and eq_slot > -1:
-				var cmp = stats[stat] - Res.items[eq_slot][stat]
+			if compare and eq_slot:
+				var cmp = stats[stat] - Res.items[eq_slot.id][stat]
 				
 				if cmp != 0:
 					if cmp > 0:
@@ -357,6 +363,22 @@ func update_stats(item, compare):
 			
 			stat_label.visible = true"
 _sections_unfolded = [ "Resource" ]
+
+[sub_resource type="GradientTexture" id=2]
+
+flags = 4
+width = 80
+
+[sub_resource type="Gradient" id=3]
+
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 1, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+
+flags = 4
+gradient = SubResource( 3 )
+width = 80
 
 [node name="PlayerMenu" type="Control"]
 
@@ -721,6 +743,7 @@ stretch_mode = 0
 
 [node name="Inventory" type="TextureRect" parent="Tabs/Equipment" index="1"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -948,8 +971,6 @@ _sections_unfolded = [ "Rect", "custom_colors", "custom_fonts" ]
 
 [node name="Description" type="TextureRect" parent="Tabs/Equipment" index="3"]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1011,6 +1032,38 @@ size_flags_vertical = 1
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
+
+[node name="Durability" type="TextureProgress" parent="Tabs/Equipment/Description" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 23.0
+margin_top = 93.0
+margin_right = 103.0
+margin_bottom = 94.0
+rect_scale = Vector2( 1, 2 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 0
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+texture_under = SubResource( 2 )
+texture_over = null
+texture_progress = SubResource( 4 )
+radial_fill_degrees = 360.0
+radial_center_offset = Vector2( 0, 0 )
+nine_patch_stretch = false
+_sections_unfolded = [ "Rect", "Textures" ]
 
 [node name="Crafting" type="Control" parent="Tabs" index="2"]
 
