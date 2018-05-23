@@ -1,0 +1,8 @@
+{
+	"type": "ring",
+	"name": "Golden Ring",
+	"description": "A golden ring with embedded weak magic stone.",
+	"price": 50,
+	"durability": 20,
+	"intelligence": 5
+}

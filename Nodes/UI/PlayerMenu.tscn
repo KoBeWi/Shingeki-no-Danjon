@@ -39,7 +39,7 @@ const MAX_STATS = 6
 const INVENTORY_SLOTS = 8
 const CRAFTING_SIZE = 12
 const MAX_INGREDIENTS = 5
-const STAT_LIST = [\"attack\"]
+const STAT_LIST = [\"attack\", \"defense\"]
 const TABS = [\"Character\", \"Equipment\", \"Skills\", \"Crafting\", \"Map\", \"Notes\"]
 const SKILLPOINTS = [\"Strength\", \"Dexterity\", \"Intelligence\", \"Vitality\"]
 
@@ -180,7 +180,7 @@ func _process(delta):
 				var eq = get_eq_slot(Res.items[item.id])
 				if eq > -1 and Input.is_action_just_pressed(\"Interact\"):
 					if PlayerStats.equipment[eq]: PlayerStats.inventory.append(PlayerStats.equipment[eq])
-					else: PlayerStats.inventory.erase(item)
+					PlayerStats.inventory.erase(item)
 					PlayerStats.equipment[eq] = item
 					
 					if eq == 3: $\"/root/Game/Player\".update_weapon()
@@ -812,7 +812,6 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Equipment" type="Control" parent="Tabs" index="1"]
 
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -830,7 +829,6 @@ size_flags_vertical = 1
 [node name="Character" type="TextureRect" parent="Tabs/Equipment" index="0"]
 
 editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

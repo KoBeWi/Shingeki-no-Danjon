@@ -1,0 +1,8 @@
+{
+	"type": "boots",
+	"name": "Sturdy Shoes",
+	"description": "Perfect for walking long distances.",
+	"price": 50,
+	"durability": 50,
+	"defense": 1
+}

@@ -209,7 +209,7 @@ func weapon_sprite():
 	if PlayerStats.equipment[3]:
 		return Res.items[PlayerStats.equipment[3].id].sprite
 	else:
-		return "Sword1" ##nie
+		return "Stick" ##nie >:(
 
 func shield_sprite():
 	if PlayerStats.equipment[2]:

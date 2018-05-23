@@ -1,0 +1,8 @@
+{
+	"type": "armor",
+	"name": "Scout Uniform",
+	"description": "A protective wear usually worn for scouting missions.",
+	"price": 50,
+	"durability": 30,
+	"defense": 10
+}

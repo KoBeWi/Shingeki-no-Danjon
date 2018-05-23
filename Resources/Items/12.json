@@ -1,0 +1,8 @@
+{
+	"type": "helmet",
+	"name": "Iron Helmet",
+	"description": "A protective helmet made of iron.",
+	"price": 50,
+	"durability": 30,
+	"defense": 4
+}
