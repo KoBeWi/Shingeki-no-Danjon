@@ -15,7 +15,10 @@ const PAYBACK_KNOCKBACK = 30
 
 var in_action          = false
 var BLOCK_PAYBACK      = false
+var SUMMON             = true
+
 var block_payback_prob = 100
+var summon_prob        = 500
 
 var max_hp = 300
 
@@ -28,6 +31,9 @@ var MAT = load("res://Resources/Materials/ColorShader.tres")
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
+
+#var summoned_monsters = 0
+
 
 func _ready():
 	._ready()
@@ -50,6 +56,8 @@ func _ready():
 func check_probs():
 	if !BLOCK_PAYBACK:
 		if randi()%block_payback_prob == 0: BLOCK_PAYBACK = true
+	if !SUMMON :
+		if randi()%summon_prob        == 0: SUMMON        = true
 
 
 func _process(delta):
@@ -81,6 +89,17 @@ func _process(delta):
 	
 	if !in_action:
 		check_probs()
+		
+		if SUMMON :
+			in_action = true
+			status  = "Summoning"
+			play_animation_if_not_playing("Idle")
+			in_special_state = true
+			SUMMON = false
+			
+			$EfectsAnimator/EfectPlayer.play("Summon")
+			return 
+		
 		if BLOCK_PAYBACK :
 			in_action = true
 			status = "Payback"
@@ -91,6 +110,9 @@ func _process(delta):
 			turn_shields(false)
 			$EfectsAnimator/Payback.visible = true
 			$EfectsAnimator/Payback.frame = 0
+			return 
+			
+
 	elif in_special_state :
 		check_status(delta)
 		pass
@@ -107,6 +129,35 @@ func _process(delta):
 # Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 	pass
+	
+	
+func summoned():
+	in_action        = false
+	points_of_tiredness += 50
+	status = ""
+	in_special_state = false
+	
+	var how_many = randi()%4 + 1
+	
+	var directionList = [ Vector2(100,100), Vector2(100, -100), Vector2(-90, 90 ), Vector2(-90, -90 ) ] 	
+	
+	for i in range(how_many):
+		var ug_inst = Res.get_node("Projectiles/Summon_Mob").instance()
+		var a = 0
+		var b = 0
+		if randi()%2 == 0:
+			a = 1
+		else:
+			a = -1
+		if randi()%2 == 0:
+			b = 1
+		else:
+			b = -1
+
+
+		ug_inst.position = position + Vector2( a * (randi()%50+100), b * (randi()%50+100))
+		get_parent().add_child(ug_inst)
+	
 	
 func check_status(delta):
 	if "ayba" in status :
@@ -137,7 +188,7 @@ func play_animation_if_not_playing(anim, fb = false):
 		$"AnimationPlayer".play_backwards(anim)
 
 func _on_animation_finished(anim_name):
-	print(anim_name)
+	#print(anim_name)
 	if "ShieldBlockOFF" in anim_name :
 		
 		time_of_using_skill   = 0.0
@@ -168,7 +219,6 @@ func _on_animation_finished(anim_name):
 		
 		damage = PAYBACK_DMG
 		knockback = PAYBACK_KNOCKBACK
-		
 		
 		if RShieldON:
 			$RightShield.visible = true
