@@ -7,10 +7,10 @@ path="res://.import/character_tlo.png-4aaf284ab9ade6ac0461062407944023.stex"
 [deps]
 
 source_file="res://Sprites/UI/Menu/character_tlo.png"
-source_md5="2d02fd3836da3d0820b502bdde51e325"
+source_md5="4e3210b8130ca7d861f6c2d05f72d912"
 
 dest_files=[ "res://.import/character_tlo.png-4aaf284ab9ade6ac0461062407944023.stex" ]
-dest_md5="b265fb4cbb5d91f4bf9d27336ed2f3e9"
+dest_md5="d5d003d113a7819654fc244e675ad091"
 
 [params]
 

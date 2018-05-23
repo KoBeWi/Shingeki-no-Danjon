@@ -10,7 +10,7 @@
 [ext_resource path="res://Nodes/Objects/SoulCrystal.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Nodes/Objects/WorkshopCrafting.tscn" type="PackedScene" id=9]
 
-[node name="Game" type="YSort" index="0"]
+[node name="Game" type="YSort"]
 
 sort_enabled = true
 script = ExtResource( 1 )

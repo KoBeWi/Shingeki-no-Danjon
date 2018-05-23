@@ -1,34 +1,27 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=26 format=2]
 
-[ext_resource path="res://Sprites/UI/Menu/PlayerMenu.png" type="Texture" id=1]
-[ext_resource path="res://Sprites/UI/Menu/TabInactive.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/UI/Menu/IconCharacterInactive.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/UI/Menu/CharacterAvatar.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/UI/Menu/CharacterExp.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/UI/Menu/CharacterExpFill.png" type="Texture" id=6]
-[ext_resource path="res://Resources/Font12.tres" type="DynamicFont" id=7]
-[ext_resource path="res://Sprites/UI/Menu/CharacterLevel.png" type="Texture" id=8]
-[ext_resource path="res://Resources/Font24.tres" type="DynamicFont" id=9]
-[ext_resource path="res://Sprites/UI/Menu/CharacterSkillpointBar.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/UI/Menu/CharacterSkillpointInactive.png" type="Texture" id=11]
-[ext_resource path="res://Resources/Font36.tres" type="DynamicFont" id=12]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentCharacter.png" type="Texture" id=13]
-[ext_resource path="res://Sprites/Items/0.png" type="Texture" id=14]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentHighlight.png" type="Texture" id=15]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentInventory.png" type="Texture" id=16]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentInnerInventory.png" type="Texture" id=17]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentInventorySlot.png" type="Texture" id=18]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentInventoryHighlight.png" type="Texture" id=19]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentScrollbar.png" type="Texture" id=20]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentStats.png" type="Texture" id=21]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentDescription.png" type="Texture" id=22]
-[ext_resource path="res://Sprites/UI/Menu/skills_tlo.png" type="Texture" id=23]
-[ext_resource path="res://Sprites/UI/Menu/CraftingBackground.png" type="Texture" id=24]
-[ext_resource path="res://Sprites/UI/Menu/CraftingItem.png" type="Texture" id=25]
-[ext_resource path="res://Sprites/UI/Menu/CraftingIngredients.png" type="Texture" id=26]
-[ext_resource path="res://Sprites/UI/Menu/CraftingIngredientIcon.png" type="Texture" id=27]
-[ext_resource path="res://Sprites/UI/Menu/CraftingInfo.png" type="Texture" id=28]
-[ext_resource path="res://Sprites/UI/Menu/CraftingHighlight.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/UI/Menu/Tabs.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/UI/Menu/TabHighlight.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/Menu/character_tlo.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/UI/Menu/EquipmentCharacter.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Items/0.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/Menu/EquipmentHighlight.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/Menu/EquipmentInventory.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/UI/Menu/EquipmentInnerInventory.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/Menu/EquipmentInventorySlot.png" type="Texture" id=9]
+[ext_resource path="res://Resources/Font24.tres" type="DynamicFont" id=10]
+[ext_resource path="res://Sprites/UI/Menu/EquipmentInventoryHighlight.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/UI/Menu/EquipmentScrollbar.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/UI/Menu/EquipmentStats.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/UI/Menu/EquipmentDescription.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/UI/Menu/CraftingBackground.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/UI/Menu/CraftingItem.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/UI/Menu/CraftingIngredients.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/UI/Menu/CraftingIngredientIcon.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/UI/Menu/CraftingInfo.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/UI/Menu/CraftingHighlight.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/UI/Menu/skills_tlo.png" type="Texture" id=21]
+
 
 [sub_resource type="GDScript" id=1]
 
@@ -40,13 +33,12 @@ const INVENTORY_SLOTS = 8
 const CRAFTING_SIZE = 12
 const MAX_INGREDIENTS = 5
 const STAT_LIST = [\"attack\"]
-const TABS = [\"Character\", \"Equipment\", \"Skills\", \"Crafting\", \"Map\", \"Notes\"]
-const SKILLPOINTS = [\"Strength\", \"Dexterity\", \"Intelligence\", \"Vitality\"]
+
+onready var TABS = $Tabs.get_child_count()
 
 var in_tab = false setget in_out_tab
 var current_tab = 0 setget update_tabs
 
-var skillpoint_select = 0
 var inventory_scroll = 0
 var inventory_select = 0
 
@@ -67,22 +59,6 @@ func _ready():
 		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
 		clone.rect_position = sheep.rect_position + Vector2(col * 387, row * 93)
 		$Tabs/Crafting/Items.add_child(clone)
-	
-	sheep = $TabsBar/Tab1
-	for i in range(TABS.size()-1):
-		i+=1
-		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
-		clone.rect_position = sheep.rect_position + Vector2(i * 216, 0)
-		clone.get_node(\"Icon\").texture = Res.get_resource(\"res://Sprites/UI/Menu/Icon\" + TABS[i] + \"Inactive.png\")
-		$TabsBar.add_child(clone)
-	
-	sheep = $Tabs/Character/Skillpoints/SP1
-	for i in range(SKILLPOINTS.size()-1):
-		i+=1
-		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
-		clone.rect_position = sheep.rect_position + Vector2(0, i * 76)
-		clone.get_node(\"Label\").text = SKILLPOINTS[i].to_upper()
-		$Tabs/Character/Skillpoints.add_child(clone)
 	
 	sheep = $Tabs/Crafting/Ingredients/Ingredient1
 	for i in range(MAX_INGREDIENTS-1):
@@ -115,45 +91,19 @@ func _ready():
 func _process(delta):
 	if !visible: return
 	
-	if current_tab == 0:
-		$Tabs/Character/CharacterLevel/Label.text = str(PlayerStats.level)
-		$Tabs/Character/CharacterSkillPointBar/Amount.text = str(PlayerStats.stat_points)
-		var current_exp = PlayerStats.experience - PlayerStats.total_exp(PlayerStats.level-1)
-		var next_exp = PlayerStats.exp_to_level(PlayerStats.level)
-		$Tabs/Character/CharacterExp/Label.text = str(current_exp) + \" / \" + str(next_exp)
-		$Tabs/Character/CharacterExp.value = current_exp
-		$Tabs/Character/CharacterExp.max_value = next_exp
-		
-		if !in_tab: for i in range(SKILLPOINTS.size()):
-			$Tabs/Character/Skillpoints.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/CharacterSkillpointInactive.png\")
-	
 	if !in_tab:
 		var old_tab = current_tab
 		
 		if Input.is_action_just_pressed(\"ui_left\"):
 			self.current_tab -= 1
-			if current_tab < 0: self.current_tab = TABS.size()-1
+			if current_tab < 0: self.current_tab = TABS-1
 		elif Input.is_action_just_pressed(\"ui_right\"):
 			self.current_tab += 1
-			if current_tab >= TABS.size(): self.current_tab = 0
+			if current_tab >= TABS: self.current_tab = 0
 		elif Input.is_action_just_pressed(\"Interact\"):
 			self.in_tab = true
 			enter_tab()
 	else: match current_tab:
-		0:
-			for i in range(SKILLPOINTS.size()):
-				$Tabs/Character/Skillpoints.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/CharacterSkillpoint\" + (\"Active\" if skillpoint_select == i else \"Inactive\") + \".png\")
-			
-			if Input.is_action_just_pressed(\"ui_up\"): skillpoint_select = max(skillpoint_select-1, 0)
-			elif Input.is_action_just_pressed(\"ui_down\"): skillpoint_select = min(skillpoint_select+1, SKILLPOINTS.size()-1)
-			
-			if PlayerStats.stat_points > 0 and Input.is_action_just_pressed(\"Interact\"):
-				var stat = SKILLPOINTS[skillpoint_select].to_lower()
-				PlayerStats.set(stat, PlayerStats.get(stat)+1)
-				SkillBase.inc_stat(SKILLPOINTS[skillpoint_select])
-				PlayerStats.stat_points -= 1
-			
-			if Input.is_action_just_pressed(\"ui_cancel\"): self.in_tab = false
 		1:
 			var prev_sel = inventory_select
 			
@@ -209,7 +159,8 @@ func _process(delta):
 			
 			if inventory_select != prev_sel: select_inventory()
 			
-			if Input.is_action_just_pressed(\"ui_cancel\"): self.in_tab = false
+			if Input.is_action_just_pressed(\"ui_cancel\"):
+				self.in_tab = false
 		2:
 			if Input.is_action_just_pressed(\"ui_left\"):
 				crafting_select = max(crafting_select-1, 0)
@@ -285,18 +236,18 @@ func update_equipment():
 func in_out_tab(in_out):
 	in_tab = in_out
 	if in_out:
-		$TabsBar.get_child(current_tab).texture = Res.get_resource(\"res://Sprites/UI/Menu/TabSelected.png\")
+		$TabsBar/Highlight.texture = Res.get_resource(\"res://Sprites/UI/Menu/TabSelected.png\")
 	else:
-		$TabsBar.get_child(current_tab).texture = Res.get_resource(\"res://Sprites/UI/Menu/TabActive.png\")
+		$TabsBar/Highlight.texture = Res.get_resource(\"res://Sprites/UI/Menu/TabHighlight.png\")
 		exit_tab()
 
 func update_tabs(tab = current_tab):
 	current_tab = tab
 	
-	for i in TABS.size():
+	for i in TABS:
 		$Tabs.get_child(i).visible = (current_tab == i)
-		$TabsBar.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Tab\" + (\"Active\" if i == tab else \"Inactive\") + \".png\")
-		$TabsBar.get_child(i).get_node(\"Icon\").texture = Res.get_resource(\"res://Sprites/UI/Menu/Icon\" + TABS[i] + (\"\" if i == tab else \"Inactive\") + \".png\")
+	
+	$TabsBar/Highlight.rect_position.x = current_tab * 207
 
 func select_crafting():
 	$Tabs/Crafting/Highlight.rect_position = $Tabs/Crafting/Items.rect_position + $Tabs/Crafting/Items/Item1.rect_position + Vector2(crafting_select % 2 * 387, crafting_select / 2 * 93)
@@ -436,27 +387,26 @@ flags = 4
 gradient = SubResource( 3 )
 width = 80
 
-[node name="PlayerMenu" type="TextureRect" index="0"]
+[node name="PlayerMenu" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 1366.0
-margin_bottom = 768.0
+margin_right = 40.0
+margin_bottom = 40.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 1 )
-stretch_mode = 0
 script = SubResource( 1 )
 _sections_unfolded = [ "Rect" ]
 
-[node name="TabsBar" type="Control" parent="." index="0"]
+[node name="TabsBar" type="TextureRect" parent="." index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -471,18 +421,20 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+texture = ExtResource( 1 )
+stretch_mode = 0
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Tab1" type="TextureRect" parent="TabsBar" index="0"]
+[node name="Highlight" type="TextureRect" parent="TabsBar" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -460.0
-margin_top = -5.0
-margin_right = -252.0
-margin_bottom = 80.0
+margin_right = 207.0
+margin_bottom = 68.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -491,24 +443,6 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 2 )
 stretch_mode = 0
-
-[node name="Icon" type="TextureRect" parent="TabsBar/Tab1" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 208.0
-margin_bottom = 86.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 3 )
-expand = true
-stretch_mode = 4
 
 [node name="Tabs" type="Control" parent="." index="1"]
 
@@ -525,8 +459,9 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Character" type="Control" parent="Tabs" index="0"]
+[node name="Character" type="TextureRect" parent="Tabs" index="0"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -539,281 +474,11 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-
-[node name="CharacterAvatar" type="TextureRect" parent="Tabs/Character" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 153.0
-margin_top = 141.0
-margin_right = 286.0
-margin_bottom = 268.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 stretch_mode = 0
-
-[node name="CharacterExp" type="TextureProgress" parent="Tabs/Character" index="1"]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 118.0
-margin_top = 296.0
-margin_right = 324.0
-margin_bottom = 323.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-min_value = 0.0
-max_value = 100.0
-step = 1.0
-page = 0.0
-value = 0.0
-exp_edit = false
-rounded = false
-texture_under = ExtResource( 5 )
-texture_over = null
-texture_progress = ExtResource( 6 )
-radial_fill_degrees = 360.0
-radial_center_offset = Vector2( 0, 0 )
-nine_patch_stretch = false
-_sections_unfolded = [ "Textures" ]
-
-[node name="Label" type="Label" parent="Tabs/Character/CharacterExp" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = 203.0
-margin_bottom = 24.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 7 )
-text = "0 / 100"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="CharacterLevel" type="TextureRect" parent="Tabs/Character" index="2"]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 193.0
-margin_top = 252.0
-margin_right = 247.0
-margin_bottom = 306.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 8 )
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="Tabs/Character/CharacterLevel" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 54.0
-margin_bottom = 53.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
-text = "1"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="CharacterSkillPointBar" type="TextureRect" parent="Tabs/Character" index="3"]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 46.0
-margin_top = 346.0
-margin_right = 409.0
-margin_bottom = 379.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 10 )
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="Tabs/Character/CharacterSkillPointBar" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 233.0
-margin_bottom = 33.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
-custom_colors/font_color = Color( 0.552941, 0.490196, 0.435294, 1 )
-text = "SKILL POINTS"
-align = 2
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts" ]
-
-[node name="Amount" type="Label" parent="Tabs/Character/CharacterSkillPointBar" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 243.0
-margin_right = 363.0
-margin_bottom = 33.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
-text = "0"
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="Skillpoints" type="Control" parent="Tabs/Character" index="4"]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 40.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-
-[node name="SP1" type="TextureRect" parent="Tabs/Character/Skillpoints" index="0"]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 96.0
-margin_top = 407.0
-margin_right = 360.0
-margin_bottom = 460.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 11 )
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="Tabs/Character/Skillpoints/SP1" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = 195.0
-margin_bottom = 50.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
-text = "STRENGTH"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="Label" type="Label" parent="Tabs/Character" index="5"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 783.0
-margin_top = 154.0
-margin_right = 1003.0
-margin_bottom = 195.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 12 )
-text = "STATISTICS"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
 
 [node name="Equipment" type="Control" parent="Tabs" index="1"]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -830,7 +495,6 @@ size_flags_vertical = 1
 [node name="Character" type="TextureRect" parent="Tabs/Equipment" index="0"]
 
 editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -845,7 +509,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 13 )
+texture = ExtResource( 4 )
 stretch_mode = 0
 
 [node name="EquipmentSlots" type="Control" parent="Tabs/Equipment/Character" index="0"]
@@ -880,7 +544,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -900,7 +564,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -920,7 +584,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -940,7 +604,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -960,7 +624,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -980,7 +644,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -1000,7 +664,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -1020,7 +684,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -1040,7 +704,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -1060,7 +724,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -1081,7 +745,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 15 )
+texture = ExtResource( 6 )
 stretch_mode = 0
 
 [node name="Inventory" type="TextureRect" parent="Tabs/Equipment" index="1"]
@@ -1101,7 +765,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 16 )
+texture = ExtResource( 7 )
 stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
 
@@ -1121,7 +785,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 17 )
+texture = ExtResource( 8 )
 stretch_mode = 0
 
 [node name="Slots" type="Control" parent="Tabs/Equipment/Inventory/Inner" index="0"]
@@ -1157,7 +821,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 18 )
+texture = ExtResource( 9 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -1177,7 +841,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 stretch_mode = 0
 
 [node name="Name" type="Label" parent="Tabs/Equipment/Inventory/Inner/Slots/Slot1" index="1"]
@@ -1196,7 +860,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Test Sword"
 percent_visible = 1.0
@@ -1220,7 +884,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "x1"
 percent_visible = 1.0
@@ -1245,7 +909,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 19 )
+texture = ExtResource( 11 )
 stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
 
@@ -1264,7 +928,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 20 )
+texture = ExtResource( 12 )
 stretch_mode = 0
 
 [node name="Stats" type="TextureRect" parent="Tabs/Equipment" index="2"]
@@ -1285,7 +949,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 21 )
+texture = ExtResource( 13 )
 stretch_mode = 0
 
 [node name="Stat1" type="Label" parent="Tabs/Equipment/Stats" index="0"]
@@ -1304,7 +968,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Atttack: 20 (+5)"
 percent_visible = 1.0
@@ -1314,7 +978,6 @@ _sections_unfolded = [ "Rect", "custom_colors", "custom_fonts" ]
 
 [node name="Description" type="TextureRect" parent="Tabs/Equipment" index="3"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1329,7 +992,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 22 )
+texture = ExtResource( 14 )
 stretch_mode = 0
 
 [node name="Text" type="Label" parent="Tabs/Equipment/Description" index="0"]
@@ -1348,7 +1011,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Description time!"
 autowrap = true
@@ -1373,7 +1036,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
 
@@ -1409,25 +1072,7 @@ radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
 _sections_unfolded = [ "Rect", "Textures" ]
 
-[node name="Skills" type="TextureRect" parent="Tabs" index="2"]
-
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 1366.0
-margin_bottom = 768.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 23 )
-stretch_mode = 0
-
-[node name="Crafting" type="Control" parent="Tabs" index="3"]
+[node name="Crafting" type="Control" parent="Tabs" index="2"]
 
 editor/display_folded = true
 visible = false
@@ -1461,7 +1106,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 24 )
+texture = ExtResource( 15 )
 stretch_mode = 0
 
 [node name="Item1" type="TextureRect" parent="Tabs/Crafting/Items" index="0"]
@@ -1481,7 +1126,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 25 )
+texture = ExtResource( 16 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -1501,7 +1146,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
@@ -1521,7 +1166,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Test Sword Name LOL"
 percent_visible = 1.0
@@ -1547,7 +1192,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 26 )
+texture = ExtResource( 17 )
 stretch_mode = 0
 
 [node name="Ingredient1" type="TextureRect" parent="Tabs/Crafting/Ingredients" index="0"]
@@ -1567,7 +1212,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 27 )
+texture = ExtResource( 18 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -1585,7 +1230,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -1603,7 +1248,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Test Sword Name LOL"
 percent_visible = 1.0
@@ -1627,7 +1272,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "2/10"
 percent_visible = 1.0
@@ -1653,7 +1298,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 28 )
+texture = ExtResource( 19 )
 stretch_mode = 0
 
 [node name="Description" type="Label" parent="Tabs/Crafting/Info" index="0"]
@@ -1672,7 +1317,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "This is a very long description to test very long descriptions and how they fit and stuff."
 autowrap = true
@@ -1698,39 +1343,25 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 29 )
+texture = ExtResource( 20 )
 stretch_mode = 0
 
-[node name="Map" type="Control" parent="Tabs" index="4"]
+[node name="Skills" type="TextureRect" parent="Tabs" index="3"]
 
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1366.0
+margin_bottom = 768.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-
-[node name="Notes" type="Control" parent="Tabs" index="5"]
-
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 40.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
+texture = ExtResource( 21 )
+stretch_mode = 0
 
 

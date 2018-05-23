@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TabSelected.png-4dc4fef8b31c06284b11ed68f88f5d2c.stex"
+path="res://.import/TabInactive.png-e02b6624bae1c57c7cb864c9ebb185f8.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Menu/TabSelected.png"
-source_md5="c123d5e0d5ca08bbcc19150b2c94e1da"
+source_file="res://Sprites/UI/Menu/TabInactive.png"
+source_md5="a5a75ddae003ba3b81358c5804cd1737"
 
-dest_files=[ "res://.import/TabSelected.png-4dc4fef8b31c06284b11ed68f88f5d2c.stex" ]
-dest_md5="2f9a5d475717896937027fe80464e455"
+dest_files=[ "res://.import/TabInactive.png-e02b6624bae1c57c7cb864c9ebb185f8.stex" ]
+dest_md5="45eee3a48b59a340b52ee98c80845151"
 
 [params]
 
