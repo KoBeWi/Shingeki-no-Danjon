@@ -1,7 +1,8 @@
 extends Node
 
 const INVENTORY_SIZE = 1000
-const EQUIPMENT_SLOTS = ["amulet", "helmet", "shield", "weapon", "gloves", "armor", "ring2", "ring1", "boots", "pants"]
+const EQUIPMENT_SLOTS = ["amulet", "helmet", "armor", "ring", "weapon", "shield", "boots"]
+const SLOTS = {}
 
 var level = 1
 var experience = 0
@@ -13,7 +14,7 @@ var mana = 100
 var max_mana = 100
 
 var shield_block = 0.7
-var shield_amout = 12 
+var shield_amout = 12
 
 var strength = 1
 var dexterity = 1
@@ -30,7 +31,8 @@ signal got_item
 signal equipment_changed
 
 func _ready():
-	equipment.resize(10)
+	equipment.resize(EQUIPMENT_SLOTS.size())
+	for i in range(EQUIPMENT_SLOTS.size()): SLOTS[EQUIPMENT_SLOTS[i]] = i
 	##DEBUG \/
 	for item in Res.items:
 		add_item(item.id)
@@ -40,10 +42,10 @@ func _ready():
 
 func get_damage():
 	var damage = strength
-	var eq = equipment[3] ##bez stałej (?)
+	var eq = equipment[PlayerStats.SLOTS["weapon"]]
 	
 	if eq:
-		PlayerStats.damage_equipment(3)
+		PlayerStats.damage_equipment(PlayerStats.SLOTS["weapon"])
 		eq = Res.items[eq.id]
 		
 		damage = eq.attack

@@ -7,10 +7,10 @@ path="res://.import/EquipmentDescription.png-b7da084312c64a1dbd332055db55af51.st
 [deps]
 
 source_file="res://Sprites/UI/Menu/EquipmentDescription.png"
-source_md5="e4a58cafbfb2592372877fac6e08b860"
+source_md5="086caa57dd0d38f2734bdf53644c8e89"
 
 dest_files=[ "res://.import/EquipmentDescription.png-b7da084312c64a1dbd332055db55af51.stex" ]
-dest_md5="3d38470ebc444fe2543391ba27f977e8"
+dest_md5="e1ad5cd2ca865a862a8854758c5c61ac"
 
 [params]
 

@@ -7,10 +7,10 @@ path="res://.import/EquipmentScrollbar.png-1a075bcc844cdfff4f1d2c955a2186a5.stex
 [deps]
 
 source_file="res://Sprites/UI/Menu/EquipmentScrollbar.png"
-source_md5="0f96e1c8e5f3a1c444425edb101c2236"
+source_md5="49d58a44140e7aa2f20058d28b7970f1"
 
 dest_files=[ "res://.import/EquipmentScrollbar.png-1a075bcc844cdfff4f1d2c955a2186a5.stex" ]
-dest_md5="bcab361350116afb7e0eea23ed0e5626"
+dest_md5="e4bcb4d6db0a7928030abdb4540bc836"
 
 [params]
 

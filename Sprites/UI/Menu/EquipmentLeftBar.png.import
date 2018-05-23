@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/EquipmentInnerInventory.png-bb8f3f131d75e4c1d15cdb615afb295c.stex"
+path="res://.import/EquipmentLeftBar.png-fd68f70a6cb1cbeb26fa9d47527fa879.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Menu/EquipmentInnerInventory.png"
-source_md5="cbbcfee52cf93a315b293cd41ff20819"
+source_file="res://Sprites/UI/Menu/EquipmentLeftBar.png"
+source_md5="2ee699ba3249b4270953e8d7e822fc4a"
 
-dest_files=[ "res://.import/EquipmentInnerInventory.png-bb8f3f131d75e4c1d15cdb615afb295c.stex" ]
-dest_md5="f5a7bbb3a7c7f28e422e4296470d7e80"
+dest_files=[ "res://.import/EquipmentLeftBar.png-fd68f70a6cb1cbeb26fa9d47527fa879.stex" ]
+dest_md5="0a71afdefb36f340a1ef9d10bf7f8fec"
 
 [params]
 

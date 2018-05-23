@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/EQ_tlo.png-c0b9e4414992e9bd7797a321852a53d9.stex"
+path="res://.import/EquipmentScrollbarBackground.png-1d599c1a74da0797c05a90b345a617b5.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Menu/EQ_tlo.png"
-source_md5="e0da8327ed58fe9a4eec71b0296e242c"
+source_file="res://Sprites/UI/Menu/EquipmentScrollbarBackground.png"
+source_md5="d5bd06f1f33b43cff4fe1a780e88149c"
 
-dest_files=[ "res://.import/EQ_tlo.png-c0b9e4414992e9bd7797a321852a53d9.stex" ]
-dest_md5="7804b9fed0ffca52893880d90fd7e41b"
+dest_files=[ "res://.import/EquipmentScrollbarBackground.png-1d599c1a74da0797c05a90b345a617b5.stex" ]
+dest_md5="51fd2bae05135fb791b7e1de8d10f4a2"
 
 [params]
 
