@@ -6,21 +6,25 @@ var time_of_using_skill = 0.0
 var in_special_state = false
 var status = ""
 var stacks_of_skill_block = 0
-const TIME_OF_BLOCK = 7.0
+const TIME_OF_BLOCK = 5.0
 
 var points_of_tiredness = 150
 
 const PAYBACK_DMG       = 75
-const PAYBACK_KNOCKBACK = 30
+const PAYBACK_KNOCKBACK = 5
 
 var in_action          = false
 var BLOCK_PAYBACK      = false
 var SUMMON             = true
+var FIRE_BOMB          = true
 
 var block_payback_prob = 100
-var summon_prob        = 500
+var summon_prob        = 1000
+var fire_bomb_prob     = 250
 
 var max_hp = 300
+
+var follow = false
 
 var ar = 0.999
 var RShieldON = true
@@ -58,7 +62,8 @@ func check_probs():
 		if randi()%block_payback_prob == 0: BLOCK_PAYBACK = true
 	if !SUMMON :
 		if randi()%summon_prob        == 0: SUMMON        = true
-
+	if !FIRE_BOMB:
+		if randi()%fire_bomb_prob     == 0: FIRE_BOMB     = true
 
 func _process(delta):
 	#position += Vector2(0.0, 0.5)
@@ -87,7 +92,7 @@ func _process(delta):
 		turn_shields(false)
 		return
 	
-	if !in_action:
+	if !in_action and follow:
 		check_probs()
 		
 		if SUMMON :
@@ -98,6 +103,16 @@ func _process(delta):
 			SUMMON = false
 			
 			$EfectsAnimator/EfectPlayer.play("Summon")
+			return 
+		
+		if FIRE_BOMB :
+			in_action = true
+			status  = "Fire"
+			play_animation_if_not_playing("Idle")
+			in_special_state = true
+			FIRE_BOMB = false
+			
+			$EfectsAnimator/EfectPlayer.play("FireProof")
 			return 
 		
 		if BLOCK_PAYBACK :
@@ -117,26 +132,27 @@ func _process(delta):
 		check_status(delta)
 		pass
 	
-	#if len(status) == 0:
-	#	status = "Payback"
-	#	play_animation_if_not_playing("ShieldBlockON")
-	#	points_of_tiredness += 10
-	#	in_special_state = true
-	#points_of_tiredness+=1
-#	
-
-		
-# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
 	pass
 	
-	
-func summoned():
+func endAction():
 	in_action        = false
-	points_of_tiredness += 50
+	points_of_tiredness += 25
 	status = ""
 	in_special_state = false
 	
+
+func bombing():
+	var how_many = randi()%2 + 1
+	
+	var directionList = [ Vector2(100,100), Vector2(100, -100), Vector2(-90, 90 ), Vector2(-90, -90 ) ] 	
+	
+	for i in range(how_many):
+		var ug_inst = Res.get_node("Projectiles/FireBomb").instance()
+		#ug_inst.position = position + Vector2( 1 * (randi()%50+100), 1 * (randi()%50+100))
+		get_parent().add_child(ug_inst)
+	
+func summoned():
+
 	var how_many = randi()%4 + 1
 	
 	var directionList = [ Vector2(100,100), Vector2(100, -100), Vector2(-90, 90 ), Vector2(-90, -90 ) ] 	
@@ -246,6 +262,8 @@ func _on_animation_started(anim_name):
 
 
 func _on_Radar_body_entered(body):
+	if body.name == "Player":
+		follow = true;
 	pass # replace with function body
 
 func turn_shields( play ):
