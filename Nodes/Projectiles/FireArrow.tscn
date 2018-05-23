@@ -13,17 +13,21 @@ var direction = 0 setget new_dir
 var damage = 10
 var moveModificator = Vector2(0,0)
 
+var distance = Vector2( 0,0 )
+
 func intiated():
 	pass
 	#Res.play_sample(self, \"Fireball\")
 
 func _physics_process(delta):
 	
+	distance += (MOVEMENT[direction] + moveModificator) * SPEED
 	#var efect
 	if move_and_collide((MOVEMENT[direction] + moveModificator) * SPEED):
 		queue_free()
 		
-		
+	if distance.length() > 3000:
+		queue_free()
 		#collider.is_in_group(\"enemies\")  ):
 		
 		#if( efect.collider.is_in_group(\"enemies\") ) :
@@ -80,7 +84,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 33.7777, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0"]
+[node name="KinematicBody2D" type="KinematicBody2D"]
 
 z_index = 2
 input_pickable = false
