@@ -71,7 +71,7 @@ tracks/1/keys = {
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0"]
+[node name="KinematicBody2D" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -102,9 +102,11 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 
+visible = false
 position = Vector2( 0.519829, 2.32485 )
 scale = Vector2( 4.99711, 4.99711 )
 shape = SubResource( 3 )
+disabled = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 
