@@ -25,6 +25,7 @@ var current_element = 0
 
 func _ready():
 	change_animation("Body", "Idle")
+	$BodyAnimator.play("Idle")
 	change_animation("LeftArm", "ShieldOff")
 	change_dir(2)
 	reset_arms()
@@ -178,6 +179,7 @@ func change_texture(sprite, texture, on_back = [], move_child = {}):
 func change_animation(part, animation):
 	if animations[part] == animation: return
 	
+	$Body.vframes = 1
 	match animation:
 		"Idle":
 			change_texture($Body, "BodyIdle")
@@ -186,10 +188,11 @@ func change_animation(part, animation):
 		"Walk":
 			change_texture($Body, "BodyWalk")
 			$Body.hframes = 9
+			$Body.vframes = 2
 			$BodyAnimator.playback_speed = 16
 		"ShieldOn":
-			change_texture($Body/LeftArm, "Shield", ["Back"]) ##yyy nie trzeba?
-			$Body/LeftArm.hframes = 2 ##to chyba też
+			change_texture($Body/LeftArm, "Shield", ["Back"])
+			$Body/LeftArm.hframes = 2
 		"ShieldOff":
 			change_texture($Body/LeftArm, "Shield", ["Right", "Back"])
 			$Body/LeftArm.hframes = 2

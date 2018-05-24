@@ -7,10 +7,10 @@ path="res://.import/BodyWalk.png-82a8563cf00e93f73e27f3867a14cd8a.stex"
 [deps]
 
 source_file="res://Sprites/Player/Right/BodyWalk.png"
-source_md5="49c66edac0bd5ef3a4debc8d01cfa2f5"
+source_md5="27b005d89090b93af5fe9e57273f5208"
 
 dest_files=[ "res://.import/BodyWalk.png-82a8563cf00e93f73e27f3867a14cd8a.stex" ]
-dest_md5="b774443acea688ce2146ce54a94084d4"
+dest_md5="79e916a884009b77a67658f0d9270759"
 
 [params]
 
