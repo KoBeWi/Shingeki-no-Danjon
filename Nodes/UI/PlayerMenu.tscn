@@ -132,12 +132,15 @@ func _process(delta):
 		var old_tab = current_tab
 		
 		if Input.is_action_just_pressed(\"ui_left\"):
+			Res.ui_sample(\"MenuMove\")
 			self.current_tab -= 1
 			if current_tab < 0: self.current_tab = TABS.size()-1
 		elif Input.is_action_just_pressed(\"ui_right\"):
+			Res.ui_sample(\"MenuMove\")
 			self.current_tab += 1
 			if current_tab >= TABS.size(): self.current_tab = 0
 		elif Input.is_action_just_pressed(\"Interact\"):
+			Res.ui_sample(\"MenuAccept\")
 			self.in_tab = true
 			enter_tab()
 	else: match current_tab:
@@ -149,12 +152,15 @@ func _process(delta):
 			elif Input.is_action_just_pressed(\"ui_down\"): skillpoint_select = min(skillpoint_select+1, SKILLPOINTS.size()-1)
 			
 			if PlayerStats.stat_points > 0 and Input.is_action_just_pressed(\"Interact\"):
+				Res.ui_sample(\"Skillpoint\")
 				var stat = SKILLPOINTS[skillpoint_select].to_lower()
 				PlayerStats.set(stat, PlayerStats.get(stat)+1)
 				SkillBase.inc_stat(SKILLPOINTS[skillpoint_select])
 				PlayerStats.stat_points -= 1
 			
-			if Input.is_action_just_pressed(\"ui_cancel\"): self.in_tab = false
+			if Input.is_action_just_pressed(\"ui_cancel\"):
+				Res.ui_sample(\"MenuCancel\")
+				self.in_tab = false
 		1:
 			var prev_sel = inventory_select
 			
@@ -171,15 +177,18 @@ func _process(delta):
 					update_inventory()
 					select_inventory()
 				
+				var prev_inv = inventory_select
 				if Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 1: inventory_select = max(inventory_select-1, 0)
 				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 0: inventory_select = -1
 				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, PlayerStats.inventory.size()-1)
 				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = max(inventory_select-2, 0)
 				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = min(inventory_select+2, PlayerStats.inventory.size()-1)
+				if inventory_select != prev_inv: Res.ui_sample(\"MenuMove\")
 				
 				var item = PlayerStats.inventory[inventory_select]
 				var eq = get_eq_slot(Res.items[item.id])
 				if eq > -1 and Input.is_action_just_pressed(\"Interact\"):
+					Res.ui_sample(\"MenuAccept\")
 					if PlayerStats.equipment[eq]: PlayerStats.inventory.append(PlayerStats.equipment[eq])
 					PlayerStats.inventory.erase(item)
 					PlayerStats.equipment[eq] = item
@@ -196,13 +205,16 @@ func _process(delta):
 						update_inventory()
 						select_inventory()
 			else:
+				var prev_inv = inventory_select
 				if Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, -1)
 				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == -1 and !PlayerStats.inventory.empty(): inventory_select = (inventory_scroll+2 if inventory_scroll > 0 else 0)
 				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == -1: inventory_select = max(inventory_select-1, -PlayerStats.EQUIPMENT_SLOTS.size())
 				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = min(inventory_select+2, -1)
 				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = max(inventory_select-2, -PlayerStats.EQUIPMENT_SLOTS.size())
+				if inventory_select != prev_inv: Res.ui_sample(\"MenuMove\")
 				
 				if Input.is_action_just_pressed(\"Interact\") and PlayerStats.equipment[-inventory_select-1]:
+					Res.ui_sample(\"MenuCancel\")
 					PlayerStats.inventory.append(PlayerStats.equipment[-inventory_select-1])
 					PlayerStats.equipment[-inventory_select-1] = null
 					update_inventory()
@@ -211,7 +223,9 @@ func _process(delta):
 			
 			if inventory_select != prev_sel: select_inventory()
 			
-			if Input.is_action_just_pressed(\"ui_cancel\"): self.in_tab = false
+			if Input.is_action_just_pressed(\"ui_cancel\"):
+				Res.ui_sample(\"MenuCancel\")
+				self.in_tab = false
 		2:
 			if Input.is_action_just_pressed(\"ui_left\"):
 				crafting_select = max(crafting_select-1, 0)
@@ -235,9 +249,11 @@ func _process(delta):
 					select_crafting()
 			
 			if Input.is_action_just_pressed(\"ui_cancel\"):
+				Res.ui_sample(\"MenuCancel\")
 				self.in_tab = false
 		_:
 			if Input.is_action_just_pressed(\"ui_cancel\"):
+				Res.ui_sample(\"MenuCancel\")
 				self.in_tab = false
 
 func set_station(station):
@@ -270,6 +286,7 @@ func update_inventory(whatever = null):
 			item.visible = true
 			item.get_node(\"Name\").text = Res.items[PlayerStats.inventory[i].id].name
 			item.get_node(\"Amount\").text = \"x\" + str(PlayerStats.inventory[i].stack)
+			item.get_node(\"Price\").text = \"Price: \" + str(Res.items[PlayerStats.inventory[i].id].price)
 			item.get_node(\"Icon\").texture = Res.get_item_texture(PlayerStats.inventory[i].id)
 		else:
 			item.visible = false
@@ -279,10 +296,9 @@ func update_equipment():
 		var item = $Tabs/Equipment/Character/EquipmentSlots.get_child(i).get_node(\"Icon\")
 		
 		if PlayerStats.equipment[i]:
-			item.visible = true
-#			item.texture = Res.get_item_texture(PlayerStats.equipment[i].id)
+			item.texture = Res.get_item_texture(PlayerStats.equipment[i].id)
 		else:
-			item.visible = false
+			item.texture = Res.get_resource(\"res://Sprites/UI/Menu/Generic\" + PlayerStats.EQUIPMENT_SLOTS[i] + \".png\")
 
 func in_out_tab(in_out):
 	in_tab = in_out
@@ -521,6 +537,7 @@ size_flags_vertical = 1
 
 [node name="Character" type="Control" parent="Tabs" index="0"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -690,7 +707,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0.552941, 0.490196, 0.435294, 1 )
-text = "SKILL POINTS"
+text = "SKILL POINTS:"
 align = 2
 valign = 1
 percent_visible = 1.0
@@ -845,6 +862,7 @@ stretch_mode = 0
 
 [node name="EquipmentSlots" type="Control" parent="Tabs/Equipment/Character" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -860,7 +878,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Amulet" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="0"]
+[node name="Slot1" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="0"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -881,7 +899,7 @@ texture = ExtResource( 14 )
 expand = true
 stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Amulet" index="0"]
+[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot1" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -899,7 +917,7 @@ texture = ExtResource( 15 )
 expand = true
 stretch_mode = 4
 
-[node name="Helmet" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="1"]
+[node name="Slot2" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="1"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -920,7 +938,7 @@ texture = ExtResource( 14 )
 expand = true
 stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Helmet" index="0"]
+[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot2" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -939,7 +957,7 @@ expand = true
 stretch_mode = 4
 _sections_unfolded = [ "Rect" ]
 
-[node name="Armor" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="2"]
+[node name="Slot3" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="2"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -960,7 +978,7 @@ texture = ExtResource( 14 )
 expand = true
 stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Armor" index="0"]
+[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot3" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -979,7 +997,7 @@ expand = true
 stretch_mode = 4
 _sections_unfolded = [ "Rect" ]
 
-[node name="Ring" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="3"]
+[node name="Slot4" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="3"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -1000,7 +1018,7 @@ texture = ExtResource( 14 )
 expand = true
 stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Ring" index="0"]
+[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot4" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1019,7 +1037,7 @@ expand = true
 stretch_mode = 4
 _sections_unfolded = [ "Rect" ]
 
-[node name="Weapon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="4"]
+[node name="Slot5" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="4"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -1040,7 +1058,7 @@ texture = ExtResource( 14 )
 expand = true
 stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Weapon" index="0"]
+[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot5" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1059,7 +1077,7 @@ expand = true
 stretch_mode = 4
 _sections_unfolded = [ "Rect" ]
 
-[node name="Shield" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="5"]
+[node name="Slot6" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="5"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -1080,7 +1098,7 @@ texture = ExtResource( 14 )
 expand = true
 stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Shield" index="0"]
+[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot6" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1099,7 +1117,7 @@ expand = true
 stretch_mode = 4
 _sections_unfolded = [ "Rect" ]
 
-[node name="Boots" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="6"]
+[node name="Slot7" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="6"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -1120,7 +1138,7 @@ texture = ExtResource( 14 )
 expand = true
 stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Boots" index="0"]
+[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot7" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1262,7 +1280,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="Amount2" type="Label" parent="Tabs/Equipment/Inventory/Slots/Slot1" index="3"]
+[node name="Price" type="Label" parent="Tabs/Equipment/Inventory/Slots/Slot1" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1287,6 +1305,7 @@ _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
 [node name="Scrollbar" type="TextureRect" parent="Tabs/Equipment/Inventory" index="1"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1348,7 +1367,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 182.0
+margin_left = 112.0
 margin_top = 4.0
 margin_right = 836.0
 margin_bottom = 68.0

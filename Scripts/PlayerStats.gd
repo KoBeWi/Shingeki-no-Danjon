@@ -1,7 +1,7 @@
 extends Node
 
 const INVENTORY_SIZE = 1000
-const EQUIPMENT_SLOTS = ["amulet", "helmet", "armor", "ring", "weapon", "shield", "boots"]
+const EQUIPMENT_SLOTS = ["amulet", "helmet", "shield", "weapon", "armor", "ring", "boots"]
 const SLOTS = {}
 
 var level = 1

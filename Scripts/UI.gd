@@ -15,6 +15,7 @@ func _physics_process(delta):
 	
 	if !$DialogueBox.process():
 		if Input.is_action_just_pressed("Menu") and !just_opened:
+			Res.ui_sample("MenuCancel")
 			$"/root/Game".leave_menu = true
 			$PlayerMenu.visible = false
 			$PlayerMenu.in_tab = false

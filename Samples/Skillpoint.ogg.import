@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Skillpoint.ogg-4cdff698020b26aa901ef8b3571726ad.oggstr"
+
+[deps]
+
+source_file="res://Samples/Skillpoint.ogg"
+source_md5="7bcf6ddb86e60c6ce52f75ad43519a21"
+
+dest_files=[ "res://.import/Skillpoint.ogg-4cdff698020b26aa901ef8b3571726ad.oggstr" ]
+dest_md5="6c517b4ed01bf033c4567879c4bfab51"
+
+[params]
+
+loop=false
+loop_offset=0

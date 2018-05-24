@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/MenuAccept.ogg-635d1906a117b48ed4f4c889fc765238.oggstr"
+
+[deps]
+
+source_file="res://Samples/MenuAccept.ogg"
+source_md5="ae25722407b52e92ed22aed271aeb7d9"
+
+dest_files=[ "res://.import/MenuAccept.ogg-635d1906a117b48ed4f4c889fc765238.oggstr" ]
+dest_md5="75b133b65226da47fddddd25ef22dced"
+
+[params]
+
+loop=false
+loop_offset=0

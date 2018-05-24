@@ -31,6 +31,7 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("Menu") and !leave_menu:
+		Res.ui_sample("MenuEnter")
 		open_menu()
 	elif Input.is_action_just_released("Menu"):
 		leave_menu = false
