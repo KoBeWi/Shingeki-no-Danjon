@@ -483,7 +483,7 @@ tracks/0/keys = {
 "values": [ 9, 10, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 10, 9 ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=21]
 
 resource_name = "FireProof"
 length = 30.0
@@ -540,9 +540,8 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=22]
 
-resource_name = "Summon"
 length = 30.0
 loop = false
 step = 1.0
@@ -951,8 +950,6 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="EfectsAnimator" type="Node2D" parent="." index="10"]
 
-editor/display_folded = true
-
 [node name="Payback" type="Sprite" parent="EfectsAnimator" index="0"]
 
 visible = false
@@ -968,28 +965,31 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
-anims/FireProof = SubResource( 22 )
-anims/Summon = SubResource( 21 )
+anims/FireProof = SubResource( 21 )
+anims/Summon = SubResource( 22 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="Summon" type="Sprite" parent="EfectsAnimator" index="2"]
 
 visible = false
-position = Vector2( 22.6666, 0 )
+position = Vector2( 25.3333, -70.6668 )
+scale = Vector2( 1, 0.5 )
 texture = ExtResource( 10 )
 vframes = 2
 hframes = 10
 frame = 8
-_sections_unfolded = [ "Animation", "Visibility" ]
+_sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="EfectsAnimator" index="3"]
 
 visible = false
+position = Vector2( 0, -67.9997 )
+scale = Vector2( 1, 0.5 )
 texture = ExtResource( 11 )
 hframes = 10
 frame = 9
-_sections_unfolded = [ "Animation", "Visibility" ]
+_sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [connection signal="body_entered" from="Radar" to="." method="_on_Radar_body_entered"]
 

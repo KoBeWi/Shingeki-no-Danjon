@@ -3,7 +3,7 @@
 [ext_resource path="res://Sprites/Enemies/Mechanic/Fire_proof.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Enemies/Mechanic/FireExplosion.png" type="Texture" id=2]
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=1]
 
 script/source = "extends KinematicBody2D
 
@@ -34,19 +34,18 @@ func _on_AtackCollider_area_entered(collider):
 		collider.get_parent().damage(self, 12, 0)
 "
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=2]
 
 custom_solver_bias = 0.0
 radius = 146.357
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=3]
 
 custom_solver_bias = 0.0
 radius = 48.7723
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=4]
 
-resource_name = "Boom"
 length = 25.0
 loop = false
 step = 1.0
@@ -117,7 +116,7 @@ input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
-script = SubResource( 3 )
+script = SubResource( 1 )
 _sections_unfolded = [ "Collision" ]
 
 [node name="AtackCollider" type="Area2D" parent="." index="0"]
@@ -135,13 +134,13 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AtackCollider" index="0"]
 
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
 visible = false
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
@@ -151,7 +150,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
-anims/Boom = SubResource( 2 )
+anims/Boom = SubResource( 4 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -167,7 +166,7 @@ _sections_unfolded = [ "Animation", "Transform", "Visibility" ]
 [node name="Sprite2" type="Sprite" parent="." index="4"]
 
 visible = false
-scale = Vector2( 0.7, 0.9 )
+scale = Vector2( 0.9, 0.9 )
 z_index = 2
 texture = ExtResource( 2 )
 hframes = 10

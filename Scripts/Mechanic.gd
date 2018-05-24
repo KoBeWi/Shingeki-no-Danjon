@@ -153,11 +153,11 @@ func bombing():
 	
 func summoned():
 
-	var how_many = randi()%6 + 1
+	var how_many = randi()%5 + 2
 	
 	var dis = 120
 	
-	var directionList = [ Vector2(dis, 0 ), Vector2(-dis,0), Vector2(0,dis), Vector2(0,-dis), Vector2(dis,dis), Vector2(dis, -dis), Vector2(-dis, dis ), Vector2(-dis, -dis ) ] 	
+	var directionList = [ Vector2(dis+20, 0 ), Vector2(-dis-20,0), Vector2(0,dis+20), Vector2(0,-dis-20), Vector2(dis,dis), Vector2(dis, -dis), Vector2(-dis, dis ), Vector2(-dis, -dis ) ] 	
 	var freeDirerction = [ true,true,true,true,true, true, true, true ]
 	
 	
