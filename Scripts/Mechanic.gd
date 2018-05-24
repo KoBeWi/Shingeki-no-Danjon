@@ -153,25 +153,24 @@ func bombing():
 	
 func summoned():
 
-	var how_many = randi()%4 + 1
+	var how_many = randi()%6 + 1
 	
-	var directionList = [ Vector2(100,100), Vector2(100, -100), Vector2(-90, 90 ), Vector2(-90, -90 ) ] 	
+	var dis = 120
+	
+	var directionList = [ Vector2(dis, 0 ), Vector2(-dis,0), Vector2(0,dis), Vector2(0,-dis), Vector2(dis,dis), Vector2(dis, -dis), Vector2(-dis, dis ), Vector2(-dis, -dis ) ] 	
+	var freeDirerction = [ true,true,true,true,true, true, true, true ]
+	
 	
 	for i in range(how_many):
 		var ug_inst = Res.get_node("Projectiles/Summon_Mob").instance()
-		var a = 0
-		var b = 0
-		if randi()%2 == 0:
-			a = 1
-		else:
-			a = -1
-		if randi()%2 == 0:
-			b = 1
-		else:
-			b = -1
 
+		var u = randi()%len(freeDirerction)
+		while( !freeDirerction[u] ):
+			u = randi()%len(freeDirerction)
 
-		ug_inst.position = position + Vector2( a * (randi()%50+100), b * (randi()%50+100))
+		ug_inst.position = position + directionList[u]
+		freeDirerction[u] = false
+		
 		get_parent().add_child(ug_inst)
 	
 	

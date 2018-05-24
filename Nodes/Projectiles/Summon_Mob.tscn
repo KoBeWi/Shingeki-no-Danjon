@@ -30,7 +30,6 @@ func spawn():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if \"Shine\" in anim_name:
 		queue_free()
-	pass # replace with function body
 "
 
 [sub_resource type="Animation" id=2]
@@ -71,7 +70,7 @@ tracks/1/keys = {
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="KinematicBody2D" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
