@@ -458,7 +458,6 @@ _sections_unfolded = [ "Anchor", "Focus", "Hint", "Margin", "Material", "Mouse",
 
 [node name="Shadow" type="Sprite" parent="." index="7"]
 
-visible = false
 position = Vector2( 0.384567, 2.46119 )
 scale = Vector2( 1.91853, 3.07858 )
 texture = ExtResource( 6 )

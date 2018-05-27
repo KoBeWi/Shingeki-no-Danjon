@@ -286,6 +286,7 @@ func _on_dead():
 	$"Shape".disabled = true
 	$"DamageCollider/Shape".disabled = true
 	$"AttackCollider/Shape".disabled = true
+	$"EfectsAnimator".visible = false
 	if RShieldON:
 		$"RightShield".kill_shield() 
 	if LShieldON:

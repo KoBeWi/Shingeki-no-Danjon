@@ -16,7 +16,7 @@ var SPEED                = 120
 const KNOCKBACK_ATACK      = 5 
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 50
+const PERSONAL_SPACE       = 60
 const TIME_OF_LIYUGN_CORPS = 3
 
 var MAT = load("res://Resources/Materials/ColorShader.tres")

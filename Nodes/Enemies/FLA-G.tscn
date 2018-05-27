@@ -132,6 +132,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ false, true ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Shadow:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.833689, -1.53194 ) ]
+}
 
 [sub_resource type="Animation" id=7]
 
@@ -162,6 +174,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ false, true ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Shadow:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1, 2, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.83367, -2.11877 ), Vector2( -21.4662, -3.29245 ), Vector2( -0.926849, -5.63981 ), Vector2( 2.00735, -2.70561 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 
@@ -191,6 +215,18 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Shadow:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1, 2, 3, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -2.10051, -3.29246 ), Vector2( 20.7862, -5.05296 ), Vector2( 20.7862, -2.70561 ), Vector2( 1.42052, -5.05297 ) ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -300,6 +336,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ true, false, true ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Shadow:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1, 2, 3, 4, 8, 9, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -3.86103, -7.98717 ), Vector2( -23.8136, -8.57401 ), Vector2( -23.8136, -8.57401 ), Vector2( -19.1189, -7.40034 ), Vector2( -7.38209, -7.98718 ), Vector2( -15.011, -15.0292 ), Vector2( 1.4205, -4.46613 ) ]
+}
 
 [sub_resource type="Animation" id=13]
 
@@ -329,6 +377,18 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ true, false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Shadow:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 2, 4, 8, 9, 10, 11 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -10.9031, -3.8793 ), Vector2( -8.55576, -6.81349 ), Vector2( 11.3968, -7.40033 ), Vector2( 6.11524, -6.81348 ), Vector2( -2.10049, -7.98716 ), Vector2( 3.18104, -15.6161 ), Vector2( -12.6636, -4.46613 ), Vector2( 0.246857, -0.358264 ) ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -382,7 +442,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=16]
 
 custom_solver_bias = 0.0
-extents = Vector2( 57.1874, 10 )
+extents = Vector2( 75.0546, 10 )
 
 [sub_resource type="CircleShape2D" id=17]
 
@@ -400,7 +460,7 @@ height = 20.0
 custom_solver_bias = 0.0
 extents = Vector2( 10.2959, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -415,12 +475,12 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
 
-editor/display_folded = true
 position = Vector2( -12, -73.3331 )
 _sections_unfolded = [ "Material" ]
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
+visible = false
 use_parent_material = true
 position = Vector2( 12, -5.33334 )
 texture = ExtResource( 2 )
@@ -436,18 +496,17 @@ position = Vector2( 13.2181, 22.6102 )
 texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
-frame = 3
+frame = 2
 _sections_unfolded = [ "Animation", "Material" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
 
-visible = false
 use_parent_material = true
 position = Vector2( 10.8994, 8.58076 )
 texture = ExtResource( 4 )
 vframes = 5
 hframes = 8
-frame = 38
+frame = 15
 _sections_unfolded = [ "Animation", "Material" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -477,7 +536,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
-position = Vector2( 1.89845, -3.30193 )
+position = Vector2( 0.137932, -10.344 )
 scale = Vector2( 0.543869, 2.47508 )
 shape = SubResource( 16 )
 
@@ -540,6 +599,7 @@ audio_bus_name = "Master"
 position = Vector2( 9.61782, 12.2602 )
 scale = Vector2( 10.0623, 10.3125 )
 shape = SubResource( 19 )
+disabled = true
 
 [node name="HealthBar" type="TextureProgress" parent="." index="6"]
 
@@ -575,11 +635,11 @@ _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Radial Fill", "Rec
 
 [node name="Shadow" type="Sprite" parent="." index="7"]
 
-position = Vector2( 3.83367, -1.11877 )
-scale = Vector2( 1.35301, 1.65246 )
+position = Vector2( -4.4364, 0.815412 )
+scale = Vector2( 1.30458, 1.65246 )
 z_index = -1
 texture = ExtResource( 7 )
-_sections_unfolded = [ "Z Index" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 

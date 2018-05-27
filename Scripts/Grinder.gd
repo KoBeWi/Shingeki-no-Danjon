@@ -11,7 +11,7 @@ const SPEED                = 120
 const KNOCKBACK_ATACK      = 0
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 8
+const PERSONAL_SPACE       = 60
 const TIME_OF_LIYUGN_CORPS = 3
 
 var player

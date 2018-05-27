@@ -587,7 +587,7 @@ tracks/2/keys = {
 } ]
 }
 
-[node name="Mechanic" type="KinematicBody2D" groups=[
+[node name="Mechanic" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -601,8 +601,6 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
-
-editor/display_folded = true
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
@@ -739,8 +737,8 @@ disabled = true
 
 [node name="Sprite" type="Sprite" parent="." index="6"]
 
-position = Vector2( 3.22009, 74.8411 )
-scale = Vector2( 4.928, 3.00986 )
+position = Vector2( 0.773505, 75.4428 )
+scale = Vector2( 3.02088, 3.00986 )
 z_index = -1
 texture = ExtResource( 7 )
 _sections_unfolded = [ "Z Index" ]
