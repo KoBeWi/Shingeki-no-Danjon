@@ -57,7 +57,7 @@ extents = Vector2( 24.9147, 34.5188 )
 custom_solver_bias = 0.0
 extents = Vector2( 24, 20 )
 
-[node name="Barrel" type="StaticBody2D" index="0"]
+[node name="Barrel" type="StaticBody2D"]
 
 input_pickable = false
 collision_layer = 5
