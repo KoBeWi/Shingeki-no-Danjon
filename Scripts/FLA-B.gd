@@ -44,6 +44,7 @@ func _ready():
 	._ready()
 	drops.append([18, 200])
 	drops.append([20, 250])
+	drops.append([25, 250])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 	$"AnimationPlayer".play("Idle")
 	

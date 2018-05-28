@@ -44,6 +44,7 @@ var test_move = Vector2(0,0)
 func _ready():
 	._ready()
 	drops.append([3, 200])
+	drops.append([24, 300])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 	$"AnimationPlayer".play("Idle")
 	

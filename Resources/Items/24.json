@@ -1,0 +1,7 @@
+{
+	"type": "misc",
+	"name": "Puncher plate",
+	"description": "Reverse the puncharity.",
+	"max_stack": 20,
+	"price": 20
+}

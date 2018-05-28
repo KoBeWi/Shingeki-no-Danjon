@@ -14,7 +14,7 @@ func got_item(id):
 	visible = false"
 _sections_unfolded = [ "Resource" ]
 
-[node name="ItemGetPanel" type="Panel" index="0"]
+[node name="ItemGetPanel" type="Panel"]
 
 editor/display_folded = true
 visible = false

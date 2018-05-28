@@ -41,6 +41,7 @@ onready var sprites = $Sprites.get_children()
 func _ready():
 	._ready()
 	drops.append([3, 200])
+	drops.append([24, 600])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 	
 	
