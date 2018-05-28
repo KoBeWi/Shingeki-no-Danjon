@@ -7,10 +7,10 @@ path="res://.import/Trochnalis_basics.png-4d5a49427d771214aa382fe038055cf5.stex"
 [deps]
 
 source_file="res://Sprites/Enemies/Trochnalis/Trochnalis_basics.png"
-source_md5="7560997b1e944aa5f415eac9ed6d530c"
+source_md5="37115328d2d61667b681f66d5cc31736"
 
 dest_files=[ "res://.import/Trochnalis_basics.png-4d5a49427d771214aa382fe038055cf5.stex" ]
-dest_md5="d1d4fdb19c73e3c647070e6c8a68567f"
+dest_md5="fc51469da34c2a57fed68cf0cbfbd189"
 
 [params]
 

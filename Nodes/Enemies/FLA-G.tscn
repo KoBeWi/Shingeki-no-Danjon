@@ -447,7 +447,7 @@ extents = Vector2( 75.0546, 10 )
 [sub_resource type="CircleShape2D" id=17]
 
 custom_solver_bias = 0.0
-radius = 10.0
+radius = 14.2669
 
 [sub_resource type="CapsuleShape2D" id=18]
 
@@ -460,7 +460,7 @@ height = 20.0
 custom_solver_bias = 0.0
 extents = Vector2( 10.2959, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -542,7 +542,6 @@ shape = SubResource( 16 )
 
 [node name="Radar" type="Area2D" parent="." index="3"]
 
-visible = false
 position = Vector2( 24.0148, 21.9682 )
 scale = Vector2( 6.90081, 3.90967 )
 input_pickable = true

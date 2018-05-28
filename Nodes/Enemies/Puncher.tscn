@@ -254,7 +254,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=11]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 14.008, 10 )
 
 [sub_resource type="RectangleShape2D" id=12]
 
@@ -337,8 +337,6 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Radar" type="Area2D" parent="." index="2"]
 
-editor/display_folded = true
-visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -350,7 +348,8 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
 
-scale = Vector2( 23.9231, 19.4231 )
+position = Vector2( 0, -15.46 )
+scale = Vector2( 23.9231, 22.5782 )
 shape = SubResource( 11 )
 _sections_unfolded = [ "Transform" ]
 
@@ -362,7 +361,6 @@ shape = SubResource( 12 )
 
 [node name="DamageCollider" type="Area2D" parent="." index="4"]
 
-visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -376,7 +374,6 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
-visible = false
 position = Vector2( 0.358475, -53.2723 )
 scale = Vector2( 1, 1.1662 )
 shape = SubResource( 13 )

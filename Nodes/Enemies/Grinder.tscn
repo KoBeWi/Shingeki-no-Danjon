@@ -208,9 +208,9 @@ extents = Vector2( 57.0542, 68.5652 )
 [sub_resource type="RectangleShape2D" id=12]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 14.3514 )
+extents = Vector2( 19.4311, 20.9686 )
 
-[node name="Grinder" type="KinematicBody2D" index="0" groups=[
+[node name="Grinder" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -345,7 +345,6 @@ _sections_unfolded = [ "Textures" ]
 
 [node name="Radar" type="Area2D" parent="." index="6"]
 
-visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -356,9 +355,8 @@ audio_bus_name = "Master"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
 
-visible = false
-position = Vector2( -13.5791, -22.4061 )
-scale = Vector2( 30.8352, 19.6979 )
+position = Vector2( -13.5791, -10.1375 )
+scale = Vector2( 30.8352, 20.2098 )
 shape = SubResource( 12 )
 _sections_unfolded = [ "Transform" ]
 

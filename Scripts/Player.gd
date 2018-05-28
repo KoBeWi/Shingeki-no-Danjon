@@ -23,6 +23,8 @@ var attacking = false
 var shielding = false
 var current_element = 0
 
+var runUpdate = false
+
 func _ready():
 	change_animation("Body", "Idle")
 	$BodyAnimator.play("Idle")
@@ -39,6 +41,7 @@ func _physics_process(delta):
 	
 	var elements_on = (!is_ghost and $Elements.visible)
 	var not_move = (ghost_mode or elements_on)
+	
 	
 	if !not_move:
 		if Input.is_action_pressed("Up"):
@@ -75,8 +78,11 @@ func _physics_process(delta):
 	if randi()%10 == 0: PlayerStats.mana += 1
 	UI.soft_refresh()
 	
-	if SkillBase.has_skill("FastWalk") and SkillBase.check_combo(["Dir", "Same"]): running = true
-	if running: move *= 3
+	if SkillBase.has_skill("FastWalk") and SkillBase.check_combo(["Dir", "Same"]): 
+		running = true
+	if running: 
+		move *= 3
+
 	
 	if !elements_on:
 		if SkillBase.check_combo(["Magic", "Magic_"]):

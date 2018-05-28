@@ -102,6 +102,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=6]
 
+resource_name = "PunchDown"
 length = 6.0
 loop = false
 step = 1.0
@@ -159,6 +160,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 2, 0 ]
+}
 
 [sub_resource type="Animation" id=8]
 
@@ -189,9 +202,22 @@ tracks/1/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 2, 0 ]
+}
 
 [sub_resource type="Animation" id=9]
 
+resource_name = "PunchUp"
 length = 6.0
 loop = false
 step = 1.0
@@ -276,7 +302,7 @@ extents = Vector2( 41.2003, 13.9811 )
 [sub_resource type="RectangleShape2D" id=13]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 14.1548, 16.7017 )
 
 [sub_resource type="RectangleShape2D" id=14]
 
@@ -288,7 +314,7 @@ extents = Vector2( 12.2459, 10 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -297,7 +323,7 @@ collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Visibility", "Z Index" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="0"]
 
@@ -322,8 +348,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="1"]
 
-visible = false
-position = Vector2( 2.70749, 68.8615 )
+position = Vector2( 0.902496, -6.94872 )
 scale = Vector2( 1, 1.83971 )
 shape = SubResource( 12 )
 
@@ -348,7 +373,7 @@ position = Vector2( 0, -13 )
 texture = ExtResource( 3 )
 vframes = 6
 hframes = 4
-frame = 23
+frame = 13
 _sections_unfolded = [ "Animation" ]
 
 [node name="3" type="Sprite" parent="Sprites" index="2"]
@@ -362,8 +387,6 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="Radar" type="Area2D" parent="." index="3"]
 
-editor/display_folded = true
-visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -374,7 +397,7 @@ audio_bus_name = "Master"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" index="0"]
 
-position = Vector2( 19.4395, -10.6553 )
+position = Vector2( -3.9344, -34.2572 )
 scale = Vector2( 28.1086, 18.9252 )
 shape = SubResource( 13 )
 

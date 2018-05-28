@@ -2,7 +2,7 @@ extends Node
 onready var dungeon = $"../Segments"
 
 #zostawic, sluzy testowaniu nowych mobkow
-var NewToTest = "Enemies/Mechanic" #jak zrobisz tak to masz fajny null
+var NewToTest = "Enemies/Puncher"#"Enemies/Mechanic" #jak zrobisz tak to masz fajny null
 
 #3358948719
 #1584724892

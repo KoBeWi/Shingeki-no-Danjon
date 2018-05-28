@@ -30,6 +30,8 @@ var in_action       = false
 var special_ready   = false
 var atack_ready     = true
 var suesided        = false
+var last_animation = ""
+
 
 onready var sprites = $Sprites.get_children()
 
@@ -75,17 +77,20 @@ func _physics_process(delta):
 			if abs(move.x) != 0: 
 				sprites[0].flip_h = move.x > 0
 				play_animation_if_not_playing("Left")
+				last_animation = "Left"
 				direction = "Right" if move.x > 0 else "Left"
 		elif(x_distance < y_distance and axix_Y):
 			if move.y < 0: 
 				play_animation_if_not_playing("Down")
+				last_animation = "Down"				
 				direction = "Up"
 			elif move.y > 0: 
 				play_animation_if_not_playing("Up")
+				last_animation = "Up"			
 				direction = "Down"
 		else:
-			play_animation_if_not_playing("Down")
-			direction = "Down"
+			play_animation_if_not_playing(last_animation)
+			pass
 	
 		var player_monster_distance_x = abs(position.x - player.position.x) 
 		var player_monster_distance_y = abs(position.y - player.position.y) 

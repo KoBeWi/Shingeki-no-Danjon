@@ -38,6 +38,9 @@ var special_nav_poit = Vector2(0,0)
 
 onready var sprites = $Sprites.get_children()
 
+var prevPos
+var test_move = Vector2(0,0)
+
 func _ready():
 	._ready()
 	drops.append([3, 200])
@@ -66,7 +69,26 @@ func calculate_move(delta):
 		if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
 		
 		if (axix_X or axix_Y):
-			move_and_slide(move * SPEED)
+			move_and_slide(move * SPEED )#+ test_move*SPEED)
+			if( position == prevPos ):
+				
+				var temp
+				if (  abs(move.x) > abs(move.y) ):
+					temp = move.x
+				else:
+					temp = move.y
+				
+				
+				test_move = Vector2( temp *SPEED,temp*SPEED )  ;
+				
+				if( test_move(Transform2D(), test_move*SPEED )):
+					test_move = Vector2(0,0)
+					
+					pass
+				#print(position, move*SPEED*delta)
+			else:
+				prevPos = position
+		
 		
 		if( x_distance > y_distance and axix_X ):
 			if abs(move.x) != 0: 
@@ -205,6 +227,7 @@ func play_animation_if_not_playing(anim):
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Player":
+		prevPos = position
 		follow_player = true;
 		player = body
 
@@ -226,6 +249,7 @@ func _on_dead():
 	$"AttackCollider/Shape".disabled = true
 
 func _on_damage():
+	prevPos = position
 	follow_player = true
 	player = $"../Player"
 

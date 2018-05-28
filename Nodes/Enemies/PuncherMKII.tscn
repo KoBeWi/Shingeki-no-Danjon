@@ -266,7 +266,7 @@ extents = Vector2( 4.16951, 10 )
 [sub_resource type="CircleShape2D" id=12]
 
 custom_solver_bias = 0.0
-radius = 10.0
+radius = 15.4731
 
 [sub_resource type="RectangleShape2D" id=13]
 
@@ -383,8 +383,6 @@ _sections_unfolded = [ "Anchor", "Margin", "Textures", "Visibility" ]
 
 [node name="Radar" type="Area2D" parent="." index="4"]
 
-editor/display_folded = true
-visible = false
 position = Vector2( 127.796, -44.6476 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -397,8 +395,7 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="Radar" index="0"]
 
-visible = false
-position = Vector2( -134.657, 50.1639 )
+position = Vector2( -126.901, 6.81504 )
 scale = Vector2( 21.6947, 21.6947 )
 shape = SubResource( 12 )
 
