@@ -231,7 +231,7 @@ func _on_dead():
 
 func _on_damage():
 	follow_player = true
-	player = $"../Player"
+	player = Res.game.player
 
 func _on_animation_finished(anim_name):
 	if "Magic" in anim_name:

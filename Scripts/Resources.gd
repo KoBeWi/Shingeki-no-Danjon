@@ -9,6 +9,8 @@ var skills = {}
 var dungeons = {}
 var crafting = []
 
+var game
+
 func _ready():
 	for segment in get_resource_list("Segments"):
 		segments[segment.name] = segment.data

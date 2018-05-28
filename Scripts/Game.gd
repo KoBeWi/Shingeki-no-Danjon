@@ -1,33 +1,28 @@
 extends YSort
 
 var leave_menu = false
-var dungeon
-var from = "UP"
 
 var my_seed
 var object_id = 0
 var obj_properties = []
 var object_ids = {}
 
+var player
+var map
+
+func _init():
+	Res.game = self
+
 func _ready():
-	Res.call_deferred("play_music", "LowerWorkshop")
 	VisualServer.set_default_clear_color(Color(0.05, 0.05, 0.07))
 	ProjectSettings.set_setting("rendering/environment/default_clear_color", "1a1918") ##usunąć, gdy naprawią powyższe :/
+	player = $Player
 	
-	if !my_seed:
-		randomize()
-		my_seed = randi()
-		print("Seed: ", my_seed)
-		seed(my_seed)
-	else:
-		seed(my_seed)
+	map = load("res://Maps/RandomMap.tscn").instance()
+	add_child(map)
+	map.initialize()
 	
-#	seed(1836388115)
-#	seed(4044205418) ##DEBUG
-	
-	dungeon = Res.dungeons["Workshop"]
-	if has_node("Generator"): $Generator.generate(10, 10) ##warunek to debug
-	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
+#	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
 
 func _process(delta):
 	if Input.is_action_just_pressed("Menu") and !leave_menu:

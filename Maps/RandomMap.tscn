@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Generator.gd" type="Script" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "RandomMap"
+script/source = "extends Node2D
+
+var dungeon
+var from = \"UP\"
+var my_seed
+
+func initialize():
+	Res.call_deferred(\"play_music\", \"LowerWorkshop\")
+	dungeon = Res.dungeons[\"Workshop\"]
+	
+	if !my_seed:
+		randomize()
+		my_seed = randi()
+		print(\"Seed: \", my_seed)
+		seed(my_seed)
+	else:
+		seed(my_seed)
+	
+#	seed(1836388115)
+#	seed(4044205418) ##DEBUG
+	
+	$Generator.generate(10, 10)"
+_sections_unfolded = [ "Resource" ]
+
+[node name="RandomMap" type="Node2D"]
+
+script = SubResource( 1 )
+
+[node name="Generator" type="Node" parent="." index="0"]
+
+script = ExtResource( 1 )
+
+[node name="Segments" type="Node2D" parent="." index="1"]
+
+
