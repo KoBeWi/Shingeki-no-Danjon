@@ -247,10 +247,12 @@ func place_treasure_into_maze(what, how_many):
 		floor_space.remove(i)
 			
 		ug_inst.position = temp
-		
+		ug_inst.item = 17
 		dungeon.get_parent().add_child(ug_inst)
 		if (what == Res.get_node("Objects/Barrel") and randi()%6 == 0) or what == Res.get_node("Objects/Chest"): ##hack ;_;
 			ug_inst.item = randi()%2
+		#	if randi()%3 == 2:
+		#		ug_inst.item = 17
 
 func get_possible_segments(spot):
 	var pos = spot.pos

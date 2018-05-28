@@ -46,7 +46,9 @@ onready var sprites = $Sprites.get_children()
 
 func _ready():
 	._ready()
-	drops.append([3, 250])
+	drops.append([18, 250])
+	drops.append([20, 250])
+	drops.append([22, 250])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 	$"AnimationPlayer".play("Idle")
 	MAT.set_shader_param("ucolor", Color(0.1, 0.4, 1))

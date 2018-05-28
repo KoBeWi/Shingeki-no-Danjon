@@ -38,7 +38,8 @@ onready var sprites = $Sprites.get_children()
 func _ready():
 	._ready()
 	drops.append([3, 200])
-	drops.append([4, 50])
+	drops.append([4,  50])
+	drops.append([21, 50])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 
 func _physics_process(delta):
