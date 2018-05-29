@@ -44,15 +44,19 @@ func open_menu():
 	get_tree().paused = true
 
 func change_floor(change):
-	DungeonState.visited_floors[DungeonState.current_floor] = {"seed": map.my_seed, "obj_properties": obj_properties}
+	if map.get("my_seed"):
+		DungeonState.visited_floors[DungeonState.current_floor] = {"seed": map.my_seed, "obj_properties": obj_properties}
 	DungeonState.current_floor += change
 	
 	var new_map = load("res://Maps/RandomMap.tscn").instance()
-	if DungeonState.visited_floors.has(DungeonState.current_floor):
-		var state = DungeonState.visited_floors[DungeonState.current_floor]
-		new_map.my_seed = state.seed
-		obj_properties = state.obj_properties
-	new_map.from = ("UP" if change > 0 else "DOWN")
+	if DungeonState.current_floor == 0: #ULTRAMEGAOSTATECZNYHACK
+		new_map = load("res://Maps/JigsawRoom.tscn").instance()
+	else:
+		if DungeonState.visited_floors.has(DungeonState.current_floor):
+			var state = DungeonState.visited_floors[DungeonState.current_floor]
+			new_map.my_seed = state.seed
+			obj_properties = state.obj_properties
+		new_map.from = ("UP" if change > 0 else "DOWN")
 	
 	set_map(new_map)
 	player.change_dir(2)

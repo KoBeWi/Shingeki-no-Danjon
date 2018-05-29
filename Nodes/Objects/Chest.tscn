@@ -18,8 +18,6 @@ func interact():
 	$\"/root/Game\".save_state(self)
 	open()
 	
-	print(item)
-	
 	if item > -1:
 		var it = Res.create_instance(\"Item\")
 		it.position = position + Vector2(0, 50)

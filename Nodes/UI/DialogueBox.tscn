@@ -22,6 +22,7 @@ func initiate_dialogue(script):
 	if !on_dialogue:
 		get_tree().paused = true
 		get_parent().player.get_node(\"Interact\").visible = false
+		get_parent().just_opened = true
 		visible = true
 		
 		$DialogueManager.dialogue(script)
