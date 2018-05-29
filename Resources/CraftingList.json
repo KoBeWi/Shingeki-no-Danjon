@@ -10,5 +10,6 @@
 	{"item":15, "materials": {"25":2,  "24":2,  "17":6, "19":11}, "station": "workshop"},
 	{"item":12, "materials": {"24":5,  "18":2, "19":5, "22":1}, "station": "workshop"},
 	{"item":11, "materials": {"3":4,  "17":2, "18":4, "22":1, "24":5}, "station": "workshop"},
-	{"item":10, "materials": {"17":3, "3":1, "24":2}}
+	{"item":10, "materials": {"17":3, "3":1, "24":2} },
+	{"item":27, "materials": {"3":3, "17":2, "18":1, "23":1 }, "station": "workshop" }
 ]

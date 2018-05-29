@@ -1,0 +1,8 @@
+{
+	"type": "helmet",
+	"name": "Automat Helmet",
+	"description": "A protective helmet made of your enemies.",
+	"price": 25,
+	"durability": 15,
+	"defense": 2
+}

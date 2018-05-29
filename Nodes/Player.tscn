@@ -417,7 +417,7 @@ collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Body" type="Sprite" parent="." index="0"]
 
@@ -428,7 +428,6 @@ _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [node name="RightArm" type="Sprite" parent="Body" index="0"]
 
-editor/display_folded = true
 texture = ExtResource( 3 )
 hframes = 10
 _sections_unfolded = [ "Animation", "Visibility" ]
