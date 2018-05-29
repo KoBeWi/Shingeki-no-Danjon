@@ -22,6 +22,7 @@ func _ready():
 	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
 
 func set_map(new_map):
+	map = new_map
 	add_child(new_map)
 	new_map.initialize()
 
