@@ -29,7 +29,7 @@ func initialize():
 	$Generator.generate(10, 10)"
 _sections_unfolded = [ "Resource" ]
 
-[node name="RandomMap" type="Node2D"]
+[node name="RandomMap" type="Node2D" index="0"]
 
 script = SubResource( 1 )
 

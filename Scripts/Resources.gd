@@ -111,7 +111,7 @@ func play_music(music):
 	var player = AudioStreamPlayer.new()
 	player.stream = get_resource("res://Music/" + music + ".ogg")
 	player.play()
-	get_parent().get_node("Game").add_child(player)
+	game.set_music(player)
 
 func create_instance(node):
 	return get_node(node).instance()

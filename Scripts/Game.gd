@@ -9,6 +9,7 @@ var object_ids = {}
 
 var player
 var map
+var music
 
 func _init():
 	Res.game = self
@@ -22,7 +23,7 @@ func _ready():
 	add_child(map)
 	map.initialize()
 	
-#	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
+	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
 
 func _process(delta):
 	if Input.is_action_just_pressed("Menu") and !leave_menu:
@@ -36,22 +37,22 @@ func open_menu():
 	get_tree().paused = true
 
 func change_floor(change):
-	name = "OldGame"
-	DungeonState.visited_floors[DungeonState.current_floor] = {"seed": my_seed, "obj_properties": obj_properties}
-	
+	DungeonState.visited_floors[DungeonState.current_floor] = {"seed": map.my_seed, "obj_properties": obj_properties}
 	DungeonState.current_floor += change
 	
-	var game = load("res://Scenes/Game.tscn").instance()
+	var new_map = load("res://Maps/RandomMap.tscn").instance()
 	if DungeonState.visited_floors.has(DungeonState.current_floor):
 		var state = DungeonState.visited_floors[DungeonState.current_floor]
-		game.my_seed = state.seed
-		game.obj_properties = state.obj_properties
-	game.from = ("UP" if change > 0 else "DOWN")
+		new_map.my_seed = state.seed
+		obj_properties = state.obj_properties
+	new_map.from = ("UP" if change > 0 else "DOWN")
 	
-	$"/root".add_child(game)
-	get_tree().current_scene = game
+	map.queue_free()
+	map = new_map
+	add_child(map)
+	new_map.initialize()
 	
-	queue_free()
+	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
 
 func perma_state(object, method):
 	var already_saved = false
@@ -66,3 +67,8 @@ func perma_state(object, method):
 
 func save_state(object):
 	obj_properties.append({"id": object_ids[object], "saved": true})
+
+func set_music(player):
+	if music: music.queue_free()
+	music = player
+	add_child(music)
