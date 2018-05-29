@@ -460,12 +460,12 @@ height = 20.0
 custom_solver_bias = 0.0
 extents = Vector2( 10.2959, 10 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+[node name="KinematicBody2D" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
 scale = Vector2( 0.75, 0.75 )
-z_index = 2
+z_index = 1
 input_pickable = false
 collision_layer = 1
 collision_mask = 1

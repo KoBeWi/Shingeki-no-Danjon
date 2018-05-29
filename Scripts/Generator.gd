@@ -123,7 +123,7 @@ func generate(w, h):
 	wall_space.erase(wall)
 	wall_space.erase(wall + Vector2(80, 0))
 	
-	Res.game.get_node("Player").position = wall + Vector2(0, 160)
+	Res.game.player.position = wall + Vector2(0, 160)
 	
 	var wall2 = wall_space[randi() % wall_space.size()]
 	while wall.distance_to(wall2) < 800 or !wall_space.has(wall2 + Vector2(-80, 0)): wall2 = wall_space[randi() % wall_space.size()]

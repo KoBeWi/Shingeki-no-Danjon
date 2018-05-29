@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-onready var UI = $"/root/Game/Player/Camera/UI/DialogueBox"
+onready var UI = Res.game.player.UI.get_node("DialogueBox")
 
 var id = 0 ##meh
 

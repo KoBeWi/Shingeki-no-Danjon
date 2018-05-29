@@ -62,7 +62,7 @@ func damage_equipment(i, damage = 1):
 		PlayerStats.equipment[i].durability -= damage
 		
 		if PlayerStats.equipment[i].durability <= 0:
-			Res.play_sample($"/root/Game/Player", "ItemBreak")
+			Res.play_sample(Res.game.player, "ItemBreak")
 			PlayerStats.equipment[i] = null
 			emit_signal("equipment_changed")
 
@@ -89,7 +89,7 @@ func subtract_items(id, amount):
 	for item in removed_stacks: inventory.erase(item)
 
 func consume(item):
-	Res.play_sample($"/root/Game/Player", "Consume", false)
+	Res.play_sample(Res.game.player, "Consume", false)
 	PlayerStats.health += item.health
 	return true
 

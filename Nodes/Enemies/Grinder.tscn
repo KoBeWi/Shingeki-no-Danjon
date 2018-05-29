@@ -210,12 +210,12 @@ extents = Vector2( 57.0542, 68.5652 )
 custom_solver_bias = 0.0
 extents = Vector2( 19.4311, 20.9686 )
 
-[node name="Grinder" type="KinematicBody2D" groups=[
+[node name="Grinder" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
 position = Vector2( 0, -10 )
-z_index = 2
+z_index = 1
 input_pickable = false
 collision_layer = 1
 collision_mask = 1

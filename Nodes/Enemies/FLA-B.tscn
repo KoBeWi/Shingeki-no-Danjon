@@ -404,12 +404,12 @@ extents = Vector2( 10, 17.8173 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="FLA-B" type="KinematicBody2D" groups=[
+[node name="FLA-B" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
 scale = Vector2( 0.75, 0.75 )
-z_index = 2
+z_index = 1
 input_pickable = false
 collision_layer = 1
 collision_mask = 1

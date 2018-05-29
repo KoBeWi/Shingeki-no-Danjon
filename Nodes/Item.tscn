@@ -10,14 +10,12 @@ script/source = "extends Node2D
 
 var id = 0 setget set_id
 
-onready var player = $\"/root/Game/Player\"
-
 func set_id(i):
 	id = i
 	$Sprite.texture = Res.get_item_texture(i)
 
 func _process(delta):
-	if position.distance_squared_to(player.position) < 25600:
+	if position.distance_squared_to(Res.game.player.position) < 25600:
 		$Frame/Animation.stop()
 		$Frame.visible = false
 	elif !$Frame/Animation.is_playing():

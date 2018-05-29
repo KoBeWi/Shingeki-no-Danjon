@@ -29,8 +29,9 @@ func initialize():
 	$Generator.generate(10, 10)"
 _sections_unfolded = [ "Resource" ]
 
-[node name="RandomMap" type="Node2D"]
+[node name="RandomMap" type="YSort"]
 
+sort_enabled = true
 script = SubResource( 1 )
 
 [node name="Generator" type="Node" parent="." index="0"]

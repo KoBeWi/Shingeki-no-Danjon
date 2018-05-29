@@ -2,7 +2,7 @@ extends StaticBody2D
 
 export(String) var type
 
-onready var player_menu = $"/root/Game/Player/Camera/UI/PlayerMenu"
+onready var player_menu = Res.game.player.UI.get_node("PlayerMenu")
 
 func interact():
 	$"/root/Game".open_menu()

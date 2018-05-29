@@ -8,11 +8,9 @@
 resource_name = "Soul Crystal"
 script/source = "extends StaticBody2D
 
-onready var player = $\"/root/Game/Player\"
-
 func interact():
-	player.global_position = $InteractArea.player_in.global_position
-	player.cancel_ghost()"
+	Res.game.player.global_position = $InteractArea.player_in.global_position
+	Res.game.player.cancel_ghost()"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="RectangleShape2D" id=1]

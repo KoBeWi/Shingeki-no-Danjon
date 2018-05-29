@@ -1,4 +1,4 @@
-extends YSort
+extends Node2D
 
 var leave_menu = false
 
@@ -22,6 +22,10 @@ func _ready():
 	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
 
 func set_map(new_map):
+	if map: map.remove_child(player)
+	else: remove_child(player)
+	new_map.add_child(player)
+	
 	map = new_map
 	add_child(new_map)
 	new_map.initialize()
@@ -34,7 +38,7 @@ func _process(delta):
 		leave_menu = false
 
 func open_menu():
-	$Player/Camera/UI.enable()
+	player.get_node("Camera/UI").enable()
 	get_tree().paused = true
 
 func change_floor(change):
