@@ -22,7 +22,9 @@ func _ready():
 	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
 
 func set_map(new_map):
-	if map: map.remove_child(player)
+	if map:
+		map.remove_child(player)
+		map.queue_free()
 	else: remove_child(player)
 	new_map.add_child(player)
 	
@@ -52,10 +54,8 @@ func change_floor(change):
 		obj_properties = state.obj_properties
 	new_map.from = ("UP" if change > 0 else "DOWN")
 	
-	map.queue_free()
-	map = new_map
-	add_child(map)
-	new_map.initialize()
+	set_map(new_map)
+	player.change_dir(2)
 	
 	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
 

@@ -7,7 +7,7 @@
 resource_name = "Stairs"
 script/source = "extends Sprite
 
-var change = 1
+export var change = 1
 var player_in
 
 func set_stairs(updown, tileset):
@@ -28,13 +28,14 @@ _sections_unfolded = [ "Resource" ]
 custom_solver_bias = 0.0
 extents = Vector2( 40, 10 )
 
-[node name="Stairs" type="Sprite" index="0"]
+[node name="Stairs" type="Sprite"]
 
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 480, 160, 160 )
 script = SubResource( 1 )
 _sections_unfolded = [ "Region" ]
+change = 1
 
 [node name="Enter" type="Area2D" parent="." index="0"]
 
