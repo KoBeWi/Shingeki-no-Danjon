@@ -33,7 +33,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[node name="WorkshopCrafting" type="StaticBody2D"]
+[node name="WorkshopCrafting" type="StaticBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1

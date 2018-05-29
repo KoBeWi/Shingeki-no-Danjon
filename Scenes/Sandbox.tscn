@@ -24,6 +24,8 @@ position = Vector2( 264.752, 546.056 )
 
 [node name="Segments" type="Node2D" parent="." index="2"]
 
+editor/display_folded = true
+
 [node name="Segment" type="Node2D" parent="Segments" index="0"]
 
 position = Vector2( -12.2346, -36.5924 )

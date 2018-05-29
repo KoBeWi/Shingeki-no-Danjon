@@ -19,11 +19,11 @@ func _ready():
 	ProjectSettings.set_setting("rendering/environment/default_clear_color", "1a1918") ##usunąć, gdy naprawią powyższe :/
 	player = $Player
 	
-	map = load("res://Maps/RandomMap.tscn").instance()
-	add_child(map)
-	map.initialize()
-	
 	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
+
+func set_map(new_map):
+	add_child(new_map)
+	new_map.initialize()
 
 func _process(delta):
 	if Input.is_action_just_pressed("Menu") and !leave_menu:

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node2D
+
+func _process(delta):
+	var game = load(\"res://Scenes/Game.tscn\").instance()
+	$\"/root\".add_child(game)
+	game.set_map(load(\"res://Maps/RandomMap.tscn\").instance())
+	
+	get_tree().current_scene = game
+	queue_free()"
+
+[node name="TitleScreen" type="Node2D"]
+
+script = SubResource( 1 )
+
+

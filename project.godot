@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="Shingeki no Danjon"
-run/main_scene="res://Scenes/Game.tscn"
+run/main_scene="res://Scenes/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]
