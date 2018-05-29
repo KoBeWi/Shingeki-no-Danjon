@@ -166,8 +166,12 @@ func _process(delta):
 				Res.ui_sample(\"MenuCancel\")
 				self.in_tab = false
 			
-			if Input.is_action_just_pressed(\"ui_up\"): skillpoint_select = max(skillpoint_select-1, 0)
-			elif Input.is_action_just_pressed(\"ui_down\"): skillpoint_select = min(skillpoint_select+1, SKILLPOINTS.size()-1)
+			if Input.is_action_just_pressed(\"ui_up\"):
+				Res.ui_sample(\"MenuMove\")
+				skillpoint_select = max(skillpoint_select-1, 0)
+			elif Input.is_action_just_pressed(\"ui_down\"):
+				Res.ui_sample(\"MenuMove\")
+				skillpoint_select = min(skillpoint_select+1, SKILLPOINTS.size()-1)
 			
 			if PlayerStats.stat_points > 0 and Input.is_action_just_pressed(\"Interact\"):
 				Res.ui_sample(\"Skillpoint\")
@@ -176,6 +180,10 @@ func _process(delta):
 				SkillBase.inc_stat(SKILLPOINTS[skillpoint_select])
 				PlayerStats.stat_points -= 1
 		1:
+			if Input.is_action_just_pressed(\"ui_cancel\") or Input.is_action_just_pressed(\"ui_up\") and inventory_select > -2 and inventory_select < 2:
+				Res.ui_sample(\"MenuCancel\")
+				self.in_tab = false
+			
 			var prev_sel = inventory_select
 			
 			if inventory_select >= 0:
@@ -236,11 +244,13 @@ func _process(delta):
 					select_inventory()
 			
 			if inventory_select != prev_sel: select_inventory()
-			
-			if Input.is_action_just_pressed(\"ui_cancel\"):
+		3:
+			if Input.is_action_just_pressed(\"ui_cancel\") or Input.is_action_just_pressed(\"ui_up\") and crafting_select < 2:
 				Res.ui_sample(\"MenuCancel\")
 				self.in_tab = false
-		3:
+				return
+			
+			var prev_sel = crafting_select
 			if Input.is_action_just_pressed(\"ui_left\"):
 				crafting_select = max(crafting_select-1, 0)
 				select_crafting()
@@ -253,6 +263,7 @@ func _process(delta):
 			elif Input.is_action_just_pressed(\"ui_down\"):
 				crafting_select = min(crafting_select+2, crafting_list.size()-1)
 				select_crafting()
+			if crafting_select != prev_sel: Res.ui_sample(\"MenuMove\")
 			
 			if Input.is_action_just_pressed(\"Interact\"):
 				var can_craft = true
@@ -267,12 +278,8 @@ func _process(delta):
 					for i in range(materials.keys().size()):
 						PlayerStats.subtract_items(int(materials.keys()[i]), materials.values()[i])
 					select_crafting()
-			
-			if Input.is_action_just_pressed(\"ui_cancel\"):
-				Res.ui_sample(\"MenuCancel\")
-				self.in_tab = false
 		_:
-			if Input.is_action_just_pressed(\"ui_cancel\"):
+			if Input.is_action_just_pressed(\"ui_cancel\") or Input.is_action_just_pressed(\"ui_up\"):
 				Res.ui_sample(\"MenuCancel\")
 				self.in_tab = false
 
@@ -1654,7 +1661,6 @@ size_flags_vertical = 1
 
 [node name="Skills" type="Control" parent="Tabs" index="2"]
 
-editor/display_folded = true
 self_modulate = Color( 1, 0.501961, 0.501961, 0.501961 )
 anchor_left = 0.0
 anchor_top = 0.0
