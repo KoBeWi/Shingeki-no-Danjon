@@ -7,10 +7,10 @@ path="res://.import/IconCharacter.png-bcba8c3f574e2768d56c55b9848b3914.stex"
 [deps]
 
 source_file="res://Sprites/UI/Menu/IconCharacter.png"
-source_md5="14be26345faa6eb40772acd010da349f"
+source_md5="6bf71ebecf50edd3b53d675c5088af26"
 
 dest_files=[ "res://.import/IconCharacter.png-bcba8c3f574e2768d56c55b9848b3914.stex" ]
-dest_md5="95e775c87e835cec9e16f75012aeb442"
+dest_md5="1546e7116c46ff331203af3f701dff66"
 
 [params]
 

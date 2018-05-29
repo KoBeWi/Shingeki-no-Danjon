@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BodyWalk.png-ddb2c8b2804e371232bfbee837da170c.stex"
+path="res://.import/EquipmentAvatar.png-7dcb8dd927b933a1725fe6fbdfb72a3c.stex"
 
 [deps]
 
-source_file="res://Sprites/Player/Left/BodyWalk.png"
-source_md5="6d6e474ab4e15dfd6a3ff0943ad1552e"
+source_file="res://Sprites/UI/Menu/Equipment/EquipmentAvatar.png"
+source_md5="b88bb037764a81c09d9f298034102b0e"
 
-dest_files=[ "res://.import/BodyWalk.png-ddb2c8b2804e371232bfbee837da170c.stex" ]
-dest_md5="4266d20c420b3a2ce3932aff96a0726e"
+dest_files=[ "res://.import/EquipmentAvatar.png-7dcb8dd927b933a1725fe6fbdfb72a3c.stex" ]
+dest_md5="d4ea9d03d3927a73ede1c49572bafc20"
 
 [params]
 

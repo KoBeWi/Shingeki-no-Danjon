@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BodyWalk.png-ddb2c8b2804e371232bfbee837da170c.stex"
+path="res://.import/CharacterSkillpointInactive.png-fa570d7cd8083fda0cb992c026c7756e.stex"
 
 [deps]
 
-source_file="res://Sprites/Player/Left/BodyWalk.png"
-source_md5="6d6e474ab4e15dfd6a3ff0943ad1552e"
+source_file="res://Sprites/UI/Menu/Character/CharacterSkillpointInactive.png"
+source_md5="fea2c8ba630a37c1100beb3f9ce3cde4"
 
-dest_files=[ "res://.import/BodyWalk.png-ddb2c8b2804e371232bfbee837da170c.stex" ]
-dest_md5="4266d20c420b3a2ce3932aff96a0726e"
+dest_files=[ "res://.import/CharacterSkillpointInactive.png-fa570d7cd8083fda0cb992c026c7756e.stex" ]
+dest_md5="c1b67813d10dd879aee328462fe3b1cb"
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BodyWalk.png-ddb2c8b2804e371232bfbee837da170c.stex"
+path="res://.import/Genericboots.png-d0dd869fe84f31c68da408468c5fdb90.stex"
 
 [deps]
 
-source_file="res://Sprites/Player/Left/BodyWalk.png"
-source_md5="6d6e474ab4e15dfd6a3ff0943ad1552e"
+source_file="res://Sprites/UI/Menu/Equipment/Genericboots.png"
+source_md5="ba668905191632f18444eabffef9202a"
 
-dest_files=[ "res://.import/BodyWalk.png-ddb2c8b2804e371232bfbee837da170c.stex" ]
-dest_md5="4266d20c420b3a2ce3932aff96a0726e"
+dest_files=[ "res://.import/Genericboots.png-d0dd869fe84f31c68da408468c5fdb90.stex" ]
+dest_md5="617f4f98993165682e310a9e76a6abb6"
 
 [params]
 

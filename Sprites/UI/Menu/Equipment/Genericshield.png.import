@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BodyWalk.png-ddb2c8b2804e371232bfbee837da170c.stex"
+path="res://.import/Genericshield.png-9fd490255271709493e9108959798198.stex"
 
 [deps]
 
-source_file="res://Sprites/Player/Left/BodyWalk.png"
-source_md5="6d6e474ab4e15dfd6a3ff0943ad1552e"
+source_file="res://Sprites/UI/Menu/Equipment/Genericshield.png"
+source_md5="b9dc713a892ef9447a4f85e94d6c5e8e"
 
-dest_files=[ "res://.import/BodyWalk.png-ddb2c8b2804e371232bfbee837da170c.stex" ]
-dest_md5="4266d20c420b3a2ce3932aff96a0726e"
+dest_files=[ "res://.import/Genericshield.png-9fd490255271709493e9108959798198.stex" ]
+dest_md5="04bebc82c03809fa7ddcb744a5380cf0"
 
 [params]
 

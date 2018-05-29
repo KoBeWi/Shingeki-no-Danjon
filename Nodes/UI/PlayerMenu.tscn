@@ -1,35 +1,30 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Sprites/UI/Menu/PlayerMenu.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/UI/Menu/TabInactive.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/UI/Menu/IconCharacterInactive.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/UI/Menu/CharacterAvatar.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/UI/Menu/CharacterExp.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/UI/Menu/CharacterExpFill.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/Menu/Character/CharacterAvatar.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/Menu/Character/CharacterExp.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/Menu/Character/CharacterExpFill.png" type="Texture" id=6]
 [ext_resource path="res://Resources/Font12.tres" type="DynamicFont" id=7]
-[ext_resource path="res://Sprites/UI/Menu/CharacterLevel.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/Menu/Character/CharacterLevel.png" type="Texture" id=8]
 [ext_resource path="res://Resources/Font24.tres" type="DynamicFont" id=9]
-[ext_resource path="res://Sprites/UI/Menu/CharacterSkillpointBar.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/UI/Menu/CharacterSkillpointInactive.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/UI/Menu/Character/CharacterSkillpointBar.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/UI/Menu/Character/CharacterSkillpointInactive.png" type="Texture" id=11]
 [ext_resource path="res://Resources/Font36.tres" type="DynamicFont" id=12]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentAvatar.png" type="Texture" id=13]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentSlot.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentAvatar.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentSlot.png" type="Texture" id=14]
 [ext_resource path="res://Sprites/Items/0.png" type="Texture" id=15]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentInventorySlot.png" type="Texture" id=16]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentScrollbarBackground.png" type="Texture" id=17]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentScrollbar.png" type="Texture" id=18]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentDescription.png" type="Texture" id=19]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentDurabilityBackground.png" type="Texture" id=20]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentDurability.png" type="Texture" id=21]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentLeftBar.png" type="Texture" id=22]
-[ext_resource path="res://Sprites/UI/Menu/EquipmentRightBar.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentScrollbarBackground.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentScrollbar.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentDescription.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentDurabilityBackground.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentDurability.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/UI/Menu/LeftHeader.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/UI/Menu/RightHeader.png" type="Texture" id=23]
 [ext_resource path="res://Sprites/UI/Menu/skills_tlo.png" type="Texture" id=24]
-[ext_resource path="res://Sprites/UI/Menu/CraftingBackground.png" type="Texture" id=25]
-[ext_resource path="res://Sprites/UI/Menu/CraftingItem.png" type="Texture" id=26]
-[ext_resource path="res://Sprites/UI/Menu/CraftingIngredients.png" type="Texture" id=27]
-[ext_resource path="res://Sprites/UI/Menu/CraftingIngredientIcon.png" type="Texture" id=28]
-[ext_resource path="res://Sprites/UI/Menu/CraftingInfo.png" type="Texture" id=29]
-[ext_resource path="res://Sprites/UI/Menu/CraftingHighlight.png" type="Texture" id=30]
+[ext_resource path="res://Sprites/UI/Menu/Crafting/IngredientFrame.png" type="Texture" id=25]
 
 [sub_resource type="GDScript" id=1]
 
@@ -66,7 +61,7 @@ func _ready():
 		var row = (i+1) / 2
 		
 		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
-		clone.rect_position = sheep.rect_position + Vector2(col * 387, row * 93)
+		clone.rect_position = sheep.rect_position + Vector2(col * 404, row * 90)
 		$Tabs/Crafting/Items.add_child(clone)
 	
 	sheep = $TabsBar/Tab1
@@ -85,11 +80,11 @@ func _ready():
 		clone.get_node(\"Label\").text = SKILLPOINTS[i].to_upper()
 		$Tabs/Character/Skillpoints.add_child(clone)
 	
-	sheep = $Tabs/Crafting/Ingredients/Ingredient1
+	sheep = $Tabs/Crafting/LeftHeader/Ingredients/Ingredient1
 	for i in range(MAX_INGREDIENTS-1):
 		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
-		clone.rect_position = sheep.rect_position + Vector2(0, (i+1) * 72)
-		$Tabs/Crafting/Ingredients.add_child(clone)
+		clone.rect_position = sheep.rect_position + Vector2(0, (i+1) * 54)
+		$Tabs/Crafting/LeftHeader/Ingredients.add_child(clone)
 	
 	sheep = $Tabs/Equipment/Inventory/Slots/Slot1
 	for i in range(INVENTORY_SLOTS-1):
@@ -109,8 +104,6 @@ func _ready():
 	update_inventory()
 	update_equipment()
 	
-	select_crafting()
-	
 	update_tabs()
 
 func _process(delta):
@@ -126,7 +119,7 @@ func _process(delta):
 		$Tabs/Character/CharacterExp.max_value = next_exp
 		
 		if !in_tab: for i in range(SKILLPOINTS.size()):
-			$Tabs/Character/Skillpoints.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/CharacterSkillpointInactive.png\")
+			$Tabs/Character/Skillpoints.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Character/CharacterSkillpointInactive.png\")
 	
 	if !in_tab:
 		var old_tab = current_tab
@@ -146,7 +139,7 @@ func _process(delta):
 	else: match current_tab:
 		0:
 			for i in range(SKILLPOINTS.size()):
-				$Tabs/Character/Skillpoints.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/CharacterSkillpoint\" + (\"Active\" if skillpoint_select == i else \"Inactive\") + \".png\")
+				$Tabs/Character/Skillpoints.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Character/CharacterSkillpoint\" + (\"Active\" if skillpoint_select == i else \"Inactive\") + \".png\")
 			
 			if Input.is_action_just_pressed(\"ui_up\"): skillpoint_select = max(skillpoint_select-1, 0)
 			elif Input.is_action_just_pressed(\"ui_down\"): skillpoint_select = min(skillpoint_select+1, SKILLPOINTS.size()-1)
@@ -226,12 +219,18 @@ func _process(delta):
 			if Input.is_action_just_pressed(\"ui_cancel\"):
 				Res.ui_sample(\"MenuCancel\")
 				self.in_tab = false
-		2:
+		3:
 			if Input.is_action_just_pressed(\"ui_left\"):
 				crafting_select = max(crafting_select-1, 0)
 				select_crafting()
 			elif Input.is_action_just_pressed(\"ui_right\"):
 				crafting_select = min(crafting_select+1, crafting_list.size()-1)
+				select_crafting()
+			elif Input.is_action_just_pressed(\"ui_up\"):
+				crafting_select = max(crafting_select-2, 0)
+				select_crafting()
+			elif Input.is_action_just_pressed(\"ui_down\"):
+				crafting_select = min(crafting_select+2, crafting_list.size()-1)
 				select_crafting()
 			
 			if Input.is_action_just_pressed(\"Interact\"):
@@ -298,14 +297,14 @@ func update_equipment():
 		if PlayerStats.equipment[i]:
 			item.texture = Res.get_item_texture(PlayerStats.equipment[i].id)
 		else:
-			item.texture = Res.get_resource(\"res://Sprites/UI/Menu/Generic\" + PlayerStats.EQUIPMENT_SLOTS[i] + \".png\")
+			item.texture = Res.get_resource(\"res://Sprites/UI/Menu/Equipment/Generic\" + PlayerStats.EQUIPMENT_SLOTS[i] + \".png\")
 
 func in_out_tab(in_out):
 	in_tab = in_out
 	if in_out:
-		$TabsBar.get_child(current_tab).texture = Res.get_resource(\"res://Sprites/UI/Menu/TabSelected.png\")
+		$TabsBar.get_child(current_tab).texture = load(\"res://Sprites/UI/Menu/TabSelected.png\")
 	else:
-		$TabsBar.get_child(current_tab).texture = Res.get_resource(\"res://Sprites/UI/Menu/TabActive.png\")
+		$TabsBar.get_child(current_tab).texture = load(\"res://Sprites/UI/Menu/TabActive.png\")
 		exit_tab()
 
 func update_tabs(tab = current_tab):
@@ -317,14 +316,15 @@ func update_tabs(tab = current_tab):
 		$TabsBar.get_child(i).get_node(\"Icon\").texture = Res.get_resource(\"res://Sprites/UI/Menu/Icon\" + TABS[i] + (\"\" if i == tab else \"Inactive\") + \".png\")
 
 func select_crafting():
-	$Tabs/Crafting/Highlight.rect_position = $Tabs/Crafting/Items.rect_position + $Tabs/Crafting/Items/Item1.rect_position + Vector2(crafting_select % 2 * 387, crafting_select / 2 * 93)
+	for i in $Tabs/Crafting/Items.get_child_count():
+		$Tabs/Crafting/Items.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot\" + (\"Active\" if i == crafting_select else \"\") + \".png\")
 	
 	var item = Res.items[crafting_list[crafting_select].item]
 	$Tabs/Crafting/Info/Description.text = item.description
 	
 	var materials = crafting_list[crafting_select].materials
 	for i in range(MAX_INGREDIENTS):
-		var ingredient = $Tabs/Crafting/Ingredients.get_child(i)
+		var ingredient = $Tabs/Crafting/LeftHeader/Ingredients.get_child(i)
 		
 		if i < materials.keys().size():
 			ingredient.visible = true
@@ -359,10 +359,10 @@ func select_inventory():
 	
 	for i in $Tabs/Equipment/Inventory/Slots.get_child_count():
 		$Tabs/Equipment/Inventory/Slots.get_child(i).visible = i + inventory_scroll < PlayerStats.inventory.size()
-		$Tabs/Equipment/Inventory/Slots.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/EquipmentInventorySlot\" + (\"Active\" if i == inventory_select - inventory_scroll else \"\") + \".png\")
+		$Tabs/Equipment/Inventory/Slots.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot\" + (\"Active\" if i == inventory_select - inventory_scroll else \"\") + \".png\")
 	
 	for i in $Tabs/Equipment/Character/EquipmentSlots.get_child_count():
-		$Tabs/Equipment/Character/EquipmentSlots.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/EquipmentSlot\" + (\"Active\" if i == -inventory_select-1 else \"\") + \".png\")
+		$Tabs/Equipment/Character/EquipmentSlots.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentSlot\" + (\"Active\" if i == -inventory_select-1 else \"\") + \".png\")
 	
 	$Tabs/Equipment/Description.visible = true
 	if item.has(\"durability\"):
@@ -383,10 +383,10 @@ func enter_tab():
 	match current_tab:
 		1:
 			select_inventory()
-		2:
-			$Tabs/Crafting/Highlight.visible = true
-			$Tabs/Crafting/Ingredients.visible = true
+		3:
+			$Tabs/Crafting/LeftHeader.visible = true
 			$Tabs/Crafting/Info.visible = true
+			select_crafting()
 
 func exit_tab():
 	match current_tab:
@@ -395,14 +395,16 @@ func exit_tab():
 			$Tabs/Equipment/Stats.visible = false
 			
 			for i in $Tabs/Equipment/Inventory/Slots.get_child_count():
-				$Tabs/Equipment/Inventory/Slots.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/EquipmentInventorySlot.png\")
+				$Tabs/Equipment/Inventory/Slots.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot.png\")
 			
 			for i in $Tabs/Equipment/Character/EquipmentSlots.get_child_count():
-				$Tabs/Equipment/Character/EquipmentSlots.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/EquipmentSlot.png\")
-		2:
-			$Tabs/Crafting/Highlight.visible = false
-			$Tabs/Crafting/Ingredients.visible = false
+				$Tabs/Equipment/Character/EquipmentSlots.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Equipment/EquipmentSlot.png\")
+		3:
+			$Tabs/Crafting/LeftHeader.visible = false
 			$Tabs/Crafting/Info.visible = false
+			
+			for i in $Tabs/Crafting/Items.get_child_count():
+				$Tabs/Crafting/Items.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot.png\")
 
 func get_eq_slot(item):
 	return PlayerStats.EQUIPMENT_SLOTS.find(item.type)
@@ -446,7 +448,7 @@ func update_stats(item, compare):
 	$Tabs/Equipment/Stats.visible = !irrelevant"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect"]
+[node name="PlayerMenu" type="TextureRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -824,6 +826,8 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Equipment" type="Control" parent="Tabs" index="1"]
 
+editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1640,8 +1644,6 @@ stretch_mode = 0
 
 [node name="Crafting" type="Control" parent="Tabs" index="3"]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1655,25 +1657,22 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Items" type="TextureRect" parent="Tabs/Crafting" index="0"]
+[node name="Items" type="Control" parent="Tabs/Crafting" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 40.0
 margin_top = 111.0
-margin_right = 837.0
-margin_bottom = 748.0
+margin_right = 73.0
+margin_bottom = 140.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 25 )
-stretch_mode = 0
 
 [node name="Item1" type="TextureRect" parent="Tabs/Crafting/Items" index="0"]
 
@@ -1682,17 +1681,17 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 23.0
-margin_top = 60.0
-margin_right = 389.0
-margin_bottom = 142.0
+margin_left = 447.0
+margin_top = 123.0
+margin_right = 837.0
+margin_bottom = 208.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 26 )
+texture = ExtResource( 16 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -1723,9 +1722,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 94.0
-margin_top = 36.0
+margin_top = 29.0
 margin_right = 360.0
-margin_bottom = 56.0
+margin_bottom = 57.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1733,56 +1732,93 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 9 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Test Sword Name LOL"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors" ]
 
-[node name="Ingredients" type="TextureRect" parent="Tabs/Crafting" index="1"]
+[node name="LeftHeader" type="TextureRect" parent="Tabs/Crafting" index="1"]
 
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 837.0
-margin_top = 111.0
-margin_right = 1325.0
-margin_bottom = 520.0
+margin_left = 46.0
+margin_top = 155.0
+margin_right = 409.0
+margin_bottom = 195.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 27 )
+texture = ExtResource( 22 )
 stretch_mode = 0
 
-[node name="Ingredient1" type="TextureRect" parent="Tabs/Crafting/Ingredients" index="0"]
+[node name="Label" type="Label" parent="Tabs/Crafting/LeftHeader" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 363.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 12 )
+text = "MATERIALS"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Ingredients" type="Control" parent="Tabs/Crafting/LeftHeader" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 791.0
+margin_top = -44.0
+margin_right = 1279.0
+margin_bottom = 365.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Ingredient1" type="TextureRect" parent="Tabs/Crafting/LeftHeader/Ingredients" index="0"]
 
 editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 28.0
-margin_top = 77.0
-margin_right = 68.0
-margin_bottom = 117.0
+margin_left = -761.0
+margin_top = 108.0
+margin_right = -721.0
+margin_bottom = 148.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 28 )
+texture = ExtResource( 25 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
-[node name="Icon" type="TextureRect" parent="Tabs/Crafting/Ingredients/Ingredient1" index="0"]
+[node name="Icon" type="TextureRect" parent="Tabs/Crafting/LeftHeader/Ingredients/Ingredient1" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1800,14 +1836,16 @@ texture = ExtResource( 15 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
-[node name="Name" type="Label" parent="Tabs/Crafting/Ingredients/Ingredient1" index="1"]
+[node name="Name" type="Label" parent="Tabs/Crafting/LeftHeader/Ingredients/Ingredient1" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = -20.0
-margin_right = 266.0
+margin_left = 50.0
+margin_top = -7.0
+margin_right = 316.0
+margin_bottom = 21.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1815,23 +1853,22 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 9 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Test Sword Name LOL"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors" ]
 
-[node name="Amount" type="Label" parent="Tabs/Crafting/Ingredients/Ingredient1" index="2"]
+[node name="Amount" type="Label" parent="Tabs/Crafting/LeftHeader/Ingredients/Ingredient1" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 56.0
-margin_top = 12.0
-margin_right = 112.0
-margin_bottom = 32.0
+margin_left = 51.0
+margin_top = 20.0
+margin_right = 107.0
+margin_bottom = 48.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1839,7 +1876,6 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 9 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "2/10"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1848,23 +1884,22 @@ _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
 [node name="Info" type="TextureRect" parent="Tabs/Crafting" index="2"]
 
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 837.0
-margin_top = 520.0
-margin_right = 1325.0
-margin_bottom = 748.0
+margin_left = 46.0
+margin_top = 560.0
+margin_right = 409.0
+margin_bottom = 600.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 29 )
+texture = ExtResource( 22 )
 stretch_mode = 0
 
 [node name="Description" type="Label" parent="Tabs/Crafting/Info" index="0"]
@@ -1873,10 +1908,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 29.0
-margin_top = 66.0
-margin_right = 465.0
-margin_bottom = 132.0
+margin_left = 12.0
+margin_top = 51.0
+margin_right = 352.0
+margin_bottom = 172.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1884,7 +1919,6 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 9 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "This is a very long description to test very long descriptions and how they fit and stuff."
 autowrap = true
 percent_visible = 1.0
@@ -1892,25 +1926,69 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="Highlight" type="TextureRect" parent="Tabs/Crafting" index="3"]
+[node name="Label" type="Label" parent="Tabs/Crafting/Info" index="1"]
 
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 63.0
-margin_top = 171.0
-margin_right = 429.0
-margin_bottom = 253.0
+margin_top = -1.0
+margin_right = 363.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 12 )
+text = "DESCRIPTION"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="RightHeader" type="TextureRect" parent="Tabs/Crafting" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 467.0
+margin_top = 155.0
+margin_right = 1320.0
+margin_bottom = 195.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 30 )
+texture = ExtResource( 23 )
 stretch_mode = 0
+
+[node name="Label" type="Label" parent="Tabs/Crafting/RightHeader" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 852.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 12 )
+text = "AVAILABLE ITEMS"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="Map" type="Control" parent="Tabs" index="4"]
 
