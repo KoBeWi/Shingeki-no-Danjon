@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Sprites/UI/Menu/PlayerMenu.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/UI/Menu/TabInactive.png" type="Texture" id=2]
@@ -23,8 +23,11 @@
 [ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentDurability.png" type="Texture" id=21]
 [ext_resource path="res://Sprites/UI/Menu/LeftHeader.png" type="Texture" id=22]
 [ext_resource path="res://Sprites/UI/Menu/RightHeader.png" type="Texture" id=23]
-[ext_resource path="res://Sprites/UI/Menu/skills_tlo.png" type="Texture" id=24]
-[ext_resource path="res://Sprites/UI/Menu/Crafting/IngredientFrame.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/UI/Menu/Skills/Panel.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/UI/Menu/Skills/HeaderActive.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/UI/Menu/Skills/SkillFrame.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/UI/Menu/Skills/AnimationPanel.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/UI/Menu/Crafting/IngredientFrame.png" type="Texture" id=28]
 
 [sub_resource type="GDScript" id=1]
 
@@ -98,6 +101,24 @@ func _ready():
 		clone.rect_position = sheep.rect_position + Vector2(0, (i+1) * 22)
 		$Tabs/Equipment/Stats/Stats.add_child(clone)
 	
+	sheep = $Tabs/Skills/ActivePanel/Skills/Skill1
+	for i in range(15):
+		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
+		clone.rect_position = sheep.rect_position + Vector2((i+1)%4 * 117, (i+1)/4 * 117)
+		$Tabs/Skills/ActivePanel/Skills.add_child(clone)
+	
+	sheep = $Tabs/Skills/PassivePanel/Skills/Skill1
+	for i in range(15):
+		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
+		clone.rect_position = sheep.rect_position + Vector2((i+1)%4 * 117, (i+1)/4 * 117)
+		$Tabs/Skills/PassivePanel/Skills.add_child(clone)
+	
+	sheep = $Tabs/Skills/Info/Infos/Info1
+	for i in range(2):
+		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
+		clone.rect_position = sheep.rect_position + Vector2(0, (i+1) * 24)
+		$Tabs/Skills/Info/Infos.add_child(clone)
+	
 	if PlayerStats.inventory.empty(): inventory_select = -1
 	
 	update_crafting()
@@ -132,7 +153,7 @@ func _process(delta):
 			Res.ui_sample(\"MenuMove\")
 			self.current_tab += 1
 			if current_tab >= TABS.size(): self.current_tab = 0
-		elif Input.is_action_just_pressed(\"Interact\"):
+		elif Input.is_action_just_pressed(\"Interact\") or Input.is_action_just_pressed(\"ui_down\"):
 			Res.ui_sample(\"MenuAccept\")
 			self.in_tab = true
 			enter_tab()
@@ -140,6 +161,10 @@ func _process(delta):
 		0:
 			for i in range(SKILLPOINTS.size()):
 				$Tabs/Character/Skillpoints.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Character/CharacterSkillpoint\" + (\"Active\" if skillpoint_select == i else \"Inactive\") + \".png\")
+			
+			if Input.is_action_just_pressed(\"ui_cancel\") or skillpoint_select == 0 and Input.is_action_just_pressed(\"ui_up\"):
+				Res.ui_sample(\"MenuCancel\")
+				self.in_tab = false
 			
 			if Input.is_action_just_pressed(\"ui_up\"): skillpoint_select = max(skillpoint_select-1, 0)
 			elif Input.is_action_just_pressed(\"ui_down\"): skillpoint_select = min(skillpoint_select+1, SKILLPOINTS.size()-1)
@@ -150,10 +175,6 @@ func _process(delta):
 				PlayerStats.set(stat, PlayerStats.get(stat)+1)
 				SkillBase.inc_stat(SKILLPOINTS[skillpoint_select])
 				PlayerStats.stat_points -= 1
-			
-			if Input.is_action_just_pressed(\"ui_cancel\"):
-				Res.ui_sample(\"MenuCancel\")
-				self.in_tab = false
 		1:
 			var prev_sel = inventory_select
 			
@@ -448,7 +469,7 @@ func update_stats(item, compare):
 	$Tabs/Equipment/Stats.visible = !irrelevant"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect"]
+[node name="PlayerMenu" type="TextureRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -553,6 +574,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CharacterAvatar" type="TextureRect" parent="Tabs/Character" index="0"]
 
@@ -832,10 +856,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -1.0
-margin_top = -4.0
-margin_right = 1365.0
-margin_bottom = 764.0
+margin_right = 1366.0
+margin_bottom = 768.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -843,6 +865,9 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Visibility" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Character" type="TextureRect" parent="Tabs/Equipment" index="0"]
 
@@ -851,10 +876,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 141.0
-margin_top = 224.0
-margin_right = 541.0
-margin_bottom = 794.0
+margin_left = 140.0
+margin_top = 220.0
+margin_right = 540.0
+margin_bottom = 790.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -1168,10 +1193,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 500.0
-margin_top = 123.0
-margin_right = 1326.0
-margin_bottom = 741.0
+margin_left = 499.0
+margin_top = 119.0
+margin_right = 1325.0
+margin_bottom = 737.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -1446,10 +1471,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 47.0
-margin_top = 155.0
-margin_right = 410.0
-margin_bottom = 195.0
+margin_left = 46.0
+margin_top = 156.0
+margin_right = 409.0
+margin_bottom = 196.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -1458,6 +1483,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 22 )
 stretch_mode = 0
+_sections_unfolded = [ "Rect" ]
 
 [node name="Label" type="Label" parent="Tabs/Equipment/LeftHeader" index="0"]
 
@@ -1574,10 +1600,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 468.0
-margin_top = 186.0
-margin_right = 1321.0
-margin_bottom = 226.0
+margin_left = 467.0
+margin_top = 182.0
+margin_right = 1320.0
+margin_bottom = 222.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -1615,8 +1641,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = -1.0
+margin_top = -4.0
+margin_right = 39.0
+margin_bottom = 36.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -1624,9 +1652,10 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Skills" type="TextureRect" parent="Tabs" index="2"]
+[node name="Skills" type="Control" parent="Tabs" index="2"]
 
-visible = false
+editor/display_folded = true
+self_modulate = Color( 1, 0.501961, 0.501961, 0.501961 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1639,11 +1668,440 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+_sections_unfolded = [ "Rect", "Visibility" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ActivePanel" type="TextureRect" parent="Tabs/Skills" index="0"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 461.0
+margin_top = 187.0
+margin_right = 893.0
+margin_bottom = 701.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 texture = ExtResource( 24 )
+stretch_mode = 0
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Header" type="TextureRect" parent="Tabs/Skills/ActivePanel" index="0"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 433.0
+margin_bottom = 47.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 25 )
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Tabs/Skills/ActivePanel/Header" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 3.0
+margin_right = 433.0
+margin_bottom = 44.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 12 )
+text = "ACTIVE"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Skills" type="Control" parent="Tabs/Skills/ActivePanel" index="1"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Skill1" type="TextureRect" parent="Tabs/Skills/ActivePanel/Skills" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 26.0
+margin_top = 67.0
+margin_right = 66.0
+margin_bottom = 107.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 26 )
+stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Tabs/Skills/ActivePanel/Skills/Skill1" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+stretch_mode = 0
+
+[node name="PassivePanel" type="TextureRect" parent="Tabs/Skills" index="1"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 894.0
+margin_top = 187.0
+margin_right = 1326.0
+margin_bottom = 701.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 24 )
+stretch_mode = 0
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Header" type="TextureRect" parent="Tabs/Skills/PassivePanel" index="0"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 433.0
+margin_bottom = 47.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 25 )
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Tabs/Skills/PassivePanel/Header" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 3.0
+margin_right = 433.0
+margin_bottom = 44.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 12 )
+text = "PASSIVE"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Skills" type="Control" parent="Tabs/Skills/PassivePanel" index="1"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Skill1" type="TextureRect" parent="Tabs/Skills/PassivePanel/Skills" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 26.0
+margin_top = 67.0
+margin_right = 66.0
+margin_bottom = 107.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 26 )
+stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Tabs/Skills/PassivePanel/Skills/Skill1" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+stretch_mode = 0
+
+[node name="LeftHeader" type="TextureRect" parent="Tabs/Skills" index="2"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 46.0
+margin_top = 156.0
+margin_right = 409.0
+margin_bottom = 196.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 22 )
+stretch_mode = 0
+_sections_unfolded = [ "Rect" ]
+
+[node name="Label" type="Label" parent="Tabs/Skills/LeftHeader" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 363.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 12 )
+text = "SKILL INFO"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="LeftHeader2" type="TextureRect" parent="Tabs/Skills" index="3"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 46.0
+margin_top = 519.0
+margin_right = 409.0
+margin_bottom = 559.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 22 )
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Tabs/Skills/LeftHeader2" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 363.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 12 )
+text = "DESCRIPTION"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label" type="Label" parent="Tabs/Skills" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 75.0
+margin_top = 563.0
+margin_right = 377.0
+margin_bottom = 684.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+text = "Long gdfg dfgdf gfd gfd gf gf g g f g dfg sdf gf decscite tdfgdf gdf gdfgsdfg"
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Info" type="Control" parent="Tabs/Skills" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1.0
+margin_top = 2.0
+margin_right = 41.0
+margin_bottom = 42.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Icon" type="TextureRect" parent="Tabs/Skills/Info" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 187.943
+margin_top = 232.58
+margin_right = 247.943
+margin_bottom = 292.58
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 14 )
+stretch_mode = 0
+
+[node name="Infos" type="Control" parent="Tabs/Skills/Info" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Info1" type="Label" parent="Tabs/Skills/Info/Infos" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 94.0
+margin_top = 310.0
+margin_right = 337.0
+margin_bottom = 338.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+text = "+50 cośtam"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="VideoPanel" type="TextureRect" parent="Tabs/Skills/Info" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 95.0
+margin_top = 392.0
+margin_right = 339.0
+margin_bottom = 486.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 27 )
 stretch_mode = 0
 
 [node name="Crafting" type="Control" parent="Tabs" index="3"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1656,6 +2114,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Items" type="Control" parent="Tabs/Crafting" index="0"]
 
@@ -1740,15 +2201,16 @@ _sections_unfolded = [ "custom_colors" ]
 
 [node name="LeftHeader" type="TextureRect" parent="Tabs/Crafting" index="1"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 46.0
-margin_top = 155.0
+margin_top = 156.0
 margin_right = 409.0
-margin_bottom = 195.0
+margin_bottom = 196.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -1757,6 +2219,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 22 )
 stretch_mode = 0
+_sections_unfolded = [ "Rect" ]
 
 [node name="Label" type="Label" parent="Tabs/Crafting/LeftHeader" index="0"]
 
@@ -1814,7 +2277,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 25 )
+texture = ExtResource( 28 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -1884,6 +2347,7 @@ _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
 [node name="Info" type="TextureRect" parent="Tabs/Crafting" index="2"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1951,6 +2415,7 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="RightHeader" type="TextureRect" parent="Tabs/Crafting" index="3"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -2005,6 +2470,9 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Notes" type="Control" parent="Tabs" index="5"]
 
@@ -2021,5 +2489,8 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+__meta__ = {
+"_edit_lock_": true
+}
 
 
