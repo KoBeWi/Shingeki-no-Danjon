@@ -9,7 +9,7 @@ script/source = "extends Label
 
 func new_floor(f):
 	if f > 0: text = \"F\" + str(f)
-	elif f < 0: text = str(f) + \"B\"
+	elif f < 0: text = str(abs(f)) + \"B\"
 	else: text = \"GF\"
 	
 	visible = true

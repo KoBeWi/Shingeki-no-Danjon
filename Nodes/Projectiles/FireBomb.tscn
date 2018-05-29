@@ -8,7 +8,7 @@
 script/source = "extends KinematicBody2D
 
 
-onready var player =  $\"../Player\"
+onready var player =  Res.game.player
 
 func _ready():
 	$AtackCollider/CollisionShape2D.disabled = true

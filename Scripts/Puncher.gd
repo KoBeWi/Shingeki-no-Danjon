@@ -252,7 +252,7 @@ func _on_dead():
 func _on_damage():
 	prevPos = position
 	follow_player = true
-	player = $"../Player"
+	player = Res.game.player
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Special":
