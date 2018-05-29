@@ -140,6 +140,7 @@ func generate(w, h):
 #	for i in range(100):
 #		var instance = place_on_floor("NPC")
 #		instance.id = 1
+	queue_free()
 
 func place_environment():
 	for i in dungeon_type.environment_count:

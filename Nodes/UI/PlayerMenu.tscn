@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Sprites/UI/Menu/PlayerMenu.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/UI/Menu/TabInactive.png" type="Texture" id=2]
@@ -15,19 +15,21 @@
 [ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentAvatar.png" type="Texture" id=13]
 [ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentSlot.png" type="Texture" id=14]
 [ext_resource path="res://Sprites/Items/0.png" type="Texture" id=15]
-[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot.png" type="Texture" id=16]
-[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentScrollbarBackground.png" type="Texture" id=17]
-[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentScrollbar.png" type="Texture" id=18]
-[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentDescription.png" type="Texture" id=19]
-[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentDurabilityBackground.png" type="Texture" id=20]
-[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentDurability.png" type="Texture" id=21]
-[ext_resource path="res://Sprites/UI/Menu/LeftHeader.png" type="Texture" id=22]
-[ext_resource path="res://Sprites/UI/Menu/RightHeader.png" type="Texture" id=23]
-[ext_resource path="res://Sprites/UI/Menu/Skills/Panel.png" type="Texture" id=24]
-[ext_resource path="res://Sprites/UI/Menu/Skills/HeaderActive.png" type="Texture" id=25]
-[ext_resource path="res://Sprites/UI/Menu/Skills/SkillFrame.png" type="Texture" id=26]
-[ext_resource path="res://Sprites/UI/Menu/Skills/AnimationPanel.png" type="Texture" id=27]
-[ext_resource path="res://Sprites/UI/Menu/Crafting/IngredientFrame.png" type="Texture" id=28]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentSlotDurabilityBackground.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentSlotDurability.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentScrollbarBackground.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentScrollbar.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentDescription.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentDurabilityBackground.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentDurability.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/UI/Menu/LeftHeader.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/UI/Menu/RightHeader.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/UI/Menu/Skills/Panel.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/UI/Menu/Skills/HeaderActive.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/UI/Menu/Skills/SkillFrame.png" type="Texture" id=28]
+[ext_resource path="res://Sprites/UI/Menu/Skills/AnimationPanel.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/UI/Menu/Crafting/IngredientFrame.png" type="Texture" id=30]
 
 [sub_resource type="GDScript" id=1]
 
@@ -55,7 +57,6 @@ var crafting_select = 0
 var crafting_scroll = 0
 
 func _ready():
-	$Tabs/Equipment/Character/EquipmentSlots/Slot2.replace_by($Tabs/Equipment/Inventory/Slots/Slot1)
 	PlayerStats.connect(\"got_item\", self, \"update_inventory\")
 	PlayerStats.connect(\"equipment_changed\", self, \"update_equipment\")
 	
@@ -119,6 +120,14 @@ func _ready():
 		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
 		clone.rect_position = sheep.rect_position + Vector2(0, (i+1) * 24)
 		$Tabs/Skills/Info/Infos.add_child(clone)
+	
+	sheep = $Tabs/Equipment/Character/EquipmentSlots/Slot1
+	for i in range(PlayerStats.EQUIPMENT_SLOTS.size()-1):
+		var old = $Tabs/Equipment/Character/EquipmentSlots.get_child(1)
+		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
+		clone.rect_position = old.rect_position
+		old.free()
+		$Tabs/Equipment/Character/EquipmentSlots.add_child(clone)
 	
 	if PlayerStats.inventory.empty(): inventory_select = -1
 	
@@ -321,12 +330,19 @@ func update_inventory(whatever = null):
 
 func update_equipment():
 	for i in range(PlayerStats.EQUIPMENT_SLOTS.size()):
-		var item = $Tabs/Equipment/Character/EquipmentSlots.get_child(i).get_node(\"Icon\")
+		var item = $Tabs/Equipment/Character/EquipmentSlots.get_child(i)
 		
 		if PlayerStats.equipment[i]:
-			item.texture = Res.get_item_texture(PlayerStats.equipment[i].id)
+			var item2 = PlayerStats.equipment[i]
+			item.get_node(\"Icon\").texture = Res.get_item_texture(item2.id)
+			
+			if Res.items[item2.id].has(\"durability\"):
+				item.get_node(\"Durability\").max_value = item2.max_durability
+				item.get_node(\"Durability\").value = item2.durability
+				item.get_node(\"Durability\").visible = true
 		else:
-			item.texture = Res.get_resource(\"res://Sprites/UI/Menu/Equipment/Generic\" + PlayerStats.EQUIPMENT_SLOTS[i] + \".png\")
+			item.get_node(\"Icon\").texture = Res.get_resource(\"res://Sprites/UI/Menu/Equipment/Generic\" + PlayerStats.EQUIPMENT_SLOTS[i] + \".png\")
+			item.get_node(\"Durability\").visible = false
 
 func in_out_tab(in_out):
 	in_tab = in_out
@@ -403,10 +419,6 @@ func select_inventory():
 	if item.has(\"id\"):
 		$Tabs/Equipment/Description/Icon.texture = Res.get_item_texture(item.id)
 		update_stats(item, inventory_select > -1)
-	else:
-		##po co to jest ;_;
-		$Tabs/Equipment/Description/Icon.texture = null##no item
-		$Tabs/Equipment/Stats.visible = false
 
 func enter_tab():
 	match current_tab:
@@ -457,7 +469,7 @@ func update_stats(item, compare):
 			
 			stat_label.text = stat.capitalize() + \": \" + str(value)
 			
-			if compare and eq_slot:
+			if compare and eq_slot and Res.items[eq_slot.id].has(stat):
 				var cmp = stats[stat] - Res.items[eq_slot.id][stat]
 				
 				if cmp != 0:
@@ -477,7 +489,7 @@ func update_stats(item, compare):
 	$Tabs/Equipment/Stats.visible = !irrelevant"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect" index="0"]
+[node name="PlayerMenu" type="TextureRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -897,6 +909,7 @@ stretch_mode = 0
 
 [node name="EquipmentSlots" type="Control" parent="Tabs/Equipment/Character" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -950,7 +963,39 @@ texture = ExtResource( 15 )
 expand = true
 stretch_mode = 4
 
-[node name="Slot2" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="1"]
+[node name="Durability" type="TextureProgress" parent="Tabs/Equipment/Character/EquipmentSlots/Slot1" index="1"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 3.0
+margin_top = 53.0
+margin_right = 47.0
+margin_bottom = 57.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 0
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+texture_under = ExtResource( 16 )
+texture_over = null
+texture_progress = ExtResource( 17 )
+radial_fill_degrees = 360.0
+radial_center_offset = Vector2( 0, 0 )
+nine_patch_stretch = false
+_sections_unfolded = [ "Rect", "Textures" ]
+
+[node name="Slot2" type="Control" parent="Tabs/Equipment/Character/EquipmentSlots" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -966,30 +1011,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-stretch_mode = 0
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot2" index="0"]
+[node name="Slot3" type="Control" parent="Tabs/Equipment/Character/EquipmentSlots" index="2"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 226.0
-margin_right = 286.0
-margin_bottom = 60.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 15 )
-expand = true
-stretch_mode = 4
-
-[node name="Slot3" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="2"]
-
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1004,32 +1028,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
-expand = true
-stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot3" index="0"]
+[node name="Slot4" type="Control" parent="Tabs/Equipment/Character/EquipmentSlots" index="3"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 60.0
-margin_bottom = 60.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 15 )
-expand = true
-stretch_mode = 4
-_sections_unfolded = [ "Rect" ]
-
-[node name="Slot4" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="3"]
-
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1044,32 +1045,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
-expand = true
-stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot4" index="0"]
+[node name="Slot5" type="Control" parent="Tabs/Equipment/Character/EquipmentSlots" index="4"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 60.0
-margin_bottom = 60.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 15 )
-expand = true
-stretch_mode = 4
-_sections_unfolded = [ "Rect" ]
-
-[node name="Slot5" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="4"]
-
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1084,32 +1062,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
-expand = true
-stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot5" index="0"]
+[node name="Slot6" type="Control" parent="Tabs/Equipment/Character/EquipmentSlots" index="5"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 60.0
-margin_bottom = 60.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 15 )
-expand = true
-stretch_mode = 4
-_sections_unfolded = [ "Rect" ]
-
-[node name="Slot6" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="5"]
-
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1124,32 +1079,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
-expand = true
-stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot6" index="0"]
+[node name="Slot7" type="Control" parent="Tabs/Equipment/Character/EquipmentSlots" index="6"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 60.0
-margin_bottom = 60.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 15 )
-expand = true
-stretch_mode = 4
-_sections_unfolded = [ "Rect" ]
-
-[node name="Slot7" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots" index="6"]
-
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1164,28 +1096,6 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 14 )
-expand = true
-stretch_mode = 4
-
-[node name="Icon" type="TextureRect" parent="Tabs/Equipment/Character/EquipmentSlots/Slot7" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 60.0
-margin_bottom = 60.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 15 )
-expand = true
-stretch_mode = 4
-_sections_unfolded = [ "Rect" ]
 
 [node name="Inventory" type="Control" parent="Tabs/Equipment" index="1"]
 
@@ -1208,6 +1118,7 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="Slots" type="Control" parent="Tabs/Equipment/Inventory" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1240,7 +1151,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 16 )
+texture = ExtResource( 18 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -1350,7 +1261,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 17 )
+texture = ExtResource( 19 )
 stretch_mode = 0
 
 [node name="ActualScrollbar" type="TextureRect" parent="Tabs/Equipment/Inventory/Scrollbar" index="0"]
@@ -1367,7 +1278,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 18 )
+texture = ExtResource( 20 )
 stretch_mode = 0
 
 [node name="Description" type="TextureRect" parent="Tabs/Equipment" index="2"]
@@ -1388,7 +1299,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 19 )
+texture = ExtResource( 21 )
 stretch_mode = 0
 
 [node name="Text" type="Label" parent="Tabs/Equipment/Description" index="0"]
@@ -1438,9 +1349,9 @@ page = 0.0
 value = 0.0
 exp_edit = false
 rounded = false
-texture_under = ExtResource( 20 )
+texture_under = ExtResource( 22 )
 texture_over = null
-texture_progress = ExtResource( 21 )
+texture_progress = ExtResource( 23 )
 radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
@@ -1482,7 +1393,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 22 )
+texture = ExtResource( 24 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -1517,9 +1428,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 47.0
+margin_left = 46.0
 margin_top = 558.0
-margin_right = 410.0
+margin_right = 409.0
 margin_bottom = 598.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -1527,7 +1438,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 22 )
+texture = ExtResource( 24 )
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Tabs/Equipment/Stats" index="0"]
@@ -1611,7 +1522,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 23 )
+texture = ExtResource( 25 )
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Tabs/Equipment/RightHeader" index="0"]
@@ -1655,6 +1566,7 @@ size_flags_vertical = 1
 
 [node name="Skills" type="Control" parent="Tabs" index="2"]
 
+editor/display_folded = true
 self_modulate = Color( 1, 0.501961, 0.501961, 0.501961 )
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1690,7 +1602,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 24 )
+texture = ExtResource( 26 )
 stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
 
@@ -1709,7 +1621,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 25 )
+texture = ExtResource( 27 )
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Tabs/Skills/ActivePanel/Header" index="0"]
@@ -1767,7 +1679,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 26 )
+texture = ExtResource( 28 )
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="Tabs/Skills/ActivePanel/Skills/Skill1" index="0"]
@@ -1803,7 +1715,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 24 )
+texture = ExtResource( 26 )
 stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
 
@@ -1822,7 +1734,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 25 )
+texture = ExtResource( 27 )
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Tabs/Skills/PassivePanel/Header" index="0"]
@@ -1880,7 +1792,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 26 )
+texture = ExtResource( 28 )
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="Tabs/Skills/PassivePanel/Skills/Skill1" index="0"]
@@ -1916,7 +1828,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 22 )
+texture = ExtResource( 24 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -1958,7 +1870,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 22 )
+texture = ExtResource( 24 )
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Tabs/Skills/LeftHeader2" index="0"]
@@ -2096,11 +2008,12 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 27 )
+texture = ExtResource( 29 )
 stretch_mode = 0
 
 [node name="Crafting" type="Control" parent="Tabs" index="3"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -2152,7 +2065,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 16 )
+texture = ExtResource( 18 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -2217,7 +2130,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 22 )
+texture = ExtResource( 24 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -2277,7 +2190,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 28 )
+texture = ExtResource( 30 )
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
@@ -2363,7 +2276,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 22 )
+texture = ExtResource( 24 )
 stretch_mode = 0
 
 [node name="Description" type="Label" parent="Tabs/Crafting/Info" index="0"]
@@ -2430,7 +2343,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 23 )
+texture = ExtResource( 25 )
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Tabs/Crafting/RightHeader" index="0"]

@@ -38,49 +38,8 @@ func soft_refresh():
 	$HUD/ManaIndicator.value = PlayerStats.mana
 
 func refresh():
+	$PlayerMenu.update_equipment()
 	soft_refresh()
-	
-#	status_panel.get_node("Stats/Level").text = str(PlayerStats.level)
-#	status_panel.get_node("Stats/Skillpoints").text =  str(PlayerStats.stat_points)
-#	status_panel.get_node("Stats/Experience").text =  str(PlayerStats.experience)
-#	var to_next = PlayerStats.total_exp(PlayerStats.level-1) + PlayerStats.exp_to_level(PlayerStats.level)
-#	status_panel.get_node("Stats/ToNext").text =  str(to_next- PlayerStats.experience)
-#	status_panel.get_node("Stats/Strength").text =  str(PlayerStats.strength)
-#	status_panel.get_node("Stats/Dexterity").text =  str(PlayerStats.dexterity)
-#	status_panel.get_node("Stats/Intelligence").text =  str(PlayerStats.intelligence)
-#	status_panel.get_node("Stats/Vitality").text =  str(PlayerStats.vitality)
-#	status_panel.get_node("Money/Amount").text =  str(PlayerStats.money)
-#
-#	for button in status_panel.get_node("AddStat").get_children():
-#		button.disabled = (PlayerStats.stat_points == 0)
-#
-#	for i in range(PlayerStats.INVENTORY_SIZE):
-#		var slot = status_panel.get_node("Inventory").get_child(i)
-#		if PlayerStats.inventory[i] != null:
-#			slot.disabled = false
-#			slot.visible = true
-#			slot.texture_normal = Res.get_item_texture(PlayerStats.inventory[i].id)
-#			slot.get_node("Amount").text = str(PlayerStats.inventory[i].stack)
-#		else:
-#			slot.disabled = true
-#			slot.visible = false
-#
-#	for i in range(PlayerStats.equipment.size()):
-#		var slot = status_panel.get_node("Equipment").get_child(i)
-#		if PlayerStats.equipment[i] > -1:
-#			slot.visible = true
-#			slot.texture = Res.get_item_texture(PlayerStats.equipment[i])
-#		else:
-#			slot.visible = false
-#
-#	for i in range(skill_panel.get_node("Icons").get_child_count()):
-#		var icon = skill_panel.get_node("Icons").get_child(i)
-#
-#		if i < SkillBase.acquired_skills.size():
-#			icon.visible = true
-#			icon.texture = Res.get_skill_texture(SkillBase.acquired_skills[i])
-#		else:
-#			icon.visible = false
 
 func on_add_stat(stat):
 	PlayerStats[stat.to_lower()] += 1

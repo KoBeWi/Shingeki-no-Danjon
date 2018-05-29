@@ -108,6 +108,7 @@ func ui_sample(sample):
 	get_parent().get_node("Game").add_child(player)
 
 func play_music(music):
+	if File.new().file_exists("user://no_music"): return
 	var player = AudioStreamPlayer.new()
 	player.stream = get_resource("res://Music/" + music + ".ogg")
 	player.play()
