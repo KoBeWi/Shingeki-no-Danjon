@@ -465,7 +465,7 @@ extents = Vector2( 10.2959, 10 )
 ]]
 
 scale = Vector2( 0.75, 0.75 )
-z_index = 1
+z_index = 2
 input_pickable = false
 collision_layer = 1
 collision_mask = 1

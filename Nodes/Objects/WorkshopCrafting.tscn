@@ -33,8 +33,9 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[node name="WorkshopCrafting" type="StaticBody2D" index="0"]
+[node name="WorkshopCrafting" type="StaticBody2D"]
 
+position = Vector2( 0, -58 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -43,6 +44,7 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
 type = "workshop"
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
@@ -75,9 +77,12 @@ send_status = true
 
 [node name="Shape" type="CollisionShape2D" parent="InteractArea" index="0"]
 
-position = Vector2( 0, 74.074 )
+position = Vector2( 1, 54.3064 )
+scale = Vector2( 1, 2.46009 )
+z_index = -2
+z_as_relative = false
 shape = SubResource( 2 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Animation" type="AnimationPlayer" parent="." index="3"]
 

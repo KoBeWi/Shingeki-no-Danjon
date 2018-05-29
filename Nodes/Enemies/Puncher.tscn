@@ -275,7 +275,7 @@ extents = Vector2( 100.382, 85.7356 )
 "enemies",
 ]]
 
-z_index = 1
+z_index = 2
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
