@@ -1,7 +1,7 @@
 {
 	"type": "consumable",
 	"name": "Bread",
-	"description": "The rarest of the food. Restores HP.",
+	"description": "The rarest of the food. Restores 50HP.",
 	"max_stack": 3,
 	"price": 20,
 	"health": 50

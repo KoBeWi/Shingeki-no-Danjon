@@ -8,7 +8,7 @@
 resource_name = "Chest"
 script/source = "extends StaticBody2D
 
-var item = -1
+var item = 28
 
 func _ready():
 	$\"/root/Game\".perma_state(self, \"open\")
@@ -18,10 +18,12 @@ func interact():
 	$\"/root/Game\".save_state(self)
 	open()
 	
+	print(item)
+	
 	if item > -1:
 		var it = Res.create_instance(\"Item\")
 		it.position = position + Vector2(0, 50)
-		it.id = item
+		it.id = 28 + randi()%4
 		get_parent().add_child(it)
 
 func open():
@@ -95,6 +97,7 @@ audio_bus_name = "Master"
 script = ExtResource( 2 )
 type = 0
 mode = 1
+send_status = false
 
 [node name="Shape" type="CollisionShape2D" parent="InteractArea" index="0"]
 

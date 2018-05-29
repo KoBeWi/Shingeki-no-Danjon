@@ -1,0 +1,8 @@
+{
+	"type": "consumable",
+	"name": "Huge Health Potion",
+	"description": "The healing potion, restores 500hp.",
+	"max_stack": 6,
+	"price": 200,
+	"health": 500
+}

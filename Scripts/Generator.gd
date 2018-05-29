@@ -260,9 +260,16 @@ func place_treasure_into_maze(what, how_many):
 			
 		ug_inst.position = temp
 		ug_inst.item = 17
+		
+		if what == Res.get_node("Objects/Chest"):
+			ug_inst.item = randi()%4 + 28
+		
 		dungeon.get_parent().add_child(ug_inst)
-		if (what == Res.get_node("Objects/Barrel") and randi()%6 == 0) or what == Res.get_node("Objects/Chest"): ##hack ;_;
+		if (what == Res.get_node("Objects/Barrel") and randi()%6 == 0) : ##hack ;_;
 			ug_inst.item = randi()%2
+			
+
+			
 		#	if randi()%3 == 2:
 		#		ug_inst.item = 17
 
