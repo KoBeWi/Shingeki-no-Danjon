@@ -5,7 +5,7 @@
 [ext_resource path="res://Scripts/NPC.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/Interact.gd" type="Script" id=4]
 [ext_resource path="res://Sprites/NPC/Jigsaw.png" type="Texture" id=5]
-[ext_resource path="res://Nodes/Objects/Chest.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Nodes/Objects/WorkshopCrafting.tscn" type="PackedScene" id=6]
 
 [sub_resource type="GDScript" id=1]
 
@@ -49,7 +49,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ]
 }
 
-[node name="JigsawRoom" type="YSort"]
+[node name="JigsawRoom" type="YSort" index="0"]
 
 sort_enabled = true
 script = SubResource( 1 )
@@ -106,6 +106,7 @@ __meta__ = {
 [node name="Stairs" parent="." index="2" instance=ExtResource( 2 )]
 
 position = Vector2( 400, 160 )
+region_rect = Rect2( 160, 480, 160, 160 )
 
 [node name="Position2D" type="Position2D" parent="." index="3"]
 
@@ -170,9 +171,8 @@ anims/Animation = SubResource( 4 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Chest" parent="." index="5" instance=ExtResource( 6 )]
+[node name="WorkshopCrafting" parent="." index="5" instance=ExtResource( 6 )]
 
-position = Vector2( 249, 327 )
-item = 7
+position = Vector2( 260.062, 211.415 )
 
 

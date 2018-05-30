@@ -4,7 +4,7 @@ onready var dungeon = $"../Segments"
 #zostawic, sluzy testowaniu nowych mobkow
 var NewToTest# = "Enemies/Puncher"#"Enemies/Mechanic" #jak zrobisz tak to masz fajny null
 
-var Workbench = "Objects/WorkshopCrafting" ###uhhhh nie
+#var Workbench = "Objects/WorkshopCrafting" ###uhhhh nie
 
 #3358948719
 #1584724892
@@ -212,11 +212,11 @@ func place_containers():
 		else: break
 
 
-func place_workbench(what):
-	var ug_inst = what.instance()
-	ug_inst.position = Res.game.player.position + Vector2(120,-20)
-	ug_inst.scale = Vector2(0.75,0.75) 
-	dungeon.get_parent().add_child(ug_inst)
+#func place_workbench(what):
+#	var ug_inst = what.instance()
+#	ug_inst.position = Res.game.player.position + Vector2(120,-20)
+#	ug_inst.scale = Vector2(0.75,0.75) 
+#	dungeon.get_parent().add_child(ug_inst)
 
 func place_for_test(what):
 	if NewToTest == "": return
@@ -233,7 +233,7 @@ func place_enemies():
 		if !place_on_floor("Enemies/" + type): break
 	
 	if NewToTest: place_for_test(Res.get_node(NewToTest))
-	place_workbench(Res.get_node(Workbench))
+#	place_workbench(Res.get_node(Workbench))
 	
 
 func place_on_floor(object):

@@ -38,7 +38,7 @@ script/source = "extends Control
 
 const MAX_STATS = 6
 const INVENTORY_SLOTS = 8
-const CRAFTING_SIZE = 12
+const CRAFTING_SIZE = 10
 const MAX_INGREDIENTS = 5
 const STAT_LIST = [\"attack\", \"defense\"]
 const TABS = [\"Character\", \"Equipment\", \"Skills\", \"Crafting\", \"Map\", \"Notes\"]
@@ -52,6 +52,7 @@ var inventory_scroll = 0
 var inventory_select = 0
 
 var skill_select = 0
+var skill_scroll = 0
 
 var crafting_station setget set_station
 var crafting_list = []
@@ -280,6 +281,10 @@ func _process(delta):
 				select_crafting()
 			if crafting_select != prev_sel: Res.ui_sample(\"MenuMove\")
 			
+			if crafting_select - crafting_scroll > 7:
+				crafting_scroll += 2
+				select_crafting()
+			
 			if Input.is_action_just_pressed(\"Interact\"):
 				var can_craft = true
 				
@@ -310,6 +315,7 @@ func update_crafting():
 		crafting_list.append(item)
 	
 	for i in range(CRAFTING_SIZE):
+		var j = i + crafting_scroll
 		var item = $Tabs/Crafting/Items.get_child(i)
 		
 		if i < crafting_list.size():
@@ -1585,6 +1591,7 @@ size_flags_vertical = 1
 
 [node name="Skills" type="Control" parent="Tabs" index="2"]
 
+visible = false
 self_modulate = Color( 1, 0.501961, 0.501961, 0.501961 )
 anchor_left = 0.0
 anchor_top = 0.0
@@ -2035,7 +2042,6 @@ _sections_unfolded = [ "custom_fonts" ]
 [node name="Crafting" type="Control" parent="Tabs" index="3"]
 
 editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
