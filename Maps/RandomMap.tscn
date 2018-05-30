@@ -12,7 +12,7 @@ var from = \"UP\"
 var my_seed
 
 func initialize():
-	Res.call_deferred(\"play_music\", \"LowerWorkshop\")
+	Res.play_music(\"LowerWorkshop\")
 	dungeon = Res.dungeons[\"Workshop\"]
 	
 	if !my_seed:

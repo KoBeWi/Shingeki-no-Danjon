@@ -1,8 +1,20 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Resources/Tilesets/Dungeon.tres" type="TileSet" id=1]
+[ext_resource path="res://Nodes/Enemies/Mechanic.tscn" type="PackedScene" id=2]
 
-[node name="Segment" type="Node2D" index="0"]
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node2D
+
+func initialize():
+	Res.game.player.position = $Position2D.position
+	Res.play_music(\"MechanicBattle\")"
+
+[node name="Segment" type="YSort" index="0"]
+
+sort_enabled = true
+script = SubResource( 1 )
 
 [node name="BottomTiles" type="TileMap" parent="." index="0"]
 
@@ -52,5 +64,13 @@ _sections_unfolded = [ "Z Index" ]
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Position2D" type="Position2D" parent="." index="2"]
+
+position = Vector2( 400, 760 )
+
+[node name="Mechanic" parent="." index="3" instance=ExtResource( 2 )]
+
+position = Vector2( 617.745, 272.608 )
 
 

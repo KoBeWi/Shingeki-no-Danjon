@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/MechanicBattle.ogg-09e19fd29b4c744d75609269d8737931.oggstr"
+
+[deps]
+
+source_file="res://Music/MechanicBattle.ogg"
+source_md5="a058fe0acd89fcba2944de5c3c3950c3"
+
+dest_files=[ "res://.import/MechanicBattle.ogg-09e19fd29b4c744d75609269d8737931.oggstr" ]
+dest_md5="1f5ffd1bd3518a540bdc91cf47564742"
+
+[params]
+
+loop=false
+loop_offset=0

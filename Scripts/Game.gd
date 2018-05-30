@@ -51,6 +51,8 @@ func change_floor(change):
 	var new_map = load("res://Maps/RandomMap.tscn").instance()
 	if DungeonState.current_floor == 0: #ULTRAMEGAOSTATECZNYHACK
 		new_map = load("res://Maps/JigsawRoom.tscn").instance()
+	elif DungeonState.current_floor == 3: #ULTRAMEGAOSTATECZNYHACK
+		new_map = load("res://Maps/BossRoom.tscn").instance()
 	else:
 		if DungeonState.visited_floors.has(DungeonState.current_floor):
 			var state = DungeonState.visited_floors[DungeonState.current_floor]

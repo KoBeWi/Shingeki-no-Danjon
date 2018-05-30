@@ -12,7 +12,7 @@ func _process(delta):
 	get_tree().current_scene = game
 	queue_free()"
 
-[node name="TitleScreen" type="Node2D" index="0"]
+[node name="TitleScreen" type="Node2D"]
 
 script = SubResource( 1 )
 
