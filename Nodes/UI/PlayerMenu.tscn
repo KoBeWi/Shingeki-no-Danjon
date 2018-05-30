@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Sprites/UI/Menu/PlayerMenu.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/UI/Menu/TabInactive.png" type="Texture" id=2]
@@ -30,6 +30,8 @@
 [ext_resource path="res://Sprites/UI/Menu/Skills/SkillFrame.png" type="Texture" id=28]
 [ext_resource path="res://Sprites/UI/Menu/Skills/AnimationPanel.png" type="Texture" id=29]
 [ext_resource path="res://Sprites/UI/Menu/Crafting/IngredientFrame.png" type="Texture" id=30]
+[ext_resource path="res://Sprites/UI/Menu/Map/skill_maps.png" type="Texture" id=31]
+[ext_resource path="res://Sprites/UI/Menu/Journal/UI_jornual.png" type="Texture" id=32]
 
 [sub_resource type="GDScript" id=1]
 
@@ -514,7 +516,7 @@ func update_stats(item, compare):
 	$Tabs/Equipment/Stats.visible = !irrelevant"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect"]
+[node name="PlayerMenu" type="TextureRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1591,6 +1593,7 @@ size_flags_vertical = 1
 
 [node name="Skills" type="Control" parent="Tabs" index="2"]
 
+editor/display_folded = true
 visible = false
 self_modulate = Color( 1, 0.501961, 0.501961, 0.501961 )
 anchor_left = 0.0
@@ -2397,6 +2400,7 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Map" type="Control" parent="Tabs" index="4"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -2413,6 +2417,23 @@ size_flags_vertical = 1
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="TextureRect" type="TextureRect" parent="Tabs/Map" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 31 )
+stretch_mode = 0
 
 [node name="Notes" type="Control" parent="Tabs" index="5"]
 
@@ -2432,5 +2453,22 @@ size_flags_vertical = 1
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="TextureRect" type="TextureRect" parent="Tabs/Notes" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 32 )
+stretch_mode = 0
 
 
