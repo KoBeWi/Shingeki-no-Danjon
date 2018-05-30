@@ -283,9 +283,15 @@ func _process(delta):
 				select_crafting()
 			if crafting_select != prev_sel: Res.ui_sample(\"MenuMove\")
 			
+			if crafting_scroll > 0 and crafting_select - crafting_scroll < 2:
+				crafting_scroll -= 2
+				select_crafting()
+				update_crafting()
+			
 			if crafting_select - crafting_scroll > 7:
 				crafting_scroll += 2
 				select_crafting()
+				update_crafting()
 			
 			if Input.is_action_just_pressed(\"Interact\"):
 				var can_craft = true
@@ -318,12 +324,12 @@ func update_crafting():
 	
 	for i in range(CRAFTING_SIZE):
 		var j = i + crafting_scroll
-		var item = $Tabs/Crafting/Items.get_child(i)
+		var item = $Tabs/Crafting/Items.get_child(i )
 		
-		if i < crafting_list.size():
+		if j < crafting_list.size():
 			item.visible = true
-			item.get_node(\"Name\").text = Res.items[crafting_list[i].item].name
-			item.get_node(\"Icon\").texture = Res.get_item_texture(crafting_list[i].item)
+			item.get_node(\"Name\").text = Res.items[crafting_list[j].item].name
+			item.get_node(\"Icon\").texture = Res.get_item_texture(crafting_list[j].item)
 		else:
 			item.visible = false
 
@@ -375,7 +381,7 @@ func update_tabs(tab = current_tab):
 
 func select_crafting():
 	for i in $Tabs/Crafting/Items.get_child_count():
-		$Tabs/Crafting/Items.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot\" + (\"Active\" if i == crafting_select else \"\") + \".png\")
+		$Tabs/Crafting/Items.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot\" + (\"Active\" if i == crafting_select - crafting_scroll else \"\") + \".png\")
 	
 	var item = Res.items[crafting_list[crafting_select].item]
 	$Tabs/Crafting/Info/Description.text = item.description
