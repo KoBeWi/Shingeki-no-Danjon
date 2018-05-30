@@ -1,7 +1,7 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Player/Left/BodyIdle.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Player/Front/Death.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Player/Right/SwordAttack.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Player/Left/Weapons/Sword1.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Player/Left/Shield.png" type="Texture" id=5]
@@ -354,6 +354,25 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=10]
 
+resource_name = "Death"
+length = 10.0
+loop = false
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3, 4, 5, 6, 7, 8, 9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=11]
+
 length = 24.0
 loop = true
 step = 0.2
@@ -370,7 +389,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
 
 length = 45.0
 loop = true
@@ -388,9 +407,8 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 
-resource_name = "Idle"
 length = 1.0
 loop = true
 step = 0.1
@@ -421,10 +439,9 @@ _sections_unfolded = [ "Transform", "Z Index", "collision" ]
 
 [node name="Body" type="Sprite" parent="." index="0"]
 
-editor/display_folded = true
 position = Vector2( 0, -55 )
 texture = ExtResource( 2 )
-hframes = 10
+hframes = 8
 _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [node name="RightArm" type="Sprite" parent="Body" index="0"]
@@ -562,8 +579,9 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 10.0
-anims/Idle = SubResource( 10 )
-anims/Walk = SubResource( 11 )
+anims/Death = SubResource( 10 )
+anims/Idle = SubResource( 11 )
+anims/Walk = SubResource( 12 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -634,7 +652,7 @@ autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Idle = SubResource( 12 )
+anims/Idle = SubResource( 13 )
 blend_times = [  ]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]

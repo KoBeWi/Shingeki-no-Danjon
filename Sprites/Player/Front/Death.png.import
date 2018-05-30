@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayerMPTop.png-cd7a9e71b22fb5819830bfe1b8af8ee0.stex"
+path="res://.import/Death.png-b0889a94ef01f6f042b4905be361a6ae.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/PlayerMPTop.png"
-source_md5="ed62e61dff85f750278d1555711d0f02"
+source_file="res://Sprites/Player/Front/Death.png"
+source_md5="d9fba8deaf76f6a3820dc2e943e286be"
 
-dest_files=[ "res://.import/PlayerMPTop.png-cd7a9e71b22fb5819830bfe1b8af8ee0.stex" ]
-dest_md5="7be7c8b4671f0e415741f59cb2755539"
+dest_files=[ "res://.import/Death.png-b0889a94ef01f6f042b4905be361a6ae.stex" ]
+dest_md5="dba1c0d625e425aa1b7957595387dffa"
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
