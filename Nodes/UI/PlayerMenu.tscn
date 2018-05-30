@@ -252,6 +252,8 @@ func _process(delta):
 					Res.ui_sample(\"MenuCancel\")
 					PlayerStats.inventory.append(PlayerStats.equipment[-inventory_select-1])
 					PlayerStats.equipment[-inventory_select-1] = null
+					if -inventory_select-1 == PlayerStats.SLOTS[\"weapon\"]: Res.game.player.update_weapon()
+					if -inventory_select-1 == PlayerStats.SLOTS[\"shield\"]: Res.game.player.update_shield()
 					update_inventory()
 					update_equipment()
 					select_inventory()

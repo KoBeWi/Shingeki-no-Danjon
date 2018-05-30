@@ -8,7 +8,7 @@
 resource_name = "Chest"
 script/source = "extends StaticBody2D
 
-var item = 28
+export var item = 28
 
 func _ready():
 	$\"/root/Game\".perma_state(self, \"open\")
@@ -58,7 +58,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[node name="Chest" type="StaticBody2D" index="0"]
+[node name="Chest" type="StaticBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -68,6 +68,7 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 script = SubResource( 1 )
+item = 28
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 

@@ -138,7 +138,7 @@ func generate(w, h):
 	place_containers()
 	place_breakables()
 	place_enemies()
-	for i in range(10): place_on_floor("NPC")
+#	for i in range(10): place_on_floor("NPC")
 #	for i in range(100):
 #		var instance = place_on_floor("NPC")
 #		instance.id = 1

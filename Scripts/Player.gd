@@ -65,7 +65,7 @@ func _physics_process(delta):
 		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
 	
-	if !attacking and !shielding and Input.is_action_pressed("Shield"):
+	if !attacking and !shielding and PlayerStats.equipment[PlayerStats.SLOTS["shield"]] and Input.is_action_pressed("Shield"):
 		change_animation("LeftArm", "ShieldOn")
 		shielding = true
 	elif shielding and Input.is_action_just_released("Shield"):
@@ -81,7 +81,7 @@ func _physics_process(delta):
 	if SkillBase.has_skill("FastWalk") and SkillBase.check_combo(["Dir", "Same"]): 
 		running = true
 	if running: 
-		move *= 3
+		move *= 2
 
 	
 	if !elements_on:
@@ -133,6 +133,7 @@ func _physics_process(delta):
 	if Input.is_key_pressed(KEY_F3): print(int(position.x / 800), ", ", int(position.y / 800)) ##debug
 
 func damage(attacker, amount, knockback):
+	amount = max(1, amount - PlayerStats.get_defense())
 	if shielding : 
 		var dps = amount*(1-PlayerStats.shield_block)-PlayerStats.shield_amout
 		
@@ -153,7 +154,6 @@ func damage(attacker, amount, knockback):
 	
 	if PlayerStats.health <= 0:
 		get_tree().change_scene("res://Scenes/TitleScreen.tscn")
-		PlayerStats.health = PlayerStats.max_health
 
 func _on_animation_finished(anim_name):
 	if anim_name.find("SwordAttack") > -1: attacking = false
@@ -166,7 +166,7 @@ func _on_attack_hit(collider):
 
 func change_dir(dir):
 	if direction == dir or Input.is_action_pressed("Attack"): return
-	running = false
+#	running = false
 	direction = dir
 	sprite_direction = ["Back", "Right", "Front", "Left"][dir]
 	change_texture($Body, "Body" + animations["Body"])
@@ -228,7 +228,7 @@ func shield_sprite():
 	if PlayerStats.equipment[PlayerStats.SLOTS["shield"]]:
 		return Res.items[PlayerStats.equipment[PlayerStats.SLOTS["shield"]].id].sprite
 	else:
-		return "Shield2" ##nope
+		return "" ##nope
 
 func update_weapon():
 	change_texture($Body/RightArm/Weapon, "Weapons/" + weapon_sprite(), ["Front", "Right", "Left", "Back"])

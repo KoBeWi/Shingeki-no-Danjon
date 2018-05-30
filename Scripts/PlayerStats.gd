@@ -54,6 +54,17 @@ func get_damage():
 	
 	return damage
 
+func get_defense():
+	var defense = vitality
+	
+	for eq in PlayerStats.equipment:
+		if !eq: continue
+		
+		var item = Res.items[eq.id]
+		if item.has("defense"): defense += item.defense
+	
+	return defense
+
 func get_equipment(slot_name): ##niekoniecznie potrzebne
 	return equipment[EQUIPMENT_SLOTS.find(slot_name)]
 
