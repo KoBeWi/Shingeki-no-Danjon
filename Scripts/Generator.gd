@@ -237,6 +237,8 @@ func place_enemies():
 	
 
 func place_on_floor(object):
+	if DungeonState.current_floor < 2 and ["Enemies/FLA-B", "Enemies/FLA-G", "Enemies/FLA-S"].has(object): return true
+	if DungeonState.current_floor < 3 and ["Enemies/PuncherMKII"].has(object): return true ##ULTRAMEGAKURESUPEREXTRAHACK
 	for dis in disabled: if object.find(dis) > -1: return ##DEBUG
 	if floor_space.empty(): return null
 	

@@ -150,6 +150,10 @@ func damage(attacker, amount, knockback):
 	UI.soft_refresh()
 	move_and_slide((position - attacker.position).normalized() * 1000 * knockback)
 	if ghost_mode: cancel_ghost()
+	
+	if PlayerStats.health <= 0:
+		get_tree().change_scene("res://Scenes/TitleScreen.tscn")
+		PlayerStats.health = PlayerStats.max_health
 
 func _on_animation_finished(anim_name):
 	if anim_name.find("SwordAttack") > -1: attacking = false
@@ -185,12 +189,12 @@ func change_texture(sprite, texture, on_back = [], move_child = {}):
 func change_animation(part, animation):
 	if animations[part] == animation: return
 	
-	$Body.vframes = 1
 	match animation:
 		"Idle":
 			change_texture($Body, "BodyIdle")
 			$Body.hframes = 10
 			$BodyAnimator.playback_speed = 10
+			$Body.vframes = 1
 		"Walk":
 			change_texture($Body, "BodyWalk")
 			$Body.hframes = 9
