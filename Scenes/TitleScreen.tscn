@@ -5,9 +5,6 @@
 script/source = "extends Node2D
 
 func _process(delta):
-	DungeonState.current_floor = 0
-	PlayerStats.health = PlayerStats.max_health
-	
 	var game = load(\"res://Scenes/Game.tscn\").instance()
 	$\"/root\".add_child(game)
 	game.set_map(load(\"res://Maps/JigsawRoom.tscn\").instance())

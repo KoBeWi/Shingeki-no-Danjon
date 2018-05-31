@@ -13,7 +13,7 @@ var motion_time = 0
 var prev_move = Vector2()
 var running = false
 
-var animations = {Body = "Idle", RightArm = "SwordAttack", LeftArm = "Shield"}
+var animations = {Body = "", RightArm = "", LeftArm = ""}
 var sprite_direction = "Front"
 
 var ghost_mode = false
@@ -234,7 +234,11 @@ func update_weapon():
 	change_texture($Body/RightArm/Weapon, "Weapons/" + weapon_sprite(), ["Front", "Right", "Left", "Back"])
 
 func update_shield():
-	change_texture($Body/LeftArm/Shield, "Shields/" + shield_sprite(), ["Back"])
+	if shield_sprite() == "":
+		$Body/LeftArm/Shield.visible = false
+	else:
+		$Body/LeftArm/Shield.visible = true
+		change_texture($Body/LeftArm/Shield, "Shields/" + shield_sprite(), ["Back"])
 
 func cancel_ghost():
 	Res.play_sample(self, "GhostExit")

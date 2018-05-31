@@ -123,6 +123,9 @@ func generate(w, h):
 	wall_space.erase(wall)
 	wall_space.erase(wall + Vector2(80, 0))
 	
+	if find_floor_spot(stairs.position + Vector2(0, 80)):
+		floor_space.erase(stairs.position + Vector2(0, 80))
+	
 	Res.game.player.position = wall + Vector2(0, 160)
 	
 	var wall2 = wall_space[randi() % wall_space.size()]
@@ -345,6 +348,9 @@ func set_segment(pos, segment):
 			map[pos.x + x + (pos.y + y)  * width] = {"segment": segment, "piece_x": x, "piece_y": y, "pos_x": pos.x, "pos_y": pos.y}
 	
 	segments.append({"segment": segment, "pos_x": pos.x, "pos_y": pos.y})
+
+func find_floor_spot(spot):
+	if floor_space.has(spot): return true
 
 func remove_segment(segment):
 	for x in range(segment.segment.width):
