@@ -100,9 +100,20 @@ func subtract_items(id, amount):
 	for item in removed_stacks: inventory.erase(item)
 
 func consume(item):
-	Res.play_sample(Res.game.player, "Consume", false)
-	PlayerStats.health += item.health
-	return true
+	var consumed
+	
+	if item.has("health") and PlayerStats.health + item.health <= PlayerStats.max_health:
+		consumed = true
+		PlayerStats.health = min(PlayerStats.max_health, PlayerStats.health + item.health)
+	if item.has("mana") and PlayerStats.mana + item.mana  <= PlayerStats.max_mana:
+		consumed = true
+		PlayerStats.mana = min(PlayerStats.max_mana, PlayerStats.mana + item.mana)
+	
+	if consumed:
+		Res.play_sample(Res.game.player, "Consume", false)
+		return true
+	else:
+		Res.play_sample(Res.game.player, "MenuFailed", false)
 
 func recalc_stats():
 	max_health = 90 + vitality * 10
