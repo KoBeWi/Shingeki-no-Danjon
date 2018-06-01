@@ -102,6 +102,7 @@ func _process(delta):
 			in_special_state = true
 			SUMMON = false
 			
+			Res.play_sample(self, "SummonStart")
 			$EfectsAnimator/EfectPlayer.play("Summon")
 			return 
 		
@@ -112,10 +113,13 @@ func _process(delta):
 			in_special_state = true
 			FIRE_BOMB = false
 			
+			
+			Res.play_sample(self, "MechanicExplosionInitiate")
 			$EfectsAnimator/EfectPlayer.play("FireProof")
 			return 
 		
 		if BLOCK_PAYBACK :
+			Res.play_sample(self, "MechanicPaybackInitiate")
 			in_action = true
 			status = "Payback"
 			play_animation_if_not_playing("ShieldBlockON")
@@ -148,11 +152,12 @@ func bombing():
 	
 	for i in range(how_many):
 		var ug_inst = Res.get_node("Projectiles/FireBomb").instance()
+		Res.play_sample(ug_inst, "MechanicExplosionMark")
 		#ug_inst.position = position + Vector2( 1 * (randi()%50+100), 1 * (randi()%50+100))
 		get_parent().add_child(ug_inst)
 	
 func summoned():
-
+	Res.play_sample(self, "Summon")
 	var how_many = randi()%5 + 2
 	
 	var dis = 120
@@ -178,6 +183,7 @@ func check_status(delta):
 	if "ayba" in status :
 		time_of_using_skill += delta
 		if stacks_of_skill_block == 3 :
+			if damage != PAYBACK_DMG: Res.play_sample(self, "MechanicPayback")
 			play_animation_if_not_playing("ShieldBlockPayback")
 			damage = PAYBACK_DMG
 			knockback = PAYBACK_KNOCKBACK
@@ -187,7 +193,6 @@ func check_status(delta):
 			
 			if LShieldON:
 				$LeftShield.visible = false
-			
 			
 			return
 		if time_of_using_skill > TIME_OF_BLOCK:
@@ -295,8 +300,8 @@ func _on_dead():
 
 func _on_damage():
 	if "ayback" in status:
+		##tu inny dźwięk
 		stacks_of_skill_block += 1
 		if stacks_of_skill_block < 4:
 			$EfectsAnimator/Payback.frame = stacks_of_skill_block
-	pass
-
+	##dźwięk

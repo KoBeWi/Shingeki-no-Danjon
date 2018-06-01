@@ -18,11 +18,8 @@ func _ready():
 	
 	pass
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
-
+func explosion():
+	Res.play_sample(self, \"MechanicGroundExplosion\")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	
@@ -109,8 +106,22 @@ tracks/4/keys = {
 "update": 1,
 "values": [ true, false, true ]
 }
+tracks/5/type = "method"
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 15 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "explosion"
+} ]
+}
 
-[node name="KinematicBody2D" type="KinematicBody2D" index="0"]
+[node name="KinematicBody2D" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -160,7 +171,7 @@ visible = false
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 hframes = 10
-frame = 5
+frame = 9
 _sections_unfolded = [ "Animation", "Transform", "Visibility" ]
 
 [node name="Sprite2" type="Sprite" parent="." index="4"]
@@ -170,7 +181,6 @@ scale = Vector2( 0.9, 0.9 )
 z_index = 2
 texture = ExtResource( 2 )
 hframes = 10
-frame = 5
 _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [connection signal="area_entered" from="AtackCollider" to="." method="_on_AtackCollider_area_entered"]

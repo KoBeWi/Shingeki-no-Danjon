@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/MechanicExplosionInitiate.ogg-0221469cb9fbe785a6dab442518a9534.oggstr"
+
+[deps]
+
+source_file="res://Samples/MechanicExplosionInitiate.ogg"
+source_md5="ee2db841a32b872e14c9df33d9c8880f"
+
+dest_files=[ "res://.import/MechanicExplosionInitiate.ogg-0221469cb9fbe785a6dab442518a9534.oggstr" ]
+dest_md5="2843384f8866bc722aa014a1d032c0ae"
+
+[params]
+
+loop=false
+loop_offset=0

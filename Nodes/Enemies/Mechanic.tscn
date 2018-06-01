@@ -12,7 +12,6 @@
 [ext_resource path="res://Sprites/Enemies/Mechanic/Summon.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/Enemies/Mechanic/Fire_proof.png" type="Texture" id=11]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0

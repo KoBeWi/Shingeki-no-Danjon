@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/MechanicPaybackInitiate.ogg-5e19e9b7dc5069a48a2aca405c31162a.oggstr"
+
+[deps]
+
+source_file="res://Samples/MechanicPaybackInitiate.ogg"
+source_md5="0c421c290f401809bfd44135678b841f"
+
+dest_files=[ "res://.import/MechanicPaybackInitiate.ogg-5e19e9b7dc5069a48a2aca405c31162a.oggstr" ]
+dest_md5="e761b7770cf29320e3d6cf7741d3848c"
+
+[params]
+
+loop=false
+loop_offset=0

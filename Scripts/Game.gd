@@ -20,6 +20,9 @@ func _ready():
 	player = $Player
 	
 	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
+	
+	PlayerStats.health = PlayerStats.max_health
+	PlayerStats.mana = PlayerStats.max_mana
 
 func set_map(new_map):
 	if map:

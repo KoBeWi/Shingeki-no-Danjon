@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/MechanicGroundExplosion.ogg-4ea26b96932208930c9884aaefd8a0e1.oggstr"
+
+[deps]
+
+source_file="res://Samples/MechanicGroundExplosion.ogg"
+source_md5="1f4fb8957eb387f5bc1006efd82bca88"
+
+dest_files=[ "res://.import/MechanicGroundExplosion.ogg-4ea26b96932208930c9884aaefd8a0e1.oggstr" ]
+dest_md5="a2a7752c40af029181cdad7d771a62be"
+
+[params]
+
+loop=false
+loop_offset=0
