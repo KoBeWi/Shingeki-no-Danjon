@@ -1,39 +1,42 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
-[ext_resource path="res://Nodes/Objects/Chest.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Nodes/GhostLayer.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Resources/Tilesets/Dungeon.tres" type="TileSet" id=4]
-[ext_resource path="res://Nodes/Objects/Door.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Nodes/Objects/Lever.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Nodes/Player.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Nodes/Objects/SoulCrystal.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Nodes/Objects/WorkshopCrafting.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Nodes/Objects/Chest.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Resources/Tilesets/Dungeon.tres" type="TileSet" id=2]
+[ext_resource path="res://Nodes/Segments/Corridor1x1H.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Nodes/Objects/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Nodes/Objects/Lever.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Nodes/Objects/SoulCrystal.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Nodes/Objects/WorkshopCrafting.tscn" type="PackedScene" id=7]
 
-[node name="Game" type="YSort" index="0"]
+[sub_resource type="GDScript" id=1]
+
+resource_name = "Sandbox"
+script/source = "extends YSort
+
+func initialize():
+	Res.game.player.position = Vector2(400, 400)"
+_sections_unfolded = [ "Resource" ]
+
+[node name="Game" type="YSort"]
 
 sort_enabled = true
-script = ExtResource( 1 )
+script = SubResource( 1 )
 _sections_unfolded = [ "Sort" ]
 
-[node name="Chest" parent="." index="0" instance=ExtResource( 2 )]
+[node name="Chest" parent="." index="0" instance=ExtResource( 1 )]
 
 position = Vector2( 264.752, 546.056 )
 
-[node name="GhostLayer" parent="." index="1" instance=ExtResource( 3 )]
-
-[node name="Segments" type="Node2D" parent="." index="2"]
-
-editor/display_folded = true
+[node name="Segments" type="Node2D" parent="." index="1"]
 
 [node name="Segment" type="Node2D" parent="Segments" index="0"]
 
-position = Vector2( -12.2346, -36.5924 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="BottomTiles" type="TileMap" parent="Segments/Segment" index="0"]
 
 mode = 0
-tile_set = ExtResource( 4 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 80, 80 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -58,7 +61,7 @@ __meta__ = {
 
 z_index = 5
 mode = 0
-tile_set = ExtResource( 4 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 80, 80 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -79,24 +82,24 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Door" parent="." index="3" instance=ExtResource( 5 )]
+[node name="Segment2" parent="Segments" index="1" instance=ExtResource( 3 )]
+
+position = Vector2( 800, 0 )
+
+[node name="Door" parent="." index="2" instance=ExtResource( 4 )]
 
 position = Vector2( 264.907, 123.277 )
 
-[node name="Lever" parent="." index="4" instance=ExtResource( 6 )]
+[node name="Lever" parent="." index="3" instance=ExtResource( 5 )]
 
 position = Vector2( 591.76, 363.818 )
 target = NodePath("../Door")
 
-[node name="Player" parent="." index="5" instance=ExtResource( 7 )]
-
-position = Vector2( 436.237, 408.972 )
-
-[node name="SoulCrystal" parent="." index="6" instance=ExtResource( 8 )]
+[node name="SoulCrystal" parent="." index="4" instance=ExtResource( 6 )]
 
 position = Vector2( 107.67, 363.335 )
 
-[node name="Chest2" parent="." index="7" instance=ExtResource( 9 )]
+[node name="Chest2" parent="." index="5" instance=ExtResource( 7 )]
 
 position = Vector2( 206.046, 401.823 )
 

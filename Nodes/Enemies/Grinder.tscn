@@ -1,12 +1,13 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://Scripts/Grinder.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemies/Grinder.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/GearGrinder300/GearGrinder3000.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Enemies/GearGrinder300/GG300_leftAtack.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Enemies/GearGrinder300/GG3000_D_U.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/EnemyHealthUnder.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=7]
+
 
 [sub_resource type="Animation" id=1]
 

@@ -61,6 +61,18 @@ func _ready():
 	
 	crafting = read_json("res://Resources/CraftingList.json")
 
+func _process(delta):
+	if Input.is_key_pressed(KEY_F2) and Input.is_action_just_pressed("Interact"):
+		save_setting("no_music", !File.new().file_exists("user://no_music"))
+
+func save_setting(setting, set):
+	if set:
+		var f = File.new()
+		f.open("user://" + setting, f.WRITE)
+	else:
+		var d = Directory.new()
+		d.remove("user://" + setting)
+
 func get_resource_list(resource):
 	var resources = []
 	

@@ -6,12 +6,12 @@
 [ext_resource path="res://Sprites/UI/Menu/Character/CharacterAvatar.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/Menu/Character/CharacterExp.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/UI/Menu/Character/CharacterExpFill.png" type="Texture" id=6]
-[ext_resource path="res://Resources/Font12.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Resources/Fonts/Font12.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Sprites/UI/Menu/Character/CharacterLevel.png" type="Texture" id=8]
-[ext_resource path="res://Resources/Font24.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Resources/Fonts/Font24.tres" type="DynamicFont" id=9]
 [ext_resource path="res://Sprites/UI/Menu/Character/CharacterSkillpointBar.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/UI/Menu/Character/CharacterSkillpointInactive.png" type="Texture" id=11]
-[ext_resource path="res://Resources/Font36.tres" type="DynamicFont" id=12]
+[ext_resource path="res://Resources/Fonts/Font36.tres" type="DynamicFont" id=12]
 [ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentAvatar.png" type="Texture" id=13]
 [ext_resource path="res://Sprites/UI/Menu/Equipment/EquipmentSlot.png" type="Texture" id=14]
 [ext_resource path="res://Sprites/Items/0.png" type="Texture" id=15]
@@ -197,9 +197,10 @@ func _process(delta):
 				SkillBase.inc_stat(SKILLPOINTS[skillpoint_select])
 				PlayerStats.stat_points -= 1
 		1:
-			if Input.is_action_just_pressed(\"ui_cancel\") or Input.is_action_just_pressed(\"ui_up\") and inventory_select > -2 and inventory_select < 2:
+			if Input.is_action_just_pressed(\"ui_cancel\") or Input.is_action_just_pressed(\"ui_up\") and inventory_select >= -2 and inventory_select < 2:
 				Res.ui_sample(\"MenuCancel\")
 				self.in_tab = false
+				return
 			
 			var prev_sel = inventory_select
 			
@@ -1924,6 +1925,8 @@ stretch_mode = 0
 
 [node name="LeftHeader" type="TextureRect" parent="Tabs/Skills" index="2"]
 
+editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

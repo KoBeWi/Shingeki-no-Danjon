@@ -1,10 +1,11 @@
 [gd_resource type="DynamicFont" load_steps=2 format=2]
 
-[ext_resource path="res://Resources/courbd.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Resources/Fonts/Breathe Fire.otf" type="DynamicFontData" id=1]
+
 
 [resource]
 
-size = 36
+size = 40
 use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 1 )

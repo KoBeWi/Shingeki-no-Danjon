@@ -1,6 +1,6 @@
 [gd_scene load_steps=34 format=2]
 
-[ext_resource path="res://Scripts/Mechanic.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemies/Mechanic.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/Mechanic/Mechanik.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Enemies/Mechanic/Mechanic_NoWeapon.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Enemies/Mechanic/Left_Side_Mechanic.png" type="Texture" id=4]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Sprites/Enemies/Mechanic/Symbol of block.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/Enemies/Mechanic/Summon.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/Enemies/Mechanic/Fire_proof.png" type="Texture" id=11]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 
