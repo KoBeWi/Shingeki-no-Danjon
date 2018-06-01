@@ -21,11 +21,11 @@ func _process(delta):
 func new_skill(skill):
 	Res.play_sample(get_parent().player, \"SkillAcquired\", false)
 	visible = true
-	$Name.text = skill
+	$Name.text = Res.skills[skill].name
 	skill_time = SKILL_TIMEOUT"
 _sections_unfolded = [ "Resource" ]
 
-[node name="SkillAcquiredPanel" type="Panel"]
+[node name="SkillAcquiredPanel" type="Panel" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0

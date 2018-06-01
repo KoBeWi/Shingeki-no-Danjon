@@ -1,0 +1,6 @@
+{
+	"type": "passive",
+	"name": "Test Skill",
+	"description": "Ignore this.",
+	"infos": ["Strength * 10 (jk)"]
+}

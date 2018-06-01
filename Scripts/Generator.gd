@@ -1,13 +1,7 @@
 extends Node
 onready var dungeon = $"../Segments"
 
-#zostawic, sluzy testowaniu nowych mobkow
-var NewToTest# = "Enemies/Puncher"#"Enemies/Mechanic" #jak zrobisz tak to masz fajny null
-
-#var Workbench = "Objects/WorkshopCrafting" ###uhhhh nie
-
-#3358948719
-#1584724892
+var NewToTest# = "Enemies/Puncher"#"Enemies/Mechanic" #jak zrobisz tak to masz fajny null ##DEBUG
 
 const SEG_W = 800
 const SEG_H = 800
@@ -214,13 +208,6 @@ func place_containers():
 		if instance: instance.item = int(Res.weighted_random(dungeon_type.container_contents))
 		else: break
 
-
-#func place_workbench(what):
-#	var ug_inst = what.instance()
-#	ug_inst.position = Res.game.player.position + Vector2(120,-20)
-#	ug_inst.scale = Vector2(0.75,0.75) 
-#	dungeon.get_parent().add_child(ug_inst)
-
 func place_for_test(what):
 	if NewToTest == "": return
 	
@@ -236,8 +223,6 @@ func place_enemies():
 		if !place_on_floor("Enemies/" + type): break
 	
 	if NewToTest: place_for_test(Res.get_node(NewToTest))
-#	place_workbench(Res.get_node(Workbench))
-	
 
 func place_on_floor(object):
 	if DungeonState.current_floor < 2 and ["Enemies/FLA-B", "Enemies/FLA-G", "Enemies/FLA-S"].has(object): return true
@@ -272,11 +257,6 @@ func place_treasure_into_maze(what, how_many):
 		dungeon.get_parent().add_child(ug_inst)
 		if (what == Res.get_node("Objects/Barrel") and randi()%6 == 0) : ##hack ;_;
 			ug_inst.item = randi()%2
-			
-
-			
-		#	if randi()%3 == 2:
-		#		ug_inst.item = 17
 
 func get_possible_segments(spot):
 	var pos = spot.pos

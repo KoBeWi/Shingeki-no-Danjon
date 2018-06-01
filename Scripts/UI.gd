@@ -38,7 +38,7 @@ func soft_refresh():
 	$HUD/ManaIndicator.value = PlayerStats.mana
 
 func refresh():
-	$PlayerMenu.update_equipment()
+	$PlayerMenu.refresh()
 	soft_refresh()
 
 func on_add_stat(stat):

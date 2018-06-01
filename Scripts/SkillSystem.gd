@@ -7,6 +7,7 @@ var SKILLS = {}
 var current_stats = {}
 var acquired_skills = []
 var acquired_active_skills = {last_size = 0, skills = []}
+var acquired_passive_skills = {last_size = 0, skills = []}
 
 const MAX_COMBO = 5
 const COMBO_TIMEOUT = 2000
@@ -60,6 +61,16 @@ func get_active_skills():
 			if Res.skills[skill].type == "active": acquired_active_skills.skills.append(skill)
 	
 	return acquired_active_skills.skills
+
+func get_passive_skills():
+	if acquired_passive_skills.last_size < acquired_skills.size():
+		acquired_passive_skills.skills.clear()
+		acquired_passive_skills.last_size = acquired_skills.size()
+		
+		for skill in acquired_skills:
+			if Res.skills[skill].type == "passive": acquired_passive_skills.skills.append(skill)
+	
+	return acquired_passive_skills.skills
 
 func check_combo(combo):
 	if current_combo.size() < combo.size(): return false

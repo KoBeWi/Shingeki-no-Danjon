@@ -124,10 +124,10 @@ func get_item_texture(id):
 	return get_resource("res://Sprites/Items/" + str(id) + ".png")
 	
 func get_skill_texture(skill):
-	if get_resource("res://Sprites/UI/Skills/" + skill + ".png"):
-		return get_resource("res://Sprites/UI/Skills/" + skill + ".png")
+	if load("res://Sprites/UI/Skills/" + skill + ".png"):
+		return load("res://Sprites/UI/Skills/" + skill + ".png")
 	else:
-		return get_resource("res://Sprites/UI/Skills/NoSkill.png")
+		return load("res://Sprites/UI/Skills/NoSkill.png")
 
 func weighted_random(chances):
 	var sum = 0

@@ -2,5 +2,6 @@
 	"type": "active",
 	"name": "Fast Walk",
 	"description": "Allows you to move faster.",
+	"infos": ["--combo"],
 	"combo": ["Dir", "Dir"]
 }

@@ -131,6 +131,7 @@ func _physics_process(delta):
 	prev_move = move
 	
 	if Input.is_key_pressed(KEY_F3): print(int(position.x / 800), ", ", int(position.y / 800)) ##debug
+	if Input.is_key_pressed(KEY_F1): PlayerStats.add_experience(1000) ##debug
 
 func damage(attacker, amount, knockback):
 	amount = max(1, amount - PlayerStats.get_defense())

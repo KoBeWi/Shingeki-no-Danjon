@@ -53,7 +53,7 @@ var skillpoint_select = 0
 var inventory_scroll = 0
 var inventory_select = 0
 
-var skill_select = 0
+var skill_select = -1
 var skill_scroll = 0
 
 var crafting_station setget set_station
@@ -64,6 +64,7 @@ var crafting_scroll = 0
 func _ready():
 	PlayerStats.connect(\"got_item\", self, \"update_inventory\")
 	PlayerStats.connect(\"equipment_changed\", self, \"update_equipment\")
+	SkillBase.connect(\"new_skill\", self, \"update_skills\")
 	
 	var sheep = $Tabs/Crafting/Items/Item1
 	for i in range(CRAFTING_SIZE-1):
@@ -262,6 +263,34 @@ func _process(delta):
 					select_inventory()
 			
 			if inventory_select != prev_sel: select_inventory()
+		2:
+			if Input.is_action_just_pressed(\"ui_cancel\") or Input.is_action_just_pressed(\"ui_up\") and (skill_select < 4 or skill_select >= 10000 and skill_select < 10004):
+				Res.ui_sample(\"MenuCancel\")
+				self.in_tab = false
+				return
+			
+			var prev_sel = skill_select
+			if Input.is_action_just_pressed(\"ui_left\"):
+				if skill_select < 10000 or skill_select % 4 > 0:
+					skill_select = max(skill_select-1, 0)
+				elif skill_select >= 10000 and skill_select and !SkillBase.get_active_skills().empty():
+					skill_select = min(skill_select - 10000 + 3 - skill_select%4, SkillBase.get_active_skills().size()-1)
+				select_skill()
+			elif Input.is_action_just_pressed(\"ui_right\"):
+				if skill_select < 10000 and skill_select % 4 < 3 and skill_select < SkillBase.get_active_skills().size()-1:
+					skill_select = min(skill_select+1, SkillBase.get_active_skills().size()-1)
+				elif skill_select < 10000 and !SkillBase.get_passive_skills().empty():
+					skill_select += 10000 - skill_select%4
+				elif skill_select >= 10000:
+					skill_select = min(skill_select+1, SkillBase.get_passive_skills().size()+9999)
+				select_skill()
+			elif Input.is_action_just_pressed(\"ui_up\"):
+				crafting_select = max(skill_select-4, 0)
+				select_skill()
+			elif Input.is_action_just_pressed(\"ui_down\"):
+				crafting_select = min(skill_select+4, SkillBase.get_active_skills().size()-1)
+				select_skill()
+			if prev_sel != skill_select: Res.ui_sample(\"MenuMove\")
 		3:
 			if Input.is_action_just_pressed(\"ui_cancel\") or Input.is_action_just_pressed(\"ui_up\") and crafting_select < 2:
 				Res.ui_sample(\"MenuCancel\")
@@ -315,23 +344,17 @@ func set_station(station):
 	crafting_station = station
 	update_crafting()
 
-func update_crafting():
-	crafting_list.clear()
-	for item in Res.crafting:
-		##tu sprawdzanie, czy powinno się pojawić
-		if item.has(\"station\") and crafting_station != item.station: continue
-		crafting_list.append(item)
+func update_skills(optional = null):
+	var active_skills = SkillBase.get_active_skills()
+	var passive_skills = SkillBase.get_passive_skills()
 	
-	for i in range(CRAFTING_SIZE):
-		var j = i + crafting_scroll
-		var item = $Tabs/Crafting/Items.get_child(i )
-		
-		if j < crafting_list.size():
-			item.visible = true
-			item.get_node(\"Name\").text = Res.items[crafting_list[j].item].name
-			item.get_node(\"Icon\").texture = Res.get_item_texture(crafting_list[j].item)
-		else:
-			item.visible = false
+	for i in range($Tabs/Skills/ActivePanel/Skills.get_child_count()):
+		if i < active_skills.size():
+			$Tabs/Skills/ActivePanel/Skills.get_child(i).get_node(\"Icon\").texture = Res.get_skill_texture(active_skills[i])
+	
+	for i in range($Tabs/Skills/PassivePanel/Skills.get_child_count()):
+		if i < passive_skills.size():
+			$Tabs/Skills/PassivePanel/Skills.get_child(i).get_node(\"Icon\").texture = Res.get_skill_texture(passive_skills[i])
 
 func update_inventory(whatever = null):
 	for j in range(INVENTORY_SLOTS):
@@ -363,6 +386,24 @@ func update_equipment():
 			item.get_node(\"Icon\").texture = Res.get_resource(\"res://Sprites/UI/Menu/Equipment/Generic\" + PlayerStats.EQUIPMENT_SLOTS[i] + \".png\")
 			item.get_node(\"Durability\").visible = false
 
+func update_crafting():
+	crafting_list.clear()
+	for item in Res.crafting:
+		##tu sprawdzanie, czy powinno się pojawić
+		if item.has(\"station\") and crafting_station != item.station: continue
+		crafting_list.append(item)
+	
+	for i in range(CRAFTING_SIZE):
+		var j = i + crafting_scroll
+		var item = $Tabs/Crafting/Items.get_child(i )
+		
+		if j < crafting_list.size():
+			item.visible = true
+			item.get_node(\"Name\").text = Res.items[crafting_list[j].item].name
+			item.get_node(\"Icon\").texture = Res.get_item_texture(crafting_list[j].item)
+		else:
+			item.visible = false
+
 func in_out_tab(in_out):
 	in_tab = in_out
 	if in_out:
@@ -378,31 +419,6 @@ func update_tabs(tab = current_tab):
 		$Tabs.get_child(i).visible = current_tab == i
 		$TabsBar.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Tab\" + (\"Active\" if i == tab else \"Inactive\") + \".png\")
 		$TabsBar.get_child(i).get_node(\"Icon\").texture = Res.get_resource(\"res://Sprites/UI/Menu/Icon\" + TABS[i] + (\"\" if i == tab else \"Inactive\") + \".png\")
-
-func select_crafting():
-	for i in $Tabs/Crafting/Items.get_child_count():
-		$Tabs/Crafting/Items.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot\" + (\"Active\" if i == crafting_select - crafting_scroll else \"\") + \".png\")
-	
-	var item = Res.items[crafting_list[crafting_select].item]
-	$Tabs/Crafting/Info/Description.text = item.description
-	
-	var materials = crafting_list[crafting_select].materials
-	for i in range(MAX_INGREDIENTS):
-		var ingredient = $Tabs/Crafting/LeftHeader/Ingredients.get_child(i)
-		
-		if i < materials.keys().size():
-			ingredient.visible = true
-			
-			var need = materials.values()[i]
-			var have = PlayerStats.count_item(int(materials.keys()[i]))
-			if have >= need: ingredient.get_node(\"Amount\").add_color_override(\"font_color\", Color(0, 1, 0))
-			else: ingredient.get_node(\"Amount\").add_color_override(\"font_color\", Color(1, 0, 0))
-			
-			ingredient.get_node(\"Name\").text = Res.items[int(materials.keys()[i])].name
-			ingredient.get_node(\"Amount\").text = str(have) + \" / \" + str(need)
-			ingredient.get_node(\"Icon\").texture = Res.get_item_texture(materials.keys()[i])
-		else:
-			ingredient.visible = false
 
 func select_inventory():
 	if inventory_select > -1 and PlayerStats.inventory.empty(): inventory_select = -1
@@ -440,15 +456,69 @@ func select_inventory():
 		update_stats(item, inventory_select > -1)
 
 func select_skill():
+	var skill
+	
 	for i in range($Tabs/Skills/ActivePanel/Skills.get_child_count()):
 		if i == skill_select:
-			pass
+			$Tabs/Skills/ActivePanel/Skills.get_child(i).modulate = Color(3, 3, 3)
+			skill = SkillBase.get_active_skills()[i]
+		else:
+			$Tabs/Skills/ActivePanel/Skills.get_child(i).modulate = Color(1, 1, 1)
+	
+	for i in range($Tabs/Skills/PassivePanel/Skills.get_child_count()):
+		if i + 10000 == skill_select:
+			$Tabs/Skills/PassivePanel/Skills.get_child(i).modulate = Color(3, 3, 3)
+			skill = SkillBase.get_passive_skills()[i]
+		else:
+			$Tabs/Skills/PassivePanel/Skills.get_child(i).modulate = Color(1, 1, 1)
+	
+	$Tabs/Skills/LeftHeader/Info/Icon.texture = Res.get_skill_texture(skill)
+	skill = Res.skills[skill]
+	$Tabs/Skills/LeftHeader/Info/Name.text = skill.name
+	$Tabs/Skills/LeftHeader2/Description.text = skill.description
+	
+	if !skill.has(\"infos\"):
+		$Tabs/Skills/LeftHeader/Info/Infos.visible = false
+	else:
+		$Tabs/Skills/LeftHeader/Info/Infos.visible = true
+		for i in $Tabs/Skills/LeftHeader/Info/Infos.get_child_count():
+			$Tabs/Skills/LeftHeader/Info/Infos.get_child(i).text = \"\" if skill.infos.size() < i+1 else skill.infos[i]
+
+func select_crafting():
+	for i in $Tabs/Crafting/Items.get_child_count():
+		$Tabs/Crafting/Items.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot\" + (\"Active\" if i == crafting_select - crafting_scroll else \"\") + \".png\")
+	
+	var item = Res.items[crafting_list[crafting_select].item]
+	$Tabs/Crafting/Info/Description.text = item.description
+	
+	var materials = crafting_list[crafting_select].materials
+	for i in range(MAX_INGREDIENTS):
+		var ingredient = $Tabs/Crafting/LeftHeader/Ingredients.get_child(i)
+		
+		if i < materials.keys().size():
+			ingredient.visible = true
+			
+			var need = materials.values()[i]
+			var have = PlayerStats.count_item(int(materials.keys()[i]))
+			if have >= need: ingredient.get_node(\"Amount\").add_color_override(\"font_color\", Color(0, 1, 0))
+			else: ingredient.get_node(\"Amount\").add_color_override(\"font_color\", Color(1, 0, 0))
+			
+			ingredient.get_node(\"Name\").text = Res.items[int(materials.keys()[i])].name
+			ingredient.get_node(\"Amount\").text = str(have) + \" / \" + str(need)
+			ingredient.get_node(\"Icon\").texture = Res.get_item_texture(materials.keys()[i])
+		else:
+			ingredient.visible = false
 
 func enter_tab():
 	match current_tab:
 		1:
 			select_inventory()
 		2:
+			if skill_select == -1:
+				if !SkillBase.get_active_skills().empty(): skill_select = 0
+				elif !SkillBase.get_passive_skills().empty(): skill_select = 10000
+			$Tabs/Skills/LeftHeader.visible = true
+			$Tabs/Skills/LeftHeader2.visible = true
 			select_skill()
 		3:
 			$Tabs/Crafting/LeftHeader.visible = true
@@ -466,6 +536,13 @@ func exit_tab():
 			
 			for i in $Tabs/Equipment/Character/EquipmentSlots.get_child_count():
 				$Tabs/Equipment/Character/EquipmentSlots.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Equipment/EquipmentSlot.png\")
+		2:
+			for skill in $Tabs/Skills/PassivePanel/Skills.get_children():
+				skill.modulate = Color(1, 1, 1)
+			for skill in $Tabs/Skills/ActivePanel/Skills.get_children():
+				skill.modulate = Color(1, 1, 1)
+			$Tabs/Skills/LeftHeader.visible = false
+			$Tabs/Skills/LeftHeader2.visible = false
 		3:
 			$Tabs/Crafting/LeftHeader.visible = false
 			$Tabs/Crafting/Info.visible = false
@@ -475,13 +552,6 @@ func exit_tab():
 
 func get_eq_slot(item):
 	return PlayerStats.EQUIPMENT_SLOTS.find(item.type)
-
-func update_skills():
-	var active_skills = SkillBase.get_active_skills()
-	
-	for i in range($Tabs/Skills/ActivePanel/Skills.get_child_count()):
-		if i < active_skills.size():
-			$Tabs/Skills/ActivePanel/Skills.get_child(i).get_node(\"Icon\").texture = load(\"res://Sprites/UI/Skills/\" + active_skills[i] + \".png\")
 
 func update_stats(item, compare):
 	var stats = {}
@@ -519,7 +589,14 @@ func update_stats(item, compare):
 			
 			stat_label.visible = true
 	
-	$Tabs/Equipment/Stats.visible = !irrelevant"
+	$Tabs/Equipment/Stats.visible = !irrelevant
+
+func refresh():
+	update_equipment()
+	crafting_select = 0
+	crafting_scroll = 0
+	inventory_select = 0
+	inventory_scroll = 0"
 _sections_unfolded = [ "Resource" ]
 
 [node name="PlayerMenu" type="TextureRect"]
@@ -903,6 +980,7 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Equipment" type="Control" parent="Tabs" index="1"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1599,8 +1677,6 @@ size_flags_vertical = 1
 
 [node name="Skills" type="Control" parent="Tabs" index="2"]
 
-editor/display_folded = true
-visible = false
 self_modulate = Color( 1, 0.501961, 0.501961, 0.501961 )
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1699,6 +1775,7 @@ size_flags_vertical = 1
 
 [node name="Skill1" type="TextureRect" parent="Tabs/Skills/ActivePanel/Skills" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1847,8 +1924,6 @@ stretch_mode = 0
 
 [node name="LeftHeader" type="TextureRect" parent="Tabs/Skills" index="2"]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1890,7 +1965,6 @@ max_lines_visible = -1
 
 [node name="Info" type="Control" parent="Tabs/Skills/LeftHeader" index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1906,15 +1980,39 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Icon" type="TextureRect" parent="Tabs/Skills/LeftHeader/Info" index="0"]
+[node name="Name" type="Label" parent="Tabs/Skills/LeftHeader/Info" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 187.0
+margin_left = 45.0
+margin_top = 199.0
+margin_right = 408.0
+margin_bottom = 227.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+text = "SKILL INFO"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Icon" type="TextureRect" parent="Tabs/Skills/LeftHeader/Info" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 202.0
 margin_top = 232.0
-margin_right = 247.0
+margin_right = 262.0
 margin_bottom = 292.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -1923,10 +2021,12 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 14 )
+expand = true
 stretch_mode = 0
 
-[node name="Infos" type="Control" parent="Tabs/Skills/LeftHeader/Info" index="1"]
+[node name="Infos" type="Control" parent="Tabs/Skills/LeftHeader/Info" index="2"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1963,8 +2063,9 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="VideoPanel" type="TextureRect" parent="Tabs/Skills/LeftHeader/Info" index="2"]
+[node name="VideoPanel" type="TextureRect" parent="Tabs/Skills/LeftHeader/Info" index="3"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -2024,7 +2125,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Label2" type="Label" parent="Tabs/Skills/LeftHeader2" index="1"]
+[node name="Description" type="Label" parent="Tabs/Skills/LeftHeader2" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -2051,6 +2152,7 @@ _sections_unfolded = [ "custom_fonts" ]
 [node name="Crafting" type="Control" parent="Tabs" index="3"]
 
 editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

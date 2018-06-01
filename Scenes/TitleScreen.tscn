@@ -2,6 +2,7 @@
 
 [sub_resource type="GDScript" id=1]
 
+resource_name = "TitleScreen"
 script/source = "extends Node2D
 
 func _process(delta):
@@ -11,6 +12,7 @@ func _process(delta):
 	
 	get_tree().current_scene = game
 	queue_free()"
+_sections_unfolded = [ "Resource" ]
 
 [node name="TitleScreen" type="Node2D"]
 
