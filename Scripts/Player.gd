@@ -23,7 +23,7 @@ var attacking = false
 var shielding = false
 var current_element = 0
 
-var runUpdate = false
+var dead = false
 
 func _ready():
 	change_animation("Body", "Idle")
@@ -33,6 +33,7 @@ func _ready():
 	reset_arms()
 
 func _physics_process(delta):
+	if dead: return
 	var move = Vector2()
 	
 	static_time += delta
@@ -134,6 +135,8 @@ func _physics_process(delta):
 	if Input.is_key_pressed(KEY_F1): PlayerStats.add_experience(1000) ##debug
 
 func damage(attacker, amount, knockback):
+	if dead: return
+	
 	amount = max(1, amount - PlayerStats.get_defense())
 	if shielding : 
 		var dps = amount*(1-PlayerStats.shield_block)-PlayerStats.shield_amout
@@ -143,17 +146,23 @@ func damage(attacker, amount, knockback):
 			Res.play_sample(self, "ShieldBlock")
 			Res.create_instance("DamageNumber").damage(self, "BLOCKED")
 		else:
-			Res.create_instance("DamageNumber").damage(self, dps )
+			Res.create_instance("DamageNumber").damage(self, dps)
 		
 	else:
 		Res.create_instance("DamageNumber").damage(self, amount)
 		SkillBase.inc_stat("DamageTaken", amount)
 		PlayerStats.health -= amount
 	UI.soft_refresh()
-	move_and_slide((position - attacker.position).normalized() * 1000 * knockback)
+	move_and_slide((position - attacker.position).normalized() * 1000 * knockback) ##inaczej
 	if ghost_mode: cancel_ghost()
 	
 	if PlayerStats.health <= 0:
+		dead = true
+		$Body/LeftArm.visible = false
+		$Body/RightArm.visible = false
+		change_animation("Body", "Death")
+		Res.play_sample(self, "Dead")
+		yield(get_tree().create_timer(3), "timeout")
 		get_tree().change_scene("res://Scenes/TitleScreen.tscn")
 
 func _on_animation_finished(anim_name):
@@ -194,6 +203,12 @@ func change_animation(part, animation):
 		"Idle":
 			change_texture($Body, "BodyIdle")
 			$Body.hframes = 10
+			$BodyAnimator.playback_speed = 10
+			$Body.vframes = 1
+		"Death":
+			change_dir(2)
+			change_texture($Body, "Death")
+			$Body.hframes = 8
 			$BodyAnimator.playback_speed = 10
 			$Body.vframes = 1
 		"Walk":

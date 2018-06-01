@@ -64,6 +64,7 @@ func _ready():
 func _process(delta):
 	if Input.is_key_pressed(KEY_F2) and Input.is_action_just_pressed("Interact"):
 		save_setting("no_music", !File.new().file_exists("user://no_music"))
+	if Input.is_key_pressed(KEY_F5): PlayerStats.strength += 10
 
 func save_setting(setting, set):
 	if set:
