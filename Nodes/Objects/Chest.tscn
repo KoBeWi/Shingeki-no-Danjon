@@ -11,11 +11,11 @@ script/source = "extends StaticBody2D
 export var item = 28
 
 func _ready():
-	$\"/root/Game\".perma_state(self, \"open\")
+	Res.game.perma_state(self, \"open\")
 
 func interact():
 	Res.play_sample(self, \"Chest\")
-	$\"/root/Game\".save_state(self)
+	Res.game.save_state(self)
 	open()
 	
 	if item > -1:

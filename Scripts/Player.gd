@@ -175,7 +175,7 @@ func _on_attack_hit(collider):
 		collider.get_parent().damage(PlayerStats.get_damage())
 
 func change_dir(dir):
-	if direction == dir or Input.is_action_pressed("Attack"): return
+	if direction == dir or !dead and Input.is_action_pressed("Attack"): return
 #	running = false
 	direction = dir
 	sprite_direction = ["Back", "Right", "Front", "Left"][dir]

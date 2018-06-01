@@ -117,8 +117,8 @@ func generate(w, h):
 	wall_space.erase(wall)
 	wall_space.erase(wall + Vector2(80, 0))
 	
-	if find_floor_spot(stairs.position + Vector2(0, 80)):
-		floor_space.erase(stairs.position + Vector2(0, 80))
+	if find_floor_spot(stairs.position + Vector2(0, 80)): floor_space.erase(stairs.position + Vector2(0, 80))
+	if find_floor_spot(stairs.position + Vector2(80, 80)): floor_space.erase(stairs.position + Vector2(80, 80))
 	
 	Res.game.player.position = wall + Vector2(0, 160)
 	
@@ -130,6 +130,9 @@ func generate(w, h):
 	dungeon.add_child(stairs)
 	wall_space.erase(wall2)
 	wall_space.erase(wall2 + Vector2(80, 0))
+	
+	if find_floor_spot(stairs.position + Vector2(0, 80)): floor_space.erase(stairs.position + Vector2(0, 80))
+	if find_floor_spot(stairs.position + Vector2(80, 80)): floor_space.erase(stairs.position + Vector2(80, 80))
 	
 	place_environment()
 	place_containers()
