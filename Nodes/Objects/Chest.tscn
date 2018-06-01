@@ -8,7 +8,7 @@
 resource_name = "Chest"
 script/source = "extends StaticBody2D
 
-export var item = 28
+export var item = -1
 
 func _ready():
 	Res.game.perma_state(self, \"open\")
@@ -21,7 +21,7 @@ func interact():
 	if item > -1:
 		var it = Res.create_instance(\"Item\")
 		it.position = position + Vector2(0, 50)
-		it.id = 28 + randi()%4
+		it.id = item
 		get_parent().add_child(it)
 
 func open():
@@ -68,7 +68,7 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 script = SubResource( 1 )
-item = 28
+item = -1
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 

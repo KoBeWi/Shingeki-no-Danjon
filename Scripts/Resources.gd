@@ -153,7 +153,7 @@ func weighted_random(chances):
 	for i in range(chances.size()-1):
 		chances2[chances.keys()[i+1]] = int(chances2[chances.keys()[i]] + chances[chances.keys()[i+1]])
 	
-	var value = randi() % sum
+	var value = randi() % (sum+1)
 	for chance in chances2.keys():
 		if chances2[chance] >= value:
 			return chance

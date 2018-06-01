@@ -51,6 +51,7 @@ func change_floor(change):
 		DungeonState.visited_floors[DungeonState.current_floor] = {"seed": map.my_seed, "obj_properties": obj_properties}
 	DungeonState.current_floor += change
 	
+	object_id = 0
 	var new_map = load("res://Maps/RandomMap.tscn").instance()
 	if DungeonState.current_floor == 0: #ULTRAMEGAOSTATECZNYHACK
 		new_map = load("res://Maps/JigsawRoom.tscn").instance()
