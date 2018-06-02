@@ -182,7 +182,7 @@ func reset_shop():
 		$RightPanel/Items.get_child(1).free()"
 _sections_unfolded = [ "Resource" ]
 
-[node name="Shop" type="Control" index="0"]
+[node name="Shop" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0

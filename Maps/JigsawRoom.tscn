@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Resources/Tilesets/Dungeon.tres" type="TileSet" id=1]
 [ext_resource path="res://Nodes/Objects/Stairs.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/NPC.gd" type="Script" id=3]
-[ext_resource path="res://Scripts/Interact.gd" type="Script" id=4]
-[ext_resource path="res://Sprites/NPC/Jigsaw.png" type="Texture" id=5]
-[ext_resource path="res://Nodes/Objects/WorkshopCrafting.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Nodes/Objects/WorkshopCrafting.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Nodes/NPC.tscn" type="PackedScene" id=4]
 
 [sub_resource type="GDScript" id=1]
 
@@ -21,35 +19,7 @@ func _process(delta):
 		Res.game.player.UI.get_node(\"DialogueBox\").initiate_dialogue(\"Jigsaw\")
 		jigsawd = true"
 
-[sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
-extents = Vector2( 32, 22.5213 )
-
-[sub_resource type="RectangleShape2D" id=3]
-
-custom_solver_bias = 0.0
-extents = Vector2( 53.5912, 43.976 )
-
-[sub_resource type="Animation" id=4]
-
-length = 20.0
-loop = true
-step = 1.0
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ]
-}
-
-[node name="JigsawRoom" type="YSort"]
+[node name="JigsawRoom" type="YSort" index="0"]
 
 sort_enabled = true
 script = SubResource( 1 )
@@ -112,67 +82,20 @@ region_rect = Rect2( 160, 480, 160, 160 )
 
 position = Vector2( 400, 440 )
 
-[node name="NPC" type="KinematicBody2D" parent="." index="4"]
-
-position = Vector2( 533.751, 263.817 )
-z_index = 1
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-collision/safe_margin = 0.08
-script = ExtResource( 3 )
-_sections_unfolded = [ "Z Index" ]
-id = 1
-
-[node name="Shape" type="CollisionShape2D" parent="NPC" index="0"]
-
-position = Vector2( 0, -7 )
-shape = SubResource( 2 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="InteractArea" type="Area2D" parent="NPC" index="1"]
-
-editor/display_folded = true
-position = Vector2( 0, -48 )
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-script = ExtResource( 4 )
-type = 1
-mode = 0
-send_status = false
-
-[node name="Shape" type="CollisionShape2D" parent="NPC/InteractArea" index="0"]
-
-position = Vector2( -1.39496, 41.4926 )
-shape = SubResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="NPC" index="2"]
-
-editor/display_folded = true
-position = Vector2( -1.96741, -45.2584 )
-texture = ExtResource( 5 )
-vframes = 2
-hframes = 10
-frame = 17
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Sprite" index="0"]
-
-root_node = NodePath("..")
-autoplay = "Animation"
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 8.0
-anims/Animation = SubResource( 4 )
-blend_times = [  ]
-_sections_unfolded = [ "Playback Options" ]
-
-[node name="WorkshopCrafting" parent="." index="5" instance=ExtResource( 6 )]
+[node name="WorkshopCrafting" parent="." index="4" instance=ExtResource( 3 )]
 
 position = Vector2( 260.062, 211.415 )
+
+[node name="NPC" parent="." index="5" instance=ExtResource( 4 )]
+
+position = Vector2( 544.929, 266.566 )
+dialogue = 1
+skin = 2
+
+[node name="NPC2" parent="." index="6" instance=ExtResource( 4 )]
+
+position = Vector2( 209.903, 384.655 )
+dialogue = 2
+skin = 3
 
 
