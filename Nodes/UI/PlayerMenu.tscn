@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Sprites/UI/Menu/PlayerMenu.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/UI/Menu/TabInactive.png" type="Texture" id=2]
@@ -30,8 +30,9 @@
 [ext_resource path="res://Sprites/UI/Menu/Skills/SkillFrame.png" type="Texture" id=28]
 [ext_resource path="res://Sprites/UI/Menu/Skills/AnimationPanel.png" type="Texture" id=29]
 [ext_resource path="res://Sprites/UI/Menu/Crafting/IngredientFrame.png" type="Texture" id=30]
-[ext_resource path="res://Sprites/UI/Menu/Map/skill_maps.png" type="Texture" id=31]
-[ext_resource path="res://Sprites/UI/Menu/Journal/UI_jornual.png" type="Texture" id=32]
+[ext_resource path="res://Sprites/UI/Menu/Crafting/Scrollbar.png" type="Texture" id=31]
+[ext_resource path="res://Sprites/UI/Menu/Map/skill_maps.png" type="Texture" id=32]
+[ext_resource path="res://Sprites/UI/Menu/Journal/UI_jornual.png" type="Texture" id=33]
 
 [sub_resource type="GDScript" id=1]
 
@@ -206,6 +207,8 @@ func _process(delta):
 			
 			if inventory_select >= 0:
 				var max_scroll = PlayerStats.inventory.size()-7
+				$Tabs/Equipment/Inventory/Scrollbar.visible = (max_scroll > 0)
+				
 				if inventory_scroll < max_scroll and inventory_select - inventory_scroll > 5:
 					inventory_scroll += 2
 					$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283
@@ -313,13 +316,18 @@ func _process(delta):
 				select_crafting()
 			if crafting_select != prev_sel: Res.ui_sample(\"MenuMove\")
 			
+			var max_scroll = crafting_list.size()-7
+			$Tabs/Crafting/Scrollbar.visible = (max_scroll > 0)
+			
 			if crafting_scroll > 0 and crafting_select - crafting_scroll < 2:
 				crafting_scroll -= 2
+				$Tabs/Crafting/Scrollbar/ActualScroll.rect_position.y = crafting_scroll / float(max_scroll) * 347
 				select_crafting()
 				update_crafting()
 			
 			if crafting_select - crafting_scroll > 7:
 				crafting_scroll += 2
+				$Tabs/Crafting/Scrollbar/ActualScroll.rect_position.y = crafting_scroll / float(max_scroll) * 347
 				select_crafting()
 				update_crafting()
 			
@@ -593,11 +601,19 @@ func update_stats(item, compare):
 	$Tabs/Equipment/Stats.visible = !irrelevant
 
 func refresh():
-	update_equipment()
 	crafting_select = 0
 	crafting_scroll = 0
 	inventory_select = 0
-	inventory_scroll = 0"
+	inventory_scroll = 0
+	
+	update_equipment()
+	update_inventory()
+	update_crafting()
+	
+	$Tabs/Crafting/Scrollbar/ActualScroll.rect_position.y = 0
+	$Tabs/Crafting/Scrollbar.visible = (crafting_list.size() > 8)
+	$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = 0
+	$Tabs/Equipment/Inventory/Scrollbar.visible = (PlayerStats.inventory.size() > 8)"
 _sections_unfolded = [ "Resource" ]
 
 [node name="PlayerMenu" type="TextureRect" index="0"]
@@ -1678,6 +1694,8 @@ size_flags_vertical = 1
 
 [node name="Skills" type="Control" parent="Tabs" index="2"]
 
+editor/display_folded = true
+visible = false
 self_modulate = Color( 1, 0.501961, 0.501961, 0.501961 )
 anchor_left = 0.0
 anchor_top = 0.0
@@ -2154,8 +2172,6 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Crafting" type="Control" parent="Tabs" index="3"]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -2509,6 +2525,43 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
+[node name="Scrollbar" type="TextureRect" parent="Tabs/Crafting" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1300.0
+margin_top = 234.0
+margin_right = 1320.0
+margin_bottom = 680.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 31 )
+stretch_mode = 0
+
+[node name="ActualScroll" type="TextureRect" parent="Tabs/Crafting/Scrollbar" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1.0
+margin_right = 20.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 20 )
+stretch_mode = 0
+
 [node name="Map" type="Control" parent="Tabs" index="4"]
 
 editor/display_folded = true
@@ -2543,11 +2596,12 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 31 )
+texture = ExtResource( 32 )
 stretch_mode = 0
 
 [node name="Notes" type="Control" parent="Tabs" index="5"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -2579,7 +2633,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 32 )
+texture = ExtResource( 33 )
 stretch_mode = 0
 
 

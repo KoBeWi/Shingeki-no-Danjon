@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/skills_tlo.png-076a211e6f494bf7307faa145cdb1622.stex"
+path="res://.import/Scrollbar.png-ccf0e66723c6d8ea1ca0493e36794947.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Menu/skills_tlo.png"
-source_md5="9f7016d5fe764a33434ca1ab20e21247"
+source_file="res://Sprites/UI/Menu/Crafting/Scrollbar.png"
+source_md5="97d46af5f434b14e5e23bdf5ed4e85d8"
 
-dest_files=[ "res://.import/skills_tlo.png-076a211e6f494bf7307faa145cdb1622.stex" ]
-dest_md5="a8be3d27794b8be3b1def1b705f462ea"
+dest_files=[ "res://.import/Scrollbar.png-ccf0e66723c6d8ea1ca0493e36794947.stex" ]
+dest_md5="b7eeec1f095465d720fab7f1124e3ef7"
 
 [params]
 
