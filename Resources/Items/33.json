@@ -1,0 +1,8 @@
+{
+	"type": "consumable",
+	"name": "Cheese",
+	"description": "A piece of cheese. Restores some HP.",
+	"max_stack": 10,
+	"price": 20,
+	"health": 20
+}

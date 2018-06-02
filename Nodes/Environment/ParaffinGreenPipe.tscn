@@ -27,7 +27,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 48, 20 )
 
-[node name="ParaffinGreenPipe" type="StaticBody2D" index="0"]
+[node name="ParaffinGreenPipe" type="StaticBody2D"]
 
 z_index = 1
 input_pickable = false
@@ -69,5 +69,17 @@ texture = ExtResource( 2 )
 vframes = 2
 hframes = 7
 _sections_unfolded = [ "Animation" ]
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="." index="3"]
+
+position = Vector2( -53.9133, -92.4389 )
+rect = Rect2( 0, 0, 100, 100 )
+pause_animations = true
+freeze_bodies = true
+pause_particles = true
+pause_animated_sprites = true
+process_parent = false
+physics_process_parent = false
+_sections_unfolded = [ "Transform" ]
 
 

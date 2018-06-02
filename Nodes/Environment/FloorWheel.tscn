@@ -27,7 +27,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
 }
 
-[node name="FloorWheel" type="Sprite" index="0"]
+[node name="FloorWheel" type="Sprite"]
 
 z_index = 1
 texture = ExtResource( 1 )
@@ -37,6 +37,7 @@ script = ExtResource( 2 )
 _sections_unfolded = [ "Animation", "Offset", "Transform", "Z Index" ]
 placement = 2
 offset_position = Vector2( 0, 0 )
+size = Vector2( 1, 1 )
 variants = ""
 can_flip_h = false
 

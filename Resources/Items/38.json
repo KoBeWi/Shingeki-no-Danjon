@@ -1,0 +1,7 @@
+{
+	"type": "misc",
+	"name": "Golden Key",
+	"description": "A rare key. It must open some big treasure.",
+	"max_stack": 99,
+	"price": 1500
+}

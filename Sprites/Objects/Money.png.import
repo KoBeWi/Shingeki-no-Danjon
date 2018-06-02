@@ -7,10 +7,10 @@ path="res://.import/Money.png-a126703b9154d4312493bfe3232d953d.stex"
 [deps]
 
 source_file="res://Sprites/Objects/Money.png"
-source_md5="16da60bf7d1c9515d0e044abf54dcd45"
+source_md5="0f9f9c62cfca261577a5e605a2070ce7"
 
 dest_files=[ "res://.import/Money.png-a126703b9154d4312493bfe3232d953d.stex" ]
-dest_md5="364f5c6f89e0068cd1d80a11419f3f10"
+dest_md5="7842ef8cf128e3ebc12d44ee4fdfd380"
 
 [params]
 

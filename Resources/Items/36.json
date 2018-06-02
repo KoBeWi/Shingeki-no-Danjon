@@ -1,0 +1,7 @@
+{
+	"type": "misc",
+	"name": "Bronze Key",
+	"description": "A common key that opens some doors and chests and stuff.",
+	"max_stack": 99,
+	"price": 300
+}

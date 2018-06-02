@@ -1,0 +1,8 @@
+{
+	"type": "consumable",
+	"name": "Fries Mk2",
+	"description": "A specially modified food that restores your strength.",
+	"max_stack": 5,
+	"price": 100,
+	"health": 100
+}

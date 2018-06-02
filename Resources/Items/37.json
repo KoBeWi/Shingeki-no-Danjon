@@ -1,0 +1,7 @@
+{
+	"type": "misc",
+	"name": "Silver Key",
+	"description": "An common key. Might open something important.",
+	"max_stack": 99,
+	"price": 800
+}

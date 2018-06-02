@@ -27,7 +27,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 48, 20 )
 
-[node name="WaterPipe" type="StaticBody2D"]
+[node name="WaterPipe" type="StaticBody2D" index="0"]
 
 z_index = 1
 input_pickable = false
@@ -68,6 +68,18 @@ _sections_unfolded = [ "Animation" ]
 
 position = Vector2( -4, -14 )
 shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="." index="3"]
+
+position = Vector2( -53.9133, -92.4389 )
+rect = Rect2( 0, 0, 100, 100 )
+pause_animations = true
+freeze_bodies = true
+pause_particles = true
+pause_animated_sprites = true
+process_parent = false
+physics_process_parent = false
 _sections_unfolded = [ "Transform" ]
 
 

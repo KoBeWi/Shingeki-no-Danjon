@@ -71,4 +71,16 @@ anims/Idle = SubResource( 2 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="." index="3"]
+
+position = Vector2( -53.9133, -92.4389 )
+rect = Rect2( 0, 0, 100, 100 )
+pause_animations = true
+freeze_bodies = true
+pause_particles = true
+pause_animated_sprites = true
+process_parent = false
+physics_process_parent = false
+_sections_unfolded = [ "Transform" ]
+
 
