@@ -80,7 +80,7 @@ func _ready():
 		i+=1
 		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
 		clone.rect_position = sheep.rect_position + Vector2(i * 216, 0)
-		clone.get_node(\"Icon\").texture = Res.get_resource(\"res://Sprites/UI/Menu/Icon\" + TABS[i] + \"Inactive.png\")
+		clone.get_node(\"Icon\").texture = load(\"res://Sprites/UI/Menu/Icon\" + TABS[i] + \"Inactive.png\")
 		$TabsBar.add_child(clone)
 	
 	sheep = $Tabs/Character/Skillpoints/SP1
@@ -157,7 +157,7 @@ func _process(delta):
 		$Tabs/Character/CharacterExp.max_value = next_exp
 		
 		if !in_tab: for i in range(SKILLPOINTS.size()):
-			$Tabs/Character/Skillpoints.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Character/CharacterSkillpointInactive.png\")
+			$Tabs/Character/Skillpoints.get_child(i).texture = load(\"res://Sprites/UI/Menu/Character/CharacterSkillpointInactive.png\")
 	
 	if !in_tab:
 		var old_tab = current_tab
@@ -177,7 +177,7 @@ func _process(delta):
 	else: match current_tab:
 		0:
 			for i in range(SKILLPOINTS.size()):
-				$Tabs/Character/Skillpoints.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Character/CharacterSkillpoint\" + (\"Active\" if skillpoint_select == i else \"Inactive\") + \".png\")
+				$Tabs/Character/Skillpoints.get_child(i).texture = load(\"res://Sprites/UI/Menu/Character/CharacterSkillpoint\" + (\"Active\" if skillpoint_select == i else \"Inactive\") + \".png\")
 			
 			if Input.is_action_just_pressed(\"ui_cancel\") or skillpoint_select == 0 and Input.is_action_just_pressed(\"ui_up\"):
 				Res.ui_sample(\"MenuCancel\")
@@ -384,7 +384,7 @@ func update_equipment():
 				item.get_node(\"Durability\").value = item2.durability
 				item.get_node(\"Durability\").visible = true
 		else:
-			item.get_node(\"Icon\").texture = Res.get_resource(\"res://Sprites/UI/Menu/Equipment/Generic\" + PlayerStats.EQUIPMENT_SLOTS[i] + \".png\")
+			item.get_node(\"Icon\").texture = load(\"res://Sprites/UI/Menu/Equipment/Generic\" + PlayerStats.EQUIPMENT_SLOTS[i] + \".png\")
 			item.get_node(\"Durability\").visible = false
 
 func update_crafting():
@@ -418,8 +418,8 @@ func update_tabs(tab = current_tab):
 	
 	for i in TABS.size():
 		$Tabs.get_child(i).visible = current_tab == i
-		$TabsBar.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Tab\" + (\"Active\" if i == tab else \"Inactive\") + \".png\")
-		$TabsBar.get_child(i).get_node(\"Icon\").texture = Res.get_resource(\"res://Sprites/UI/Menu/Icon\" + TABS[i] + (\"\" if i == tab else \"Inactive\") + \".png\")
+		$TabsBar.get_child(i).texture = load(\"res://Sprites/UI/Menu/Tab\" + (\"Active\" if i == tab else \"Inactive\") + \".png\")
+		$TabsBar.get_child(i).get_node(\"Icon\").texture = load(\"res://Sprites/UI/Menu/Icon\" + TABS[i] + (\"\" if i == tab else \"Inactive\") + \".png\")
 
 func select_inventory():
 	if inventory_select > -1 and PlayerStats.inventory.empty(): inventory_select = -1
@@ -533,10 +533,10 @@ func exit_tab():
 			$Tabs/Equipment/Stats.visible = false
 			
 			for i in $Tabs/Equipment/Inventory/Slots.get_child_count():
-				$Tabs/Equipment/Inventory/Slots.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot.png\")
+				$Tabs/Equipment/Inventory/Slots.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot.png\")
 			
 			for i in $Tabs/Equipment/Character/EquipmentSlots.get_child_count():
-				$Tabs/Equipment/Character/EquipmentSlots.get_child(i).texture = Res.get_resource(\"res://Sprites/UI/Menu/Equipment/EquipmentSlot.png\")
+				$Tabs/Equipment/Character/EquipmentSlots.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentSlot.png\")
 		2:
 			for skill in $Tabs/Skills/PassivePanel/Skills.get_children():
 				skill.modulate = Color(1, 1, 1)
@@ -600,7 +600,7 @@ func refresh():
 	inventory_scroll = 0"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect"]
+[node name="PlayerMenu" type="TextureRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0

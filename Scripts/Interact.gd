@@ -20,7 +20,7 @@ func on_enter(body):
 	if body.is_in_group("players") and (mode == 0 or body.is_ghost == (mode == 2)):
 		if send_status: get_parent().interact_enter()
 		player_in = body
-		icon().texture = Res.get_resource("res://Sprites/UI/Interact" + str(type) + ".png")
+		icon().texture = load("res://Sprites/UI/Interact" + str(type) + ".png")
 		icon().visible = true
 
 func on_exit(body):

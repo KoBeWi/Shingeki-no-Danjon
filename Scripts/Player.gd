@@ -31,6 +31,9 @@ func _ready():
 	change_animation("LeftArm", "ShieldOff")
 	change_dir(2)
 	reset_arms()
+	
+	PlayerStats.connect("equipment_changed", self, "update_weapon")
+	PlayerStats.connect("equipment_changed", self, "update_shield")
 
 func _physics_process(delta):
 	if dead: return
@@ -62,11 +65,12 @@ func _physics_process(delta):
 	if move.length_squared() == 0: running = false
 	
 	if !is_ghost and !attacking and !ghost_mode and !shielding and Input.is_action_just_pressed("Attack"):
-		Res.play_sample(self, "Sword")
+		if PlayerStats.get_equipment("weapon"): Res.play_sample(self, "Sword")
+		else: Res.play_sample(self, "Punch")
 		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
 	
-	if !attacking and !shielding and PlayerStats.equipment[PlayerStats.SLOTS["shield"]] and Input.is_action_pressed("Shield"):
+	if !attacking and !shielding and PlayerStats.get_equipment("shield") and Input.is_action_pressed("Shield"):
 		change_animation("LeftArm", "ShieldOn")
 		shielding = true
 	elif shielding and Input.is_action_just_released("Shield"):
@@ -84,7 +88,6 @@ func _physics_process(delta):
 	if running: 
 		move *= 2
 
-	
 	if !elements_on:
 		if SkillBase.check_combo(["Magic", "Magic_"]):
 #			print(SkillBase.current_combo)
@@ -121,6 +124,7 @@ func _physics_process(delta):
 	
 	if move.length() > 0:
 		static_time = 0
+		PlayerStats.damage_equipment("boots")
 		change_animation("Body", "Walk")
 	else:
 		motion_time = 0
@@ -138,20 +142,23 @@ func damage(attacker, amount, knockback):
 	if dead: return
 	
 	amount = max(1, amount - PlayerStats.get_defense())
+	var damage = amount
+	
 	if shielding : 
-		var dps = amount*(1-PlayerStats.shield_block)-PlayerStats.shield_amout
+		damage = amount*(1-PlayerStats.shield_block) - PlayerStats.shield_amout
 		
-		if dps < 0:
-			PlayerStats.damage_equipment(2)
+		if damage < 0:
+			PlayerStats.damage_equipment("shield")
 			Res.play_sample(self, "ShieldBlock")
-			Res.create_instance("DamageNumber").damage(self, "BLOCKED")
-		else:
-			Res.create_instance("DamageNumber").damage(self, dps)
-		
+			damage = "BLOCKED"
 	else:
-		Res.create_instance("DamageNumber").damage(self, amount)
-		SkillBase.inc_stat("DamageTaken", amount)
-		PlayerStats.health -= amount
+		SkillBase.inc_stat("DamageTaken", damage)
+		PlayerStats.health -= damage
+		PlayerStats.damage_equipment("armor", 2)
+		PlayerStats.damage_equipment("helmet")
+		
+	Res.create_instance("DamageNumber").damage(self, damage)
+	
 	UI.soft_refresh()
 	move_and_slide((position - attacker.position).normalized() * 1000 * knockback) ##inaczej
 	if ghost_mode: cancel_ghost()
@@ -191,7 +198,7 @@ func alt_animation(anim):
 		_: return anim
 
 func change_texture(sprite, texture, on_back = [], move_child = {}):
-	sprite.texture = Res.get_resource("res://Sprites/Player/" + sprite_direction + "/" + texture + ".png")
+	sprite.texture = load("res://Sprites/Player/" + sprite_direction + "/" + texture + ".png")
 	sprite.show_behind_parent = on_back.has(sprite_direction)
 	if move_child.has(sprite_direction):
 		$Body.move_child(sprite, move_child[sprite_direction])
@@ -235,14 +242,14 @@ func reset_arms():
 	$AttackCollider/Shape.disabled = true
 
 func weapon_sprite():
-	if PlayerStats.equipment[PlayerStats.SLOTS["weapon"]]:
-		return Res.items[PlayerStats.equipment[PlayerStats.SLOTS["weapon"]].id].sprite
+	if PlayerStats.get_equipment("weapon"):
+		return Res.items[PlayerStats.get_equipment("weapon").id].sprite
 	else:
 		return "Stick" ##nie >:(
 
 func shield_sprite():
-	if PlayerStats.equipment[PlayerStats.SLOTS["shield"]]:
-		return Res.items[PlayerStats.equipment[PlayerStats.SLOTS["shield"]].id].sprite
+	if PlayerStats.get_equipment("shield"):
+		return Res.items[PlayerStats.get_equipment("shield").id].sprite
 	else:
 		return "" ##nope
 

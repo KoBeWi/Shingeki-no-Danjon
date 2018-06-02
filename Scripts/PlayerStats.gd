@@ -45,7 +45,7 @@ func get_damage():
 	var eq = equipment[PlayerStats.SLOTS["weapon"]]
 	
 	if eq:
-		PlayerStats.damage_equipment(PlayerStats.SLOTS["weapon"])
+		damage_equipment("weapon") ##to nie powinno tu być, oj nie
 		eq = Res.items[eq.id]
 		
 		damage = eq.attack
@@ -65,16 +65,17 @@ func get_defense():
 	
 	return defense
 
-func get_equipment(slot_name): ##niekoniecznie potrzebne
-	return equipment[EQUIPMENT_SLOTS.find(slot_name)]
+func get_equipment(slot_name):
+	return equipment[SLOTS[slot_name]]
 
-func damage_equipment(i, damage = 1):
-	if equipment[i]:
-		PlayerStats.equipment[i].durability -= damage
+func damage_equipment(slot, damage = 1):
+	var eq = equipment[SLOTS[slot]]
+	if eq:
+		eq.durability -= damage
 		
-		if PlayerStats.equipment[i].durability <= 0:
+		if eq.durability <= 0:
 			Res.play_sample(Res.game.player, "ItemBreak")
-			PlayerStats.equipment[i] = null
+			equipment[SLOTS[slot]] = null
 			emit_signal("equipment_changed")
 
 func count_item(id):

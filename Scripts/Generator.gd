@@ -348,8 +348,8 @@ func create_segment(segment, pos):
 	var bottom = seg.get_node("BottomTiles")
 	var top = seg.get_node("TopTiles")
 	
-	bottom.tile_set = Res.get_resource("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
-	top.tile_set = Res.get_resource("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
+	bottom.tile_set = load("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
+	top.tile_set = load("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
 	seg.position = Vector2(pos.x * SEG_W, pos.y * SEG_H)
 	
 	for cell in bottom.get_used_cells():

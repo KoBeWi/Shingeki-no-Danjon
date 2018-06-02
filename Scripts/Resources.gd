@@ -1,6 +1,5 @@
 extends Node
 
-var resources = {}
 var segments = {}
 var segment_nodes = {}
 var tilesets = {}
@@ -104,11 +103,6 @@ func read_json(f):
 	
 	return json
 
-func get_resource(path):
-	if !resources.has(path): resources[path] = load(path)
-	
-	return resources[path]
-
 func play_sample(source, sample, pausable = true, follow_source = true):
 	var player = create_instance("SampleInstance")
 	player.init(source, sample, pausable, follow_source)
@@ -116,14 +110,14 @@ func play_sample(source, sample, pausable = true, follow_source = true):
 	
 func ui_sample(sample):
 	var player = AudioStreamPlayer.new()
-	player.stream = get_resource("res://Samples/" + sample + ".ogg")
+	player.stream = load("res://Samples/" + sample + ".ogg")
 	player.play()
 	get_parent().get_node("Game").add_child(player)
 
 func play_music(music):
 	if File.new().file_exists("user://no_music"): return
 	var player = AudioStreamPlayer.new()
-	player.stream = get_resource("res://Music/" + music + ".ogg")
+	player.stream = load("res://Music/" + music + ".ogg")
 	player.play()
 	game.set_music(player)
 
@@ -134,7 +128,7 @@ func get_node(node):
 	return load("res://Nodes/" + node + ".tscn")
 	
 func get_item_texture(id):
-	return get_resource("res://Sprites/Items/" + str(id) + ".png")
+	return load("res://Sprites/Items/" + str(id) + ".png")
 	
 func get_skill_texture(skill):
 	if load("res://Sprites/UI/Skills/" + skill + ".png"):

@@ -3,6 +3,6 @@
 	"name": "Sturdy Shoes",
 	"description": "Perfect for walking long distances.",
 	"price": 50,
-	"durability": 50,
+	"durability": 50000,
 	"defense": 1
 }

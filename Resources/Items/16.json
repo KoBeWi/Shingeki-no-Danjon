@@ -3,6 +3,6 @@
 	"name": "Scout Uniform",
 	"description": "A protective wear usually worn for scouting missions.",
 	"price": 50,
-	"durability": 30,
+	"durability": 200,
 	"defense": 10
 }
