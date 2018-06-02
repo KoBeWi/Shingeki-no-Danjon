@@ -206,6 +206,14 @@ func _process(delta):
 			var prev_sel = inventory_select
 			
 			if inventory_select >= 0:
+				var prev_inv = inventory_select
+				if Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 1: inventory_select = max(inventory_select-1, 0)
+				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 0: inventory_select = -1
+				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, PlayerStats.inventory.size()-1)
+				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = max(inventory_select-2, 0)
+				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = min(inventory_select+2, PlayerStats.inventory.size()-1)
+				if inventory_select != prev_inv: Res.ui_sample(\"MenuMove\")
+				
 				var max_scroll = PlayerStats.inventory.size()-7
 				$Tabs/Equipment/Inventory/Scrollbar.visible = (max_scroll > 0)
 				
@@ -219,14 +227,6 @@ func _process(delta):
 					$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283
 					update_inventory()
 					select_inventory()
-				
-				var prev_inv = inventory_select
-				if Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 1: inventory_select = max(inventory_select-1, 0)
-				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 0: inventory_select = -1
-				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, PlayerStats.inventory.size()-1)
-				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = max(inventory_select-2, 0)
-				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = min(inventory_select+2, PlayerStats.inventory.size()-1)
-				if inventory_select != prev_inv: Res.ui_sample(\"MenuMove\")
 				
 				var item = PlayerStats.inventory[inventory_select]
 				var eq = get_eq_slot(Res.items[item.id])
