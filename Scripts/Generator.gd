@@ -155,7 +155,7 @@ func place_environment():
 			var ok = true
 			
 			for l in range(instance.size.x * instance.size.y):
-				var kk = k + Vector2(l % int(instance.size.x), l / int(instance.size.x))
+				var kk = k + Vector2(l % int(instance.size.x), l / int(instance.size.x)) * 80
 				if !floor_space.has(kk):
 					ok = false
 					break
@@ -163,6 +163,7 @@ func place_environment():
 				var space2 = floor_space[kk]
 				
 				match instance.placement:
+					instance.LEFT_WALL: ok = space2.has("left_wall")
 					instance.SIDE_WALL: ok = space2.has("left_wall") or space2.has("right_wall")
 					instance.NO_WALL: ok = space2.no_walls
 				

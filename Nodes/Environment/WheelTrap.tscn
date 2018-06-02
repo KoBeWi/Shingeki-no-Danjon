@@ -1,0 +1,121 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/EnvironmentObject.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Environment/WheelTrap.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=5]
+
+length = 22.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Area2D/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 11, 22 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -58.2369, -40.9731 ), Vector2( 176.648, -40.9731 ), Vector2( -41.7367, -40.9731 ) ]
+}
+
+[sub_resource type="GDScript" id=6]
+
+resource_name = "heelTrap"
+script/source = "extends Node
+
+var position = Vector2()
+
+func _on_attack(body):
+	if body.get_parent().is_in_group(\"players\"):
+		body.get_parent().damage(self, 10, 0)"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="RectangleShape2D" id=7]
+
+custom_solver_bias = 0.0
+extents = Vector2( 37.4536, 2.26318 )
+
+[node name="WheelTrap" type="Node2D" index="0"]
+
+position = Vector2( 139.962, 135.573 )
+z_index = 1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Animation", "Transform", "Z Index" ]
+placement = 0
+offset_position = Vector2( 0, 0 )
+size = Vector2( 2, 1 )
+variants = ""
+can_flip_h = false
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+position = Vector2( 58, -17 )
+texture = ExtResource( 2 )
+vframes = 2
+hframes = 6
+_sections_unfolded = [ "Animation" ]
+
+[node name="Animation" type="AnimationPlayer" parent="." index="1"]
+
+root_node = NodePath("..")
+autoplay = "Idle"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 12.0
+anims/Idle = SubResource( 5 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="Behavior" type="Node" parent="." index="2"]
+
+script = SubResource( 6 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="." index="3"]
+
+position = Vector2( -117.758, -75.1111 )
+rect = Rect2( 0, 0, 350, 100 )
+pause_animations = true
+freeze_bodies = true
+pause_particles = true
+pause_animated_sprites = true
+process_parent = false
+physics_process_parent = false
+
+[node name="Area2D" type="Area2D" parent="." index="4"]
+
+position = Vector2( 0, 38 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+
+position = Vector2( -58.2369, -36.9731 )
+shape = SubResource( 7 )
+_sections_unfolded = [ "Transform" ]
+
+[connection signal="animation_finished" from="Animation" to="Behavior" method="_on_animation_finished"]
+
+[connection signal="area_entered" from="Area2D" to="Behavior" method="_on_attack"]
+
+

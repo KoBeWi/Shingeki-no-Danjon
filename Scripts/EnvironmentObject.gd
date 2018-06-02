@@ -1,6 +1,6 @@
 extends Node2D
 
-enum PLACEMENT{ANY, SIDE_WALL, NO_WALL}
+enum PLACEMENT{ANY, SIDE_WALL, NO_WALL, LEFT_WALL}
 
 export(PLACEMENT) var placement = 0
 export var offset_position = Vector2(0, 0)

@@ -197,8 +197,14 @@ func alt_animation(anim):
 		"ShieldOn", "ShieldOff": return "Shield"
 		_: return anim
 
+var textures = {}
+func get_texture_hack(texture):
+	if !textures.has(texture): textures[texture] = load(texture)
+	
+	return textures[texture]
+
 func change_texture(sprite, texture, on_back = [], move_child = {}):
-	sprite.texture = load("res://Sprites/Player/" + sprite_direction + "/" + texture + ".png")
+	sprite.texture = get_texture_hack("res://Sprites/Player/" + sprite_direction + "/" + texture + ".png")
 	sprite.show_behind_parent = on_back.has(sprite_direction)
 	if move_child.has(sprite_direction):
 		$Body.move_child(sprite, move_child[sprite_direction])

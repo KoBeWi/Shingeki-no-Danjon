@@ -103,10 +103,10 @@ func subtract_items(id, amount):
 func consume(item):
 	var consumed
 	
-	if item.has("health") and PlayerStats.health + item.health <= PlayerStats.max_health:
+	if item.has("health") and PlayerStats.health < PlayerStats.max_health:
 		consumed = true
 		PlayerStats.health = min(PlayerStats.max_health, PlayerStats.health + item.health)
-	if item.has("mana") and PlayerStats.mana + item.mana  <= PlayerStats.max_mana:
+	if item.has("mana") and PlayerStats.mana < PlayerStats.max_mana:
 		consumed = true
 		PlayerStats.mana = min(PlayerStats.max_mana, PlayerStats.mana + item.mana)
 	

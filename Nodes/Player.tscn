@@ -24,7 +24,7 @@ extents = Vector2( 30.7129, 58.1424 )
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 30.7129, 58.1424 )
+extents = Vector2( 30.7129, 50.1693 )
 
 [sub_resource type="Animation" id=4]
 
@@ -539,7 +539,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="DamageCollider" type="Area2D" parent="." index="4"]
 
-editor/display_folded = true
 position = Vector2( 0, -55 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -552,7 +551,7 @@ _sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
-position = Vector2( -1.46303, 9.11594 )
+position = Vector2( -1.46303, 1.11593 )
 scale = Vector2( 1, 1.181 )
 shape = SubResource( 3 )
 

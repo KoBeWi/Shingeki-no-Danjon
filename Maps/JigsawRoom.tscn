@@ -19,7 +19,7 @@ func _process(delta):
 		Res.game.player.UI.get_node(\"DialogueBox\").initiate_dialogue(\"Jigsaw\")
 		jigsawd = true"
 
-[node name="JigsawRoom" type="YSort" index="0"]
+[node name="JigsawRoom" type="YSort"]
 
 sort_enabled = true
 script = SubResource( 1 )
