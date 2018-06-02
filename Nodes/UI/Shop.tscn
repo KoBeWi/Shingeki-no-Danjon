@@ -25,7 +25,11 @@ var left_scroll = 0 setget update_left_scrollbar
 var right_select = 0
 var right_scroll = 0 setget update_right_scrollbar
 
+var just_opened = false
+
 func open_shop(name, items):
+	reset_shop()
+	
 	Res.ui_sample(\"MenuEnter\")
 	get_tree().paused = true
 	visible = true
@@ -34,22 +38,25 @@ func open_shop(name, items):
 	
 	var sheep = $LeftPanel/Items/Item1
 	for i in range(min(shop.size()-1, 5)):
-		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
+		var clone = sheep.duplicate()
 		clone.rect_position = sheep.rect_position + Vector2(0, (i+1) * 89)
 		$LeftPanel/Items.add_child(clone)
 	$LeftPanel/Scrollbar.visible = (shop.size() > 6)
 	
 	sheep = $RightPanel/Items/Item1
 	for i in range(5):
-		var clone = sheep.duplicate(DUPLICATE_USE_INSTANCING)
+		var clone = sheep.duplicate()
 		clone.rect_position = sheep.rect_position + Vector2(0, (i+1) * 89)
 		$RightPanel/Items.add_child(clone)
 	$RightPanel/Scrollbar.visible = (PlayerStats.inventory.size() > 6)
 	
 	refresh_shop()
+	just_opened = true
 
 func _process(delta):
-	if !visible: return
+	if !visible or just_opened:
+		just_opened = false
+		return
 	
 	var prev_sel = [select, left_select, right_select]
 	if select == -1 and Input.is_action_just_pressed(\"ui_down\") and left_select < shop.size()-1:
@@ -61,7 +68,10 @@ func _process(delta):
 	elif select == 1 and Input.is_action_just_pressed(\"ui_up\") and right_select > 0:
 		right_select -= 1
 	elif Input.is_action_just_pressed(\"ui_right\") and select == -1:
-		select = 1
+		if PlayerStats.inventory.empty():
+			Res.ui_sample(\"MenuFailed\")
+		else:
+			select = 1
 	elif Input.is_action_just_pressed(\"ui_left\") and select == 1:
 		select = -1
 	
@@ -76,8 +86,39 @@ func _process(delta):
 		self.right_scroll += 1
 		
 	if prev_sel != [select, left_select, right_select]:
-		print(prev_sel, [select, left_select, right_select])
 		Res.ui_sample(\"MenuMove\")
+		refresh_shop()
+	
+	if Input.is_action_just_pressed(\"Interact\") and select == -1:
+		var item = Res.items[shop[left_select]]
+		if PlayerStats.money < item.price:
+			Res.ui_sample(\"MenuFailed\")
+			return
+		Res.ui_sample(\"Buy\")
+		PlayerStats.money -= item.price
+		PlayerStats.add_item(shop[left_select], 1, false)
+		refresh_shop()
+	elif Input.is_action_just_pressed(\"Interact\") and select == 1 and !PlayerStats.inventory.empty():
+		Res.ui_sample(\"Sell\")
+		var item = PlayerStats.inventory[right_select]
+		item.stack -= 1
+		if item.stack == 0: PlayerStats.inventory.remove(right_select)
+		
+		if right_scroll > 0 and right_scroll == PlayerStats.inventory.size()-5:
+			right_select -= 1
+			right_scroll -= 1
+		elif right_select == PlayerStats.inventory.size():
+			right_select -= 1
+			if right_scroll > 0: right_scroll -= 1
+		
+		self.right_scroll = right_scroll
+		
+		if PlayerStats.inventory.empty():
+			select = -1
+			right_select = 0
+		
+		item = Res.items[item.id]
+		PlayerStats.money += item.price
 		refresh_shop()
 
 func refresh_shop():
@@ -91,6 +132,7 @@ func refresh_shop():
 		slot.get_node(\"Name\").text = item.name
 		slot.get_node(\"Amount\").text = \"x1\"
 		slot.get_node(\"Price\").text = \"Price: \" + str(item.price)
+		slot.get_node(\"Price\").modulate = Color(1, 0, 0) if item.price > PlayerStats.money else Color(1, 1, 1)
 		
 		if select == -1 and left_select == i:
 			slot.texture = load(\"res://Sprites/UI/Menu/Shop/ItemActive.png\")
@@ -101,29 +143,46 @@ func refresh_shop():
 	for j in range($RightPanel/Items.get_child_count()):
 		var i = j + right_scroll
 		var slot = $RightPanel/Items.get_child(j)
-		var item = Res.items[PlayerStats.inventory[i].id]
 		
-		slot.get_node(\"Icon/ActualIcon\").texture = Res.get_item_texture(item.id)
-		slot.get_node(\"Name\").text = item.name
-		slot.get_node(\"Amount\").text = \"x1\"
-		slot.get_node(\"Price\").text = \"Price: \" + str(item.price)
-		
-		if select == 1 and right_select == i:
-			slot.texture = load(\"res://Sprites/UI/Menu/Shop/ItemActive.png\")
-			$Description/ActualDescription.text = item.description
+		if j > PlayerStats.inventory.size()-1:
+			slot.visible = false
 		else:
-			slot.texture = load(\"res://Sprites/UI/Menu/Shop/Item.png\")
+			slot.visible = true
+			var item = Res.items[PlayerStats.inventory[i].id]
+			slot.get_node(\"Icon/ActualIcon\").texture = Res.get_item_texture(item.id)
+			slot.get_node(\"Name\").text = item.name
+			slot.get_node(\"Amount\").text = \"x1/\" + str(PlayerStats.inventory[i].stack)
+			slot.get_node(\"Price\").text = \"Price: \" + str(item.price)
+			
+			if select == 1 and right_select == i:
+				slot.texture = load(\"res://Sprites/UI/Menu/Shop/ItemActive.png\")
+				$Description/ActualDescription.text = item.description
+			else:
+				slot.texture = load(\"res://Sprites/UI/Menu/Shop/Item.png\")
+	
+	$RightPanel/Scrollbar/ActualScroll.visible = (PlayerStats.inventory.size() > 6)
 
 func update_right_scrollbar(scroll):
 	right_scroll = scroll
-	$RightPanel/Scrollbar/ActualScroll.rect_position.y = right_scroll / float(PlayerStats.inventory.size()-6) * 431
+	if PlayerStats.inventory.size() > 6: $RightPanel/Scrollbar/ActualScroll.rect_position.y = right_scroll / float(PlayerStats.inventory.size()-6) * 431
 
 func update_left_scrollbar(scroll):
 	left_scroll = scroll
-	$LeftPanel/Scrollbar/ActualScroll.rect_position.y = left_scroll / float(shop.size()-6) * 431"
+	$LeftPanel/Scrollbar/ActualScroll.rect_position.y = left_scroll / float(shop.size()-6) * 431
+
+func reset_shop():
+	left_scroll = 0
+	left_select = 0
+	right_scroll = 0
+	right_select = 0
+	
+	for i in range($LeftPanel/Items.get_child_count()-1):
+		$LeftPanel/Items.get_child(1).free()
+	for i in range($RightPanel/Items.get_child_count()-1):
+		$RightPanel/Items.get_child(1).free()"
 _sections_unfolded = [ "Resource" ]
 
-[node name="Shop" type="Control"]
+[node name="Shop" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0

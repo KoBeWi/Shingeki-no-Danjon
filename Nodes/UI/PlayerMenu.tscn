@@ -340,6 +340,7 @@ func _process(delta):
 					if !can_craft: break
 				
 				if can_craft:
+					Res.ui_sample(\"Item\")
 					PlayerStats.add_item(crafting_list[crafting_select].item)
 					for i in range(materials.keys().size()):
 						PlayerStats.subtract_items(int(materials.keys()[i]), materials.values()[i])
@@ -616,7 +617,7 @@ func refresh():
 	$Tabs/Equipment/Inventory/Scrollbar.visible = (PlayerStats.inventory.size() > 8)"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect" index="0"]
+[node name="PlayerMenu" type="TextureRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0
