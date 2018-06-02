@@ -1,13 +1,22 @@
+tool
 extends Node2D
 
-onready var UI = Res.game.player.UI.get_node("DialogueBox")
+const SKINS = ["Female1Blue", "Female1Brown", "Jigsaw", "Male1Basic", "Male1Glasses", "Male1Old", "Male1Scar"]
 
-export var id = 0 ##meh
+var UI
+
+export var dialogue = 0 ##meh
+export var skin = 0 setget change_skin
 
 func interact():
-	if id == 0: ##całkiem meh
+	if dialogue == 0: ##całkiem meh
 		UI.initiate_dialogue("TestDialogue")
-	elif id == 1: ##całkiem meh meh
+	elif dialogue == 1: ##całkiem meh meh
 		UI.initiate_dialogue("Jigsaw")
 	else:
-		UI.get_node("../Shop").open_shop("Santa Shop lol", [0, 2])
+		UI.get_node("../Shop").open_shop("Common shop", [2, 32, 33, 34, 35])
+
+func change_skin(new_skin):
+	if new_skin >= 0 and new_skin < SKINS.size():
+		skin = new_skin
+		if has_node("Sprite"): $Sprite.texture = load("res://Sprites/NPC/" + SKINS[skin] + ".png")

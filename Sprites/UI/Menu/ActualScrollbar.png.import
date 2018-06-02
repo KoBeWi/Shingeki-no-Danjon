@@ -2,14 +2,14 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/EquipmentScrollbar.png-594ec7a9f1fe8da5edc08a84601f9140.stex"
+path="res://.import/ActualScrollbar.png-18ab5f49ca57dd48418a1f80177e1279.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Menu/Equipment/EquipmentScrollbar.png"
+source_file="res://Sprites/UI/Menu/ActualScrollbar.png"
 source_md5="49d58a44140e7aa2f20058d28b7970f1"
 
-dest_files=[ "res://.import/EquipmentScrollbar.png-594ec7a9f1fe8da5edc08a84601f9140.stex" ]
+dest_files=[ "res://.import/ActualScrollbar.png-18ab5f49ca57dd48418a1f80177e1279.stex" ]
 dest_md5="e4bcb4d6db0a7928030abdb4540bc836"
 
 [params]

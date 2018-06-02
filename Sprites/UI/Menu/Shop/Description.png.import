@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Money.png-9f7782cc4cdca658854a68582c5cc27c.stex"
+path="res://.import/Description.png-871fea480a84a97648f4c5c774a0f17d.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Money.png"
-source_md5="89fa8672b36d711c82394ba9f95e25f8"
+source_file="res://Sprites/UI/Menu/Shop/Description.png"
+source_md5="bd649c60fd08477e183ce461c7dd3f0f"
 
-dest_files=[ "res://.import/Money.png-9f7782cc4cdca658854a68582c5cc27c.stex" ]
-dest_md5="07db4666ae501d68337b1ef38b575995"
+dest_files=[ "res://.import/Description.png-871fea480a84a97648f4c5c774a0f17d.stex" ]
+dest_md5="095279919cd0a0151023047afad0bd96"
 
 [params]
 

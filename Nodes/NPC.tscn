@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/NPC.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/NPC/Female1Blue.png" type="Texture" id=2]
@@ -33,6 +33,13 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ]
 }
 
+[sub_resource type="GDScript" id=4]
+
+script/source = "extends Node
+
+func _ready():
+	get_parent().UI = Res.game.player.UI.get_node(\"DialogueBox\")"
+
 [node name="NPC" type="KinematicBody2D" index="0"]
 
 z_index = 1
@@ -42,6 +49,8 @@ collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Z Index" ]
+dialogue = 0
+skin = 0
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
@@ -71,6 +80,7 @@ audio_bus_name = "Master"
 script = ExtResource( 3 )
 type = 1
 mode = 0
+send_status = false
 
 [node name="Shape" type="CollisionShape2D" parent="InteractArea" index="0"]
 
@@ -87,5 +97,9 @@ playback_speed = 20.0
 anims/Idle = SubResource( 3 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
+
+[node name="Hack" type="Node" parent="." index="4"]
+
+script = SubResource( 4 )
 
 
