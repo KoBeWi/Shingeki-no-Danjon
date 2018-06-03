@@ -304,4 +304,7 @@ func _on_damage():
 		stacks_of_skill_block += 1
 		if stacks_of_skill_block < 4:
 			$EfectsAnimator/Payback.frame = stacks_of_skill_block
-	##dźwięk
+	
+	var fx = Res.create_instance("Effects/MetalHitFX")
+	fx.position = (position + Res.game.player.position)/2
+	get_parent().add_child(fx)

@@ -50,7 +50,7 @@ _sections_unfolded = [ "Resource" ]
 custom_solver_bias = 0.0
 extents = Vector2( 37.4536, 2.26318 )
 
-[node name="WheelTrap" type="Node2D" index="0"]
+[node name="WheelTrap" type="Node2D"]
 
 position = Vector2( 139.962, 135.573 )
 z_index = 1

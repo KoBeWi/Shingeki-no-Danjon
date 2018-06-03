@@ -19,6 +19,7 @@ func _ready():
 	ProjectSettings.set_setting("rendering/environment/default_clear_color", "1a1918") ##usunąć, gdy naprawią powyższe :/
 	player = $Player
 	
+	DungeonState.current_floor = 0
 	DungeonState.emit_signal("floor_changed", DungeonState.current_floor)
 	
 	PlayerStats.health = PlayerStats.max_health

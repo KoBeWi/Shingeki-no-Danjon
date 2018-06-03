@@ -253,6 +253,10 @@ func _on_damage():
 	prevPos = position
 	follow_player = true
 	player = Res.game.player
+	
+	var fx = Res.create_instance("Effects/MetalHitFX")
+	fx.position = position - Vector2(0, 40)
+	get_parent().add_child(fx)
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Special":
