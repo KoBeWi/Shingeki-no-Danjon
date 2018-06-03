@@ -210,6 +210,7 @@ func _on_Area2D_body_entered(body):
 		player = body
 
 func _on_animation_started(anim_name):
+#	print(anim_name)
 	var anim = $AnimationPlayer.get_animation(anim_name)
 	if anim and sprites:
 		var main_sprite = int(anim.track_get_path(0).get_name(1))

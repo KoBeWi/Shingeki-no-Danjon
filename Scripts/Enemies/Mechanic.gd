@@ -167,7 +167,7 @@ func summoned():
 	
 	
 	for i in range(how_many):
-		var ug_inst = Res.get_node("Projectiles/Summon_Mob").instance()
+		var ug_inst = preload("res://Nodes/Projectiles/Summon_Mob.tscn").instance()
 
 		var u = randi()%len(freeDirerction)
 		while( !freeDirerction[u] ):

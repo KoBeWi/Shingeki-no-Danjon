@@ -178,7 +178,7 @@ func play_animation_if_not_playing(anim, fb = false):
 		$"AnimationPlayer".play_backwards(anim)
 
 func _on_Radar_body_entered(body):
-	if body.name == "Player":
+	if body.name == "Player": ##MARCIN >:( OD TEGO SĄ GRUPY
 		follow_player = true;
 		player = body
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/EnvironmentObject.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Environment/WheelTrap.png" type="Texture" id=2]
+[ext_resource path="res://Samples/Chainsaw.ogg" type="AudioStream" id=3]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=1]
 
 length = 22.0
 loop = true
@@ -33,7 +34,7 @@ tracks/1/keys = {
 "values": [ Vector2( -58.2369, -40.9731 ), Vector2( 176.648, -40.9731 ), Vector2( -41.7367, -40.9731 ) ]
 }
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=2]
 
 resource_name = "heelTrap"
 script/source = "extends Node
@@ -45,7 +46,7 @@ func _on_attack(body):
 		body.get_parent().damage(self, 10, 0)"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 37.4536, 2.26318 )
@@ -57,8 +58,8 @@ z_index = 1
 script = ExtResource( 1 )
 _sections_unfolded = [ "Animation", "Transform", "Z Index" ]
 placement = 0
-offset_position = Vector2( 0, 0 )
-size = Vector2( 2, 1 )
+offset_position = Vector2( 60, 0 )
+size = Vector2( 4, 1 )
 variants = ""
 can_flip_h = false
 
@@ -77,13 +78,13 @@ autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 12.0
-anims/Idle = SubResource( 5 )
+anims/Idle = SubResource( 1 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="Behavior" type="Node" parent="." index="2"]
 
-script = SubResource( 6 )
+script = SubResource( 2 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="." index="3"]
@@ -111,8 +112,18 @@ audio_bus_name = "Master"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 
 position = Vector2( -58.2369, -36.9731 )
-shape = SubResource( 7 )
+shape = SubResource( 3 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Area2D/CollisionShape2D" index="0"]
+
+stream = ExtResource( 3 )
+volume_db = -10.0
+autoplay = true
+max_distance = 600.0
+attenuation = 0.176777
+bus = "Master"
+area_mask = 1
 
 [connection signal="animation_finished" from="Animation" to="Behavior" method="_on_animation_finished"]
 

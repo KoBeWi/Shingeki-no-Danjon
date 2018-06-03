@@ -56,6 +56,7 @@ func kill_shield():
 func _ready():
 	health_bar.max_value = max_hp
 	health_bar.value = hp
+	$AnimationPlayer.play(\"Idle\")
 	
 	$\"/root/Game\".perma_state(self, \"queue_free\")
 	$\"AnimationPlayer\".play(\"Idle\")
@@ -223,10 +224,9 @@ func kill_shield():
 	_on_dead()
 
 func _ready():
-	#$Sprite.flip_h = true
-	
 	health_bar.max_value = max_hp
 	health_bar.value = hp
+	$AnimationPlayer.play(\"Idle\")
 	
 	$\"/root/Game\".perma_state(self, \"queue_free\")
 	$\"AnimationPlayer\".play(\"Idle\")
@@ -308,7 +308,7 @@ _sections_unfolded = [ "Resource" ]
 [sub_resource type="Animation" id=10]
 
 resource_name = "Dead"
-length = 4.0
+length = 11.0
 loop = false
 step = 1.0
 tracks/0/type = "value"
@@ -318,10 +318,34 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 7, 8, 9, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 1, 2, 3, 4 ]
+"values": [ 0, 1, 2, 3, 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 4, 6, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -51.3334, 14.6666 ), Vector2( -100.429, -11.2784 ), Vector2( -146.731, 47.7963 ), Vector2( -163.895, 29.0361 ), Vector2( -195.029, 70.9472 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -90.1908 ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -621,7 +645,7 @@ tracks/2/keys = {
 } ]
 }
 
-[node name="Mechanic" type="KinematicBody2D" index="0" groups=[
+[node name="Mechanic" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
@@ -635,8 +659,6 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprites" type="Node2D" parent="." index="0"]
-
-editor/display_folded = true
 
 [node name="1" type="Sprite" parent="Sprites" index="0"]
 
@@ -785,7 +807,6 @@ _sections_unfolded = [ "Z Index" ]
 "enemies",
 ]]
 
-editor/display_folded = true
 position = Vector2( 108, -12 )
 input_pickable = false
 collision_layer = 1
@@ -878,7 +899,6 @@ _sections_unfolded = [ "Playback Options" ]
 "enemies",
 ]]
 
-editor/display_folded = true
 position = Vector2( -8.00083, -11.3334 )
 input_pickable = false
 collision_layer = 1
@@ -952,7 +972,7 @@ shape = SubResource( 6 )
 position = Vector2( -51.3334, 14.6666 )
 texture = ExtResource( 8 )
 hframes = 5
-_sections_unfolded = [ "Animation", "Region", "Z Index" ]
+_sections_unfolded = [ "Animation", "Region", "Transform", "Z Index" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LeftShield" index="4"]
 

@@ -19,10 +19,10 @@ func _ready():
 #	# Update game logic here.
 #	pass
 
+var EnemiesList = [preload(\"res://Nodes/Enemies/FLA-B.tscn\"), preload(\"res://Nodes/Enemies/FLA-S.tscn\"), preload(\"res://Nodes/Enemies/FLA-G.tscn\")]
+
 func spawn():
-	var EnemiesList = [ \"FLA-B\", \"FLA-S\", \"FLA-G\" ]
-	
-	var ug_inst = Res.get_node(\"Enemies/\" + EnemiesList[randi()%3]).instance()
+	var ug_inst = EnemiesList[randi()%3].instance()
 	ug_inst.position = position
 	#ug_inst._on_damage()
 	get_parent().add_child(ug_inst)

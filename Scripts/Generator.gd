@@ -372,6 +372,14 @@ func create_segment(segment, pos):
 			10: wall_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
 	
 	dungeon.add_child(seg)
+	if seg.has_node("Objects"):
+		for i in range(seg.get_node("Objects").get_child_count()):
+			var node = seg.get_node("Objects").get_child(0)
+			var npos = node.global_position
+			seg.get_node("Objects").remove_child(node) ##może nie działać dla kilku
+			dungeon.get_parent().add_child(node)
+			node.global_position = npos
+	
 	return seg
 
 func reset():

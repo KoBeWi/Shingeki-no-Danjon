@@ -115,6 +115,8 @@ func _physics_process(delta):
 			ghost_mode.modulate = Color(1, 1, 1, 0.5)
 			ghost_mode.is_ghost = true
 			ghost_mode.position.y += 8
+			ghost_mode.remove_from_group("players")
+			ghost_mode.name = "Ghost" ##tego nie powinno być, ale wrogowie sprawdzają name
 			ghost_mode.get_node("Body/RightArm/Weapon").visible = false
 			ghost_mode.get_node("Body/LeftArm/Shield").visible = false
 			
