@@ -300,11 +300,11 @@ func _on_dead():
 
 func _on_damage():
 	if "ayback" in status:
-		##tu inny dźwięk
+		Res.play_sample(self, "MechanicPaybackTrigger")
 		stacks_of_skill_block += 1
 		if stacks_of_skill_block < 4:
 			$EfectsAnimator/Payback.frame = stacks_of_skill_block
-	
-	var fx = Res.create_instance("Effects/MetalHitFX")
-	fx.position = (position + Res.game.player.position)/2
-	get_parent().add_child(fx)
+	else:
+		var fx = Res.create_instance("Effects/MetalHitFX")
+		fx.position = (position + Res.game.player.position)/2
+		get_parent().add_child(fx)

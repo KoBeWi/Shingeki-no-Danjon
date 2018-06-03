@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/MechanicShieldBreak.ogg-92b85e1d6c08fbc0af391b85ace6b714.oggstr"
+
+[deps]
+
+source_file="res://Samples/MechanicShieldBreak.ogg"
+source_md5="b1b06fdd06015c493062b333e4d31645"
+
+dest_files=[ "res://.import/MechanicShieldBreak.ogg-92b85e1d6c08fbc0af391b85ace6b714.oggstr" ]
+dest_md5="8257b998ef551282105186b6b1aa4bed"
+
+[params]
+
+loop=false
+loop_offset=0

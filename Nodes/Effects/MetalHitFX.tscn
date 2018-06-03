@@ -105,7 +105,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[node name="MetalHitFX" type="Node2D" index="0"]
+[node name="MetalHitFX" type="Node2D"]
 
 z_index = 2
 script = SubResource( 4 )
