@@ -351,6 +351,7 @@ func create_segment(segment, pos):
 	
 	bottom.tile_set = load("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
 	top.tile_set = load("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
+	top.set_collision_layer_bit(3, true)
 	seg.position = Vector2(pos.x * SEG_W, pos.y * SEG_H)
 	
 	for cell in bottom.get_used_cells():
