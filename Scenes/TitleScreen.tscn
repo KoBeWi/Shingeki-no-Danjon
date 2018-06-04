@@ -16,7 +16,7 @@ func _process(delta):
 	queue_free()"
 _sections_unfolded = [ "Resource" ]
 
-[node name="TitleScreen" type="Node2D"]
+[node name="TitleScreen" type="Node2D" index="0"]
 
 script = SubResource( 1 )
 

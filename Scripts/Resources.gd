@@ -107,6 +107,11 @@ func play_sample(source, sample, pausable = true, follow_source = true):
 	var player = create_instance("SampleInstance")
 	player.init(source, sample, pausable, follow_source)
 	get_parent().get_node("Game").add_child(player)
+
+func play_pitched_sample(source, sample, pausable = true, follow_source = true):
+	var player = create_instance("PitchedSampleInstance")
+	player.init(source, sample, pausable, follow_source)
+	get_parent().get_node("Game").add_child(player)
 	
 func ui_sample(sample):
 	var player = AudioStreamPlayer.new()

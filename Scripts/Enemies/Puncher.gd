@@ -219,7 +219,7 @@ func call_normal_atack():
 	knockback = 0
 
 func punch_in_direction():
-	Res.play_sample(self, "Punch")
+	Res.play_pitched_sample(self, "Punch")
 	play_animation_if_not_playing("Punch" + direction)
 
 func play_animation_if_not_playing(anim):

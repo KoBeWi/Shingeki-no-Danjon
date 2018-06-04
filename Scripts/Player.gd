@@ -65,8 +65,8 @@ func _physics_process(delta):
 	if move.length_squared() == 0: running = false
 	
 	if !is_ghost and !attacking and !ghost_mode and !shielding and Input.is_action_just_pressed("Attack"):
-		if PlayerStats.get_equipment("weapon"): Res.play_sample(self, "Sword")
-		else: Res.play_sample(self, "Punch")
+		if PlayerStats.get_equipment("weapon"): Res.play_pitched_sample(self, "Sword")
+		else: Res.play_pitched_sample(self, "Punch")
 		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
 	

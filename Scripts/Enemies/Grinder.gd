@@ -109,7 +109,7 @@ func _physics_process(delta):
 
 
 func punch_in_direction():
-	Res.play_sample(self, "Punch")
+	Res.play_pitched_sample(self, "Punch")
 	if direction == "Right" : 
 		sprites[1].flip_h = true
 		play_animation_if_not_playing("PunchLeft")
