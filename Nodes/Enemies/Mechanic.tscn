@@ -645,7 +645,7 @@ tracks/2/keys = {
 } ]
 }
 
-[node name="Mechanic" type="KinematicBody2D" groups=[
+[node name="Mechanic" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -980,7 +980,7 @@ root_node = NodePath("..")
 autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
-playback_speed = 8.0
+playback_speed = 16.0
 anims/Dead = SubResource( 10 )
 anims/Idle = SubResource( 11 )
 blend_times = [  ]
