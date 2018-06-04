@@ -11,7 +11,7 @@ const TIME_OF_BLOCK = 5.0
 var points_of_tiredness = 150
 
 const PAYBACK_DMG       = 75
-const PAYBACK_KNOCKBACK = 5
+const PAYBACK_KNOCKBACK = 250
 
 var in_action          = false
 var BLOCK_PAYBACK      = false
@@ -182,17 +182,15 @@ func summoned():
 func check_status(delta):
 	if "ayba" in status :
 		time_of_using_skill += delta
-		if stacks_of_skill_block == 3 :
+		if stacks_of_skill_block >= 3 :
+			stacks_of_skill_block = 0
 			if damage != PAYBACK_DMG: Res.play_sample(self, "MechanicPayback")
 			play_animation_if_not_playing("ShieldBlockPayback")
 			damage = PAYBACK_DMG
 			knockback = PAYBACK_KNOCKBACK
 			
-			if RShieldON:
-				$RightShield.visible = false
-			
-			if LShieldON:
-				$LeftShield.visible = false
+			$RightShield.visible = false
+			$LeftShield.visible = false
 			
 			return
 		if time_of_using_skill > TIME_OF_BLOCK:
@@ -212,7 +210,6 @@ func _on_animation_finished(anim_name):
 	if "ShieldBlockOFF" in anim_name :
 		
 		time_of_using_skill   = 0.0
-		stacks_of_skill_block = 0
 		
 		in_action        = false
 		points_of_tiredness += 30

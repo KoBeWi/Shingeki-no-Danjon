@@ -12,6 +12,7 @@ var static_time = 0
 var motion_time = 0
 var prev_move = Vector2()
 var running = false
+var knockback = Vector2()
 
 var animations = {Body = "", RightArm = "", LeftArm = ""}
 var sprite_direction = "Front"
@@ -44,8 +45,7 @@ func _physics_process(delta):
 	if static_time >= MEDITATION_TIME: SkillBase.inc_stat("Meditation")
 	
 	var elements_on = (!is_ghost and $Elements.visible)
-	var not_move = (ghost_mode or elements_on)
-	
+	var not_move = (ghost_mode or elements_on or knockback.length_squared() > 0)
 	
 	if !not_move:
 		if Input.is_action_pressed("Up"):
@@ -60,9 +60,11 @@ func _physics_process(delta):
 		if Input.is_action_pressed("Right"):
 			move.x = 1
 			if prev_move.y == 0 or (direction == 3 and prev_move.x < 0): change_dir(1)
-	
-	move = move.normalized() * SPEED
-	if move.length_squared() == 0: running = false
+	elif knockback.length_squared() > 0:
+		move = knockback * 50
+		if move.length() > 5000: move = move.normalized() * 5000
+		knockback /= 1.5
+		if knockback.length_squared() < 1: knockback = Vector2()
 	
 	if !is_ghost and !attacking and !ghost_mode and !shielding and Input.is_action_just_pressed("Attack"):
 		if PlayerStats.get_equipment("weapon"): Res.play_pitched_sample(self, "Sword")
@@ -83,10 +85,11 @@ func _physics_process(delta):
 	if randi()%10 == 0: PlayerStats.mana += 1
 	UI.soft_refresh()
 	
-	if SkillBase.has_skill("FastWalk") and SkillBase.check_combo(["Dir", "Same"]): 
-		running = true
-	if running: 
-		move *= 2
+	if move.length_squared() == 0: running = false
+	if SkillBase.has_skill("FastWalk") and SkillBase.check_combo(["Dir", "Same"]): running = true
+	if !not_move:
+		move = move.normalized() * SPEED
+		if running and !not_move: move *= 2
 
 	if !elements_on:
 		if SkillBase.check_combo(["Magic", "Magic_"]):
@@ -124,7 +127,7 @@ func _physics_process(delta):
 			GHOST_EFFECT.visible = true
 			GHOST_EFFECT.get_node("../AnimationPlayer").play("Activate")
 	
-	if move.length() > 0:
+	if move.length() > 0 and !not_move:
 		static_time = 0
 		PlayerStats.damage_equipment("boots")
 		change_animation("Body", "Walk")
@@ -140,7 +143,7 @@ func _physics_process(delta):
 	if Input.is_key_pressed(KEY_F3): print(int(position.x / 800), ", ", int(position.y / 800)) ##debug
 	if Input.is_key_pressed(KEY_F1): PlayerStats.add_experience(1000) ##debug
 
-func damage(attacker, amount, knockback):
+func damage(attacker, amount, _knockback):
 	if dead: return
 	
 	amount = max(1, amount - PlayerStats.get_defense())
@@ -160,9 +163,9 @@ func damage(attacker, amount, knockback):
 		PlayerStats.damage_equipment("helmet")
 		
 	Res.create_instance("DamageNumber").damage(self, damage)
-	
 	UI.soft_refresh()
-	move_and_slide((position - attacker.position).normalized() * 1000 * knockback) ##inaczej
+	
+	knockback += (position - attacker.position).normalized() * _knockback
 	if ghost_mode: cancel_ghost()
 	
 	if PlayerStats.health <= 0:

@@ -12,7 +12,7 @@ const ATACK_SPEED          = 125
 
 const SPEED                = 150
 
-const KNOCKBACK_ATACK      = 3 
+const KNOCKBACK_ATACK      = 150
 
 const FOLLOW_RANGE         = 400
 const PERSONAL_SPACE       = 70
