@@ -43,7 +43,7 @@ const MAX_STATS = 6
 const INVENTORY_SLOTS = 8
 const CRAFTING_SIZE = 10
 const MAX_INGREDIENTS = 5
-const STAT_LIST = [\"attack\", \"defense\"]
+const STAT_LIST = [\"attack\", \"defense\", \"strength\", \"dexterity\", \"intelligence\", \"vitality\"]
 const TABS = [\"Character\", \"Equipment\", \"Skills\", \"Crafting\", \"Map\", \"Notes\"]
 const SKILLPOINTS = [\"Strength\", \"Dexterity\", \"Intelligence\", \"Vitality\"]
 
@@ -564,10 +564,15 @@ func get_eq_slot(item):
 	return PlayerStats.EQUIPMENT_SLOTS.find(item.type)
 
 func update_stats(item, compare):
+	var old_item
+	if PlayerStats.equipment[get_eq_slot(item)]: old_item = Res.items[PlayerStats.equipment[get_eq_slot(item)].id]
+	
 	var stats = {}
 	for stat in STAT_LIST:
 		if item.has(stat):
 			stats[stat] = item[stat]
+		elif old_item and old_item.has(stat):
+			stats[stat] = 0
 	
 	var irrelevant = true
 	for i in range($Tabs/Equipment/Stats/Stats.get_child_count()):
@@ -578,12 +583,11 @@ func update_stats(item, compare):
 			irrelevant = false
 			var stat = stats.keys()[i]
 			var value = stats[stat]
-			var eq_slot = PlayerStats.equipment[get_eq_slot(item)]
 			
 			stat_label.text = stat.capitalize() + \": \" + str(value)
 			
-			if compare and eq_slot and Res.items[eq_slot.id].has(stat):
-				var cmp = stats[stat] - Res.items[eq_slot.id][stat]
+			if compare and old_item and old_item.has(stat):
+				var cmp = stats[stat] - old_item[stat]
 				
 				if cmp != 0:
 					if cmp > 0:
@@ -617,7 +621,7 @@ func refresh():
 	$Tabs/Equipment/Inventory/Scrollbar.visible = (PlayerStats.inventory.size() > 8)"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect"]
+[node name="PlayerMenu" type="TextureRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -998,8 +1002,6 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Equipment" type="Control" parent="Tabs" index="1"]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -2173,6 +2175,8 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Crafting" type="Control" parent="Tabs" index="3"]
 
+editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
