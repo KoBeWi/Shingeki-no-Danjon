@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sky.png-f8afbb7645b1e62da7cfb748a8b10f19.stex"
+path="res://.import/Deadosaur.png-8b660c51d5b99d4b2dc15eb696643994.stex"
 
 [deps]
 
-source_file="res://Sprites/Intro/Sky.png"
-source_md5="188ee7e3de2b4cbcf704fc74a4151109"
+source_file="res://Sprites/Intro/Deadosaur.png"
+source_md5="1ff965921ede2de0c1d7c2319800b719"
 
-dest_files=[ "res://.import/Sky.png-f8afbb7645b1e62da7cfb748a8b10f19.stex" ]
-dest_md5="2a5a6dd339ae06c47da5e51177336616"
+dest_files=[ "res://.import/Deadosaur.png-8b660c51d5b99d4b2dc15eb696643994.stex" ]
+dest_md5="263b914989c75bb4241e10fc784288f4"
 
 [params]
 
@@ -18,7 +18,7 @@ compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
