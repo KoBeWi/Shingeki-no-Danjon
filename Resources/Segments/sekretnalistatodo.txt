@@ -1,0 +1,11 @@
+--zrefaktoryzowaæ kod wrogów
+pu³apki (œciany)
+poprawiæ sortowanie tarczy i rêki
+jak siê coœ psuje to pokazywaæ co (w sensie ekwipunek)
+kategorie
+trzymanie do przewyijania
+naprawiæ MP
+sekretne przejœcai
+idle sound dla robotów i bossa
+1763019374 - skrzynia zarurowana
+fancyfont do wywalenia bo chyba nie darmowe by³o
