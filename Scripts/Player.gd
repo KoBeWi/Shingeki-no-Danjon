@@ -153,6 +153,7 @@ func damage(attacker, amount, _knockback):
 		damage = amount*(1-PlayerStats.shield_block) - PlayerStats.shield_amout
 		
 		if damage < 0:
+			SkillBase.inc_stat("ShieldBlocks")
 			PlayerStats.damage_equipment("shield")
 			Res.play_sample(self, "ShieldBlock")
 			damage = "BLOCKED"
@@ -162,7 +163,7 @@ func damage(attacker, amount, _knockback):
 		PlayerStats.damage_equipment("armor", 2)
 		PlayerStats.damage_equipment("helmet")
 		
-	Res.create_instance("DamageNumber").damage(self, damage)
+	Res.create_instance("DamageNumber").damage(self, damage, "player")
 	UI.soft_refresh()
 	
 	knockback += (position - attacker.position).normalized() * _knockback
