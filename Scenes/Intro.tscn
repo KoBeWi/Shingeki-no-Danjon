@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Resources/Fonts/Font36.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Sprites/Intro/Sky.png" type="Texture" id=2]
@@ -6,14 +6,31 @@
 [ext_resource path="res://Sprites/Intro/StarSky.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Intro/StarExplosion.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/Intro/Human.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Intro/Creators.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Intro/Engineer.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Intro/StarPower.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Intro/StarRays.png" type="Texture" id=10]
 
 [sub_resource type="GDScript" id=1]
 
+resource_name = "Intro"
 script/source = "extends Node2D
 
+var appear_humans
+
 func _ready():
-	seed(0)
+	seed(2)
+	for human in $Phase2/Mover/Civilization.get_children():
+		human.frame = randi()%4
+		human.modulate.a = 0
+	
 	$Phase1.visible = true
+	$Phase2.visible = false
+	$Phase3.visible = false
+
+func _process(delta):
+	if appear_humans:
+		$Phase2/Mover/Civilization.get_child(randi() % $Phase2/Mover/Civilization.get_child_count()).modulate.a += delta*10
 
 func _on_phase_finished(phase):
 	match phase:
@@ -32,7 +49,10 @@ func animate_text(text):
 	$Texts/TextAnimator.get_animation(\"AnimateText\").track_set_path(0, text + \":percent_visible\")
 	$Texts/TextAnimator.get_animation(\"AnimateText\").track_set_path(1, text + \":modulate\")
 	$Texts/TextAnimator.play(\"AnimateText\")
-"
+
+func appear_humans():
+	appear_humans = true"
+_sections_unfolded = [ "Resource" ]
 
 [sub_resource type="Animation" id=2]
 
@@ -136,7 +156,7 @@ tracks/6/keys = {
 [sub_resource type="Animation" id=3]
 
 resource_name = "Phase2"
-length = 10.0
+length = 9.0
 loop = false
 step = 0.1
 tracks/0/type = "method"
@@ -146,12 +166,54 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
 "args": [ "Text3" ],
-"method": ""
+"method": "animate_text"
+}, {
+"args": [  ],
+"method": "appear_humans"
+}, {
+"args": [ "Text4" ],
+"method": "animate_text"
 } ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Phase2/Mover:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3, 6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -1366, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Phase2/Mover:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 8, 9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Phase3:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 8 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -227,6 +289,25 @@ tracks/2/keys = {
 "values": [ false, true ]
 }
 
+[sub_resource type="Animation" id=6]
+
+resource_name = "Idle"
+length = 4.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
 [node name="Intro" type="Node2D" index="0"]
 
 script = SubResource( 1 )
@@ -244,10 +325,10 @@ playback_speed = 1.0
 anims/Phase1 = SubResource( 2 )
 anims/Phase2 = SubResource( 3 )
 blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
 
 [node name="Texts" type="CanvasLayer" parent="." index="1"]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -349,10 +430,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 9.0
-margin_top = 324.0
-margin_right = 1351.0
-margin_bottom = 409.0
+margin_left = 161.0
+margin_top = 297.0
+margin_right = 1239.0
+margin_bottom = 426.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -361,8 +442,8 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "These so called Ancient Ones, utilized thefallen star’s power
-to create beings known as Engineers."
+text = "These so called Ancient Ones, utilized the fallen
+star’s power to create beings known as Engineers."
 align = 1
 percent_visible = 0.0
 lines_skipped = 0
@@ -380,6 +461,7 @@ __meta__ = {
 [node name="Sky" type="Sprite" parent="Phase1" index="0"]
 
 editor/display_folded = true
+position = Vector2( 1366, 768 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 2732, 1536 )
@@ -412,7 +494,7 @@ _sections_unfolded = [ "Offset" ]
 [node name="StarSky" type="Sprite" parent="Phase1" index="1"]
 
 editor/display_folded = true
-position = Vector2( 707, 617 )
+position = Vector2( -743, -82 )
 texture = ExtResource( 4 )
 flip_v = true
 hframes = 3
@@ -432,14 +514,14 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="StarExplosion" type="Sprite" parent="Phase1" index="2"]
 
-position = Vector2( 683, 255 )
-scale = Vector2( 4, 4 )
+visible = false
+modulate = Color( 1, 1, 1, 0.1 )
+position = Vector2( 683, 601.5 )
+scale = Vector2( 1.3, 1.3 )
 texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Phase2" type="Node2D" parent="." index="3"]
-
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Phase2" index="0"]
 
@@ -457,59 +539,146 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 color = Color( 1, 1, 1, 1 )
 _sections_unfolded = [ "Rect" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Civilization" type="Node2D" parent="Phase2" index="1"]
+[node name="Mover" type="Node2D" parent="Phase2" index="1"]
+
+editor/display_folded = true
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Civilization" type="Node2D" parent="Phase2/Mover" index="0"]
 
 editor/display_folded = true
 
-[node name="Human" type="Sprite" parent="Phase2/Civilization" index="0"]
+[node name="Human" type="Sprite" parent="Phase2/Mover/Civilization" index="0"]
 
 position = Vector2( 128, 618 )
 texture = ExtResource( 6 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
-[node name="Human2" type="Sprite" parent="Phase2/Civilization" index="1"]
+[node name="Human2" type="Sprite" parent="Phase2/Mover/Civilization" index="1"]
 
 position = Vector2( 308, 550 )
 texture = ExtResource( 6 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
-[node name="Human3" type="Sprite" parent="Phase2/Civilization" index="2"]
+[node name="Human3" type="Sprite" parent="Phase2/Mover/Civilization" index="2"]
 
 position = Vector2( 522, 626 )
 texture = ExtResource( 6 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
-[node name="Human4" type="Sprite" parent="Phase2/Civilization" index="3"]
+[node name="Human4" type="Sprite" parent="Phase2/Mover/Civilization" index="3"]
 
 position = Vector2( 703, 551 )
 texture = ExtResource( 6 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
-[node name="Human5" type="Sprite" parent="Phase2/Civilization" index="4"]
+[node name="Human5" type="Sprite" parent="Phase2/Mover/Civilization" index="4"]
 
 position = Vector2( 926, 627 )
 texture = ExtResource( 6 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
-[node name="Human6" type="Sprite" parent="Phase2/Civilization" index="5"]
+[node name="Human6" type="Sprite" parent="Phase2/Mover/Civilization" index="5"]
 
 position = Vector2( 1109, 552 )
 texture = ExtResource( 6 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
-[node name="Human7" type="Sprite" parent="Phase2/Civilization" index="6"]
+[node name="Human7" type="Sprite" parent="Phase2/Mover/Civilization" index="6"]
 
 position = Vector2( 1275, 621 )
 texture = ExtResource( 6 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
+
+[node name="Creators" type="Sprite" parent="Phase2/Mover" index="1"]
+
+position = Vector2( 1480, 608 )
+texture = ExtResource( 7 )
+
+[node name="Creators3" type="Sprite" parent="Phase2/Mover" index="2"]
+
+position = Vector2( 1706, 608 )
+texture = ExtResource( 7 )
+
+[node name="Creators2" type="Sprite" parent="Phase2/Mover" index="3"]
+
+position = Vector2( 1593, 608 )
+texture = ExtResource( 7 )
+
+[node name="Creators4" type="Sprite" parent="Phase2/Mover" index="4"]
+
+position = Vector2( 1815, 608 )
+texture = ExtResource( 7 )
+
+[node name="Engineer" type="Sprite" parent="Phase2/Mover" index="5"]
+
+position = Vector2( 2178, 516 )
+texture = ExtResource( 8 )
+
+[node name="Engineer2" type="Sprite" parent="Phase2/Mover" index="6"]
+
+position = Vector2( 2412, 516 )
+texture = ExtResource( 8 )
+
+[node name="Engineer3" type="Sprite" parent="Phase2/Mover" index="7"]
+
+position = Vector2( 2641, 516 )
+texture = ExtResource( 8 )
+
+[node name="StarPower" type="Sprite" parent="Phase2/Mover" index="8"]
+
+position = Vector2( 1822, 270 )
+texture = ExtResource( 9 )
+
+[node name="StarRays" type="Sprite" parent="Phase2/Mover" index="9"]
+
+editor/display_folded = true
+position = Vector2( 2201.5, 390 )
+texture = ExtResource( 10 )
+vframes = 4
+frame = 2
+_sections_unfolded = [ "Animation" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Phase2/Mover/StarRays" index="0"]
+
+root_node = NodePath("..")
+autoplay = "Idle"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 16.0
+anims/Idle = SubResource( 6 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="Phase3" type="Node2D" parent="." index="4"]
+
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Engineer" type="Sprite" parent="Phase3" index="0"]
+
+position = Vector2( 812, 516 )
+texture = ExtResource( 8 )
+
+[node name="Engineer2" type="Sprite" parent="Phase3" index="1"]
+
+position = Vector2( 1046, 516 )
+texture = ExtResource( 8 )
+
+[node name="Engineer3" type="Sprite" parent="Phase3" index="2"]
+
+position = Vector2( 1275, 516 )
+texture = ExtResource( 8 )
 
 [connection signal="animation_finished" from="Animator" to="." method="_on_phase_finished"]
 

@@ -7,7 +7,7 @@ path="res://.import/Human.png-f7166f11387e4df1396c92afad293063.stex"
 [deps]
 
 source_file="res://Sprites/Intro/Human.png"
-source_md5="1c138df40634fca295f15c7722cc0238"
+source_md5="aa4068bdbf8daf9c61a37f313d4e9355"
 
 dest_files=[ "res://.import/Human.png-f7166f11387e4df1396c92afad293063.stex" ]
 dest_md5="3d7244290267d6aa440242fbd4f0474e"

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/StarSky.png-f8567dff81f22a2cd13595268ad82929.stex"
+path="res://.import/StarPower.png-75f54438cfce6b5c723608387da28406.stex"
 
 [deps]
 
-source_file="res://Sprites/Intro/StarSky.png"
-source_md5="c8d1a5bc018367ee8fcd3844fdff3f67"
+source_file="res://Sprites/Intro/StarPower.png"
+source_md5="56f61f5a20aa956eb0a35bc095d55da9"
 
-dest_files=[ "res://.import/StarSky.png-f8567dff81f22a2cd13595268ad82929.stex" ]
-dest_md5="cb87520d863904be4bacf13a894cc6ad"
+dest_files=[ "res://.import/StarPower.png-75f54438cfce6b5c723608387da28406.stex" ]
+dest_md5="f9cd29722233a25d45c364d936ce95c3"
 
 [params]
 
