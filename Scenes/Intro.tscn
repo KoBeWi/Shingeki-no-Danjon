@@ -1,22 +1,27 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Resources/Fonts/Font36.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Sprites/Intro/Sky.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Intro/Dinosaur.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/Intro/StarSky.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/Intro/StarExplosion.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/Intro/Human.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/Intro/Creators.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/Intro/Engineer.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Intro/Landscape.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Intro/Sky.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Intro/Dinosaur.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Intro/StarSky.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Intro/StarExplosion.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Intro/Building.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Intro/Creators.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Intro/StarPower.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/Intro/StarRays.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Intro/Human.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Intro/Engineer.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Intro/StarRays.png" type="Texture" id=12]
 
 [sub_resource type="GDScript" id=1]
 
 resource_name = "Intro"
 script/source = "extends Node2D
 
+onready var texts = $Camera/Texts
+
 var appear_humans
+var build_city
 
 func _ready():
 	seed(2)
@@ -27,10 +32,15 @@ func _ready():
 	$Phase1.visible = true
 	$Phase2.visible = false
 	$Phase3.visible = false
+	$Phase3a.visible = false
+	
+	recursive_invisible($Phase3/Buildings)
 
 func _process(delta):
 	if appear_humans:
 		$Phase2/Mover/Civilization.get_child(randi() % $Phase2/Mover/Civilization.get_child_count()).modulate.a += delta*10
+	
+	if build_city: recursive_visible($Phase3/Buildings)
 
 func _on_phase_finished(phase):
 	match phase:
@@ -38,6 +48,11 @@ func _on_phase_finished(phase):
 			$Phase1.visible = false
 			$Phase2.visible = true
 			$Animator.play(\"Phase2\")
+			
+		\"Phase2\":
+			$Phase3.visible = true
+			$Camera/Landscape.visible = true
+			$Animator.play(\"Phase3\")
 
 func kill_dinosaurs():
 	$Phase1/Sky/Dinosaur.texture = preload(\"res://Sprites/Intro/Deadosaur.png\")
@@ -46,12 +61,25 @@ func kill_dinosaurs():
 	$Phase1/Sky/Dinosaur4.texture = preload(\"res://Sprites/Intro/Deadosaur.png\")
 
 func animate_text(text):
-	$Texts/TextAnimator.get_animation(\"AnimateText\").track_set_path(0, text + \":percent_visible\")
-	$Texts/TextAnimator.get_animation(\"AnimateText\").track_set_path(1, text + \":modulate\")
-	$Texts/TextAnimator.play(\"AnimateText\")
+	texts.get_node(\"TextAnimator\").get_animation(\"AnimateText\").track_set_path(0, text + \":percent_visible\")
+	texts.get_node(\"TextAnimator\").get_animation(\"AnimateText\").track_set_path(1, text + \":modulate\")
+	texts.get_node(\"TextAnimator\").play(\"AnimateText\")
 
 func appear_humans():
-	appear_humans = true"
+	appear_humans = true
+	
+func recursive_invisible(node):
+	node.self_modulate.a = 0
+	for node2 in node.get_children(): recursive_invisible(node2)
+
+func recursive_visible(node):
+	if node.self_modulate.a < 1:
+		node.self_modulate.a += 0.02
+	else:
+		for node2 in node.get_children(): recursive_visible(node2)
+
+func build_city():
+	build_city = true"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="Animation" id=2]
@@ -166,7 +194,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 4 ),
+"times": PoolRealArray( 0, 1, 4.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
 "args": [ "Text3" ],
@@ -204,7 +232,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Phase3:visible")
+tracks/3/path = NodePath("Phase3a:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -214,6 +242,57 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+
+[sub_resource type="Animation" id=7]
+
+resource_name = "Phase3"
+length = 10.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Phase2/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.8, 0, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1, 2, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [ "Text5" ],
+"method": "animate_text"
+}, {
+"args": [  ],
+"method": "build_city"
+}, {
+"args": [ "Text6" ],
+"method": "animate_text"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Camera:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 5, 7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1366, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -324,10 +403,39 @@ playback_default_blend_time = 0.0
 playback_speed = 1.0
 anims/Phase1 = SubResource( 2 )
 anims/Phase2 = SubResource( 3 )
+anims/Phase3 = SubResource( 7 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Texts" type="CanvasLayer" parent="." index="1"]
+[node name="Camera" type="Camera2D" parent="." index="1"]
+
+position = Vector2( 136.601, 0 )
+offset = Vector2( 683, 384 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="Texts" type="CanvasLayer" parent="Camera" index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -335,7 +443,7 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="TextAnimator" type="AnimationPlayer" parent="Texts" index="0"]
+[node name="TextAnimator" type="AnimationPlayer" parent="Camera/Texts" index="0"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -345,7 +453,7 @@ playback_speed = 1.0
 anims/AnimateText = SubResource( 4 )
 blend_times = [  ]
 
-[node name="Text1" type="Label" parent="Texts" index="1"]
+[node name="Text1" type="Label" parent="Camera/Texts" index="1"]
 
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.0
@@ -371,7 +479,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_fonts" ]
 
-[node name="Text2" type="Label" parent="Texts" index="2"]
+[node name="Text2" type="Label" parent="Camera/Texts" index="2"]
 
 modulate = Color( 1, 1, 1, 0.5 )
 anchor_left = 0.0
@@ -398,7 +506,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
 
-[node name="Text3" type="Label" parent="Texts" index="3"]
+[node name="Text3" type="Label" parent="Camera/Texts" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -424,7 +532,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
 
-[node name="Text4" type="Label" parent="Texts" index="4"]
+[node name="Text4" type="Label" parent="Camera/Texts" index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -442,13 +550,410 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "These so called Ancient Ones, utilized the fallen
+text = "The so called Ancient Ones, utilized the fallen
 star’s power to create beings known as Engineers."
 align = 1
 percent_visible = 0.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text5" type="Label" parent="Camera/Texts" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 136.0
+margin_top = 297.0
+margin_right = 1324.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "These artificial beings made of all kinds of materials
+were the main builders of ancient great cities."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text6" type="Label" parent="Camera/Texts" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 53.0
+margin_top = 297.0
+margin_right = 1307.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "For their hard work, Ancient Ones bestowed Engineers with
+the gift of sentience, using the star’s power again."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text7" type="Label" parent="Camera/Texts" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 53.0
+margin_top = 297.0
+margin_right = 1307.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "That was a grave mistake."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text8" type="Label" parent="Camera/Texts" index="8"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 321.0
+margin_top = 297.0
+margin_right = 1113.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "The great cataclysm of the past was
+caused by star’s own malicious will."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text9" type="Label" parent="Camera/Texts" index="9"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 271.0
+margin_top = 297.0
+margin_right = 1173.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "This will was now inherited by Engineers."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text10" type="Label" parent="Camera/Texts" index="10"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_top = 297.0
+margin_right = 1194.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "The world was met with another crisis,
+but Ancient Ones were able to fix their
+mistake with the power of Eight Divine Seals."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text11" type="Label" parent="Camera/Texts" index="11"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_top = 297.0
+margin_right = 1128.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Engineers were stopped and sealed in
+a great structure, known as The Labyrinth."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text12" type="Label" parent="Camera/Texts" index="12"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 249.0
+margin_top = 297.0
+margin_right = 1085.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Over hundreds of years,
+that place became shrouded in legends."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text13" type="Label" parent="Camera/Texts" index="13"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 101.0
+margin_top = 297.0
+margin_right = 1223.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "The nightmare of Engineers has ultimately returned,
+accidentally released by a curious adventurer."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text14" type="Label" parent="Camera/Texts" index="14"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 249.0
+margin_top = 297.0
+margin_right = 953.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "All over the world, structures
+known as Dungeons have appeared."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text15" type="Label" parent="Camera/Texts" index="15"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 107.0
+margin_top = 297.0
+margin_right = 1251.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "They were the source of Engineers’ new power,
+serving as catalysts for extracting human lifeforce."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text16" type="Label" parent="Camera/Texts" index="16"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 244.0
+margin_top = 297.0
+margin_right = 1124.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Without the ancient power,
+mankind had no other choice than to hide
+behind the walls of its great ancestors."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text17" type="Label" parent="Camera/Texts" index="17"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 180.0
+margin_top = 297.0
+margin_right = 1214.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "With a constant terror and fear of death,
+their only hope was to find the 8 Divine Seals,
+to stop Engineers’ genocide."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text18" type="Label" parent="Camera/Texts" index="18"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 102.0
+margin_top = 297.0
+margin_right = 1224.0
+margin_bottom = 426.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "But that would require delving into enemy territory
+to destroy Dungeons and reclaim stolen lands."
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Text19" type="Label" parent="Camera/Texts" index="19"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 147.0
+margin_top = 333.0
+margin_right = 1225.0
+margin_bottom = 374.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Does a human brave enough exist to save his kind?"
+align = 1
+percent_visible = 0.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Landscape" type="Sprite" parent="Camera" index="1"]
+
+visible = false
+position = Vector2( 683, 384 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Phase1" type="Node2D" parent="." index="2"]
 
@@ -462,7 +967,7 @@ __meta__ = {
 
 editor/display_folded = true
 position = Vector2( 1366, 768 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 2732, 1536 )
 _sections_unfolded = [ "Region", "Transform" ]
@@ -470,24 +975,24 @@ _sections_unfolded = [ "Region", "Transform" ]
 [node name="Dinosaur" type="Sprite" parent="Phase1/Sky" index="0"]
 
 position = Vector2( -1103, 557 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 flip_h = true
 _sections_unfolded = [ "Offset" ]
 
 [node name="Dinosaur2" type="Sprite" parent="Phase1/Sky" index="1"]
 
 position = Vector2( -428, 451 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Dinosaur4" type="Sprite" parent="Phase1/Sky" index="2"]
 
 position = Vector2( 1093, 532 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Dinosaur3" type="Sprite" parent="Phase1/Sky" index="3"]
 
 position = Vector2( 405, 519 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 flip_h = true
 _sections_unfolded = [ "Offset" ]
 
@@ -495,7 +1000,7 @@ _sections_unfolded = [ "Offset" ]
 
 editor/display_folded = true
 position = Vector2( -743, -82 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 flip_v = true
 hframes = 3
 frame = 2
@@ -518,10 +1023,141 @@ visible = false
 modulate = Color( 1, 1, 1, 0.1 )
 position = Vector2( 683, 601.5 )
 scale = Vector2( 1.3, 1.3 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Phase2" type="Node2D" parent="." index="3"]
+[node name="Phase3" type="Node2D" parent="." index="3"]
+
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Buildings" type="Node2D" parent="Phase3" index="0"]
+
+editor/display_folded = true
+
+[node name="Building6" type="Sprite" parent="Phase3/Buildings" index="0"]
+
+editor/display_folded = true
+position = Vector2( 348, 422 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Building2" type="Sprite" parent="Phase3/Buildings/Building6" index="0"]
+
+position = Vector2( 0, -260 )
+texture = ExtResource( 7 )
+
+[node name="Building3" type="Sprite" parent="Phase3/Buildings/Building6/Building2" index="0"]
+
+position = Vector2( 0, -260 )
+texture = ExtResource( 7 )
+
+[node name="Building" type="Sprite" parent="Phase3/Buildings" index="1"]
+
+editor/display_folded = true
+position = Vector2( 219, 582 )
+texture = ExtResource( 7 )
+
+[node name="Building2" type="Sprite" parent="Phase3/Buildings/Building" index="0"]
+
+position = Vector2( 0, -260 )
+texture = ExtResource( 7 )
+
+[node name="Building2" type="Sprite" parent="Phase3/Buildings" index="2"]
+
+editor/display_folded = true
+position = Vector2( 695, 463 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Building2" type="Sprite" parent="Phase3/Buildings/Building2" index="0"]
+
+editor/display_folded = true
+position = Vector2( 0, -260 )
+texture = ExtResource( 7 )
+
+[node name="Building3" type="Sprite" parent="Phase3/Buildings/Building2/Building2" index="0"]
+
+editor/display_folded = true
+position = Vector2( 0, -260 )
+texture = ExtResource( 7 )
+
+[node name="Building4" type="Sprite" parent="Phase3/Buildings/Building2/Building2/Building3" index="0"]
+
+position = Vector2( 0, -260 )
+texture = ExtResource( 7 )
+
+[node name="Building3" type="Sprite" parent="Phase3/Buildings" index="3"]
+
+editor/display_folded = true
+position = Vector2( 1162, 491 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Building2" type="Sprite" parent="Phase3/Buildings/Building3" index="0"]
+
+editor/display_folded = true
+position = Vector2( 0, -260 )
+texture = ExtResource( 7 )
+
+[node name="Building3" type="Sprite" parent="Phase3/Buildings/Building3/Building2" index="0"]
+
+position = Vector2( 0, -260 )
+texture = ExtResource( 7 )
+
+[node name="Building4" type="Sprite" parent="Phase3/Buildings" index="4"]
+
+editor/display_folded = true
+position = Vector2( 487, 521 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Building2" type="Sprite" parent="Phase3/Buildings/Building4" index="0"]
+
+position = Vector2( 0, -260 )
+texture = ExtResource( 7 )
+
+[node name="Building5" type="Sprite" parent="Phase3/Buildings" index="5"]
+
+position = Vector2( 977, 591 )
+scale = Vector2( 1.2, 1.2 )
+z_index = 1
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Creators" type="Sprite" parent="Phase3" index="1"]
+
+position = Vector2( 2166, 610 )
+texture = ExtResource( 8 )
+flip_h = true
+_sections_unfolded = [ "Offset" ]
+
+[node name="Creators2" type="Sprite" parent="Phase3" index="2"]
+
+position = Vector2( 2303, 610 )
+texture = ExtResource( 8 )
+flip_h = true
+_sections_unfolded = [ "Offset" ]
+
+[node name="Creators3" type="Sprite" parent="Phase3" index="3"]
+
+position = Vector2( 2440, 610 )
+texture = ExtResource( 8 )
+flip_h = true
+_sections_unfolded = [ "Offset" ]
+
+[node name="StarPower" type="Sprite" parent="Phase3" index="4"]
+
+position = Vector2( 1946, 263 )
+texture = ExtResource( 9 )
+
+[node name="Phase2" type="Node2D" parent="." index="4"]
+
+editor/display_folded = true
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Phase2" index="0"]
 
@@ -538,7 +1174,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 color = Color( 1, 1, 1, 1 )
-_sections_unfolded = [ "Rect" ]
+_sections_unfolded = [ "Rect", "Visibility" ]
 __meta__ = {
 "_edit_lock_": true
 }
@@ -555,86 +1191,86 @@ editor/display_folded = true
 [node name="Human" type="Sprite" parent="Phase2/Mover/Civilization" index="0"]
 
 position = Vector2( 128, 618 )
-texture = ExtResource( 6 )
+texture = ExtResource( 10 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human2" type="Sprite" parent="Phase2/Mover/Civilization" index="1"]
 
 position = Vector2( 308, 550 )
-texture = ExtResource( 6 )
+texture = ExtResource( 10 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human3" type="Sprite" parent="Phase2/Mover/Civilization" index="2"]
 
 position = Vector2( 522, 626 )
-texture = ExtResource( 6 )
+texture = ExtResource( 10 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human4" type="Sprite" parent="Phase2/Mover/Civilization" index="3"]
 
 position = Vector2( 703, 551 )
-texture = ExtResource( 6 )
+texture = ExtResource( 10 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human5" type="Sprite" parent="Phase2/Mover/Civilization" index="4"]
 
 position = Vector2( 926, 627 )
-texture = ExtResource( 6 )
+texture = ExtResource( 10 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human6" type="Sprite" parent="Phase2/Mover/Civilization" index="5"]
 
 position = Vector2( 1109, 552 )
-texture = ExtResource( 6 )
+texture = ExtResource( 10 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human7" type="Sprite" parent="Phase2/Mover/Civilization" index="6"]
 
 position = Vector2( 1275, 621 )
-texture = ExtResource( 6 )
+texture = ExtResource( 10 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Creators" type="Sprite" parent="Phase2/Mover" index="1"]
 
 position = Vector2( 1480, 608 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="Creators3" type="Sprite" parent="Phase2/Mover" index="2"]
 
 position = Vector2( 1706, 608 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="Creators2" type="Sprite" parent="Phase2/Mover" index="3"]
 
 position = Vector2( 1593, 608 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="Creators4" type="Sprite" parent="Phase2/Mover" index="4"]
 
 position = Vector2( 1815, 608 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="Engineer" type="Sprite" parent="Phase2/Mover" index="5"]
 
 position = Vector2( 2178, 516 )
-texture = ExtResource( 8 )
+texture = ExtResource( 11 )
 
 [node name="Engineer2" type="Sprite" parent="Phase2/Mover" index="6"]
 
 position = Vector2( 2412, 516 )
-texture = ExtResource( 8 )
+texture = ExtResource( 11 )
 
 [node name="Engineer3" type="Sprite" parent="Phase2/Mover" index="7"]
 
 position = Vector2( 2641, 516 )
-texture = ExtResource( 8 )
+texture = ExtResource( 11 )
 
 [node name="StarPower" type="Sprite" parent="Phase2/Mover" index="8"]
 
@@ -645,7 +1281,7 @@ texture = ExtResource( 9 )
 
 editor/display_folded = true
 position = Vector2( 2201.5, 390 )
-texture = ExtResource( 10 )
+texture = ExtResource( 12 )
 vframes = 4
 frame = 2
 _sections_unfolded = [ "Animation" ]
@@ -661,24 +1297,29 @@ anims/Idle = SubResource( 6 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Phase3" type="Node2D" parent="." index="4"]
+[node name="Phase3a" type="Node2D" parent="." index="5"]
 
 _sections_unfolded = [ "Visibility" ]
 
-[node name="Engineer" type="Sprite" parent="Phase3" index="0"]
+[node name="Engineer" type="Sprite" parent="Phase3a" index="0"]
 
 position = Vector2( 812, 516 )
-texture = ExtResource( 8 )
+texture = ExtResource( 11 )
 
-[node name="Engineer2" type="Sprite" parent="Phase3" index="1"]
+[node name="Engineer2" type="Sprite" parent="Phase3a" index="1"]
 
 position = Vector2( 1046, 516 )
-texture = ExtResource( 8 )
+texture = ExtResource( 11 )
 
-[node name="Engineer3" type="Sprite" parent="Phase3" index="2"]
+[node name="Engineer3" type="Sprite" parent="Phase3a" index="2"]
 
 position = Vector2( 1275, 516 )
-texture = ExtResource( 8 )
+texture = ExtResource( 11 )
+
+[node name="Engineer4" type="Sprite" parent="Phase3a" index="3"]
+
+position = Vector2( 1576, 516 )
+texture = ExtResource( 11 )
 
 [connection signal="animation_finished" from="Animator" to="." method="_on_phase_finished"]
 
