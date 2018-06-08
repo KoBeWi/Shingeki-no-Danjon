@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Slash.png-66902f5cd0cdbb00ab19d2c85f3a85ef.stex"
+path="res://.import/Slasher.png-aa1f6c32309063c3d6d337d7d4642113.stex"
 
 [deps]
 
-source_file="res://Sprites/Intro/Slash.png"
-source_md5="fa1663905d722700d504b6cee846489f"
+source_file="res://Sprites/Intro/Slasher.png"
+source_md5="1475bf811f6afd3c128690bf49aaa03a"
 
-dest_files=[ "res://.import/Slash.png-66902f5cd0cdbb00ab19d2c85f3a85ef.stex" ]
-dest_md5="0e4b8d5291708dfbb6d71761aba91b36"
+dest_files=[ "res://.import/Slasher.png-aa1f6c32309063c3d6d337d7d4642113.stex" ]
+dest_md5="12ade45ba83f2d9a9ed4d784604d05ac"
 
 [params]
 

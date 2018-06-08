@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://Sprites/Intro/Dying.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Intro/Ded.png" type="Texture" id=2]
@@ -41,6 +41,7 @@
 [ext_resource path="res://Sprites/Intro/Warrior.png" type="Texture" id=39]
 [ext_resource path="res://Sprites/Intro/WariorHead.png" type="Texture" id=40]
 [ext_resource path="res://Sprites/Intro/Slash.png" type="Texture" id=41]
+[ext_resource path="res://Sprites/Intro/Slasher.png" type="Texture" id=42]
 
 [sub_resource type="GDScript" id=1]
 
@@ -76,7 +77,7 @@ func _ready():
 	
 	recursive_invisible($Phase3/Buildings)
 	
-#	return
+	return
 	##DEBUGAŁKE
 	$Animator.play(\"Phase7\")
 	$Phase7.visible = true
@@ -337,6 +338,30 @@ tracks/6/keys = {
 "args": [  ],
 "method": "kill_dinosaurs"
 } ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera:zoom")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -936,19 +961,19 @@ length = 20.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Phase8/ColorRect:modulate")
+tracks/0/path = NodePath("Phase7:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 17.7, 18.1, 18.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.712706 ), Color( 1, 1, 1, 0 ) ]
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Phase7:visible")
+tracks/1/path = NodePath("Phase8/City:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -957,27 +982,15 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ false, true ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("Phase8/City:visible")
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/3/type = "method"
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
 "times": PoolRealArray( 1, 5, 6, 10, 15 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "values": [ {
@@ -997,44 +1010,56 @@ tracks/3/keys = {
 "method": "animate_text"
 } ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("Phase8/City:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/path = NodePath("Phase8/City:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0, 8, 10 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 341, 384 ), Vector2( 341, 384 ), Vector2( 1024, 384 ) ]
 }
-tracks/5/type = "value"
-tracks/5/path = NodePath("Phase8/City/Warrior:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/path = NodePath("Phase8/City/Warrior:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
 "times": PoolRealArray( 0, 12 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
 }
-tracks/6/type = "value"
-tracks/6/path = NodePath("Phase8/City/Warrior:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/path = NodePath("Phase8/City/Warrior:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
 "times": PoolRealArray( 12, 18, 18.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -273, 344 ), Vector2( -739, 344 ), Vector2( -739, 357.265 ) ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Camera:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 12, 16 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -392, 269 ) ]
+}
 tracks/7/type = "value"
-tracks/7/path = NodePath("Camera:position")
+tracks/7/path = NodePath("Camera:zoom")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -1043,22 +1068,22 @@ tracks/7/keys = {
 "times": PoolRealArray( 0, 12, 16 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -392, 269 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 0.3, 0.3 ) ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Camera:zoom")
+tracks/8/path = NodePath("Phase8/City/Warrior/AnimationPlayer:current_animation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 12, 16 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 0.3, 0.3 ) ]
+"times": PoolRealArray( 18 ),
+"transitions": PoolRealArray( 1 ),
+"update": 2,
+"values": [ "" ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Phase8/City/Warrior/AnimationPlayer:current_animation")
+tracks/9/path = NodePath("Phase8/City/Warrior:frame")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -1066,56 +1091,56 @@ tracks/9/enabled = true
 tracks/9/keys = {
 "times": PoolRealArray( 18 ),
 "transitions": PoolRealArray( 1 ),
-"update": 2,
-"values": [ "" ]
+"update": 1,
+"values": [ 2 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Phase8/City/Warrior:frame")
+tracks/10/path = NodePath("Phase8/City/Warrior/WariorHead:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 18 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-tracks/11/type = "value"
-tracks/11/path = NodePath("Phase8/City/Warrior/WariorHead:visible")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
 "times": PoolRealArray( 0, 18 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
 }
-tracks/12/type = "value"
-tracks/12/path = NodePath("Phase8/City/Warrior/WariorHead:position")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
+tracks/11/type = "value"
+tracks/11/path = NodePath("Phase8/City/Warrior/WariorHead:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
 "times": PoolRealArray( 18, 18.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 6, -13 ), Vector2( 5.46985, -39.9125 ) ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Phase8/City/Warrior:rotation_degrees")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 18, 18.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 90.0 ]
+}
 tracks/13/type = "value"
-tracks/13/path = NodePath("Phase8/City/Warrior:rotation_degrees")
+tracks/13/path = NodePath("Phase8/ColorRect:modulate")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
-"times": PoolRealArray( 0, 18, 18.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 2, 17.9, 18.1, 18.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 0.0, 90.0 ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.712706 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/14/type = "value"
 tracks/14/path = NodePath("Phase8/City/Slash:frame")
@@ -1164,6 +1189,54 @@ tracks/17/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("Phase8/City/Slasher:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0, 18.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("Phase8/City/Slasher:position")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 18.1, 18.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -704, 332 ), Vector2( -654, 332 ) ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("Phase8/City/Slasher:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 18.1, 18.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("Phase8/City/Slasher:frame")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 17.7, 19 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -1533,13 +1606,12 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Camera" type="Camera2D" parent="." index="2"]
 
-position = Vector2( -392, 269 )
 z_index = 4
 offset = Vector2( 683, 384 )
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 0.3, 0.3 )
+zoom = Vector2( 1, 1 )
 limit_left = -10000000
 limit_top = -10000000
 limit_right = 10000000
@@ -2926,7 +2998,8 @@ texture = ExtResource( 38 )
 [node name="Warrior" type="Sprite" parent="Phase8/City" index="1"]
 
 editor/display_folded = true
-position = Vector2( -700.167, 344 )
+position = Vector2( -739, 357.265 )
+rotation = 1.5708
 texture = ExtResource( 39 )
 hframes = 3
 frame = 2
@@ -2945,19 +3018,26 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="WariorHead" type="Sprite" parent="Phase8/City/Warrior" index="1"]
 
-visible = false
-position = Vector2( 5.89397, -18.3825 )
+position = Vector2( 5.46985, -39.9125 )
 texture = ExtResource( 40 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Slash" type="Sprite" parent="Phase8/City" index="2"]
 
-visible = false
-position = Vector2( -734, 337 )
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -730, 337 )
 texture = ExtResource( 41 )
 vframes = 7
-frame = 3
+frame = 6
 _sections_unfolded = [ "Animation", "Visibility" ]
+
+[node name="Slasher" type="Sprite" parent="Phase8/City" index="3"]
+
+position = Vector2( -654, 332 )
+texture = ExtResource( 42 )
+hframes = 2
+frame = 1
+_sections_unfolded = [ "Animation", "Transform", "Visibility" ]
 
 [node name="ColorRect" type="ColorRect" parent="Phase8" index="1"]
 
@@ -2974,7 +3054,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-color = Color( 0.988701, 0.988701, 0.988701, 1 )
+color = Color( 1, 1, 1, 1 )
 _sections_unfolded = [ "Visibility" ]
 
 [connection signal="animation_finished" from="Animator" to="." method="_on_phase_finished"]
