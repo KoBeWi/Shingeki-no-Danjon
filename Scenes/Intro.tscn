@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://Resources/Fonts/Font36.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Sprites/Intro/Landscape.png" type="Texture" id=2]
@@ -23,6 +23,9 @@
 [ext_resource path="res://Sprites/Intro/LabyrinthLocation3.png" type="Texture" id=21]
 [ext_resource path="res://Sprites/Intro/LabyrinthLocation4.png" type="Texture" id=22]
 [ext_resource path="res://Sprites/Intro/Labyrinth.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/Intro/Adventurer.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Intro/Spooky.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/Intro/World.png" type="Texture" id=26]
 
 [sub_resource type="GDScript" id=1]
 
@@ -712,7 +715,7 @@ tracks/10/keys = {
 [sub_resource type="Animation" id=20]
 
 resource_name = "Phase6"
-length = 2.0
+length = 8.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -722,10 +725,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 2, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 199 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, 199 ), Vector2( 0, 199 ), Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Camera:zoom")
@@ -734,10 +737,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 2, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.1, 0.1 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 0.1, 0.1 ), Vector2( 0.1, 0.1 ), Vector2( 3, 3 ) ]
 }
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")
@@ -752,6 +755,42 @@ tracks/2/keys = {
 "args": [ "Text13" ],
 "method": "animate_text"
 } ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Phase6/Adventurer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Phase6/Spooky:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2.5, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Phase5/LabyrinthLocation:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -2230,12 +2269,12 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Phase5" type="Node2D" parent="." index="8"]
 
-editor/display_folded = true
 z_index = 1
 _sections_unfolded = [ "Transform" ]
 
 [node name="LabyrinthLocation" type="Sprite" parent="Phase5" index="0"]
 
+editor/display_folded = true
 position = Vector2( 683, 384 )
 texture = ExtResource( 19 )
 _sections_unfolded = [ "Transform", "Visibility" ]
@@ -2280,6 +2319,32 @@ _sections_unfolded = [ "Rect", "Visibility" ]
 position = Vector2( 683.5, 284.5 )
 texture = ExtResource( 23 )
 _sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Phase6" type="Node2D" parent="." index="9"]
+
+z_index = 1
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Adventurer" type="Sprite" parent="Phase6" index="0"]
+
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 678, 593 )
+texture = ExtResource( 24 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Spooky" type="Sprite" parent="Phase6" index="1"]
+
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 689, 569 )
+texture = ExtResource( 25 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="World" type="Sprite" parent="Phase6" index="2"]
+
+position = Vector2( 683, 384 )
+z_index = -2
+texture = ExtResource( 26 )
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 [connection signal="animation_finished" from="Animator" to="." method="_on_phase_finished"]
 
