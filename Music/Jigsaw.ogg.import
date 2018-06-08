@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Jigsaw.ogg-8b1b5633205d0a1696318fac5868d53f.oggstr"
+
+[deps]
+
+source_file="res://Music/Jigsaw.ogg"
+source_md5="7a772aa0c24f3d427d13c3353dbf093f"
+
+dest_files=[ "res://.import/Jigsaw.ogg-8b1b5633205d0a1696318fac5868d53f.oggstr" ]
+dest_md5="2971381db856ab26825a3815787a1b28"
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Stairs.ogg-546b7cb9c09fae650dd5cd9bee7f1024.oggstr"
+
+[deps]
+
+source_file="res://Samples/Stairs.ogg"
+source_md5="7bbc00de7004a4cb585356aa316b17da"
+
+dest_files=[ "res://.import/Stairs.ogg-546b7cb9c09fae650dd5cd9bee7f1024.oggstr" ]
+dest_md5="82238f4cabd9d54ea0dd6a9202cf3917"
+
+[params]
+
+loop=false
+loop_offset=0

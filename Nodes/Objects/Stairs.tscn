@@ -17,6 +17,7 @@ func set_stairs(updown, tileset):
 
 func _process(delta):
 	if player_in and Input.is_action_pressed(\"Up\"):
+		Res.ui_sample(\"Stairs\")
 		get_tree().current_scene.change_floor(change)
 
 func _on_enter(body): if body.is_in_group(\"players\"): player_in = true
@@ -28,7 +29,7 @@ _sections_unfolded = [ "Resource" ]
 custom_solver_bias = 0.0
 extents = Vector2( 40, 10 )
 
-[node name="Stairs" type="Sprite"]
+[node name="Stairs" type="Sprite" index="0"]
 
 texture = ExtResource( 1 )
 region_enabled = true

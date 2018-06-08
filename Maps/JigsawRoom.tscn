@@ -12,6 +12,7 @@ script/source = "extends Node2D
 var jigsawd
 
 func initialize():
+	Res.play_music(\"Jigsaw\")
 	Res.game.player.position = $Position2D.position
 
 func _process(delta):

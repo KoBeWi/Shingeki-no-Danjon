@@ -6,7 +6,6 @@
 [ext_resource path="res://Sprites/UI/Choice.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/DialogueSystem.gd" type="Script" id=5]
 
-
 [sub_resource type="GDScript" id=1]
 
 resource_name = "DialogueBox"
@@ -41,6 +40,7 @@ func next_message():
 	if dialogue_status.message >= dialogue_status.dialogue[dialogue_status.branch].messages.size():
 		dialogue_finished()
 		return
+	Res.ui_sample(\"MenuMove\")
 	
 	var dialogue = dialogue_status.dialogue[dialogue_status.branch].messages[dialogue_status.message]
 	on_dialogue = dialogue
@@ -76,7 +76,7 @@ func process():
 	else:
 		return false"
 
-[node name="DialogueBox" type="TextureRect" index="0"]
+[node name="DialogueBox" type="TextureRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0

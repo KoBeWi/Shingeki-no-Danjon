@@ -8,8 +8,12 @@
 resource_name = "TitleScreen"
 script/source = "extends Node2D
 
+func _ready():
+	Res.play_music(\"Title\")
+
 func _process(delta):
 	if Input.is_action_just_pressed(\"ui_accept\"):
+		Res.ui_sample(\"MenuEnter\")
 		var game = load(\"res://Scenes/Game.tscn\").instance()
 		$\"/root\".add_child(game)
 	#	game.set_map(load(\"res://Maps/BossRoom.tscn\").instance())
@@ -62,6 +66,7 @@ stretch_mode = 0
 
 [node name="Press" type="Label" parent="." index="1"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
