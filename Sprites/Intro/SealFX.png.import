@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Labyrinth.png-c1b5b7bf16eb50857795f5827b169bce.stex"
+path="res://.import/SealFX.png-6bc6e18453dec4b251122ee0d33d9c82.stex"
 
 [deps]
 
-source_file="res://Sprites/Intro/Labyrinth.png"
-source_md5="65a32bacb8470243ae5e7fa73246056d"
+source_file="res://Sprites/Intro/SealFX.png"
+source_md5="4515064dbcb880f8e54d99347491f769"
 
-dest_files=[ "res://.import/Labyrinth.png-c1b5b7bf16eb50857795f5827b169bce.stex" ]
-dest_md5="fd1112950eb97f193fc076a65143f886"
+dest_files=[ "res://.import/SealFX.png-6bc6e18453dec4b251122ee0d33d9c82.stex" ]
+dest_md5="7a4b9b4258f8c5368295b1ef5bd4639a"
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Resources/Fonts/Font36.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Sprites/Intro/Landscape.png" type="Texture" id=2]
@@ -17,8 +17,14 @@
 [ext_resource path="res://Sprites/Intro/StarRays.png" type="Texture" id=15]
 [ext_resource path="res://Sprites/Intro/Eyeflash.png" type="Texture" id=16]
 [ext_resource path="res://Sprites/Intro/DivineSeal.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/Intro/SealFX.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/Intro/LabyrinthLocation.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/Intro/LabyrinthLocation2.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/Intro/LabyrinthLocation3.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/Intro/LabyrinthLocation4.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/Intro/Labyrinth.png" type="Texture" id=23]
 
-[sub_resource type="GDScript" id=12]
+[sub_resource type="GDScript" id=1]
 
 resource_name = "Intro"
 script/source = "extends Node2D
@@ -28,6 +34,7 @@ onready var texts = $Camera/Texts
 var appear_humans
 var build_city
 var move_seals
+var seal_fx
 
 func _ready():
 	seed(2)
@@ -39,18 +46,15 @@ func _ready():
 	$Phase2.visible = false
 	$Phase3.visible = false
 	$Phase3a.visible = false
+	$Phase5.visible = false
 	
 	recursive_invisible($Phase3/Buildings)
 	
 	return
 	##DEBUGAŁKE
-	$Phase1.visible = false
-	$Phase3.visible = true
-	$Phase3a.visible = true
-	$Camera/Landscape.visible = true
-	build_city()
-	_on_phase_finished(\"Phase4\")
-	$Animator.stop()
+	$Phase5.visible = true
+	$Animator.play(\"Phase5\")
+	seal_fx()
 	##/ENDDEBUGAŁKE
 
 func _process(delta):
@@ -64,6 +68,24 @@ func _process(delta):
 			seal.position.x = sin(seal.get_index() * PI/4) * move_seals
 			seal.position.y = cos(seal.get_index() * PI/4) * move_seals
 		move_seals += delta*100
+	
+	if seal_fx and seal_fx < 1.016472:
+		var sc = 5 - seal_fx*5
+		if sc < 3: $Shader/Effect.visible = false
+		
+		for seal in $Phase4/SealLayer/Seals.get_children():
+			var fx = seal.get_node(\"SealFX\")
+			
+			fx.visible = true
+			fx.rotation = seal_fx
+			fx.scale = Vector2(sc, sc)
+		
+		seal_fx += delta
+	elif seal_fx and seal_fx < 128:
+		for seal in $Phase4/SealLayer/Seals.get_children():
+			seal.position.x = sin(seal.get_index() * PI/4) * (128 - seal_fx)
+			seal.position.y = cos(seal.get_index() * PI/4) * (128 - seal_fx)
+		seal_fx += delta*100
 
 func _on_phase_finished(phase):
 	match phase:
@@ -100,22 +122,23 @@ func _on_phase_finished(phase):
 			$Camera/Texts/TextAnimator.playback_speed = 0.8
 			animate_text(\"Text10\")
 			seals()
-			yield(get_tree().create_timer(5), \"timeout\")
+			yield(get_tree().create_timer(4), \"timeout\")
+			$Phase5.visible = true
 			$Animator.play(\"Phase5\")
+			seal_fx()
+		
+		\"Phase5\":
+			$Animator.play(\"Phase6\")
 
 func animate_text(text):
 	texts.get_node(\"TextAnimator\").get_animation(\"AnimateText\").track_set_path(0, text + \":percent_visible\")
 	texts.get_node(\"TextAnimator\").get_animation(\"AnimateText\").track_set_path(1, text + \":modulate\")
 	texts.get_node(\"TextAnimator\").play(\"AnimateText\")
 
-func appear_humans():
-	appear_humans = true
-
-func build_city():
-	build_city = true
-
-func seals():
-	move_seals = 0.1
+func appear_humans(): appear_humans = true
+func build_city(): build_city = true
+func seals(): move_seals = 0.1
+func seal_fx(): seal_fx = 0.1
 
 func kill_dinosaurs():
 	$Phase1/Sky/Dinosaur.texture = preload(\"res://Sprites/Intro/Deadosaur.png\")
@@ -153,7 +176,7 @@ func recursive_retexture(node):
 	for node2 in node.get_children(): recursive_retexture(node2)"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="Shader" id=26]
+[sub_resource type="Shader" id=2]
 
 code = "shader_type canvas_item;
 
@@ -162,13 +185,13 @@ void fragment() {
 	COLOR.rgb = vec3(1.0-c.r, 1.0-c.g, 1.0-c.b);
 }"
 
-[sub_resource type="ShaderMaterial" id=27]
+[sub_resource type="ShaderMaterial" id=3]
 
 render_priority = 0
-shader = SubResource( 26 )
+shader = SubResource( 2 )
 _sections_unfolded = [ "shader_param" ]
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=4]
 
 resource_name = "Phase1"
 length = 10.0
@@ -267,7 +290,7 @@ tracks/6/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=5]
 
 resource_name = "Phase2"
 length = 9.0
@@ -330,7 +353,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=6]
 
 resource_name = "Phase3"
 length = 13.5
@@ -483,7 +506,7 @@ tracks/10/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=7]
 
 length = 9.0
 loop = false
@@ -542,14 +565,196 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -677, 0 ) ]
 }
 
-[sub_resource type="Animation" id=28]
+[sub_resource type="Animation" id=8]
 
 resource_name = "Phase5"
-length = 10.0
+length = 12.0
 loop = false
 step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Phase5/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 4.5, 5.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Phase5/Labyrinth:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.5, 6.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "Text11" ],
+"method": "animate_text"
+}, {
+"args": [ "Text12" ],
+"method": "animate_text"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Phase4/SealLayer/Seals:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.5, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Phase5/LabyrinthLocation:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Phase3:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Phase3a:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera/Landscape:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Phase5/LabyrinthLocation/LabyrinthLocation2:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Phase5/LabyrinthLocation/LabyrinthLocation2/LabyrinthLocation3:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 8, 9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Phase5/LabyrinthLocation/LabyrinthLocation2/LabyrinthLocation3/LabyrinthLocation4:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 10, 11 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=20]
+
+resource_name = "Phase6"
+length = 2.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 199 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Camera:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.1, 0.1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "Text13" ],
+"method": "animate_text"
+} ]
+}
+
+[sub_resource type="Animation" id=9]
 
 length = 4.0
 loop = false
@@ -590,7 +795,7 @@ flags = 4
 gradient = SubResource( 10 )
 width = 2048
 
-[sub_resource type="ParticlesMaterial" id=18]
+[sub_resource type="ParticlesMaterial" id=12]
 
 render_priority = 0
 trail_divisor = 1
@@ -630,7 +835,7 @@ anim_offset_random = 1.0
 anim_loop = true
 _sections_unfolded = [ "Animation", "Color", "Emission Shape", "Gravity", "Scale" ]
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=13]
 
 resource_name = "Idle"
 length = 8.0
@@ -661,7 +866,7 @@ tracks/1/keys = {
 "values": [ Rect2( 0, 0, 1366, 101 ), Rect2( 0, 101, 1366, 101 ), Rect2( 0, 202, 1366, 101 ), Rect2( 0, 303, 1366, 101 ), Rect2( 0, 404, 1366, 101 ), Rect2( 0, 505, 1366, 101 ), Rect2( 0, 606, 1366, 101 ), Rect2( 0, 707, 1366, 101 ) ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=14]
 
 length = 12.0
 loop = true
@@ -703,7 +908,7 @@ tracks/2/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=15]
 
 length = 4.0
 loop = true
@@ -721,7 +926,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=16]
 
 resource_name = "Walk"
 length = 4.0
@@ -740,7 +945,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 0, 2 ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=17]
 
 resource_name = "Walk"
 length = 4.0
@@ -759,7 +964,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 0, 2 ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=18]
 
 resource_name = "Walk"
 length = 4.0
@@ -778,7 +983,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 0, 2 ]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=19]
 
 resource_name = "Walk"
 length = 4.0
@@ -799,7 +1004,7 @@ tracks/0/keys = {
 
 [node name="Intro" type="Node2D" index="0"]
 
-script = SubResource( 12 )
+script = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -816,7 +1021,7 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 [node name="Effect" type="ColorRect" parent="Shader" index="0"]
 
 visible = false
-material = SubResource( 27 )
+material = SubResource( 3 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -839,18 +1044,19 @@ autoplay = "Phase1"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Phase1 = SubResource( 13 )
-anims/Phase2 = SubResource( 14 )
-anims/Phase3 = SubResource( 15 )
-anims/Phase4 = SubResource( 16 )
-anims/Phase5 = SubResource( 28 )
+anims/Phase1 = SubResource( 4 )
+anims/Phase2 = SubResource( 5 )
+anims/Phase3 = SubResource( 6 )
+anims/Phase4 = SubResource( 7 )
+anims/Phase5 = SubResource( 8 )
+anims/Phase6 = SubResource( 20 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="Camera" type="Camera2D" parent="." index="2"]
 
 editor/display_folded = true
-z_index = 1
+z_index = 4
 offset = Vector2( 683, 384 )
 anchor_mode = 1
 rotating = false
@@ -878,6 +1084,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Texts" type="CanvasLayer" parent="Camera" index="0"]
 
+editor/display_folded = true
 layer = 3
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -891,7 +1098,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/AnimateText = SubResource( 17 )
+anims/AnimateText = SubResource( 9 )
 blend_times = [  ]
 
 [node name="Text1" type="Label" parent="Camera/Texts" index="1"]
@@ -1161,9 +1368,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 204.0
-margin_top = 297.0
+margin_top = 45.0
 margin_right = 1128.0
-margin_bottom = 426.0
+margin_bottom = 174.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1171,7 +1378,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Engineers were stopped and sealed in
 a great structure, known as The Labyrinth."
 align = 1
@@ -1187,9 +1394,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 249.0
-margin_top = 297.0
+margin_top = 46.0
 margin_right = 1085.0
-margin_bottom = 426.0
+margin_bottom = 175.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1197,7 +1404,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Over hundreds of years,
 that place became shrouded in legends."
 align = 1
@@ -1213,9 +1420,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 101.0
-margin_top = 297.0
+margin_top = 48.0
 margin_right = 1223.0
-margin_bottom = 426.0
+margin_bottom = 177.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1223,7 +1430,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "The nightmare of Engineers has ultimately returned,
 accidentally released by a curious adventurer."
 align = 1
@@ -1391,10 +1598,12 @@ _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
 
 [node name="Landscape" type="Sprite" parent="Camera" index="1"]
 
+editor/display_folded = true
+visible = false
 position = Vector2( 683, 384 )
 z_as_relative = false
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Burnscape" type="Sprite" parent="Camera/Landscape" index="0"]
 
@@ -1418,7 +1627,7 @@ fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
-process_material = SubResource( 18 )
+process_material = SubResource( 12 )
 texture = ExtResource( 4 )
 normal_map = null
 h_frames = 1
@@ -1443,7 +1652,7 @@ autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/Idle = SubResource( 21 )
+anims/Idle = SubResource( 13 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -1505,7 +1714,7 @@ autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
-anims/Idle = SubResource( 19 )
+anims/Idle = SubResource( 14 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -1521,6 +1730,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 [node name="Phase3" type="Node2D" parent="." index="4"]
 
 editor/display_folded = true
+visible = false
 _sections_unfolded = [ "Visibility" ]
 
 [node name="Buildings" type="Node2D" parent="Phase3" index="0"]
@@ -1786,12 +1996,14 @@ autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/Idle = SubResource( 20 )
+anims/Idle = SubResource( 15 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="Phase3a" type="Node2D" parent="." index="6"]
 
+editor/display_folded = true
+visible = false
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Engineer" type="Sprite" parent="Phase3a" index="0"]
@@ -1808,7 +2020,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
-anims/Walk = SubResource( 22 )
+anims/Walk = SubResource( 16 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -1825,7 +2037,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
-anims/Walk = SubResource( 23 )
+anims/Walk = SubResource( 17 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -1843,7 +2055,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
-anims/Walk = SubResource( 24 )
+anims/Walk = SubResource( 18 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -1861,7 +2073,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
-anims/Walk = SubResource( 25 )
+anims/Walk = SubResource( 19 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -1887,6 +2099,8 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Phase4" type="Node2D" parent="." index="7"]
 
+editor/display_folded = true
+
 [node name="SealLayer" type="CanvasLayer" parent="Phase4" index="0"]
 
 editor/display_folded = true
@@ -1900,64 +2114,172 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 editor/display_folded = true
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 683, 384 )
 z_index = 1
-_sections_unfolded = [ "Transform", "Z Index" ]
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Seal1" type="Sprite" parent="Phase4/SealLayer/Seals" index="0"]
 
+editor/display_folded = true
 modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 98, -205 )
 texture = ExtResource( 17 )
 _sections_unfolded = [ "Visibility" ]
 
+[node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal1" index="0"]
+
+visible = false
+texture = ExtResource( 18 )
+_sections_unfolded = [ "Transform" ]
+
 [node name="Seal2" type="Sprite" parent="Phase4/SealLayer/Seals" index="1"]
 
+editor/display_folded = true
 modulate = Color( 0, 0.0859375, 1, 1 )
 position = Vector2( 234, -77 )
 texture = ExtResource( 17 )
 _sections_unfolded = [ "Visibility" ]
 
+[node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal2" index="0"]
+
+visible = false
+texture = ExtResource( 18 )
+_sections_unfolded = [ "Transform" ]
+
 [node name="Seal3" type="Sprite" parent="Phase4/SealLayer/Seals" index="2"]
 
+editor/display_folded = true
 modulate = Color( 0.945313, 0, 1, 1 )
-position = Vector2( 280, 88 )
 texture = ExtResource( 17 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal3" index="0"]
+
+visible = false
+texture = ExtResource( 18 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Seal4" type="Sprite" parent="Phase4/SealLayer/Seals" index="3"]
 
+editor/display_folded = true
 modulate = Color( 0, 1, 0.953125, 1 )
-position = Vector2( 140, 160 )
 texture = ExtResource( 17 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal4" index="0"]
+
+visible = false
+texture = ExtResource( 18 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Seal5" type="Sprite" parent="Phase4/SealLayer/Seals" index="4"]
 
+editor/display_folded = true
 modulate = Color( 0.101563, 1, 0, 1 )
 position = Vector2( -85, 79 )
 texture = ExtResource( 17 )
 _sections_unfolded = [ "Visibility" ]
 
+[node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal5" index="0"]
+
+visible = false
+texture = ExtResource( 18 )
+_sections_unfolded = [ "Transform" ]
+
 [node name="Seal6" type="Sprite" parent="Phase4/SealLayer/Seals" index="5"]
 
+editor/display_folded = true
 modulate = Color( 1, 0.9375, 0, 1 )
 position = Vector2( -55, -42 )
 texture = ExtResource( 17 )
 _sections_unfolded = [ "Visibility" ]
 
+[node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal6" index="0"]
+
+visible = false
+texture = ExtResource( 18 )
+_sections_unfolded = [ "Transform" ]
+
 [node name="Seal7" type="Sprite" parent="Phase4/SealLayer/Seals" index="6"]
 
+editor/display_folded = true
 modulate = Color( 1, 0.539063, 0, 1 )
 position = Vector2( -191, 23 )
 texture = ExtResource( 17 )
 _sections_unfolded = [ "Visibility" ]
 
+[node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal7" index="0"]
+
+visible = false
+texture = ExtResource( 18 )
+_sections_unfolded = [ "Transform" ]
+
 [node name="Seal8" type="Sprite" parent="Phase4/SealLayer/Seals" index="7"]
 
+editor/display_folded = true
 position = Vector2( -76, 219 )
 texture = ExtResource( 17 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal8" index="0"]
+
+visible = false
+texture = ExtResource( 18 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Phase5" type="Node2D" parent="." index="8"]
+
+editor/display_folded = true
+z_index = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="LabyrinthLocation" type="Sprite" parent="Phase5" index="0"]
+
+position = Vector2( 683, 384 )
+texture = ExtResource( 19 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="LabyrinthLocation2" type="Sprite" parent="Phase5/LabyrinthLocation" index="0"]
+
+texture = ExtResource( 20 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="LabyrinthLocation3" type="Sprite" parent="Phase5/LabyrinthLocation/LabyrinthLocation2" index="0"]
+
+z_index = 1
+texture = ExtResource( 21 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="LabyrinthLocation4" type="Sprite" parent="Phase5/LabyrinthLocation/LabyrinthLocation2/LabyrinthLocation3" index="0"]
+
+z_index = 1
+texture = ExtResource( 22 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="ColorRect" type="ColorRect" parent="Phase5" index="1"]
+
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1366.0
+margin_bottom = 768.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0, 0, 0, 1 )
+_sections_unfolded = [ "Rect", "Visibility" ]
+
+[node name="Labyrinth" type="Sprite" parent="Phase5" index="2"]
+
+position = Vector2( 683.5, 284.5 )
+texture = ExtResource( 23 )
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [connection signal="animation_finished" from="Animator" to="." method="_on_phase_finished"]
 

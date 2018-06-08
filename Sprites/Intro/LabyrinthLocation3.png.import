@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Labyrinth.png-c1b5b7bf16eb50857795f5827b169bce.stex"
+path="res://.import/LabyrinthLocation3.png-0b2c59c4da328092aec7b1c98835b084.stex"
 
 [deps]
 
-source_file="res://Sprites/Intro/Labyrinth.png"
-source_md5="65a32bacb8470243ae5e7fa73246056d"
+source_file="res://Sprites/Intro/LabyrinthLocation3.png"
+source_md5="8497273d58e508524d6371014e066cf1"
 
-dest_files=[ "res://.import/Labyrinth.png-c1b5b7bf16eb50857795f5827b169bce.stex" ]
-dest_md5="fd1112950eb97f193fc076a65143f886"
+dest_files=[ "res://.import/LabyrinthLocation3.png-0b2c59c4da328092aec7b1c98835b084.stex" ]
+dest_md5="1a1156ca25a82023bacf0286d79532fe"
 
 [params]
 
