@@ -1,47 +1,48 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://Sprites/Intro/Dying.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Intro/Ded.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Intro/EngineerOfDoom.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Intro/Engineer.png" type="Texture" id=4]
 [ext_resource path="res://Resources/Fonts/Font36.tres" type="DynamicFont" id=5]
-[ext_resource path="res://Sprites/Intro/Landscape.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/Intro/Burnscape.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/Intro/Flame.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/Intro/Fire.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/Intro/Sky.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/Intro/Dinosaur.png" type="Texture" id=11]
-[ext_resource path="res://Sprites/Intro/StarSky.png" type="Texture" id=12]
-[ext_resource path="res://Sprites/Intro/StarExplosion.png" type="Texture" id=13]
-[ext_resource path="res://Sprites/Intro/Building.png" type="Texture" id=14]
-[ext_resource path="res://Sprites/Intro/Creators.png" type="Texture" id=15]
-[ext_resource path="res://Sprites/Intro/StarPower.png" type="Texture" id=16]
-[ext_resource path="res://Sprites/Intro/Human.png" type="Texture" id=17]
-[ext_resource path="res://Sprites/Intro/StarRays.png" type="Texture" id=18]
-[ext_resource path="res://Sprites/Intro/Eyeflash.png" type="Texture" id=19]
-[ext_resource path="res://Sprites/Intro/DivineSeal.png" type="Texture" id=20]
-[ext_resource path="res://Sprites/Intro/SealFX.png" type="Texture" id=21]
-[ext_resource path="res://Sprites/Intro/LabyrinthLocation.png" type="Texture" id=22]
-[ext_resource path="res://Sprites/Intro/LabyrinthLocation2.png" type="Texture" id=23]
-[ext_resource path="res://Sprites/Intro/LabyrinthLocation3.png" type="Texture" id=24]
-[ext_resource path="res://Sprites/Intro/LabyrinthLocation4.png" type="Texture" id=25]
-[ext_resource path="res://Sprites/Intro/Labyrinth.png" type="Texture" id=26]
-[ext_resource path="res://Sprites/Intro/Adventurer.png" type="Texture" id=27]
-[ext_resource path="res://Sprites/Intro/Spooky.png" type="Texture" id=28]
-[ext_resource path="res://Sprites/Intro/World.png" type="Texture" id=29]
-[ext_resource path="res://Sprites/Intro/Dungeon1.png" type="Texture" id=30]
-[ext_resource path="res://Sprites/Intro/Dungeon2.png" type="Texture" id=31]
-[ext_resource path="res://Sprites/Intro/Dungeon3.png" type="Texture" id=32]
-[ext_resource path="res://Sprites/Intro/Dungeon4.png" type="Texture" id=33]
-[ext_resource path="res://Sprites/Intro/Dungeon5.png" type="Texture" id=34]
-[ext_resource path="res://Sprites/Intro/Castle.png" type="Texture" id=35]
-[ext_resource path="res://Sprites/Intro/Lifeforce.png" type="Texture" id=36]
-[ext_resource path="res://Sprites/Intro/City.png" type="Texture" id=37]
-[ext_resource path="res://Sprites/Intro/Smuteczek.png" type="Texture" id=38]
-[ext_resource path="res://Sprites/Intro/Warrior.png" type="Texture" id=39]
-[ext_resource path="res://Sprites/Intro/WariorHead.png" type="Texture" id=40]
-[ext_resource path="res://Sprites/Intro/Slash.png" type="Texture" id=41]
-[ext_resource path="res://Sprites/Intro/Slasher.png" type="Texture" id=42]
+[ext_resource path="res://Sprites/Title.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Intro/Landscape.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Intro/Burnscape.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Intro/Flame.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Intro/Fire.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Intro/Sky.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Intro/Dinosaur.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/Intro/StarSky.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/Intro/StarExplosion.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/Intro/Building.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/Intro/Creators.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/Intro/StarPower.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/Intro/Human.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/Intro/StarRays.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/Intro/Eyeflash.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/Intro/DivineSeal.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/Intro/SealFX.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/Intro/LabyrinthLocation.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/Intro/LabyrinthLocation2.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Intro/LabyrinthLocation3.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/Intro/LabyrinthLocation4.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/Intro/Labyrinth.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/Intro/Adventurer.png" type="Texture" id=28]
+[ext_resource path="res://Sprites/Intro/Spooky.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/Intro/World.png" type="Texture" id=30]
+[ext_resource path="res://Sprites/Intro/Dungeon1.png" type="Texture" id=31]
+[ext_resource path="res://Sprites/Intro/Dungeon2.png" type="Texture" id=32]
+[ext_resource path="res://Sprites/Intro/Dungeon3.png" type="Texture" id=33]
+[ext_resource path="res://Sprites/Intro/Dungeon4.png" type="Texture" id=34]
+[ext_resource path="res://Sprites/Intro/Dungeon5.png" type="Texture" id=35]
+[ext_resource path="res://Sprites/Intro/Castle.png" type="Texture" id=36]
+[ext_resource path="res://Sprites/Intro/Lifeforce.png" type="Texture" id=37]
+[ext_resource path="res://Sprites/Intro/City.png" type="Texture" id=38]
+[ext_resource path="res://Sprites/Intro/Smuteczek.png" type="Texture" id=39]
+[ext_resource path="res://Sprites/Intro/Warrior.png" type="Texture" id=40]
+[ext_resource path="res://Sprites/Intro/WariorHead.png" type="Texture" id=41]
+[ext_resource path="res://Sprites/Intro/Slash.png" type="Texture" id=42]
+[ext_resource path="res://Sprites/Intro/Slasher.png" type="Texture" id=43]
 
 [sub_resource type="GDScript" id=1]
 
@@ -962,7 +963,7 @@ tracks/5/keys = {
 [sub_resource type="Animation" id=11]
 
 resource_name = "Phase8"
-length = 20.0
+length = 22.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -996,7 +997,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 1, 5, 6, 10, 15 ),
+"times": PoolRealArray( 1, 5, 6, 10, 15.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -1242,6 +1243,30 @@ tracks/21/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 0, 1 ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("Camera/Texts/Title:visible")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0, 21 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("Camera/Texts/Title:modulate")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 21, 22 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -1639,7 +1664,6 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Texts" type="CanvasLayer" parent="Camera" index="0"]
 
-editor/display_folded = true
 layer = 3
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -2151,19 +2175,38 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
 
+[node name="Title" type="TextureRect" parent="Camera/Texts" index="20"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 6 )
+stretch_mode = 0
+_sections_unfolded = [ "Visibility" ]
+
 [node name="Landscape" type="Sprite" parent="Camera" index="1"]
 
 editor/display_folded = true
 visible = false
 position = Vector2( 683, 384 )
 z_as_relative = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Burnscape" type="Sprite" parent="Camera/Landscape" index="0"]
 
 modulate = Color( 1, 1, 1, 0 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Particles2D" type="Particles2D" parent="Camera/Landscape/Burnscape" index="0"]
@@ -2183,7 +2226,7 @@ visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
 process_material = SubResource( 15 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 normal_map = null
 h_frames = 1
 v_frames = 8
@@ -2194,7 +2237,7 @@ _sections_unfolded = [ "Process Material", "Time" ]
 editor/display_folded = true
 position = Vector2( 2050, 820 )
 z_index = 2
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 vframes = 8
 region_enabled = true
 region_rect = Rect2( 0, 303, 1366, 101 )
@@ -2222,8 +2265,7 @@ __meta__ = {
 [node name="Sky" type="Sprite" parent="Phase1" index="0"]
 
 editor/display_folded = true
-position = Vector2( 1366, 768 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 2732, 1536 )
 _sections_unfolded = [ "Region", "Transform" ]
@@ -2231,32 +2273,32 @@ _sections_unfolded = [ "Region", "Transform" ]
 [node name="Dinosaur" type="Sprite" parent="Phase1/Sky" index="0"]
 
 position = Vector2( -1103, 557 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 flip_h = true
 _sections_unfolded = [ "Offset" ]
 
 [node name="Dinosaur2" type="Sprite" parent="Phase1/Sky" index="1"]
 
 position = Vector2( -428, 451 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="Dinosaur4" type="Sprite" parent="Phase1/Sky" index="2"]
 
 position = Vector2( 1093, 532 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="Dinosaur3" type="Sprite" parent="Phase1/Sky" index="3"]
 
 position = Vector2( 405, 519 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 flip_h = true
 _sections_unfolded = [ "Offset" ]
 
 [node name="StarSky" type="Sprite" parent="Phase1" index="1"]
 
 editor/display_folded = true
-position = Vector2( -743, -82 )
-texture = ExtResource( 12 )
+position = Vector2( 707, 617 )
+texture = ExtResource( 13 )
 flip_v = true
 hframes = 3
 frame = 2
@@ -2275,11 +2317,10 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="StarExplosion" type="Sprite" parent="Phase1" index="2"]
 
-visible = false
-modulate = Color( 1, 1, 1, 0.1 )
-position = Vector2( 683, 601.5 )
-scale = Vector2( 1.3, 1.3 )
-texture = ExtResource( 13 )
+modulate = Color( 1, 1, 1, 0.866667 )
+position = Vector2( 683, 306.333 )
+scale = Vector2( 3.6, 3.6 )
+texture = ExtResource( 14 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Phase3" type="Node2D" parent="." index="4"]
@@ -2297,120 +2338,120 @@ editor/display_folded = true
 editor/display_folded = true
 position = Vector2( 348, 422 )
 scale = Vector2( 0.3, 0.3 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Building2" type="Sprite" parent="Phase3/Buildings/Building6" index="0"]
 
 position = Vector2( 0, -260 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Building3" type="Sprite" parent="Phase3/Buildings/Building6/Building2" index="0"]
 
 position = Vector2( 0, -260 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Building" type="Sprite" parent="Phase3/Buildings" index="1"]
 
 editor/display_folded = true
 position = Vector2( 219, 582 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Building2" type="Sprite" parent="Phase3/Buildings/Building" index="0"]
 
 position = Vector2( 0, -260 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Building2" type="Sprite" parent="Phase3/Buildings" index="2"]
 
 editor/display_folded = true
 position = Vector2( 695, 463 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Building2" type="Sprite" parent="Phase3/Buildings/Building2" index="0"]
 
 editor/display_folded = true
 position = Vector2( 0, -260 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Building3" type="Sprite" parent="Phase3/Buildings/Building2/Building2" index="0"]
 
 editor/display_folded = true
 position = Vector2( 0, -260 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Building4" type="Sprite" parent="Phase3/Buildings/Building2/Building2/Building3" index="0"]
 
 position = Vector2( 0, -260 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Building3" type="Sprite" parent="Phase3/Buildings" index="3"]
 
 editor/display_folded = true
 position = Vector2( 1162, 491 )
 scale = Vector2( 0.6, 0.6 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Building2" type="Sprite" parent="Phase3/Buildings/Building3" index="0"]
 
 editor/display_folded = true
 position = Vector2( 0, -260 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Building3" type="Sprite" parent="Phase3/Buildings/Building3/Building2" index="0"]
 
 position = Vector2( 0, -260 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Building4" type="Sprite" parent="Phase3/Buildings" index="4"]
 
 editor/display_folded = true
 position = Vector2( 487, 521 )
 scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Building2" type="Sprite" parent="Phase3/Buildings/Building4" index="0"]
 
 position = Vector2( 0, -260 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Building5" type="Sprite" parent="Phase3/Buildings" index="5"]
 
 position = Vector2( 977, 591 )
 scale = Vector2( 1.2, 1.2 )
 z_index = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Creators" type="Sprite" parent="Phase3" index="1"]
 
 position = Vector2( 2166, 610 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 flip_h = true
 _sections_unfolded = [ "Offset" ]
 
 [node name="Creators2" type="Sprite" parent="Phase3" index="2"]
 
 position = Vector2( 2303, 610 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 flip_h = true
 _sections_unfolded = [ "Offset" ]
 
 [node name="Creators3" type="Sprite" parent="Phase3" index="3"]
 
 position = Vector2( 2440, 610 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 flip_h = true
 _sections_unfolded = [ "Offset" ]
 
 [node name="StarPower" type="Sprite" parent="Phase3" index="4"]
 
 position = Vector2( 1897, 263 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 
 [node name="Phase2" type="Node2D" parent="." index="5"]
 
@@ -2449,71 +2490,71 @@ editor/display_folded = true
 [node name="Human" type="Sprite" parent="Phase2/Mover/Civilization" index="0"]
 
 position = Vector2( 128, 618 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human2" type="Sprite" parent="Phase2/Mover/Civilization" index="1"]
 
 position = Vector2( 308, 550 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human3" type="Sprite" parent="Phase2/Mover/Civilization" index="2"]
 
 position = Vector2( 522, 626 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human4" type="Sprite" parent="Phase2/Mover/Civilization" index="3"]
 
 position = Vector2( 703, 551 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human5" type="Sprite" parent="Phase2/Mover/Civilization" index="4"]
 
 position = Vector2( 926, 627 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human6" type="Sprite" parent="Phase2/Mover/Civilization" index="5"]
 
 position = Vector2( 1109, 552 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Human7" type="Sprite" parent="Phase2/Mover/Civilization" index="6"]
 
 position = Vector2( 1275, 621 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 hframes = 4
 _sections_unfolded = [ "Animation" ]
 
 [node name="Creators" type="Sprite" parent="Phase2/Mover" index="1"]
 
 position = Vector2( 1480, 608 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 
 [node name="Creators3" type="Sprite" parent="Phase2/Mover" index="2"]
 
 position = Vector2( 1706, 608 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 
 [node name="Creators2" type="Sprite" parent="Phase2/Mover" index="3"]
 
 position = Vector2( 1593, 608 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 
 [node name="Creators4" type="Sprite" parent="Phase2/Mover" index="4"]
 
 position = Vector2( 1815, 608 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 
 [node name="Engineer" type="Sprite" parent="Phase2/Mover" index="5"]
 
@@ -2533,13 +2574,13 @@ texture = ExtResource( 4 )
 [node name="StarPower" type="Sprite" parent="Phase2/Mover" index="8"]
 
 position = Vector2( 1822, 270 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 
 [node name="StarRays" type="Sprite" parent="Phase2/Mover" index="9"]
 
 editor/display_folded = true
 position = Vector2( 2201.5, 390 )
-texture = ExtResource( 18 )
+texture = ExtResource( 19 )
 vframes = 4
 frame = 2
 _sections_unfolded = [ "Animation" ]
@@ -2639,7 +2680,7 @@ modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 1531, 360 )
 rotation = -3.14159
 scale = Vector2( 1e-05, 1e-05 )
-texture = ExtResource( 19 )
+texture = ExtResource( 20 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Eyeflash2" type="Sprite" parent="Phase3a" index="5"]
@@ -2649,7 +2690,7 @@ modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 1476, 360 )
 rotation = -3.14159
 scale = Vector2( 1e-05, 1e-05 )
-texture = ExtResource( 19 )
+texture = ExtResource( 20 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Phase4" type="Node2D" parent="." index="7"]
@@ -2678,13 +2719,13 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 editor/display_folded = true
 modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 98, -205 )
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal1" index="0"]
 
 visible = false
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Seal2" type="Sprite" parent="Phase4/SealLayer/Seals" index="1"]
@@ -2692,39 +2733,39 @@ _sections_unfolded = [ "Transform" ]
 editor/display_folded = true
 modulate = Color( 0, 0.0859375, 1, 1 )
 position = Vector2( 234, -77 )
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal2" index="0"]
 
 visible = false
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Seal3" type="Sprite" parent="Phase4/SealLayer/Seals" index="2"]
 
 editor/display_folded = true
 modulate = Color( 0.945313, 0, 1, 1 )
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal3" index="0"]
 
 visible = false
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Seal4" type="Sprite" parent="Phase4/SealLayer/Seals" index="3"]
 
 editor/display_folded = true
 modulate = Color( 0, 1, 0.953125, 1 )
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal4" index="0"]
 
 visible = false
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Seal5" type="Sprite" parent="Phase4/SealLayer/Seals" index="4"]
@@ -2732,13 +2773,13 @@ _sections_unfolded = [ "Transform" ]
 editor/display_folded = true
 modulate = Color( 0.101563, 1, 0, 1 )
 position = Vector2( -85, 79 )
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal5" index="0"]
 
 visible = false
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Seal6" type="Sprite" parent="Phase4/SealLayer/Seals" index="5"]
@@ -2746,13 +2787,13 @@ _sections_unfolded = [ "Transform" ]
 editor/display_folded = true
 modulate = Color( 1, 0.9375, 0, 1 )
 position = Vector2( -55, -42 )
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal6" index="0"]
 
 visible = false
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Seal7" type="Sprite" parent="Phase4/SealLayer/Seals" index="6"]
@@ -2760,26 +2801,26 @@ _sections_unfolded = [ "Transform" ]
 editor/display_folded = true
 modulate = Color( 1, 0.539063, 0, 1 )
 position = Vector2( -191, 23 )
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal7" index="0"]
 
 visible = false
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Seal8" type="Sprite" parent="Phase4/SealLayer/Seals" index="7"]
 
 editor/display_folded = true
 position = Vector2( -76, 219 )
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="SealFX" type="Sprite" parent="Phase4/SealLayer/Seals/Seal8" index="0"]
 
 visible = false
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Phase5" type="Node2D" parent="." index="8"]
@@ -2792,27 +2833,27 @@ _sections_unfolded = [ "Transform" ]
 
 editor/display_folded = true
 position = Vector2( 683, 384 )
-texture = ExtResource( 22 )
+texture = ExtResource( 23 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="LabyrinthLocation2" type="Sprite" parent="Phase5/LabyrinthLocation" index="0"]
 
 modulate = Color( 1, 1, 1, 0 )
-texture = ExtResource( 23 )
+texture = ExtResource( 24 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="LabyrinthLocation3" type="Sprite" parent="Phase5/LabyrinthLocation/LabyrinthLocation2" index="0"]
 
 modulate = Color( 1, 1, 1, 0 )
 z_index = 1
-texture = ExtResource( 24 )
+texture = ExtResource( 25 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="LabyrinthLocation4" type="Sprite" parent="Phase5/LabyrinthLocation/LabyrinthLocation2/LabyrinthLocation3" index="0"]
 
 modulate = Color( 1, 1, 1, 0 )
 z_index = 1
-texture = ExtResource( 25 )
+texture = ExtResource( 26 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="ColorRect" type="ColorRect" parent="Phase5" index="1"]
@@ -2837,7 +2878,7 @@ _sections_unfolded = [ "Rect", "Visibility" ]
 
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 683.5, 284.5 )
-texture = ExtResource( 26 )
+texture = ExtResource( 27 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Phase6" type="Node2D" parent="." index="9"]
@@ -2850,21 +2891,21 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 678, 593 )
-texture = ExtResource( 27 )
+texture = ExtResource( 28 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="Spooky" type="Sprite" parent="Phase6" index="1"]
 
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 689, 569 )
-texture = ExtResource( 28 )
+texture = ExtResource( 29 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="World" type="Sprite" parent="Phase6" index="2"]
 
 position = Vector2( 683, 384 )
 z_index = -2
-texture = ExtResource( 29 )
+texture = ExtResource( 30 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Dungeons" type="Node2D" parent="Phase6" index="3"]
@@ -2874,39 +2915,38 @@ editor/display_folded = true
 [node name="Dungeon1" type="Sprite" parent="Phase6/Dungeons" index="0"]
 
 position = Vector2( 1942, 1043 )
-texture = ExtResource( 30 )
+texture = ExtResource( 31 )
 
 [node name="Dungeon2" type="Sprite" parent="Phase6/Dungeons" index="1"]
 
 position = Vector2( 2007, -323 )
-texture = ExtResource( 31 )
+texture = ExtResource( 32 )
 
 [node name="Dungeon3" type="Sprite" parent="Phase6/Dungeons" index="2"]
 
 position = Vector2( -810, -335 )
-texture = ExtResource( 32 )
+texture = ExtResource( 33 )
 
 [node name="Dungeon4" type="Sprite" parent="Phase6/Dungeons" index="3"]
 
 position = Vector2( -1088, 1183 )
-texture = ExtResource( 33 )
+texture = ExtResource( 34 )
 
 [node name="Dungeon5" type="Sprite" parent="Phase6/Dungeons" index="4"]
 
 position = Vector2( -32, 330 )
-texture = ExtResource( 34 )
+texture = ExtResource( 35 )
 
 [node name="Phase7" type="Node2D" parent="." index="10"]
 
 editor/display_folded = true
-visible = false
 z_index = 2
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Castle" type="Sprite" parent="Phase7" index="0"]
 
 position = Vector2( 683, 384 )
-texture = ExtResource( 35 )
+texture = ExtResource( 36 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Engineer" type="Sprite" parent="Phase7" index="1"]
@@ -2937,7 +2977,7 @@ visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
 process_material = SubResource( 25 )
-texture = ExtResource( 36 )
+texture = ExtResource( 37 )
 normal_map = null
 h_frames = 1
 v_frames = 1
@@ -2945,13 +2985,15 @@ _sections_unfolded = [ "Process Material", "Time", "Visibility" ]
 
 [node name="Phase8" type="Node2D" parent="." index="11"]
 
+editor/display_folded = true
 z_index = 2
 _sections_unfolded = [ "Visibility" ]
 
 [node name="City" type="Sprite" parent="Phase8" index="0"]
 
-position = Vector2( 1024, 384 )
-texture = ExtResource( 37 )
+visible = false
+position = Vector2( 341, 384 )
+texture = ExtResource( 38 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="People" type="YSort" parent="Phase8/City" index="0"]
@@ -2963,49 +3005,49 @@ sort_enabled = true
 [node name="Smuteczek" type="Sprite" parent="Phase8/City/People" index="0"]
 
 position = Vector2( 521, 500 )
-texture = ExtResource( 38 )
+texture = ExtResource( 39 )
 
 [node name="Smuteczek5" type="Sprite" parent="Phase8/City/People" index="1"]
 
 position = Vector2( 825, 462 )
-texture = ExtResource( 38 )
+texture = ExtResource( 39 )
 
 [node name="Smuteczek6" type="Sprite" parent="Phase8/City/People" index="2"]
 
 position = Vector2( 197, 347 )
-texture = ExtResource( 38 )
+texture = ExtResource( 39 )
 
 [node name="Smuteczek7" type="Sprite" parent="Phase8/City/People" index="3"]
 
 position = Vector2( 239, 103 )
-texture = ExtResource( 38 )
+texture = ExtResource( 39 )
 
 [node name="Smuteczek8" type="Sprite" parent="Phase8/City/People" index="4"]
 
 position = Vector2( 883, 342 )
-texture = ExtResource( 38 )
+texture = ExtResource( 39 )
 
 [node name="Smuteczek2" type="Sprite" parent="Phase8/City/People" index="5"]
 
 position = Vector2( 796, 272 )
-texture = ExtResource( 38 )
+texture = ExtResource( 39 )
 
 [node name="Smuteczek3" type="Sprite" parent="Phase8/City/People" index="6"]
 
 position = Vector2( 1014, 310 )
-texture = ExtResource( 38 )
+texture = ExtResource( 39 )
 
 [node name="Smuteczek4" type="Sprite" parent="Phase8/City/People" index="7"]
 
 position = Vector2( 1099, 478 )
-texture = ExtResource( 38 )
+texture = ExtResource( 39 )
 
 [node name="Warrior" type="Sprite" parent="Phase8/City" index="1"]
 
 editor/display_folded = true
-position = Vector2( -739, 357.265 )
-rotation = 1.5708
-texture = ExtResource( 39 )
+visible = false
+position = Vector2( -358.433, 344 )
+texture = ExtResource( 40 )
 hframes = 3
 frame = 2
 _sections_unfolded = [ "Animation", "Transform", "Visibility" ]
@@ -3023,23 +3065,26 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="WariorHead" type="Sprite" parent="Phase8/City/Warrior" index="1"]
 
+visible = false
 position = Vector2( 5.46985, -39.9125 )
-texture = ExtResource( 40 )
+texture = ExtResource( 41 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Slash" type="Sprite" parent="Phase8/City" index="2"]
 
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( -730, 337 )
-texture = ExtResource( 41 )
+texture = ExtResource( 42 )
 vframes = 7
 frame = 6
 _sections_unfolded = [ "Animation", "Visibility" ]
 
 [node name="Slasher" type="Sprite" parent="Phase8/City" index="3"]
 
+visible = false
 position = Vector2( -654, 332 )
-texture = ExtResource( 42 )
+texture = ExtResource( 43 )
 hframes = 2
 frame = 1
 _sections_unfolded = [ "Animation", "Transform", "Visibility" ]
@@ -3059,7 +3104,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-color = Color( 1, 1, 1, 1 )
+color = Color( 0, 0, 0, 1 )
 _sections_unfolded = [ "Visibility" ]
 
 [connection signal="animation_finished" from="Animator" to="." method="_on_phase_finished"]
