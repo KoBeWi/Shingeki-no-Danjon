@@ -191,6 +191,7 @@ func seals(): move_seals = 0.1
 func seal_fx(): seal_fx = 0.1
 func appear_dungeons(): appear_dungeons = true
 func move_humans(): move_humans = true
+func music(): Res.play_music(\"Intro\")
 
 func kill_dinosaurs():
 	$Phase1/Sky/Dinosaur.texture = preload(\"res://Sprites/Intro/Deadosaur.png\")
@@ -332,11 +333,14 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 6, 6.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 3, 6, 6.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
 "args": [ "Text1" ],
 "method": "animate_text"
+}, {
+"args": [  ],
+"method": "music"
 }, {
 "args": [ "Text2" ],
 "method": "animate_text"
@@ -1664,6 +1668,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Texts" type="CanvasLayer" parent="Camera" index="0"]
 
+editor/display_folded = true
 layer = 3
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -2257,7 +2262,6 @@ _sections_unfolded = [ "Playback Options" ]
 [node name="Phase1" type="Node2D" parent="." index="3"]
 
 editor/display_folded = true
-visible = false
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2265,6 +2269,7 @@ __meta__ = {
 [node name="Sky" type="Sprite" parent="Phase1" index="0"]
 
 editor/display_folded = true
+position = Vector2( 1366, 768 )
 texture = ExtResource( 11 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 2732, 1536 )
@@ -2297,7 +2302,7 @@ _sections_unfolded = [ "Offset" ]
 [node name="StarSky" type="Sprite" parent="Phase1" index="1"]
 
 editor/display_folded = true
-position = Vector2( 707, 617 )
+position = Vector2( -743, -82 )
 texture = ExtResource( 13 )
 flip_v = true
 hframes = 3
@@ -2317,9 +2322,9 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="StarExplosion" type="Sprite" parent="Phase1" index="2"]
 
-modulate = Color( 1, 1, 1, 0.866667 )
-position = Vector2( 683, 306.333 )
-scale = Vector2( 3.6, 3.6 )
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 683, 640 )
 texture = ExtResource( 14 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 

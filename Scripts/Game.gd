@@ -83,8 +83,3 @@ func perma_state(object, method):
 
 func save_state(object):
 	obj_properties.append({"id": object_ids[object], "saved": true})
-
-func set_music(player):
-	if music: music.queue_free()
-	music = player
-	add_child(music)

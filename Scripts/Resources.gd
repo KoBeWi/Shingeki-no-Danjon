@@ -9,6 +9,7 @@ var dungeons = {}
 var crafting = []
 
 var game
+var music
 
 func _ready():
 	for segment in get_resource_list("Segments"):
@@ -124,7 +125,12 @@ func play_music(music):
 	var player = AudioStreamPlayer.new()
 	player.stream = load("res://Music/" + music + ".ogg")
 	player.play()
-	game.set_music(player)
+	set_music(player)
+
+func set_music(player):
+	if music: music.queue_free()
+	music = player
+	add_child(music)
 
 func create_instance(node):
 	return get_node(node).instance()
