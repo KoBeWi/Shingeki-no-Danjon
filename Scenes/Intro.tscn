@@ -85,6 +85,8 @@ func _ready():
 	##/ENDDEBUGAŁKE
 
 func _process(delta):
+	if Input.is_action_pressed(\"ui_accept\"): get_tree().change_scene(\"res://Scenes/TitleScreen.tscn\")
+	
 	if appear_humans:
 		$Phase2/Mover/Civilization.get_child(randi() % $Phase2/Mover/Civilization.get_child_count()).modulate.a += delta*10
 	
@@ -173,6 +175,9 @@ func _on_phase_finished(phase):
 		\"Phase7\":
 			$Animator.play(\"Phase8\")
 			$Phase8.visible = true
+		
+		\"Phase8\":
+			get_tree().change_scene(\"res://Scenes/TitleScreen.tscn\")
 
 func animate_text(text):
 	texts.get_node(\"TextAnimator\").get_animation(\"AnimateText\").track_set_path(0, text + \":percent_visible\")
