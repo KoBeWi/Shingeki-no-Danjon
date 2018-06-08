@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://Sprites/Intro/Dying.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Intro/Ded.png" type="Texture" id=2]
@@ -37,6 +37,10 @@
 [ext_resource path="res://Sprites/Intro/Castle.png" type="Texture" id=35]
 [ext_resource path="res://Sprites/Intro/Lifeforce.png" type="Texture" id=36]
 [ext_resource path="res://Sprites/Intro/City.png" type="Texture" id=37]
+[ext_resource path="res://Sprites/Intro/Smuteczek.png" type="Texture" id=38]
+[ext_resource path="res://Sprites/Intro/Warrior.png" type="Texture" id=39]
+[ext_resource path="res://Sprites/Intro/WariorHead.png" type="Texture" id=40]
+[ext_resource path="res://Sprites/Intro/Slash.png" type="Texture" id=41]
 
 [sub_resource type="GDScript" id=1]
 
@@ -50,6 +54,7 @@ var build_city
 var move_seals
 var seal_fx
 var appear_dungeons
+var move_humans
 
 func _ready():
 	seed(2)
@@ -71,7 +76,7 @@ func _ready():
 	
 	recursive_invisible($Phase3/Buildings)
 	
-	return
+#	return
 	##DEBUGAŁKE
 	$Animator.play(\"Phase7\")
 	$Phase7.visible = true
@@ -112,6 +117,10 @@ func _process(delta):
 	if appear_dungeons:
 		var dungeon = $Phase6/Dungeons.get_child(randi() % $Phase6/Dungeons.get_child_count())
 		if dungeon.modulate.a < 1: dungeon.modulate.a += delta*2
+	
+	if move_humans:
+		for human in $Phase8/City/People.get_children():
+			human.position += Vector2(-1 + randi()%3, -1 + randi()%3)
 
 func _on_phase_finished(phase):
 	match phase:
@@ -174,6 +183,7 @@ func build_city(): build_city = true
 func seals(): move_seals = 0.1
 func seal_fx(): seal_fx = 0.1
 func appear_dungeons(): appear_dungeons = true
+func move_humans(): move_humans = true
 
 func kill_dinosaurs():
 	$Phase1/Sky/Dinosaur.texture = preload(\"res://Sprites/Intro/Deadosaur.png\")
@@ -195,6 +205,10 @@ func world_burns():
 func redeyize(node):
 	node.texture = preload(\"res://Sprites/Intro/Redeye.png\")
 	node.hframes = 3
+
+func give_hope():
+	for human in $Phase8/City/People.get_children(): if randi()%2 ==0:
+		human.texture = preload(\"res://Sprites/Intro/Nadzieja.png\")
 	
 func recursive_invisible(node):
 	node.self_modulate.a = 0
@@ -918,7 +932,7 @@ tracks/5/keys = {
 [sub_resource type="Animation" id=11]
 
 resource_name = "Phase8"
-length = 3.0
+length = 20.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -928,10 +942,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 2, 17.7, 18.1, 18.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.712706 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Phase7:visible")
@@ -956,6 +970,200 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1, 5, 6, 10, 15 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "move_humans"
+}, {
+"args": [ "Text17" ],
+"method": "animate_text"
+}, {
+"args": [  ],
+"method": "give_hope"
+}, {
+"args": [ "Text18" ],
+"method": "animate_text"
+}, {
+"args": [ "Text19" ],
+"method": "animate_text"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Phase8/City:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 8, 10 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 341, 384 ), Vector2( 341, 384 ), Vector2( 1024, 384 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Phase8/City/Warrior:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 12 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Phase8/City/Warrior:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 12, 18, 18.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -273, 344 ), Vector2( -739, 344 ), Vector2( -739, 357.265 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 12, 16 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -392, 269 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera:zoom")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 12, 16 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 0.3, 0.3 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Phase8/City/Warrior/AnimationPlayer:current_animation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 18 ),
+"transitions": PoolRealArray( 1 ),
+"update": 2,
+"values": [ "" ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Phase8/City/Warrior:frame")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 18 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Phase8/City/Warrior/WariorHead:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 18 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Phase8/City/Warrior/WariorHead:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 18, 18.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 6, -13 ), Vector2( 5.46985, -39.9125 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Phase8/City/Warrior:rotation_degrees")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 18, 18.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 90.0 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Phase8/City/Slash:frame")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 17.7, 17.8, 17.9, 18, 18.1, 18.2, 18.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6 ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Phase8/City/Slash:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 17.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Phase8/City/Slash:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 17.7, 18.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Phase8/ColorRect:color")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 17.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -1251,6 +1459,25 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Angle", "Spread" ]
 
+[sub_resource type="Animation" id=26]
+
+resource_name = "Run"
+length = 2.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
 [node name="Intro" type="Node2D" index="0"]
 
 script = SubResource( 1 )
@@ -1306,12 +1533,13 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Camera" type="Camera2D" parent="." index="2"]
 
+position = Vector2( -392, 269 )
 z_index = 4
 offset = Vector2( 683, 384 )
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 1, 1 )
+zoom = Vector2( 0.3, 0.3 )
 limit_left = -10000000
 limit_top = -10000000
 limit_right = 10000000
@@ -1775,9 +2003,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 244.0
-margin_top = 297.0
+margin_top = 58.0
 margin_right = 1278.0
-margin_bottom = 426.0
+margin_bottom = 187.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1785,7 +2013,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 5 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "With a constant terror and fear of death,
 their only hope was to find the 8 Divine Seals,
 to stop Engineers’ genocide."
@@ -1802,9 +2030,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 102.0
-margin_top = 297.0
+margin_top = 118.0
 margin_right = 1224.0
-margin_bottom = 426.0
+margin_bottom = 247.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1812,7 +2040,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 5 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "But that would require delving into enemy territory
 to destroy Dungeons and reclaim stolen lands."
 align = 1
@@ -1838,7 +2066,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 5 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Does a human brave enough exist to save his kind?"
 align = 1
 percent_visible = 0.0
@@ -2645,8 +2873,91 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="City" type="Sprite" parent="Phase8" index="0"]
 
-position = Vector2( 341, 384 )
+position = Vector2( 1024, 384 )
 texture = ExtResource( 37 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="People" type="YSort" parent="Phase8/City" index="0"]
+
+editor/display_folded = true
+position = Vector2( -341, -384 )
+sort_enabled = true
+
+[node name="Smuteczek" type="Sprite" parent="Phase8/City/People" index="0"]
+
+position = Vector2( 521, 500 )
+texture = ExtResource( 38 )
+
+[node name="Smuteczek5" type="Sprite" parent="Phase8/City/People" index="1"]
+
+position = Vector2( 825, 462 )
+texture = ExtResource( 38 )
+
+[node name="Smuteczek6" type="Sprite" parent="Phase8/City/People" index="2"]
+
+position = Vector2( 197, 347 )
+texture = ExtResource( 38 )
+
+[node name="Smuteczek7" type="Sprite" parent="Phase8/City/People" index="3"]
+
+position = Vector2( 239, 103 )
+texture = ExtResource( 38 )
+
+[node name="Smuteczek8" type="Sprite" parent="Phase8/City/People" index="4"]
+
+position = Vector2( 883, 342 )
+texture = ExtResource( 38 )
+
+[node name="Smuteczek2" type="Sprite" parent="Phase8/City/People" index="5"]
+
+position = Vector2( 796, 272 )
+texture = ExtResource( 38 )
+
+[node name="Smuteczek3" type="Sprite" parent="Phase8/City/People" index="6"]
+
+position = Vector2( 1014, 310 )
+texture = ExtResource( 38 )
+
+[node name="Smuteczek4" type="Sprite" parent="Phase8/City/People" index="7"]
+
+position = Vector2( 1099, 478 )
+texture = ExtResource( 38 )
+
+[node name="Warrior" type="Sprite" parent="Phase8/City" index="1"]
+
+editor/display_folded = true
+position = Vector2( -700.167, 344 )
+texture = ExtResource( 39 )
+hframes = 3
+frame = 2
+_sections_unfolded = [ "Animation", "Transform", "Visibility" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Phase8/City/Warrior" index="0"]
+
+root_node = NodePath("..")
+autoplay = "Run"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 8.0
+anims/Run = SubResource( 26 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="WariorHead" type="Sprite" parent="Phase8/City/Warrior" index="1"]
+
+visible = false
+position = Vector2( 5.89397, -18.3825 )
+texture = ExtResource( 40 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Slash" type="Sprite" parent="Phase8/City" index="2"]
+
+visible = false
+position = Vector2( -734, 337 )
+texture = ExtResource( 41 )
+vframes = 7
+frame = 3
+_sections_unfolded = [ "Animation", "Visibility" ]
 
 [node name="ColorRect" type="ColorRect" parent="Phase8" index="1"]
 
@@ -2663,7 +2974,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-color = Color( 0, 0, 0, 1 )
+color = Color( 0.988701, 0.988701, 0.988701, 1 )
 _sections_unfolded = [ "Visibility" ]
 
 [connection signal="animation_finished" from="Animator" to="." method="_on_phase_finished"]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Fire.png-5869f794d00c58628c72f64c026dd13c.stex"
+path="res://.import/Slash.png-66902f5cd0cdbb00ab19d2c85f3a85ef.stex"
 
 [deps]
 
-source_file="res://Sprites/Intro/Fire.png"
-source_md5="92eabb6d4a19e26e779f4e9c316861f6"
+source_file="res://Sprites/Intro/Slash.png"
+source_md5="20fdecc67472aa6ac563e696cbf27926"
 
-dest_files=[ "res://.import/Fire.png-5869f794d00c58628c72f64c026dd13c.stex" ]
-dest_md5="cbd471461710505506a221cc6012a950"
+dest_files=[ "res://.import/Slash.png-66902f5cd0cdbb00ab19d2c85f3a85ef.stex" ]
+dest_md5="11daf206d76f3d06812f24eefa832730"
 
 [params]
 
@@ -18,7 +18,7 @@ compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

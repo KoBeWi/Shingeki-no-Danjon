@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Fire.png-5869f794d00c58628c72f64c026dd13c.stex"
+path="res://.import/Smuteczek.png-fff3f8045edf4a395a4325f87424ffaf.stex"
 
 [deps]
 
-source_file="res://Sprites/Intro/Fire.png"
-source_md5="92eabb6d4a19e26e779f4e9c316861f6"
+source_file="res://Sprites/Intro/Smuteczek.png"
+source_md5="3c75cc0fbcb5e46c9a67599308a11ec0"
 
-dest_files=[ "res://.import/Fire.png-5869f794d00c58628c72f64c026dd13c.stex" ]
-dest_md5="cbd471461710505506a221cc6012a950"
+dest_files=[ "res://.import/Smuteczek.png-fff3f8045edf4a395a4325f87424ffaf.stex" ]
+dest_md5="befa4ec211d337e003836ade99604075"
 
 [params]
 
@@ -18,8 +18,8 @@ compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
-flags/repeat=1
-flags/filter=false
+flags/repeat=0
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

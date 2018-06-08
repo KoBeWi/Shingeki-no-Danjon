@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Fire.png-5869f794d00c58628c72f64c026dd13c.stex"
+path="res://.import/WariorHead.png-d2fedd5c95da52b1e92a1582ee0b669b.stex"
 
 [deps]
 
-source_file="res://Sprites/Intro/Fire.png"
-source_md5="92eabb6d4a19e26e779f4e9c316861f6"
+source_file="res://Sprites/Intro/WariorHead.png"
+source_md5="3fe2e26263d5aa0c143dcac253f1528b"
 
-dest_files=[ "res://.import/Fire.png-5869f794d00c58628c72f64c026dd13c.stex" ]
-dest_md5="cbd471461710505506a221cc6012a950"
+dest_files=[ "res://.import/WariorHead.png-d2fedd5c95da52b1e92a1582ee0b669b.stex" ]
+dest_md5="e29e52be2c5f36addb6e2c35bc5e873b"
 
 [params]
 
@@ -18,8 +18,8 @@ compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
-flags/repeat=1
-flags/filter=false
+flags/repeat=0
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
