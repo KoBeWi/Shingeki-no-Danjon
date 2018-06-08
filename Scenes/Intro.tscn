@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Resources/Fonts/Font36.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Sprites/Intro/Landscape.png" type="Texture" id=2]
@@ -26,6 +26,11 @@
 [ext_resource path="res://Sprites/Intro/Adventurer.png" type="Texture" id=24]
 [ext_resource path="res://Sprites/Intro/Spooky.png" type="Texture" id=25]
 [ext_resource path="res://Sprites/Intro/World.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/Intro/Dungeon1.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/Intro/Dungeon2.png" type="Texture" id=28]
+[ext_resource path="res://Sprites/Intro/Dungeon3.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/Intro/Dungeon4.png" type="Texture" id=30]
+[ext_resource path="res://Sprites/Intro/Dungeon5.png" type="Texture" id=31]
 
 [sub_resource type="GDScript" id=1]
 
@@ -38,12 +43,16 @@ var appear_humans
 var build_city
 var move_seals
 var seal_fx
+var appear_dungeons
 
 func _ready():
 	seed(2)
 	for human in $Phase2/Mover/Civilization.get_children():
 		human.frame = randi()%4
 		human.modulate.a = 0
+	
+	for dungeon in $Phase6/Dungeons.get_children():
+		dungeon.modulate.a = 0
 	
 	$Phase1.visible = true
 	$Phase2.visible = false
@@ -56,6 +65,7 @@ func _ready():
 	return
 	##DEBUGAŁKE
 	$Phase5.visible = true
+	$Phase1.visible = false
 	$Animator.play(\"Phase5\")
 	seal_fx()
 	##/ENDDEBUGAŁKE
@@ -85,10 +95,15 @@ func _process(delta):
 		
 		seal_fx += delta
 	elif seal_fx and seal_fx < 128:
+		$Camera/Landscape/Fire.visible = false
 		for seal in $Phase4/SealLayer/Seals.get_children():
 			seal.position.x = sin(seal.get_index() * PI/4) * (128 - seal_fx)
 			seal.position.y = cos(seal.get_index() * PI/4) * (128 - seal_fx)
 		seal_fx += delta*100
+	
+	if appear_dungeons:
+		var dungeon = $Phase6/Dungeons.get_child(randi() % $Phase6/Dungeons.get_child_count())
+		if dungeon.modulate.a < 1: dungeon.modulate.a += delta*2
 
 func _on_phase_finished(phase):
 	match phase:
@@ -142,6 +157,7 @@ func appear_humans(): appear_humans = true
 func build_city(): build_city = true
 func seals(): move_seals = 0.1
 func seal_fx(): seal_fx = 0.1
+func appear_dungeons(): appear_dungeons = true
 
 func kill_dinosaurs():
 	$Phase1/Sky/Dinosaur.texture = preload(\"res://Sprites/Intro/Deadosaur.png\")
@@ -749,10 +765,16 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 6, 6.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
 "args": [ "Text13" ],
+"method": "animate_text"
+}, {
+"args": [  ],
+"method": "appear_dungeons"
+}, {
+"args": [ "Text14" ],
 "method": "animate_text"
 } ]
 }
@@ -1094,7 +1116,6 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Camera" type="Camera2D" parent="." index="2"]
 
-editor/display_folded = true
 z_index = 4
 offset = Vector2( 683, 384 )
 anchor_mode = 1
@@ -1484,10 +1505,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 249.0
-margin_top = 297.0
-margin_right = 953.0
-margin_bottom = 426.0
+margin_left = 338.0
+margin_top = 81.0
+margin_right = 1042.0
+margin_bottom = 210.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1495,7 +1516,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "All over the world, structures
 known as Dungeons have appeared."
 align = 1
@@ -1638,7 +1659,6 @@ _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
 [node name="Landscape" type="Sprite" parent="Camera" index="1"]
 
 editor/display_folded = true
-visible = false
 position = Vector2( 683, 384 )
 z_as_relative = false
 texture = ExtResource( 2 )
@@ -1769,7 +1789,6 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 [node name="Phase3" type="Node2D" parent="." index="4"]
 
 editor/display_folded = true
-visible = false
 _sections_unfolded = [ "Visibility" ]
 
 [node name="Buildings" type="Node2D" parent="Phase3" index="0"]
@@ -2042,7 +2061,6 @@ _sections_unfolded = [ "Playback Options" ]
 [node name="Phase3a" type="Node2D" parent="." index="6"]
 
 editor/display_folded = true
-visible = false
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Engineer" type="Sprite" parent="Phase3a" index="0"]
@@ -2153,7 +2171,6 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 editor/display_folded = true
 visible = false
-modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 683, 384 )
 z_index = 1
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
@@ -2281,17 +2298,20 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="LabyrinthLocation2" type="Sprite" parent="Phase5/LabyrinthLocation" index="0"]
 
+modulate = Color( 1, 1, 1, 0 )
 texture = ExtResource( 20 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="LabyrinthLocation3" type="Sprite" parent="Phase5/LabyrinthLocation/LabyrinthLocation2" index="0"]
 
+modulate = Color( 1, 1, 1, 0 )
 z_index = 1
 texture = ExtResource( 21 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="LabyrinthLocation4" type="Sprite" parent="Phase5/LabyrinthLocation/LabyrinthLocation2/LabyrinthLocation3" index="0"]
 
+modulate = Color( 1, 1, 1, 0 )
 z_index = 1
 texture = ExtResource( 22 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
@@ -2316,6 +2336,7 @@ _sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="Labyrinth" type="Sprite" parent="Phase5" index="2"]
 
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 683.5, 284.5 )
 texture = ExtResource( 23 )
 _sections_unfolded = [ "Transform", "Visibility" ]
@@ -2345,6 +2366,33 @@ position = Vector2( 683, 384 )
 z_index = -2
 texture = ExtResource( 26 )
 _sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Dungeons" type="Node2D" parent="Phase6" index="3"]
+
+[node name="Dungeon1" type="Sprite" parent="Phase6/Dungeons" index="0"]
+
+position = Vector2( 1942, 1043 )
+texture = ExtResource( 27 )
+
+[node name="Dungeon2" type="Sprite" parent="Phase6/Dungeons" index="1"]
+
+position = Vector2( 2007, -323 )
+texture = ExtResource( 28 )
+
+[node name="Dungeon3" type="Sprite" parent="Phase6/Dungeons" index="2"]
+
+position = Vector2( -810, -335 )
+texture = ExtResource( 29 )
+
+[node name="Dungeon4" type="Sprite" parent="Phase6/Dungeons" index="3"]
+
+position = Vector2( -1088, 1183 )
+texture = ExtResource( 30 )
+
+[node name="Dungeon5" type="Sprite" parent="Phase6/Dungeons" index="4"]
+
+position = Vector2( -32, 330 )
+texture = ExtResource( 31 )
 
 [connection signal="animation_finished" from="Animator" to="." method="_on_phase_finished"]
 
