@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Resources/Fonts/Font36.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Sprites/Intro/Landscape.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Sprites/Intro/Engineer.png" type="Texture" id=14]
 [ext_resource path="res://Sprites/Intro/StarRays.png" type="Texture" id=15]
 [ext_resource path="res://Sprites/Intro/Eyeflash.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/Intro/DivineSeal.png" type="Texture" id=17]
 
 [sub_resource type="GDScript" id=12]
 
@@ -26,6 +27,7 @@ onready var texts = $Camera/Texts
 
 var appear_humans
 var build_city
+var move_seals
 
 func _ready():
 	seed(2)
@@ -46,7 +48,9 @@ func _ready():
 	$Phase3.visible = true
 	$Phase3a.visible = true
 	$Camera/Landscape.visible = true
-	$Animator.play(\"Phase3\")
+	build_city()
+	_on_phase_finished(\"Phase4\")
+	$Animator.stop()
 	##/ENDDEBUGAŁKE
 
 func _process(delta):
@@ -54,6 +58,12 @@ func _process(delta):
 		$Phase2/Mover/Civilization.get_child(randi() % $Phase2/Mover/Civilization.get_child_count()).modulate.a += delta*10
 	
 	if build_city: recursive_visible($Phase3/Buildings)
+	
+	if move_seals and move_seals < 128:
+		for seal in $Phase4/SealLayer/Seals.get_children():
+			seal.position.x = sin(seal.get_index() * PI/4) * move_seals
+			seal.position.y = cos(seal.get_index() * PI/4) * move_seals
+		move_seals += delta*100
 
 func _on_phase_finished(phase):
 	match phase:
@@ -63,11 +73,13 @@ func _on_phase_finished(phase):
 			$Animator.play(\"Phase2\")
 			
 		\"Phase2\":
+			appear_humans = false
 			$Phase3.visible = true
 			$Camera/Landscape.visible = true
 			$Animator.play(\"Phase3\")
 			
 		\"Phase3\":
+			build_city = false
 			$Phase3/StarPower.texture = preload(\"res://Sprites/Intro/EvilStar.png\")
 			$Animator.play(\"Phase4\")
 			$Phase3a/Engineer/AnimationPlayer.play(\"Walk\")
@@ -75,6 +87,21 @@ func _on_phase_finished(phase):
 			$Phase3a/Engineer3/AnimationPlayer.play(\"Walk\")
 			$Phase3a/Engineer4/AnimationPlayer.play(\"Walk\")
 			recursive_retexture($Phase3/Buildings)
+		
+		\"Phase4\":
+			$Shader/Effect.visible = true
+			$Phase4/SealLayer/Seals.visible = true
+			$Phase3a/Engineer/AnimationPlayer.stop()
+			$Phase3a/Engineer2/AnimationPlayer.stop()
+			$Phase3a/Engineer3/AnimationPlayer.stop()
+			$Phase3a/Engineer4/AnimationPlayer.stop()
+			$Camera/Landscape/Fire/AnimationPlayer.stop()
+			$Camera/Landscape/Burnscape/Particles2D.speed_scale = 0
+			$Camera/Texts/TextAnimator.playback_speed = 0.8
+			animate_text(\"Text10\")
+			seals()
+			yield(get_tree().create_timer(5), \"timeout\")
+			$Animator.play(\"Phase5\")
 
 func animate_text(text):
 	texts.get_node(\"TextAnimator\").get_animation(\"AnimateText\").track_set_path(0, text + \":percent_visible\")
@@ -86,6 +113,9 @@ func appear_humans():
 
 func build_city():
 	build_city = true
+
+func seals():
+	move_seals = 0.1
 
 func kill_dinosaurs():
 	$Phase1/Sky/Dinosaur.texture = preload(\"res://Sprites/Intro/Deadosaur.png\")
@@ -100,9 +130,6 @@ func world_burns():
 	redeyize($Phase3a/Engineer)
 	redeyize($Phase3a/Engineer2)
 	redeyize($Phase3a/Engineer3)
-	redeyize($Phase3a/Engineer4)
-	redeyize($Phase3a/Engineer4)
-	redeyize($Phase3a/Engineer4)
 	redeyize($Phase3a/Engineer4)
 	$Phase3a/Eyeflash.visible = true
 	$Phase3a/Eyeflash2.visible = true
@@ -125,6 +152,21 @@ func recursive_retexture(node):
 	if node is Sprite: node.texture = preload(\"res://Sprites/Intro/BuildingRuined.png\")
 	for node2 in node.get_children(): recursive_retexture(node2)"
 _sections_unfolded = [ "Resource" ]
+
+[sub_resource type="Shader" id=26]
+
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec3 c = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
+	COLOR.rgb = vec3(1.0-c.r, 1.0-c.g, 1.0-c.b);
+}"
+
+[sub_resource type="ShaderMaterial" id=27]
+
+render_priority = 0
+shader = SubResource( 26 )
+_sections_unfolded = [ "shader_param" ]
 
 [sub_resource type="Animation" id=13]
 
@@ -443,7 +485,7 @@ tracks/10/keys = {
 
 [sub_resource type="Animation" id=16]
 
-length = 10.0
+length = 9.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -494,11 +536,18 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 4.1, 10 ),
+"times": PoolRealArray( 0, 4.1, 9 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -815, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -677, 0 ) ]
 }
+
+[sub_resource type="Animation" id=28]
+
+resource_name = "Phase5"
+length = 10.0
+loop = false
+step = 0.1
 
 [sub_resource type="Animation" id=17]
 
@@ -755,7 +804,35 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Animator" type="AnimationPlayer" parent="." index="0"]
+[node name="Shader" type="CanvasLayer" parent="." index="0"]
+
+editor/display_folded = true
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="Effect" type="ColorRect" parent="Shader" index="0"]
+
+visible = false
+material = SubResource( 27 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1366.0
+margin_bottom = 768.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 1, 1, 1, 1 )
+_sections_unfolded = [ "Material", "Rect" ]
+
+[node name="Animator" type="AnimationPlayer" parent="." index="1"]
 
 root_node = NodePath("..")
 autoplay = "Phase1"
@@ -766,10 +843,11 @@ anims/Phase1 = SubResource( 13 )
 anims/Phase2 = SubResource( 14 )
 anims/Phase3 = SubResource( 15 )
 anims/Phase4 = SubResource( 16 )
+anims/Phase5 = SubResource( 28 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Camera" type="Camera2D" parent="." index="1"]
+[node name="Camera" type="Camera2D" parent="." index="2"]
 
 editor/display_folded = true
 z_index = 1
@@ -800,8 +878,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Texts" type="CanvasLayer" parent="Camera" index="0"]
 
-editor/display_folded = true
-layer = 1
+layer = 3
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
@@ -1057,9 +1134,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 204.0
-margin_top = 297.0
+margin_top = 42.0
 margin_right = 1194.0
-margin_bottom = 426.0
+margin_bottom = 171.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -1370,7 +1447,7 @@ anims/Idle = SubResource( 21 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Phase1" type="Node2D" parent="." index="2"]
+[node name="Phase1" type="Node2D" parent="." index="3"]
 
 editor/display_folded = true
 visible = false
@@ -1441,7 +1518,7 @@ scale = Vector2( 1.3, 1.3 )
 texture = ExtResource( 9 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Phase3" type="Node2D" parent="." index="3"]
+[node name="Phase3" type="Node2D" parent="." index="4"]
 
 editor/display_folded = true
 _sections_unfolded = [ "Visibility" ]
@@ -1570,7 +1647,7 @@ _sections_unfolded = [ "Offset" ]
 position = Vector2( 1897, 263 )
 texture = ExtResource( 12 )
 
-[node name="Phase2" type="Node2D" parent="." index="4"]
+[node name="Phase2" type="Node2D" parent="." index="5"]
 
 editor/display_folded = true
 visible = false
@@ -1713,7 +1790,7 @@ anims/Idle = SubResource( 20 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Phase3a" type="Node2D" parent="." index="5"]
+[node name="Phase3a" type="Node2D" parent="." index="6"]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
 
@@ -1807,6 +1884,80 @@ rotation = -3.14159
 scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 16 )
 _sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Phase4" type="Node2D" parent="." index="7"]
+
+[node name="SealLayer" type="CanvasLayer" parent="Phase4" index="0"]
+
+editor/display_folded = true
+layer = 2
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="Seals" type="Node2D" parent="Phase4/SealLayer" index="0"]
+
+editor/display_folded = true
+visible = false
+position = Vector2( 683, 384 )
+z_index = 1
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Seal1" type="Sprite" parent="Phase4/SealLayer/Seals" index="0"]
+
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 98, -205 )
+texture = ExtResource( 17 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Seal2" type="Sprite" parent="Phase4/SealLayer/Seals" index="1"]
+
+modulate = Color( 0, 0.0859375, 1, 1 )
+position = Vector2( 234, -77 )
+texture = ExtResource( 17 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Seal3" type="Sprite" parent="Phase4/SealLayer/Seals" index="2"]
+
+modulate = Color( 0.945313, 0, 1, 1 )
+position = Vector2( 280, 88 )
+texture = ExtResource( 17 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Seal4" type="Sprite" parent="Phase4/SealLayer/Seals" index="3"]
+
+modulate = Color( 0, 1, 0.953125, 1 )
+position = Vector2( 140, 160 )
+texture = ExtResource( 17 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Seal5" type="Sprite" parent="Phase4/SealLayer/Seals" index="4"]
+
+modulate = Color( 0.101563, 1, 0, 1 )
+position = Vector2( -85, 79 )
+texture = ExtResource( 17 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Seal6" type="Sprite" parent="Phase4/SealLayer/Seals" index="5"]
+
+modulate = Color( 1, 0.9375, 0, 1 )
+position = Vector2( -55, -42 )
+texture = ExtResource( 17 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Seal7" type="Sprite" parent="Phase4/SealLayer/Seals" index="6"]
+
+modulate = Color( 1, 0.539063, 0, 1 )
+position = Vector2( -191, 23 )
+texture = ExtResource( 17 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Seal8" type="Sprite" parent="Phase4/SealLayer/Seals" index="7"]
+
+position = Vector2( -76, 219 )
+texture = ExtResource( 17 )
+_sections_unfolded = [ "Visibility" ]
 
 [connection signal="animation_finished" from="Animator" to="." method="_on_phase_finished"]
 
