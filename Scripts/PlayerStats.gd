@@ -34,7 +34,7 @@ func _ready():
 	equipment.resize(EQUIPMENT_SLOTS.size())
 	for i in range(EQUIPMENT_SLOTS.size()): SLOTS[EQUIPMENT_SLOTS[i]] = i
 	##DEBUG \/
-	return
+#	return
 	for item in Res.items:
 		add_item(item.id)
 #	for i in range(20): inventory.append({id = 0, stack = 1})
@@ -122,7 +122,7 @@ func recalc_stats():
 	max_mana = 98 + intelligence * 2
 	
 	health = min(health, max_health)
-	mana = min(health, max_mana)
+	mana = min(mana, max_mana)
 
 func exp_to_level(level):
 	return level * 10 + 10

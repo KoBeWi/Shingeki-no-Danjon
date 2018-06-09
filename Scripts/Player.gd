@@ -7,6 +7,8 @@ var GHOST = load("res://Nodes/Player.tscn")
 onready var UI = $Camera/UI
 onready var GHOST_EFFECT = $"/root/Game/GhostLayer/Effect"
 
+var frame_counter = 0
+
 var direction = -1
 var static_time = 0
 var motion_time = 0
@@ -38,6 +40,7 @@ func _ready():
 
 func _physics_process(delta):
 	if dead: return
+	frame_counter += 1
 	var move = Vector2()
 	
 	static_time += delta
@@ -82,7 +85,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Spell1") and PlayerStats.get_skill(0) and PlayerStats.mana > PlayerStats.get_skill(0).cost:
 		cast_spell(0)
 	
-	if randi()%10 == 0: PlayerStats.mana += 1
+	if PlayerStats.mana < PlayerStats.max_mana and frame_counter % 20 == 0: PlayerStats.mana += 1
 	UI.soft_refresh()
 	
 	if move.length_squared() == 0: running = false
@@ -106,7 +109,7 @@ func _physics_process(delta):
 		
 		if Input.is_action_just_released("Magic"): $Elements.visible = false
 	
-	if !elements_on and Input.is_action_pressed("Magic"):
+	if !elements_on:# and Input.is_action_pressed("Magic"):
 		use_magic()
 	
 	if Input.is_action_just_pressed("Ghost"):
@@ -289,10 +292,13 @@ func use_magic(): ##nie tylko magia :|
 	for skill in SkillBase.get_active_skills():
 		skill = Res.skills[skill]
 		
-		if (!skill.has("magic") or current_element == skill.magic) and SkillBase.check_combo(skill.combo):
+#		if (!skill.has("magic") or current_element == skill.magic) and SkillBase.check_combo(skill.combo):
+		if (!skill.has("magic") or current_element == skill.magic) and Input.is_action_just_pressed("Special"):
 			SkillBase.current_combo.clear()
 			
-			if skill.has("cost"): PlayerStats.mana -= skill.cost
+			if skill.has("cost"):
+				if PlayerStats.mana < skill.cost: continue
+				else: PlayerStats.mana -= skill.cost
 			if skill.has("stats"): for stat in skill.stats: SkillBase.inc_stat(stat)
 			
 			if skill.has("projectile"):

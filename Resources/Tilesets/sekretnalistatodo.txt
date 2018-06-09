@@ -1,6 +1,5 @@
 --zrefaktoryzowaæ kod wrogów
 pu³apki (œciany)
-poprawiæ sortowanie tarczy i rêki
 jak siê coœ psuje to pokazywaæ co (w sensie ekwipunek)
 kategorie
 trzymanie do przewyijania
