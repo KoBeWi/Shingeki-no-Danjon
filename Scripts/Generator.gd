@@ -353,6 +353,7 @@ func create_segment(segment, pos):
 	top.tile_set = load("res://Resources/Tilesets/" + dungeon_type.tileset + ".tres")
 	top.set_collision_layer_bit(3, true)
 	seg.position = Vector2(pos.x * SEG_W, pos.y * SEG_H)
+	var no_objects = get_segment_data(pos).segment.has("no_objects")
 	
 	for cell in bottom.get_used_cells():
 		var poss = Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80
@@ -369,8 +370,8 @@ func create_segment(segment, pos):
 						elif i == 2 and cell.y < 9: celll.bottom_wall = true
 						elif i == 3 and cell.x > 0: celll.left_wall = true
 				
-				if !get_segment_data(pos).has("no_objects"): floor_space[poss] = celll
-			10: if !get_segment_data(pos).has("no_objects"): wall_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
+				if !no_objects: floor_space[poss] = celll
+			10: if !no_objects: wall_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
 	
 	dungeon.add_child(seg)
 	if seg.has_node("Objects"):
