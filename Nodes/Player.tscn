@@ -1,7 +1,7 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Player/Front/Death.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Player/Front/BodyDamage.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Player/Right/SwordAttack.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Player/Left/Weapons/Sword1.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Player/Left/Shield.png" type="Texture" id=5]
@@ -11,17 +11,17 @@
 [ext_resource path="res://Sprites/UI/ElementIcons.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/UI/ElementSelect.png" type="Texture" id=10]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=15]
 
 custom_solver_bias = 0.0
 extents = Vector2( 12.7266, 3.18475 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=16]
 
 custom_solver_bias = 0.0
 extents = Vector2( 30.7129, 58.1424 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=17]
 
 custom_solver_bias = 0.0
 extents = Vector2( 30.7129, 50.1693 )
@@ -57,7 +57,7 @@ tracks/1/keys = {
 "values": [ 2, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=18]
 
 resource_name = "ShieldOn"
 length = 3.0
@@ -88,7 +88,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=19]
 
 length = 11.0
 loop = false
@@ -154,7 +154,7 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=20]
 
 length = 11.0
 loop = false
@@ -220,7 +220,7 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=21]
 
 length = 11.0
 loop = false
@@ -286,7 +286,7 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=22]
 
 length = 11.0
 loop = false
@@ -352,6 +352,25 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
+[sub_resource type="Animation" id=14]
+
+resource_name = "Damage"
+length = 1.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
 [sub_resource type="Animation" id=10]
 
 resource_name = "Death"
@@ -371,7 +390,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=23]
 
 length = 24.0
 loop = true
@@ -389,7 +408,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=24]
 
 length = 45.0
 loop = true
@@ -407,7 +426,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=25]
 
 length = 1.0
 loop = true
@@ -425,7 +444,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "players",
 ]]
 
@@ -441,7 +460,6 @@ _sections_unfolded = [ "Transform", "Z Index", "collision" ]
 
 position = Vector2( 0, -55 )
 texture = ExtResource( 2 )
-hframes = 8
 _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [node name="RightArm" type="Sprite" parent="Body" index="0"]
@@ -507,7 +525,7 @@ __meta__ = {
 [node name="Collider" type="CollisionShape2D" parent="." index="2"]
 
 position = Vector2( 0, -2 )
-shape = SubResource( 1 )
+shape = SubResource( 15 )
 _sections_unfolded = [ "Transform" ]
 __meta__ = {
 "_edit_lock_": true
@@ -533,7 +551,7 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( 42, 20.5983 )
 rotation = 2.82274
 scale = Vector2( 0.922973, 0.136567 )
-shape = SubResource( 2 )
+shape = SubResource( 16 )
 disabled = true
 _sections_unfolded = [ "Transform" ]
 
@@ -553,7 +571,7 @@ _sections_unfolded = [ "Collision", "Transform" ]
 
 position = Vector2( -1.46303, 1.11593 )
 scale = Vector2( 1, 1.181 )
-shape = SubResource( 3 )
+shape = SubResource( 17 )
 
 [node name="ArmAnimator" type="AnimationPlayer" parent="." index="5"]
 
@@ -563,11 +581,11 @@ playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
 anims/ShieldOff = SubResource( 4 )
-anims/ShieldOn = SubResource( 5 )
-anims/SwordAttackBack = SubResource( 6 )
-anims/SwordAttackFront = SubResource( 7 )
-anims/SwordAttackLeft = SubResource( 8 )
-anims/SwordAttackRight = SubResource( 9 )
+anims/ShieldOn = SubResource( 18 )
+anims/SwordAttackBack = SubResource( 19 )
+anims/SwordAttackFront = SubResource( 20 )
+anims/SwordAttackLeft = SubResource( 21 )
+anims/SwordAttackRight = SubResource( 22 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -578,9 +596,10 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 10.0
+anims/Damage = SubResource( 14 )
 anims/Death = SubResource( 10 )
-anims/Idle = SubResource( 11 )
-anims/Walk = SubResource( 12 )
+anims/Idle = SubResource( 23 )
+anims/Walk = SubResource( 24 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -651,7 +670,7 @@ autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Idle = SubResource( 13 )
+anims/Idle = SubResource( 25 )
 blend_times = [  ]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]

@@ -26,6 +26,7 @@ var attacking = false
 var shielding = false
 var current_element = 0
 
+var damaged
 var dead = false
 
 func _ready():
@@ -130,13 +131,17 @@ func _physics_process(delta):
 			GHOST_EFFECT.visible = true
 			GHOST_EFFECT.get_node("../AnimationPlayer").play("Activate")
 	
-	if move.length() > 0 and !not_move:
-		static_time = 0
-		PlayerStats.damage_equipment("boots")
-		change_animation("Body", "Walk")
+	if !damaged and !knockback:
+		if move.length() > 0 and !not_move:
+			static_time = 0
+			PlayerStats.damage_equipment("boots")
+			change_animation("Body", "Walk")
+		else:
+			motion_time = 0
+			change_animation("Body", "Idle")
 	else:
-		motion_time = 0
-		change_animation("Body", "Idle")
+		damaged -= 1
+		if damaged == 0: damaged = null
 	
 	var rem = move_and_slide(move)
 	if rem.length() == 0: motion_time = 0
@@ -148,6 +153,8 @@ func _physics_process(delta):
 
 func damage(attacker, amount, _knockback):
 	if dead: return
+	damaged = 16
+	Res.play_pitched_sample(self, "PlayerHurt")
 	
 	amount = max(1, amount - PlayerStats.get_defense())
 	var damage = amount
@@ -180,6 +187,8 @@ func damage(attacker, amount, _knockback):
 		Res.play_sample(self, "Dead")
 		yield(get_tree().create_timer(3), "timeout")
 		get_tree().change_scene("res://Scenes/TitleScreen.tscn")
+	else:
+		change_animation("Body", "Damage")
 
 func _on_animation_finished(anim_name):
 	if anim_name.find("SwordAttack") > -1: attacking = false
@@ -227,6 +236,11 @@ func change_animation(part, animation):
 			change_texture($Body, "BodyIdle")
 			$Body.hframes = 10
 			$BodyAnimator.playback_speed = 16
+			$Body.vframes = 1
+		"Damage":
+			change_texture($Body, "BodyDamage")
+			$Body.hframes = 1
+			$BodyAnimator.playback_speed = 1
 			$Body.vframes = 1
 		"Death":
 			change_dir(2)

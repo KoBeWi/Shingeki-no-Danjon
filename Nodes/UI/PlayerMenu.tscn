@@ -172,9 +172,12 @@ func _process(delta):
 			self.current_tab += 1
 			if current_tab >= TABS.size(): self.current_tab = 0
 		elif Input.is_action_just_pressed(\"Interact\") or Input.is_action_just_pressed(\"ui_down\"):
-			Res.ui_sample(\"MenuAccept\")
-			self.in_tab = true
-			enter_tab()
+			if current_tab != 2 or !SkillBase.acquired_skills.empty():
+				Res.ui_sample(\"MenuAccept\")
+				self.in_tab = true
+				enter_tab()
+			else:
+				Res.ui_sample(\"MenuFailed\")
 	else: match current_tab:
 		0:
 			for i in range(SKILLPOINTS.size()):
@@ -621,7 +624,7 @@ func refresh():
 	$Tabs/Equipment/Inventory/Scrollbar.visible = (PlayerStats.inventory.size() > 8)"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect" index="0"]
+[node name="PlayerMenu" type="TextureRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0

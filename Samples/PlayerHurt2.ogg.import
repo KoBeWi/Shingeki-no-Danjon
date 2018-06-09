@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/PlayerHurt2.ogg-5f513680a3947d37e990970fd58ee50e.oggstr"
+
+[deps]
+
+source_file="res://Samples/PlayerHurt2.ogg"
+source_md5="91cd1a711e1a6eda244edf0f5d0406be"
+
+dest_files=[ "res://.import/PlayerHurt2.ogg-5f513680a3947d37e990970fd58ee50e.oggstr" ]
+dest_md5="0d0b37986c4929a32573969c076eeb12"
+
+[params]
+
+loop=false
+loop_offset=0
