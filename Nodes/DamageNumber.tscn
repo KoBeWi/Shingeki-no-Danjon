@@ -22,7 +22,7 @@ const ORANGE = Color(1,0.27,0)
 
 func damage(node, amount, type = \"physical\"):
 	node.get_parent().add_child(self)
-	position = node.position
+	position = node.position - Vector2(0, 128)
 	$Label.text = str(amount)
 	
 	if type == \"player\": $Label.add_color_override(\"font_color\", RED)
@@ -56,7 +56,7 @@ use_filter = false
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="DamageNumber" type="Node2D"]
+[node name="DamageNumber" type="Node2D" index="0"]
 
 z_index = 5
 script = SubResource( 1 )

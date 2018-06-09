@@ -33,8 +33,8 @@ signal equipment_changed
 func _ready():
 	equipment.resize(EQUIPMENT_SLOTS.size())
 	for i in range(EQUIPMENT_SLOTS.size()): SLOTS[EQUIPMENT_SLOTS[i]] = i
-	return
 	##DEBUG \/
+	return
 	for item in Res.items:
 		add_item(item.id)
 #	for i in range(20): inventory.append({id = 0, stack = 1})

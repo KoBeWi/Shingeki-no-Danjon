@@ -217,12 +217,13 @@ func change_texture(sprite, texture, on_back = [], move_child = {}):
 
 func change_animation(part, animation):
 	if animations[part] == animation: return
+	animations[part] = animation
 	
 	match animation:
 		"Idle":
 			change_texture($Body, "BodyIdle")
 			$Body.hframes = 10
-			$BodyAnimator.playback_speed = 10
+			$BodyAnimator.playback_speed = 16
 			$Body.vframes = 1
 		"Death":
 			change_dir(2)
@@ -238,14 +239,15 @@ func change_animation(part, animation):
 		"ShieldOn":
 			change_texture($Body/LeftArm, "Shield", ["Back"])
 			$Body/LeftArm.hframes = 2
+			update_shield()
 		"ShieldOff":
 			change_texture($Body/LeftArm, "Shield", ["Right", "Back"])
 			$Body/LeftArm.hframes = 2
+			update_shield()
 	
 	match part:
 		"Body": $BodyAnimator.play(animation)
 		_: $ArmAnimator.play(animation)
-	animations[part] = animation
 
 func reset_arms():
 	$Body/LeftArm.frame = 0
@@ -273,7 +275,9 @@ func update_shield():
 		$Body/LeftArm/Shield.visible = false
 	else:
 		$Body/LeftArm/Shield.visible = true
-		change_texture($Body/LeftArm/Shield, "Shields/" + shield_sprite(), ["Back"])
+		var ordering = ["Back"]
+		if animations.LeftArm != "ShieldOn": ordering.append("Right")
+		change_texture($Body/LeftArm/Shield, "Shields/" + shield_sprite(), ordering)
 
 func cancel_ghost():
 	Res.play_sample(self, "GhostExit")
