@@ -29,7 +29,7 @@ _sections_unfolded = [ "Resource" ]
 custom_solver_bias = 0.0
 extents = Vector2( 40, 10 )
 
-[node name="Stairs" type="Sprite" index="0"]
+[node name="Stairs" type="Sprite"]
 
 texture = ExtResource( 1 )
 region_enabled = true

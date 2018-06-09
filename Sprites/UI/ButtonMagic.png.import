@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bgireballC.png-8599b10f84f661a60e419074b774cd79.stex"
+path="res://.import/ButtonMagic.png-5050fae1e0de3f975de5a52b38610f74.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Menu/bgireballC.png"
-source_md5="001a396c6cad4f83144c6e7738e672ec"
+source_file="res://Sprites/UI/ButtonMagic.png"
+source_md5="d1f2e1e50270e2e57a7bab4865da204b"
 
-dest_files=[ "res://.import/bgireballC.png-8599b10f84f661a60e419074b774cd79.stex" ]
-dest_md5="14f053d23fb4bdbe90212dda2dff7cd2"
+dest_files=[ "res://.import/ButtonMagic.png-5050fae1e0de3f975de5a52b38610f74.stex" ]
+dest_md5="2686e1e0f26e813e627734d7050dc24d"
 
 [params]
 

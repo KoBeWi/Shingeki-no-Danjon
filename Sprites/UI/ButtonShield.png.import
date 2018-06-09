@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FlamePipe.png-2c5c114da8ca482f7c018c4d6c9edeed.stex"
+path="res://.import/ButtonShield.png-36f0ab64a87cc623d6e6e6f8e8453aa8.stex"
 
 [deps]
 
-source_file="res://Sprites/Environment/FlamePipe.png"
-source_md5="a3388216b9290477c909f8703aee8cc5"
+source_file="res://Sprites/UI/ButtonShield.png"
+source_md5="ef57a0c8b2850328cc7cd3f54f753240"
 
-dest_files=[ "res://.import/FlamePipe.png-2c5c114da8ca482f7c018c4d6c9edeed.stex" ]
-dest_md5="ea154f542180ad941f9c91287c270536"
+dest_files=[ "res://.import/ButtonShield.png-36f0ab64a87cc623d6e6e6f8e8453aa8.stex" ]
+dest_md5="38cfb68fbbdb910fca38192609e1a07a"
 
 [params]
 

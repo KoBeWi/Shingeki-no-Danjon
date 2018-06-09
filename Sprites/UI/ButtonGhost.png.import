@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bduch.png-ba4e236fef971234e9348af154d45a81.stex"
+path="res://.import/ButtonGhost.png-1d04467b88eced00b0c74e3d2c158377.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Menu/bduch.png"
-source_md5="6de9b6ab07e96772ad3d2af63c705312"
+source_file="res://Sprites/UI/ButtonGhost.png"
+source_md5="fda376f75c095e663959347b5b863ab5"
 
-dest_files=[ "res://.import/bduch.png-ba4e236fef971234e9348af154d45a81.stex" ]
-dest_md5="43efad40ed8f04027648f81c96205b96"
+dest_files=[ "res://.import/ButtonGhost.png-1d04467b88eced00b0c74e3d2c158377.stex" ]
+dest_md5="56f1f7227c503aab79ec3ed12a69c371"
 
 [params]
 

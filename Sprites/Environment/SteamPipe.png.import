@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bswordppm.png-111aecfaf931f4c3c17bbf2e13c4bb10.stex"
+path="res://.import/SteamPipe.png-89a3f11906609ea2c652ef41745faac3.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Menu/bswordppm.png"
-source_md5="68b98e3343abe18197f46a5a9f4ed0f0"
+source_file="res://Sprites/Environment/SteamPipe.png"
+source_md5="5d0e996d7275f4f000ff55d40458db27"
 
-dest_files=[ "res://.import/bswordppm.png-111aecfaf931f4c3c17bbf2e13c4bb10.stex" ]
-dest_md5="74f37415007364ee6e2bb720b15782b2"
+dest_files=[ "res://.import/SteamPipe.png-89a3f11906609ea2c652ef41745faac3.stex" ]
+dest_md5="e64a59fd298bd991d95d440fc09caf3c"
 
 [params]
 

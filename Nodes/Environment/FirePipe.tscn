@@ -89,6 +89,7 @@ script/source = "extends Node
 
 var timeout = 3
 var flames = 3
+var steam
 
 var position = Vector2()
 
@@ -96,13 +97,17 @@ onready var animation = $\"../Animation\"
 onready var shape = $\"../Area2D/CollisionShape2D\"
 
 func _ready():
+	if randi()%2 == 0:
+		steam = true
+		$\"../Sprite\".texture = preload(\"res://Sprites/Environment/SteamPipe.png\")
 	animation.play(\"Idle\")
 
 func _process(delta):
 	timeout -= delta
 	
 	if timeout <= 0 and animation.current_animation == \"Idle\":
-		Res.play_sample(get_parent(), \"Flame\")
+		if steam: Res.play_sample(get_parent(), \"Steam\")
+		else: Res.play_sample(get_parent(), \"Flame\")
 		animation.play(\"FlameStart\")
 
 func _on_animation_finished(anim_name):

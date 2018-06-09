@@ -7,10 +7,10 @@ path="res://.import/EquipmentAvatar.png-7dcb8dd927b933a1725fe6fbdfb72a3c.stex"
 [deps]
 
 source_file="res://Sprites/UI/Menu/Equipment/EquipmentAvatar.png"
-source_md5="b88bb037764a81c09d9f298034102b0e"
+source_md5="926a16ed074676240776191826104cb4"
 
 dest_files=[ "res://.import/EquipmentAvatar.png-7dcb8dd927b933a1725fe6fbdfb72a3c.stex" ]
-dest_md5="d4ea9d03d3927a73ede1c49572bafc20"
+dest_md5="e67bf2015976f1c347f98b5b1c559407"
 
 [params]
 

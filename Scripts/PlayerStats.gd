@@ -24,7 +24,7 @@ var vitality = 1
 var money = 0
 var inventory = []
 var equipment = []
-#var skill_slots = ["Fireball", null, null]
+var events = {}
 
 signal level_up
 signal got_item
@@ -33,6 +33,7 @@ signal equipment_changed
 func _ready():
 	equipment.resize(EQUIPMENT_SLOTS.size())
 	for i in range(EQUIPMENT_SLOTS.size()): SLOTS[EQUIPMENT_SLOTS[i]] = i
+	return
 	##DEBUG \/
 	for item in Res.items:
 		add_item(item.id)

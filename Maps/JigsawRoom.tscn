@@ -16,9 +16,9 @@ func initialize():
 	Res.game.player.position = $Position2D.position
 
 func _process(delta):
-	if !jigsawd and Res.game.player.position.y < 400:
+	if !PlayerStats.events.has(\"jigsaw\") and Res.game.player.position.y < 400:
 		Res.game.player.UI.get_node(\"DialogueBox\").initiate_dialogue(\"Jigsaw\")
-		jigsawd = true"
+		PlayerStats.events[\"jigsaw\"] = true"
 
 [node name="JigsawRoom" type="YSort"]
 
