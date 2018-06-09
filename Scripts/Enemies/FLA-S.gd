@@ -1,6 +1,6 @@
 extends "res://Scripts/BaseEnemy.gd"
 
-const HP  = 100
+const HP  = 60
 const XP  = 200
 const ARM = 0.3
 
@@ -8,7 +8,7 @@ var   BASIC_DAMAGE         = 10
 const SPECIAL_DAMAGE       = 0
 
 const MAGIC_PROBABILITY  = 500
-var ATACK_SPEED          = 125
+var ATACK_SPEED          = 200
 
 var   SPEED                = 100
 
@@ -40,9 +40,9 @@ onready var sprites = $Sprites.get_children()
 
 func _ready():
 	._ready()
-	drops.append([18, 200])
-	drops.append([23, 50 ])
-	drops.append([21, 100])
+	drops.append([18, 800])
+	drops.append([23, 100 ])
+	drops.append([21, 400])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 	$"AnimationPlayer".play("Idle")
 	
