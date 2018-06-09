@@ -33,13 +33,6 @@ signal equipment_changed
 func _ready():
 	equipment.resize(EQUIPMENT_SLOTS.size())
 	for i in range(EQUIPMENT_SLOTS.size()): SLOTS[EQUIPMENT_SLOTS[i]] = i
-	##DEBUG \/
-#	return
-	for item in Res.items:
-		add_item(item.id)
-#	for i in range(20): inventory.append({id = 0, stack = 1})
-	SkillBase.acquired_skills.append("FastWalk")
-	SkillBase.acquired_skills.append("Fireball")
 
 func get_damage():
 	var damage = strength

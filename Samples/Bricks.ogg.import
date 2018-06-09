@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Bricks.ogg-021bbb9efac110c891aa954c3bfb042b.oggstr"
+
+[deps]
+
+source_file="res://Samples/Bricks.ogg"
+source_md5="44328ffcf562e8274ae910d752ee217e"
+
+dest_files=[ "res://.import/Bricks.ogg-021bbb9efac110c891aa954c3bfb042b.oggstr" ]
+dest_md5="d35901c8500c464f5a9f3580f7472d13"
+
+[params]
+
+loop=false
+loop_offset=0

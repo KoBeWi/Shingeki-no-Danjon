@@ -369,8 +369,8 @@ func create_segment(segment, pos):
 						elif i == 2 and cell.y < 9: celll.bottom_wall = true
 						elif i == 3 and cell.x > 0: celll.left_wall = true
 				
-				floor_space[poss] = celll
-			10: wall_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
+				if !get_segment_data(pos).has("no_objects"): floor_space[poss] = celll
+			10: if !get_segment_data(pos).has("no_objects"): wall_space.append(Vector2(pos.x*SEG_W, pos.y*SEG_H) + cell * 80)
 	
 	dungeon.add_child(seg)
 	if seg.has_node("Objects"):

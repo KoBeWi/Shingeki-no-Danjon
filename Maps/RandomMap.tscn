@@ -23,12 +23,12 @@ func initialize():
 	else:
 		seed(my_seed)
 	
-#	seed(2400079546) ##DEBUG
+#	seed(755172827) ##DEBUG
 	
 	$Generator.generate(10, 10)"
 _sections_unfolded = [ "Resource" ]
 
-[node name="RandomMap" type="YSort"]
+[node name="RandomMap" type="YSort" index="0"]
 
 sort_enabled = true
 script = SubResource( 1 )

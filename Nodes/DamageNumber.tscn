@@ -56,7 +56,7 @@ use_filter = false
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="DamageNumber" type="Node2D" index="0"]
+[node name="DamageNumber" type="Node2D"]
 
 z_index = 5
 script = SubResource( 1 )

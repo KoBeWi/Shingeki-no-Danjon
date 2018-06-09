@@ -62,9 +62,17 @@ func _ready():
 	crafting = read_json("res://Resources/CraftingList.json")
 
 func _process(delta):
+	##wszystko to debug D:
 	if Input.is_key_pressed(KEY_F2) and Input.is_action_just_pressed("Interact"):
 		save_setting("no_music", !File.new().file_exists("user://no_music"))
 	if Input.is_key_pressed(KEY_F5): PlayerStats.strength += 10
+	
+	if Input.is_key_pressed(KEY_F4):
+		for item in Res.items:
+			PlayerStats.add_item(item.id, 1, false)
+		
+		SkillBase.acquired_skills.append("FastWalk")
+		SkillBase.acquired_skills.append("Fireball")
 
 func save_setting(setting, set):
 	if set:

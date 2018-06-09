@@ -425,7 +425,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "players",
 ]]
 
@@ -655,6 +655,8 @@ anims/Idle = SubResource( 13 )
 blend_times = [  ]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
+
+[connection signal="body_entered" from="AttackCollider" to="." method="_on_other_attack_hit"]
 
 [connection signal="animation_finished" from="ArmAnimator" to="." method="_on_animation_finished"]
 

@@ -317,3 +317,7 @@ func use_magic(): ##nie tylko magia :|
 					projectile.damage += int(PlayerStats[stat] * skill.scalling[stat])
 				
 				if SkillBase.has_skill("FireAffinity"): projectile.damage *= 3 ##hack
+
+func _on_other_attack_hit(body):
+	if body.is_in_group("secrets"):
+		body.hit(self)
