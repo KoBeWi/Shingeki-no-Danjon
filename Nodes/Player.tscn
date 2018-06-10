@@ -8,8 +8,9 @@
 [ext_resource path="res://Sprites/Player/Left/Shields/Shield1.png" type="Texture" id=6]
 [ext_resource path="res://Nodes/UI/Main.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sprites/UI/Interact0.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/UI/ElementIcons.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/UI/ElementSelect.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/UI/HUD/ElementIcons.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/UI/HUD/ElementSelect.png" type="Texture" id=10]
+
 
 [sub_resource type="RectangleShape2D" id=15]
 

@@ -9,6 +9,7 @@ script/source = "extends Sprite
 
 export var change = 1
 var player_in
+var released
 
 func set_stairs(updown, tileset):
 	if updown == \"down\": change = -1
@@ -16,9 +17,11 @@ func set_stairs(updown, tileset):
 	region_rect = Rect2(Vector2(pos[0], pos[1]), Vector2(160, 160))
 
 func _process(delta):
-	if player_in and Input.is_action_pressed(\"Up\"):
+	if player_in and Input.is_action_pressed(\"Up\") and released:
 		Res.ui_sample(\"Stairs\")
 		get_tree().current_scene.change_floor(change)
+	
+	if !Input.is_action_pressed(\"Up\"): released = true
 
 func _on_enter(body): if body.is_in_group(\"players\"): player_in = true
 func _on_exit(body): if body.is_in_group(\"players\"): player_in = false"
@@ -29,7 +32,7 @@ _sections_unfolded = [ "Resource" ]
 custom_solver_bias = 0.0
 extents = Vector2( 40, 10 )
 
-[node name="Stairs" type="Sprite"]
+[node name="Stairs" type="Sprite" index="0"]
 
 texture = ExtResource( 1 )
 region_enabled = true

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ButtonMagic.png-5050fae1e0de3f975de5a52b38610f74.stex"
+path="res://.import/PlayerBarBottom.png-e1a7dd8061794ea8754b68447c6986a2.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/ButtonMagic.png"
-source_md5="d1f2e1e50270e2e57a7bab4865da204b"
+source_file="res://Sprites/UI/HUD/PlayerBarBottom.png"
+source_md5="d3110f5d7a23a0e2b6727fc6fe904867"
 
-dest_files=[ "res://.import/ButtonMagic.png-5050fae1e0de3f975de5a52b38610f74.stex" ]
-dest_md5="2686e1e0f26e813e627734d7050dc24d"
+dest_files=[ "res://.import/PlayerBarBottom.png-e1a7dd8061794ea8754b68447c6986a2.stex" ]
+dest_md5="45d815712beab1b75f48c0cf6a515d2c"
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

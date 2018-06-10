@@ -1,14 +1,16 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Sprites/UI/PlayerBarBottom.png" type="Texture" id=1]
-[ext_resource path="res://Sprites/UI/PlayerHPMiddle.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/UI/PlayerHPTop.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/UI/PlayerMPMiddle.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/UI/PlayerMPTop.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/UI/ButtonAttack.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/UI/ButtonShield.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/UI/ButtonMagic.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/UI/ButtonGhost.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/UI/HUD/PlayerBarBottom.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/UI/HUD/PlayerHPMiddle.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/HUD/PlayerHPTop.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/UI/HUD/PlayerMPMiddle.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/HUD/PlayerMPTop.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/HUD/ButtonAttack.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/HUD/ButtonShield.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/UI/HUD/ButtonMagic.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/HUD/ButtonGhost.png" type="Texture" id=9]
+
+
 
 [node name="HUD" type="Control"]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ButtonShield.png-36f0ab64a87cc623d6e6e6f8e8453aa8.stex"
+path="res://.import/ButtonGhost.png-792f0b0fabb1648ee866dacc661b8d9c.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/ButtonShield.png"
-source_md5="ef57a0c8b2850328cc7cd3f54f753240"
+source_file="res://Sprites/UI/HUD/ButtonGhost.png"
+source_md5="285b39650a37e4e2000a400446cc8611"
 
-dest_files=[ "res://.import/ButtonShield.png-36f0ab64a87cc623d6e6e6f8e8453aa8.stex" ]
-dest_md5="38cfb68fbbdb910fca38192609e1a07a"
+dest_files=[ "res://.import/ButtonGhost.png-792f0b0fabb1648ee866dacc661b8d9c.stex" ]
+dest_md5="e5c7cef04554b5b4460e66bb9ec2a863"
 
 [params]
 

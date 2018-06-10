@@ -254,7 +254,7 @@ func _process(delta):
 				var item = inventory_list[inventory_select]
 				var eq = get_eq_slot(Res.items[item.id])
 				if eq > -1 and Input.is_action_just_pressed(\"Interact\"):
-					Res.ui_sample(\"MenuAccept\") ##tu uwaga
+					Res.ui_sample(\"MenuAccept\")
 					if PlayerStats.equipment[eq]: PlayerStats.inventory.append(PlayerStats.equipment[eq])
 					PlayerStats.inventory.erase(item)
 					PlayerStats.equipment[eq] = item
@@ -678,7 +678,7 @@ func scroll_inventory(scroll):
 	$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect" index="0"]
+[node name="PlayerMenu" type="TextureRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0

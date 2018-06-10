@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayerBarBottom.png-0b8ae729fa1e15c9135c3935fe5ade84.stex"
+path="res://.import/PlayerHPTop.png-a59c4f039ba98de913759ad6fa52bd16.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/PlayerBarBottom.png"
-source_md5="d3110f5d7a23a0e2b6727fc6fe904867"
+source_file="res://Sprites/UI/HUD/PlayerHPTop.png"
+source_md5="731685f9954de8b63110f7b198d49a08"
 
-dest_files=[ "res://.import/PlayerBarBottom.png-0b8ae729fa1e15c9135c3935fe5ade84.stex" ]
-dest_md5="45d815712beab1b75f48c0cf6a515d2c"
+dest_files=[ "res://.import/PlayerHPTop.png-a59c4f039ba98de913759ad6fa52bd16.stex" ]
+dest_md5="6214e7c688394c2e9af0dd294b520be7"
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayerHPTop.png-bed6c09b2614582a4fdbbca20809ee15.stex"
+path="res://.import/ButtonShield.png-304e3e5a972cd95eabe92c8e9f77b41c.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/PlayerHPTop.png"
-source_md5="731685f9954de8b63110f7b198d49a08"
+source_file="res://Sprites/UI/HUD/ButtonShield.png"
+source_md5="c5a686857db52d785bffc08957acd4a6"
 
-dest_files=[ "res://.import/PlayerHPTop.png-bed6c09b2614582a4fdbbca20809ee15.stex" ]
-dest_md5="6214e7c688394c2e9af0dd294b520be7"
+dest_files=[ "res://.import/ButtonShield.png-304e3e5a972cd95eabe92c8e9f77b41c.stex" ]
+dest_md5="6d3eb8192fcbe373cffd908c50b7509d"
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

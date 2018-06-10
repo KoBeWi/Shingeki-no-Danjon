@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayerMPMiddle.png-f035ef9c15e4931e7f560ba0c117231e.stex"
+path="res://.import/ButtonAttack.png-25ee53c5fe7e1d79fd7c98ff3ecfbce0.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/PlayerMPMiddle.png"
-source_md5="d3d0c8427b0346bd01c8e55d586d91df"
+source_file="res://Sprites/UI/HUD/ButtonAttack.png"
+source_md5="d221779911711a8df5bb673f1fe883ff"
 
-dest_files=[ "res://.import/PlayerMPMiddle.png-f035ef9c15e4931e7f560ba0c117231e.stex" ]
-dest_md5="31f8389905a90eae2fe69bd74c51a904"
+dest_files=[ "res://.import/ButtonAttack.png-25ee53c5fe7e1d79fd7c98ff3ecfbce0.stex" ]
+dest_md5="7b553796cd141e44710415afc5c043bf"
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ButtonGhost.png-1d04467b88eced00b0c74e3d2c158377.stex"
+path="res://.import/PlayerMPMiddle.png-010ba12a405ee16809c53b03228c4ef1.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/ButtonGhost.png"
-source_md5="fda376f75c095e663959347b5b863ab5"
+source_file="res://Sprites/UI/HUD/PlayerMPMiddle.png"
+source_md5="d3d0c8427b0346bd01c8e55d586d91df"
 
-dest_files=[ "res://.import/ButtonGhost.png-1d04467b88eced00b0c74e3d2c158377.stex" ]
-dest_md5="56f1f7227c503aab79ec3ed12a69c371"
+dest_files=[ "res://.import/PlayerMPMiddle.png-010ba12a405ee16809c53b03228c4ef1.stex" ]
+dest_md5="31f8389905a90eae2fe69bd74c51a904"
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

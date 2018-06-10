@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ButtonAttack.png-19425621bee2e64d47dc117824808d96.stex"
+path="res://.import/ButtonMagic.png-63b3370c6eaac9b04a4d0492a221a493.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/ButtonAttack.png"
-source_md5="bd283e3570cab5f77eee4346ff7ad6b2"
+source_file="res://Sprites/UI/HUD/ButtonMagic.png"
+source_md5="2368e4408d7414da8ac9365f106adc5e"
 
-dest_files=[ "res://.import/ButtonAttack.png-19425621bee2e64d47dc117824808d96.stex" ]
-dest_md5="e2a80134a2d5984ebe5a64152b50fecf"
+dest_files=[ "res://.import/ButtonMagic.png-63b3370c6eaac9b04a4d0492a221a493.stex" ]
+dest_md5="22672af0c9b187f467f975d8a26f7b67"
 
 [params]
 
