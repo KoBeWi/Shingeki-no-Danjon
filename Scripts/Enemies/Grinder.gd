@@ -30,7 +30,7 @@ onready var sprites = $Sprites.get_children()
 
 func _ready():
 	._ready()
-	drops.append([3,   50 ])
+	drops.append([3,  500 ])
 	drops.append([19, 500 ])
 
 func _physics_process(delta):

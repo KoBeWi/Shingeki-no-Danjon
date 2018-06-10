@@ -4,11 +4,11 @@ const HP  = 100
 const XP  = 200
 const ARM = 0.5
 
-const BASIC_DAMAGE         = 20
-const SPECIAL_DAMAGE       = 40
+const BASIC_DAMAGE         = 15
+const SPECIAL_DAMAGE       = 25
 
-const SPECIAL_PROBABILITY  = 200
-const ATACK_SPEED          = 125
+const SPECIAL_PROBABILITY  = 350
+const ATACK_SPEED          = 200
 
 const SPEED                = 150
 
@@ -40,8 +40,8 @@ onready var sprites = $Sprites.get_children()
 
 func _ready():
 	._ready()
-	drops.append([3, 200])
-	drops.append([24, 600])
+	drops.append([3, 500])
+	drops.append([24, 900])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 	
 	
