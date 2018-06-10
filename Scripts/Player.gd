@@ -106,7 +106,9 @@ func _physics_process(delta):
 		elif Input.is_action_pressed("Down"): current_element = 4
 		elif Input.is_action_pressed("Left"): current_element = 1
 		else: current_element = 0
+		
 		$Elements/Select.position = $Elements.get_child(current_element).position
+		UI.get_node("HUD/Controls/ButtonElement").texture = Res.cache_resource("res://Sprites/UI/HUD/ButtonElement" + str(current_element) + ".png")
 		
 		if Input.is_action_just_released("Magic"): $Elements.visible = false
 	

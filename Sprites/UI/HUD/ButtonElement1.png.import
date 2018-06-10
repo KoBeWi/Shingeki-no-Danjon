@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Dungeon.png-5862a55dc0704e5732cb9218aff18a8d.stex"
+path="res://.import/ButtonElement1.png-6ec8dd3517d6730e8b9033ea0e0a57f6.stex"
 
 [deps]
 
-source_file="res://Sprites/Tilesets/Dungeon.png"
-source_md5="4d3a7428c8531e27a08fb7930b2116e0"
+source_file="res://Sprites/UI/HUD/ButtonElement1.png"
+source_md5="d0f985203cef430a0c8965b7f99e0069"
 
-dest_files=[ "res://.import/Dungeon.png-5862a55dc0704e5732cb9218aff18a8d.stex" ]
-dest_md5="ea8355775f77a114cfb36f6dcd3137bb"
+dest_files=[ "res://.import/ButtonElement1.png-6ec8dd3517d6730e8b9033ea0e0a57f6.stex" ]
+dest_md5="7c8ea873cbc02b32cf8d84f5451ce35b"
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

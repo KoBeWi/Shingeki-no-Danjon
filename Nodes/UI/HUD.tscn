@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Sprites/UI/HUD/PlayerBarBottom.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/UI/HUD/PlayerHPMiddle.png" type="Texture" id=2]
@@ -9,10 +9,9 @@
 [ext_resource path="res://Sprites/UI/HUD/ButtonShield.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/UI/HUD/ButtonMagic.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/UI/HUD/ButtonGhost.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/UI/HUD/ButtonElement0.png" type="Texture" id=10]
 
-
-
-[node name="HUD" type="Control"]
+[node name="HUD" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -180,16 +179,16 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="bctrshield" type="TextureRect" parent="Controls" index="0"]
+[node name="ButtonSword" type="TextureRect" parent="Controls" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 20.0
-margin_top = 663.0
-margin_right = 100.0
-margin_bottom = 748.0
+margin_left = 12.0
+margin_top = 680.0
+margin_right = 82.0
+margin_bottom = 756.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -198,17 +197,18 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 6 )
 stretch_mode = 0
+_sections_unfolded = [ "Rect" ]
 
-[node name="bctrshield2" type="TextureRect" parent="Controls" index="1"]
+[node name="ButtonShield" type="TextureRect" parent="Controls" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 109.0
-margin_top = 663.0
-margin_right = 189.0
-margin_bottom = 748.0
+margin_left = 94.0
+margin_top = 680.0
+margin_right = 164.0
+margin_bottom = 756.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -218,16 +218,16 @@ size_flags_vertical = 1
 texture = ExtResource( 7 )
 stretch_mode = 0
 
-[node name="bctrshield3" type="TextureRect" parent="Controls" index="2"]
+[node name="ButtonMagic" type="TextureRect" parent="Controls" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 198.0
-margin_top = 663.0
-margin_right = 278.0
-margin_bottom = 748.0
+margin_left = 258.0
+margin_top = 680.0
+margin_right = 328.0
+margin_bottom = 756.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -237,16 +237,16 @@ size_flags_vertical = 1
 texture = ExtResource( 8 )
 stretch_mode = 0
 
-[node name="bctrshield4" type="TextureRect" parent="Controls" index="3"]
+[node name="ButtonGhost" type="TextureRect" parent="Controls" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 287.0
-margin_top = 663.0
-margin_right = 367.0
-margin_bottom = 748.0
+margin_left = 340.0
+margin_top = 680.0
+margin_right = 410.0
+margin_bottom = 756.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -254,6 +254,25 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 9 )
+stretch_mode = 0
+
+[node name="ButtonElement" type="TextureRect" parent="Controls" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 176.0
+margin_top = 680.0
+margin_right = 246.0
+margin_bottom = 756.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
 stretch_mode = 0
 
 
