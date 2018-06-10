@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/skill_okno.png-7402a4cf14eaac4528aaeb0c373ead45.stex"
+path="res://.import/EquipmentCategoryActive.png-4168e767c7c2c90aac745d7fb2209813.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Menu/Skills/skill_okno.png"
-source_md5="6de731cdb8c7edff08b024fcf5cacd10"
+source_file="res://Sprites/UI/Menu/Equipment/EquipmentCategoryActive.png"
+source_md5="974d480f703093ffbef863ed919fe976"
 
-dest_files=[ "res://.import/skill_okno.png-7402a4cf14eaac4528aaeb0c373ead45.stex" ]
-dest_md5="7769db1b2337bcaf9eb9abf3bb969cca"
+dest_files=[ "res://.import/EquipmentCategoryActive.png-4168e767c7c2c90aac745d7fb2209813.stex" ]
+dest_md5="8fb966a69c77f27d91f157d2aafc22e5"
 
 [params]
 

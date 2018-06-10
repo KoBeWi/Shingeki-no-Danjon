@@ -48,15 +48,16 @@ const STAT_LIST = [\"attack\", \"defense\", \"strength\", \"dexterity\", \"intel
 const TABS = [\"Character\", \"Equipment\", \"Skills\", \"Crafting\", \"Map\", \"Notes\"]
 const SKILLPOINTS = [\"Strength\", \"Dexterity\", \"Intelligence\", \"Vitality\"]
 const CATEGORIES = [\"All\", \"Consumable\", \"Weapons\", \"Armors\", \"Accessories\"]#, \"Other\"]
-const CATEGORY_TYPES = {Consumable = [\"consumable\"], Weapons = [], Armors = [], Accessories = [], Other = []}
+const CATEGORY_TYPES = {Consumable = [\"consumable\"], Weapons = [\"weapon\", \"shield\"], Armors = [\"armor\", \"helmet\", \"boots\", \"pants\"], Accessories = [\"ring\", \"amulet\"], Other = [\"misc\"]}
 
 var in_tab = false setget in_out_tab
 var current_tab = 0 setget update_tabs
 
 var skillpoint_select = 0
-var inventory_scroll = 0
+var inventory_scroll = 0 setget scroll_inventory
 var inventory_select = 0
 var inventory_category = 0
+var inventory_list = []
 
 var skill_select = -1
 var skill_scroll = 0
@@ -67,7 +68,7 @@ var crafting_select = 0
 var crafting_scroll = 0
 
 func _ready():
-	PlayerStats.connect(\"got_item\", self, \"update_inventory\")
+	PlayerStats.connect(\"got_item\", self, \"update_category\")
 	PlayerStats.connect(\"equipment_changed\", self, \"update_equipment\")
 	SkillBase.connect(\"new_skill\", self, \"update_skills\")
 	
@@ -147,10 +148,10 @@ func _ready():
 		old.free()
 		$Tabs/Equipment/Character/EquipmentSlots.add_child(clone)
 	
-	if PlayerStats.inventory.empty(): inventory_select = -1
+	if inventory_list.empty(): inventory_select = -1
 	
 	update_crafting()
-	update_inventory()
+	update_category()
 	update_equipment()
 	update_skills()
 	
@@ -219,54 +220,60 @@ func _process(delta):
 				self.in_tab = false
 				return
 			
+			if Input.is_action_just_pressed(\"Magic\"):
+				Res.ui_sample(\"MenuMove\")
+				inventory_category += 1
+				self.inventory_scroll = 0
+				self.inventory_select = 0
+				if inventory_category == CATEGORIES.size(): inventory_category = 0
+				update_category()
+			
 			var prev_sel = inventory_select
 			
 			if inventory_select >= 0:
 				var prev_inv = inventory_select
 				if Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 1: inventory_select = max(inventory_select-1, 0)
 				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 0: inventory_select = -1
-				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, PlayerStats.inventory.size()-1)
+				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, inventory_list.size()-1)
 				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = max(inventory_select-2, 0)
-				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = min(inventory_select+2, PlayerStats.inventory.size()-1)
+				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = min(inventory_select+2, inventory_list.size()-1)
 				if inventory_select != prev_inv: Res.ui_sample(\"MenuMove\")
 				
-				var max_scroll = PlayerStats.inventory.size()-7
+				var max_scroll = inventory_list.size()-7
 				$Tabs/Equipment/Inventory/Scrollbar.visible = (max_scroll > 0)
 				
 				if inventory_scroll < max_scroll and inventory_select - inventory_scroll > 5:
-					inventory_scroll += 2
-					$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283
-					update_inventory()
+					self.inventory_scroll += 2
+					update_category()
 					select_inventory()
 				elif inventory_scroll > 0 and inventory_select - inventory_scroll < 2:
-					inventory_scroll -= 2
-					$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283
-					update_inventory()
+					self.inventory_scroll -= 2
+					update_category()
 					select_inventory()
 				
-				var item = PlayerStats.inventory[inventory_select]
+				var item = inventory_list[inventory_select]
 				var eq = get_eq_slot(Res.items[item.id])
 				if eq > -1 and Input.is_action_just_pressed(\"Interact\"):
-					Res.ui_sample(\"MenuAccept\")
+					Res.ui_sample(\"MenuAccept\") ##tu uwaga
 					if PlayerStats.equipment[eq]: PlayerStats.inventory.append(PlayerStats.equipment[eq])
 					PlayerStats.inventory.erase(item)
 					PlayerStats.equipment[eq] = item
 					
 					if eq == PlayerStats.SLOTS[\"weapon\"]: Res.game.player.update_weapon()
 					if eq == PlayerStats.SLOTS[\"shield\"]: Res.game.player.update_shield()
-					update_inventory()
+					update_category()
 					update_equipment()
 					select_inventory()
 				elif Res.items[item.id].type == \"consumable\" and Input.is_action_just_pressed(\"Interact\"):
 					if PlayerStats.consume(Res.items[item.id]):
 						item.stack -= 1
 						if item.stack == 0: PlayerStats.inventory.erase(item)
-						update_inventory()
+						update_category()
 						select_inventory()
 			else:
 				var prev_inv = inventory_select
 				if Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, -1)
-				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == -1 and !PlayerStats.inventory.empty(): inventory_select = (inventory_scroll+2 if inventory_scroll > 0 else 0)
+				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == -1 and !inventory_list.empty(): inventory_select = (inventory_scroll+2 if inventory_scroll > 0 else 0)
 				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == -1: inventory_select = max(inventory_select-1, -PlayerStats.EQUIPMENT_SLOTS.size())
 				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = min(inventory_select+2, -1)
 				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = max(inventory_select-2, -PlayerStats.EQUIPMENT_SLOTS.size())
@@ -278,7 +285,7 @@ func _process(delta):
 					PlayerStats.equipment[-inventory_select-1] = null
 					if -inventory_select-1 == PlayerStats.SLOTS[\"weapon\"]: Res.game.player.update_weapon()
 					if -inventory_select-1 == PlayerStats.SLOTS[\"shield\"]: Res.game.player.update_shield()
-					update_inventory()
+					update_category()
 					update_equipment()
 					select_inventory()
 			
@@ -387,12 +394,12 @@ func update_inventory(whatever = null):
 		var i = j + inventory_scroll
 		var item = $Tabs/Equipment/Inventory/Slots.get_child(j)
 		
-		if i < PlayerStats.inventory.size():
+		if i < inventory_list.size():
 			item.visible = true
-			item.get_node(\"Name\").text = Res.items[PlayerStats.inventory[i].id].name
-			item.get_node(\"Amount\").text = \"x\" + str(PlayerStats.inventory[i].stack)
-			item.get_node(\"Price\").text = \"Price: \" + str(Res.items[PlayerStats.inventory[i].id].price)
-			item.get_node(\"Icon\").texture = Res.get_item_texture(PlayerStats.inventory[i].id)
+			item.get_node(\"Name\").text = Res.items[inventory_list[i].id].name
+			item.get_node(\"Amount\").text = \"x\" + str(inventory_list[i].stack)
+			item.get_node(\"Price\").text = \"Price: \" + str(Res.items[inventory_list[i].id].price)
+			item.get_node(\"Icon\").texture = Res.get_item_texture(inventory_list[i].id)
 		else:
 			item.visible = false
 
@@ -447,14 +454,14 @@ func update_tabs(tab = current_tab):
 		$TabsBar.get_child(i).get_node(\"Icon\").texture = load(\"res://Sprites/UI/Menu/Icon\" + TABS[i] + (\"\" if i == tab else \"Inactive\") + \".png\")
 
 func select_inventory():
-	if inventory_select > -1 and PlayerStats.inventory.empty(): inventory_select = -1
-	if inventory_select >= PlayerStats.inventory.size(): inventory_select = PlayerStats.inventory.size()-1
+	if inventory_select > -1 and inventory_list.empty(): inventory_select = -1
+	if inventory_select >= inventory_list.size(): inventory_select = inventory_list.size()-1
 	var scrolled_select = (inventory_select - inventory_scroll)
 	
 	var item
 	var itemstance
 	if inventory_select > -1:
-		itemstance = PlayerStats.inventory[inventory_select]
+		itemstance = inventory_list[inventory_select]
 		item = Res.items[itemstance.id]
 	else:
 		if PlayerStats.equipment[-inventory_select - 1]:
@@ -464,7 +471,7 @@ func select_inventory():
 			item = {description = \"Equipment slot (\" + PlayerStats.EQUIPMENT_SLOTS[-inventory_select - 1] + \") empty\"}
 	
 	for i in $Tabs/Equipment/Inventory/Slots.get_child_count():
-		$Tabs/Equipment/Inventory/Slots.get_child(i).visible = i + inventory_scroll < PlayerStats.inventory.size()
+		$Tabs/Equipment/Inventory/Slots.get_child(i).visible = i + inventory_scroll < inventory_list.size()
 		$Tabs/Equipment/Inventory/Slots.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentInventorySlot\" + (\"Active\" if i == inventory_select - inventory_scroll else \"\") + \".png\")
 	
 	for i in $Tabs/Equipment/Character/EquipmentSlots.get_child_count():
@@ -480,6 +487,8 @@ func select_inventory():
 	if item.has(\"id\"):
 		$Tabs/Equipment/Description/Icon.texture = Res.get_item_texture(item.id)
 		update_stats(item, inventory_select > -1)
+	else:
+		$Tabs/Equipment/Description/Icon.texture = load(\"res://Sprites/UI/Menu/Equipment/Generic\" + PlayerStats.EQUIPMENT_SLOTS[-inventory_select - 1] + \".png\")
 
 func select_skill():
 	var skill
@@ -631,21 +640,42 @@ func update_stats(item, compare):
 	
 	$Tabs/Equipment/Stats.visible = !irrelevant
 
+func update_category(whatever = null):
+	for i in range(CATEGORIES.size()):
+		$Tabs/Equipment/Categories.get_child(i).texture = load(\"res://Sprites/UI/Menu/Equipment/EquipmentCategory\" + (\"Active\" if inventory_category == i else \"\") + \".png\")
+	
+	inventory_list.clear()
+	var item_types = [\"consumable\", \"weapon\", \"armor\", \"shield\", \"helmet\", \"boots\", \"pants\", \"ring\", \"amulet\", \"misc\"]
+	if inventory_category > 0:
+		item_types = CATEGORY_TYPES[CATEGORIES[inventory_category]]
+	
+	for item in PlayerStats.inventory:
+		if item_types.has(Res.items[item.id].type):
+			inventory_list.append(item)
+	
+	update_inventory()
+	select_inventory()
+
 func refresh():
 	crafting_select = 0
 	crafting_scroll = 0
 	inventory_select = 0
-	inventory_scroll = 0
+	self.inventory_scroll = 0
 	
 	update_statistics()
 	update_equipment()
-	update_inventory()
+	update_category()
 	update_crafting()
 	
 	$Tabs/Crafting/Scrollbar/ActualScroll.rect_position.y = 0
 	$Tabs/Crafting/Scrollbar.visible = (crafting_list.size() > 8)
 	$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = 0
-	$Tabs/Equipment/Inventory/Scrollbar.visible = (PlayerStats.inventory.size() > 8)"
+	$Tabs/Equipment/Inventory/Scrollbar.visible = (inventory_list.size() > 8)
+
+func scroll_inventory(scroll):
+	inventory_scroll = scroll
+	var max_scroll = inventory_list.size()-7
+	$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283"
 _sections_unfolded = [ "Resource" ]
 
 [node name="PlayerMenu" type="TextureRect" index="0"]
@@ -1927,7 +1957,6 @@ size_flags_vertical = 1
 
 [node name="Category1" type="TextureRect" parent="Tabs/Equipment/Categories" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
