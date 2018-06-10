@@ -7,9 +7,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 40, 40 )
 
-[node name="TilesetBase" type="Node"]
-
-editor/display_folded = true
+[node name="TilesetBase" type="Node" index="0"]
 
 [node name="Roof1" type="Sprite" parent="." index="0"]
 
@@ -1231,6 +1229,262 @@ __meta__ = {
 }
 
 [node name="Shape" type="CollisionShape2D" parent="Wall25/Collider" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall26" type="Sprite" parent="." index="53"]
+
+editor/display_folded = true
+position = Vector2( 960, 240 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 960, 160, 80, 80 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Collider" type="StaticBody2D" parent="Wall26" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 5
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shape" type="CollisionShape2D" parent="Wall26/Collider" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall29" type="Sprite" parent="." index="54"]
+
+editor/display_folded = true
+position = Vector2( 1040, 240 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1040, 160, 80, 80 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Collider" type="StaticBody2D" parent="Wall29" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 5
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shape" type="CollisionShape2D" parent="Wall29/Collider" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall27" type="Sprite" parent="." index="55"]
+
+editor/display_folded = true
+position = Vector2( 1040, 320 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1040, 240, 80, 80 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Collider" type="StaticBody2D" parent="Wall27" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 5
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shape" type="CollisionShape2D" parent="Wall27/Collider" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall28" type="Sprite" parent="." index="56"]
+
+editor/display_folded = true
+position = Vector2( 960, 320 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 960, 240, 80, 80 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Collider" type="StaticBody2D" parent="Wall28" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 5
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shape" type="CollisionShape2D" parent="Wall28/Collider" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall32" type="Sprite" parent="." index="57"]
+
+editor/display_folded = true
+position = Vector2( 1120, 240 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1120, 160, 80, 80 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Collider" type="StaticBody2D" parent="Wall32" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 5
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shape" type="CollisionShape2D" parent="Wall32/Collider" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall30" type="Sprite" parent="." index="58"]
+
+editor/display_folded = true
+position = Vector2( 1200, 240 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1200, 160, 80, 80 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Collider" type="StaticBody2D" parent="Wall30" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 5
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shape" type="CollisionShape2D" parent="Wall30/Collider" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall33" type="Sprite" parent="." index="59"]
+
+editor/display_folded = true
+position = Vector2( 1120, 320 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1120, 240, 80, 80 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Collider" type="StaticBody2D" parent="Wall33" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 5
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shape" type="CollisionShape2D" parent="Wall33/Collider" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall31" type="Sprite" parent="." index="60"]
+
+editor/display_folded = true
+position = Vector2( 1200, 320 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1200, 240, 80, 80 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Collider" type="StaticBody2D" parent="Wall31" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 5
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shape" type="CollisionShape2D" parent="Wall31/Collider" index="0"]
 
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]

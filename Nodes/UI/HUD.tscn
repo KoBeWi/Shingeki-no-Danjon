@@ -11,7 +11,7 @@
 [ext_resource path="res://Sprites/UI/HUD/ButtonGhost.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/UI/HUD/ButtonElement0.png" type="Texture" id=10]
 
-[node name="HUD" type="Control" index="0"]
+[node name="HUD" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
