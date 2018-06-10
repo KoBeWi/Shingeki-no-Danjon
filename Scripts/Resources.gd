@@ -1,5 +1,7 @@
 extends Node
 
+var cache = {}
+
 var segments = {}
 var segment_nodes = {}
 var tilesets = {}
@@ -15,7 +17,7 @@ func _ready():
 	for segment in get_resource_list("Segments"):
 		segments[segment.name] = segment.data
 		segments[segment.name].name = segment.name
-		segment_nodes[segment.name] = load("res://Nodes/Segments/" + segment.name + ".tscn")
+		segment_nodes[segment.name] = cache_resource("res://Nodes/Segments/" + segment.name + ".tscn")
 	
 	for tileset in get_resource_list("Tilesets"):
 		tilesets[tileset.name] = tileset.data
@@ -71,8 +73,8 @@ func _process(delta):
 		for item in Res.items:
 			PlayerStats.add_item(item.id, 1, false)
 		
-		SkillBase.acquired_skills.append("FastWalk")
-		SkillBase.acquired_skills.append("Fireball")
+		if !SkillBase.acquired_skills.has("FastWalk"): SkillBase.acquired_skills.append("FastWalk")
+		if !SkillBase.acquired_skills.has("Fireball"): SkillBase.acquired_skills.append("Fireball")
 
 func save_setting(setting, set):
 	if set:
@@ -124,14 +126,14 @@ func play_pitched_sample(source, sample, pausable = true, follow_source = true):
 	
 func ui_sample(sample):
 	var player = AudioStreamPlayer.new()
-	player.stream = load("res://Samples/" + sample + ".ogg")
+	player.stream = cache_resource("res://Samples/" + sample + ".ogg")
 	player.play()
 	get_parent().add_child(player)
 
 func play_music(music):
 	if File.new().file_exists("user://no_music"): return
 	var player = AudioStreamPlayer.new()
-	player.stream = load("res://Music/" + music + ".ogg")
+	player.stream = cache_resource("res://Music/" + music + ".ogg")
 	player.play()
 	set_music(player)
 
@@ -144,16 +146,20 @@ func create_instance(node):
 	return get_node(node).instance()
 
 func get_node(node):
-	return load("res://Nodes/" + node + ".tscn")
+	return cache_resource("res://Nodes/" + node + ".tscn")
 	
 func get_item_texture(id):
-	return load("res://Sprites/Items/" + str(id) + ".png")
+	return cache_resource("res://Sprites/Items/" + str(id) + ".png")
 	
 func get_skill_texture(skill):
-	if load("res://Sprites/UI/Skills/" + skill + ".png"):
-		return load("res://Sprites/UI/Skills/" + skill + ".png")
+	if cache_resource("res://Sprites/UI/Skills/" + skill + ".png"):
+		return cache_resource("res://Sprites/UI/Skills/" + skill + ".png")
 	else:
-		return load("res://Sprites/UI/Skills/NoSkill.png")
+		return cache_resource("res://Sprites/UI/Skills/NoSkill.png")
+
+func cache_resource(res):
+	if !cache.has(res): cache[res] = load(res)
+	return cache[res]
 
 func weighted_random(chances):
 	var sum = 0

@@ -11,7 +11,7 @@ func initialize():
 	Res.game.player.position = $Position2D.position
 	Res.play_music(\"MechanicBattle\")"
 
-[node name="Segment" type="YSort" index="0"]
+[node name="Segment" type="YSort"]
 
 sort_enabled = true
 script = SubResource( 1 )

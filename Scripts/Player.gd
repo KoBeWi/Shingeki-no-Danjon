@@ -96,7 +96,7 @@ func _physics_process(delta):
 		if running and !not_move: move *= 2
 
 	if !elements_on:
-		if SkillBase.check_combo(["Magic", "Magic_"]):
+		if Input.is_action_just_pressed("Magic"):#SkillBase.check_combo(["Magic", "Magic_"]):
 #			print(SkillBase.current_combo)
 			$Elements.visible = true
 			SkillBase.current_combo.clear()

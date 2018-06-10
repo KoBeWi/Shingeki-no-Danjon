@@ -1,12 +1,25 @@
 extends TileMap
 
 var hp = 5
+var shake = 0
+onready var origin = self.position
+
+func _process(delta):
+	if shake:
+		var maxs = shake/4
+		position = origin + Vector2(-maxs + randi() % (maxs*2+1), -maxs + randi() % (maxs*2+1))
+		shake -= 1
+	else:
+		position = origin
 
 func hit(hitter):
-	##efekty
 	if hp > 0:
 		Res.play_sample(hitter, "WallHit")
 		hp -= 1
+		shake = 16
 	else:
 		Res.play_sample(hitter, "Bricks")
+		var fx = Res.create_instance("Effects/Rubble")
+		$"/root/Game".add_child(fx)
+		fx.position = hitter.position
 		queue_free()

@@ -7,4 +7,3 @@ trzymanie do przewyijania
 sekretne skrzynie mog¹ byæ zbugowane
 dodaæ efekty do sekretów
 idle sound dla robotów i bossa
-staty
