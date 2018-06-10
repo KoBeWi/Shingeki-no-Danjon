@@ -129,6 +129,7 @@ func ui_sample(sample):
 	player.stream = cache_resource("res://Samples/" + sample + ".ogg")
 	player.play()
 	get_parent().add_child(player)
+	player.connect("finished", player, "queue_free")
 
 func play_music(music):
 	if File.new().file_exists("user://no_music"): return
