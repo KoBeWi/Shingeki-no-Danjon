@@ -111,8 +111,13 @@ func consume(item):
 		Res.play_sample(Res.game.player, "MenuFailed", false)
 
 func recalc_stats():
+	var mx = max_health
 	max_health = 90 + vitality * 10
+	health += max_health - mx
+	
+	mx = max_mana
 	max_mana = 98 + intelligence * 2
+	mana += max_mana - mx
 	
 	health = min(health, max_health)
 	mana = min(mana, max_mana)

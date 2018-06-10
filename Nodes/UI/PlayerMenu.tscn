@@ -187,12 +187,12 @@ func _process(delta):
 				Res.ui_sample(\"MenuCancel\")
 				self.in_tab = false
 			
-			if Input.is_action_just_pressed(\"ui_up\"):
+			if Input.is_action_just_pressed(\"ui_up\") and skillpoint_select > 0:
 				Res.ui_sample(\"MenuMove\")
-				skillpoint_select = max(skillpoint_select-1, 0)
-			elif Input.is_action_just_pressed(\"ui_down\"):
+				skillpoint_select -= 1
+			elif Input.is_action_just_pressed(\"ui_down\") and skillpoint_select < SKILLPOINTS.size()-1:
 				Res.ui_sample(\"MenuMove\")
-				skillpoint_select = min(skillpoint_select+1, SKILLPOINTS.size()-1)
+				skillpoint_select += 1
 			
 			if PlayerStats.stat_points > 0 and Input.is_action_just_pressed(\"Interact\"):
 				Res.ui_sample(\"Skillpoint\")
@@ -200,6 +200,8 @@ func _process(delta):
 				PlayerStats.set(stat, PlayerStats.get(stat)+1)
 				SkillBase.inc_stat(SKILLPOINTS[skillpoint_select])
 				PlayerStats.stat_points -= 1
+				PlayerStats.recalc_stats()
+				update_statistics()
 		1:
 			if Input.is_action_just_pressed(\"ui_cancel\") or Input.is_action_just_pressed(\"ui_up\") and inventory_select >= -2 and inventory_select < 2:
 				Res.ui_sample(\"MenuCancel\")
@@ -566,6 +568,16 @@ func exit_tab():
 func get_eq_slot(item):
 	return PlayerStats.EQUIPMENT_SLOTS.find(item.type)
 
+func update_statistics():
+	$Tabs/Character/Statistics/Health.text = \"Health: \" + str(PlayerStats.health) + \" / \" + str(PlayerStats.max_health)
+	$Tabs/Character/Statistics/Mana.text = \"Mana: \" + str(PlayerStats.mana) + \" / \" + str(PlayerStats.max_mana)
+	$Tabs/Character/Statistics/Strength.text = \"Strength: \" + str(PlayerStats.strength)
+	$Tabs/Character/Statistics/Dexterity.text = \"Dexterity: \" + str(PlayerStats.dexterity)
+	$Tabs/Character/Statistics/Intelligence.text = \"Intelligence: \" + str(PlayerStats.intelligence)
+	$Tabs/Character/Statistics/Vitality.text = \"Vitality: \" + str(PlayerStats.vitality)
+	$Tabs/Character/Statistics/Attack.text = \"Attack: \" + str(PlayerStats.get_damage())
+	$Tabs/Character/Statistics/Defense.text = \"Defense: \" + str(PlayerStats.get_defense())
+
 func update_stats(item, compare):
 	var old_item
 	if PlayerStats.equipment[get_eq_slot(item)]: old_item = Res.items[PlayerStats.equipment[get_eq_slot(item)].id]
@@ -614,6 +626,7 @@ func refresh():
 	inventory_select = 0
 	inventory_scroll = 0
 	
+	update_statistics()
 	update_equipment()
 	update_inventory()
 	update_crafting()
@@ -624,7 +637,7 @@ func refresh():
 	$Tabs/Equipment/Inventory/Scrollbar.visible = (PlayerStats.inventory.size() > 8)"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect"]
+[node name="PlayerMenu" type="TextureRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -715,8 +728,6 @@ size_flags_vertical = 1
 
 [node name="Character" type="Control" parent="Tabs" index="0"]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -980,7 +991,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Label" type="Label" parent="Tabs/Character" index="5"]
+[node name="StatsLabel" type="Label" parent="Tabs/Character" index="5"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1003,8 +1014,211 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
+[node name="Statistics" type="Control" parent="Tabs/Character" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Health" type="Label" parent="Tabs/Character/Statistics" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 511.0
+margin_top = 209.0
+margin_right = 693.0
+margin_bottom = 237.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 0.854902, 0.254902, 0.254902, 1 )
+text = "Health: 0 / 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+
+[node name="Mana" type="Label" parent="Tabs/Character/Statistics" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 511.0
+margin_top = 250.0
+margin_right = 693.0
+margin_bottom = 278.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 0.364706, 0.717647, 0.964706, 1 )
+text = "Mana: 0 / 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+
+[node name="Strength" type="Label" parent="Tabs/Character/Statistics" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 511.0
+margin_top = 367.0
+margin_right = 693.0
+margin_bottom = 395.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+text = "Strength: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Dexterity" type="Label" parent="Tabs/Character/Statistics" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 962.0
+margin_top = 367.0
+margin_right = 1144.0
+margin_bottom = 395.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+text = "Dexterity: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Intelligence" type="Label" parent="Tabs/Character/Statistics" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 512.0
+margin_top = 415.0
+margin_right = 694.0
+margin_bottom = 443.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+text = "Intelligence: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Vitality" type="Label" parent="Tabs/Character/Statistics" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 962.0
+margin_top = 415.0
+margin_right = 1144.0
+margin_bottom = 443.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+text = "Vitality: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Attack" type="Label" parent="Tabs/Character/Statistics" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 511.0
+margin_top = 523.0
+margin_right = 693.0
+margin_bottom = 551.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+text = "Attack: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Defense" type="Label" parent="Tabs/Character/Statistics" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 960.0
+margin_top = 522.0
+margin_right = 1142.0
+margin_bottom = 550.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+text = "Defense: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="Equipment" type="Control" parent="Tabs" index="1"]
 
+editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

@@ -1,4 +1,5 @@
 --zrefaktoryzowaæ kod wrogów
+--fancyfont do wywalenia bo chyba nie darmowe by³o
 pu³apki (œciany)
 jak siê coœ psuje to pokazywaæ co (w sensie ekwipunek)
 kategorie
@@ -6,5 +7,4 @@ trzymanie do przewyijania
 sekretne skrzynie mog¹ byæ zbugowane
 dodaæ efekty do sekretów
 idle sound dla robotów i bossa
-fancyfont do wywalenia bo chyba nie darmowe by³o
 staty
