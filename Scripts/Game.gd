@@ -63,6 +63,8 @@ func change_floor(change):
 			var state = DungeonState.visited_floors[DungeonState.current_floor]
 			new_map.my_seed = state.seed
 			obj_properties = state.obj_properties
+		else:
+			obj_properties = []
 		new_map.from = ("UP" if change > 0 else "DOWN")
 	
 	set_map(new_map)

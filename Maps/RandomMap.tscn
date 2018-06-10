@@ -23,7 +23,7 @@ func initialize():
 	else:
 		seed(my_seed)
 	
-	seed(755172827) ##DEBUG
+	seed(412914963) ##DEBUG
 	
 	$Generator.generate(10, 10)"
 _sections_unfolded = [ "Resource" ]
