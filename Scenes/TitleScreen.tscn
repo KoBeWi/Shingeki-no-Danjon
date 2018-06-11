@@ -43,7 +43,7 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 
-[node name="TitleScreen" type="Node2D" index="0"]
+[node name="TitleScreen" type="Node2D"]
 
 script = SubResource( 1 )
 

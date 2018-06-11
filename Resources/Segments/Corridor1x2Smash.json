@@ -1,0 +1,9 @@
+{
+	"width": 1,
+	"height": 2,
+	"ways0": [true],
+	"ways1": [false, false],
+	"ways2": [true],
+	"ways3": [false, false],
+	"no_objects": true
+}

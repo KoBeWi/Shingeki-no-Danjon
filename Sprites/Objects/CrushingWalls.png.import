@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Title.png-7362e0bee3c99d95e13efe8bc4e072d5.stex"
+path="res://.import/CrushingWalls.png-7f1d7230838c9c081e93a95340066ce6.stex"
 
 [deps]
 
-source_file="res://Sprites/Title.png"
-source_md5="11be6a64ef0a0b75adaf53e0b09effad"
+source_file="res://Sprites/Objects/CrushingWalls.png"
+source_md5="0e294cf95a438e90bd82b4699798a3d4"
 
-dest_files=[ "res://.import/Title.png-7362e0bee3c99d95e13efe8bc4e072d5.stex" ]
-dest_md5="e56246b5a46efbf1995930b2184b3e5e"
+dest_files=[ "res://.import/CrushingWalls.png-7f1d7230838c9c081e93a95340066ce6.stex" ]
+dest_md5="211a7a0a4d56697580ec8bb8b68adbf0"
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Title.png-7362e0bee3c99d95e13efe8bc4e072d5.stex"
+path="res://.import/MechanicEmblem.png-411c0bfaa0a068176ceefed7b5430788.stex"
 
 [deps]
 
-source_file="res://Sprites/Title.png"
-source_md5="11be6a64ef0a0b75adaf53e0b09effad"
+source_file="res://Sprites/Environment/MechanicEmblem.png"
+source_md5="6cafcf9edd8773b01381250e7cb1ffb0"
 
-dest_files=[ "res://.import/Title.png-7362e0bee3c99d95e13efe8bc4e072d5.stex" ]
-dest_md5="e56246b5a46efbf1995930b2184b3e5e"
+dest_files=[ "res://.import/MechanicEmblem.png-411c0bfaa0a068176ceefed7b5430788.stex" ]
+dest_md5="af299fb11a227296e9bbf9f118ab989b"
 
 [params]
 
