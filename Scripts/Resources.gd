@@ -152,6 +152,9 @@ func get_node(node):
 func get_item_texture(id):
 	return cache_resource("res://Sprites/Items/" + str(id) + ".png")
 	
+func get_item_hd_texture(id):
+	return cache_resource("res://Sprites/Items/HD/" + str(id) + ".png")
+	
 func get_skill_texture(skill):
 	if cache_resource("res://Sprites/UI/Skills/" + skill + ".png"):
 		return cache_resource("res://Sprites/UI/Skills/" + skill + ".png")
