@@ -10,8 +10,7 @@ script/source = "extends Node2D
 var item = -1
 
 func _ready():
-	$\"/root/Game\".perma_state(self, \"queue_free\")
-
+	Res.game.perma_state(self, \"queue_free\")
 
 func _on_hit(body):
 	if body.get_parent().is_in_group(\"players\"):

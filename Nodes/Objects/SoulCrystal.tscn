@@ -3,7 +3,7 @@
 [ext_resource path="res://Sprites/Objects/SoulCrystal.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Interact.gd" type="Script" id=2]
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=1]
 
 resource_name = "Soul Crystal"
 script/source = "extends StaticBody2D
@@ -13,12 +13,12 @@ func interact():
 	Res.game.player.cancel_ghost()"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
 extents = Vector2( 16.8986, 12.6125 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 11.9485, 10.5386 )
@@ -32,17 +32,20 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
-script = SubResource( 3 )
+script = SubResource( 1 )
+_sections_unfolded = [ "Z Index" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
 position = Vector2( 0, -37 )
+z_index = 1
 texture = ExtResource( 1 )
+_sections_unfolded = [ "Z Index" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="1"]
 
 position = Vector2( 0, -13 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="InteractArea" type="Area2D" parent="." index="2"]
@@ -58,11 +61,12 @@ audio_bus_name = "Master"
 script = ExtResource( 2 )
 type = 0
 mode = 2
+send_status = false
 
 [node name="Shape" type="CollisionShape2D" parent="InteractArea" index="0"]
 
 position = Vector2( 0, 11 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
 

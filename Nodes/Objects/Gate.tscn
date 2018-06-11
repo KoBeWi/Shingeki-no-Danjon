@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/Objects/Gate.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=3]
+
+resource_name = "Gate"
+script/source = "extends StaticBody2D
+
+func _process(delta):
+	$GateShape.disabled = !!Res.game.player.ghost_mode"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 78.0697, 19.1495 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 38.7867, 60 )
+
+[node name="Gate" type="StaticBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+position = Vector2( 0, -99 )
+z_index = 1
+texture = ExtResource( 1 )
+vframes = 7
+_sections_unfolded = [ "Animation", "Z Index" ]
+
+[node name="GateShape" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( 0, -18.024 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Wall1" type="StaticBody2D" parent="." index="2"]
+
+position = Vector2( -119.958, -99 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Shape" type="CollisionShape2D" parent="Wall1" index="0"]
+
+position = Vector2( 0, 38.6 )
+z_index = 1
+shape = SubResource( 2 )
+_sections_unfolded = [ "Z Index" ]
+
+[node name="Wall2" type="StaticBody2D" parent="." index="3"]
+
+position = Vector2( -119.958, -60.4 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Shape" type="CollisionShape2D" parent="Wall2" index="0"]
+
+position = Vector2( 239.916, 0 )
+z_index = 1
+shape = SubResource( 2 )
+_sections_unfolded = [ "Z Index" ]
+
+
