@@ -2,5 +2,5 @@
 	"type": "passive",
 	"name": "Fire Affinity",
 	"description": "Increases fire damage.",
-	"infos": ["Fire damage + X"]
+	"infos": ["Fire damage x3"]
 }

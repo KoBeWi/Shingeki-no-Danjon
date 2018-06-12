@@ -1,0 +1,6 @@
+{
+	"type": "passive",
+	"name": "Water Affinity",
+	"description": "Increases water damage.",
+	"infos": ["Water damage x3"]
+}

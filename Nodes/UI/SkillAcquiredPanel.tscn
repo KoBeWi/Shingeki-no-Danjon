@@ -8,26 +8,29 @@
 resource_name = "SkillPanel"
 script/source = "extends TextureRect
 
-const SKILL_TIMEOUT = 3
+const SKILL_TIMEOUT = 2
 
 var skill_time = 0
 
 func _process(delta):
 	if skill_time > 0:
 		skill_time -= delta
-		modulate.a = clamp(skill_time / (SKILL_TIMEOUT-1), 0, 0.8)
+		modulate.a = clamp(skill_time / (SKILL_TIMEOUT-1), 0, 1)
 		
-		if skill_time <= 0: visible = false
+		if skill_time <= 0:
+			get_tree().paused = false
+			visible = false
 
 func new_skill(skill):
 	Res.play_sample(get_parent().player, \"SkillAcquired\", false)
 	visible = true
+	get_tree().paused = true
 	$Name.text = Res.skills[skill].name
 	$Icon.texture = Res.get_skill_hd_texture(skill)
 	skill_time = SKILL_TIMEOUT"
 _sections_unfolded = [ "Resource" ]
 
-[node name="SkillAcquiredPanel" type="TextureRect"]
+[node name="SkillAcquiredPanel" type="TextureRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0

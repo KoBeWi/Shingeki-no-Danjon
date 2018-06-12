@@ -9,7 +9,14 @@
 	"FireAffinity": [
 		{
 			"stat": "FireMagic",
-			"value": 10
+			"value": 30
+		}
+	],
+	
+	"WaterAffinity": [
+		{
+			"stat": "WaterMagic",
+			"value": 30
 		}
 	],
 	

@@ -44,7 +44,8 @@ func _process(delta):
 		leave_menu = false
 
 func open_menu():
-	player.get_node("Camera/UI").enable()
+	player.UI.enable()
+	player.UI.get_node("FloorLabel").visible = false
 	get_tree().paused = true
 
 func change_floor(change):

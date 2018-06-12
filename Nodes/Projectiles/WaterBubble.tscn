@@ -31,7 +31,7 @@ func new_dir(dir):
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group(\"enemies\"):
-		SkillBase.inc_stat(\"FireMagic\")
+		SkillBase.inc_stat(\"WaterMagic\")
 		SkillBase.inc_stat(\"Ranged\")
 		collider.get_parent().damage(damage)
 		queue_free()"
@@ -60,7 +60,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 17, 17 )
 
-[node name="WaterBubble" type="KinematicBody2D" index="0"]
+[node name="WaterBubble" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 0

@@ -140,7 +140,7 @@ func _physics_process(delta):
 			if water_stream_hack <= 0:
 				trigger_skill(Res.skills["WaterBubble"])
 				water_stream_hack = 0.1
-			if Input.is_action_just_released("Special"): water_stream_hack = false
+			if !Input.is_action_pressed("Special"): water_stream_hack = false
 	
 	if Input.is_action_just_pressed("Ghost"):
 		if is_ghost:
@@ -362,7 +362,9 @@ func trigger_skill(skill = triggered_skill[0]):
 	triggered_skill = null
 	
 	if skill.has("cost"):
-		if PlayerStats.mana < skill.cost: return
+		if PlayerStats.mana < skill.cost:
+			water_stream_hack = false
+			return
 		else: PlayerStats.mana -= skill.cost
 	
 	SkillBase.current_combo.clear()
@@ -384,6 +386,7 @@ func trigger_skill(skill = triggered_skill[0]):
 			projectile.damage += int(PlayerStats[stat] * skill.scalling[stat])
 		
 		if skill.has("magic") and skill.magic == 1 and SkillBase.has_skill("FireAffinity"): projectile.damage *= 3 ##hack
+		elif skill.has("magic") and skill.magic == 2 and SkillBase.has_skill("WaterAffinity"): projectile.damage *= 3 ##hack
 		
 		if skill.name == "Water Bubbles": water_stream_hack = 0.1
 

@@ -14,9 +14,10 @@ func _physics_process(delta):
 	if !get_tree().paused: return
 	
 	if !$DialogueBox.process():
-		if Input.is_action_just_pressed("Menu") and !just_opened:
+		if Input.is_action_just_pressed("Menu") and $PlayerMenu.visible and !just_opened:
 			Res.ui_sample("MenuCancel")
-			$"/root/Game".leave_menu = true
+			$"FloorLabel".visible = true
+			Res.game.leave_menu = true
 			$PlayerMenu.visible = false
 			$PlayerMenu.in_tab = false
 			$Shop.visible = false
