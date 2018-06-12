@@ -30,7 +30,7 @@ func new_skill(skill):
 	skill_time = SKILL_TIMEOUT"
 _sections_unfolded = [ "Resource" ]
 
-[node name="SkillAcquiredPanel" type="TextureRect" index="0"]
+[node name="SkillAcquiredPanel" type="TextureRect"]
 
 pause_mode = 2
 anchor_left = 0.0
