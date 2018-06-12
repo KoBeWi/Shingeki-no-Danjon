@@ -1,11 +1,4 @@
-{
-	"TestSkill": [
-		{
-			"stat": "Strength",
-			"value": 10
-		}
-	],
-	
+{	
 	"FastWalk": [
 		{
 			"stat": "PixelsTravelled",

@@ -152,14 +152,20 @@ func get_node(node):
 func get_item_texture(id):
 	return cache_resource("res://Sprites/Items/" + str(id) + ".png")
 	
-func get_item_hd_texture(id):
-	return cache_resource("res://Sprites/Items/HD/" + str(id) + ".png")
+#func get_item_hd_texture(id):
+#	return cache_resource("res://Sprites/Items/HD/" + str(id) + ".png")
 	
 func get_skill_texture(skill):
-	if cache_resource("res://Sprites/UI/Skills/" + skill + ".png"):
-		return cache_resource("res://Sprites/UI/Skills/" + skill + ".png")
+	if cache_resource("res://Sprites/Skills/" + skill + ".png"):
+		return cache_resource("res://Sprites/Skills/" + skill + ".png")
 	else:
-		return cache_resource("res://Sprites/UI/Skills/NoSkill.png")
+		return cache_resource("res://Sprites/Skills/NoSkill.png")
+
+func get_skill_hd_texture(skill):
+	if cache_resource("res://Sprites/Skills/HD/" + skill + ".png"):
+		return cache_resource("res://Sprites/Skills/HD/" + skill + ".png")
+	else:
+		return cache_resource("res://Sprites/Skills/HD/NoSkill.png")
 
 func cache_resource(res):
 	if !cache.has(res): cache[res] = load(res)

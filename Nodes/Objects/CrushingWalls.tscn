@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Sprites/Objects/CrushingWalls.png" type="Texture" id=1]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=1]
 
 resource_name = "CrushingWalls"
 script/source = "extends Area2D
@@ -13,26 +13,26 @@ func _process(delta):
 	if $Sprite.frame != last_frame:
 		$DamageShape.disabled = ($Sprite.frame != 2)
 		last_frame = $Sprite.frame
+		
+		if last_frame == 2: Res.play_sample(self, \"Crush\")
 
 func _on_attack(body):
-	print(\"ATTAC\")
 	if body.get_parent().is_in_group(\"players\"):
 		body.get_parent().damage(self, 50, 0)"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
 extents = Vector2( 80, 40 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 40, 40 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
-resource_name = "SMASH"
 length = 10.0
 loop = true
 step = 1.0
@@ -49,7 +49,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 1, 0 ]
 }
 
-[node name="CrushingWalls" type="Area2D" index="0"]
+[node name="CrushingWalls" type="Area2D"]
 
 input_pickable = false
 gravity_vec = Vector2( 0, 1 )
@@ -58,7 +58,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-script = SubResource( 4 )
+script = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
@@ -72,7 +72,7 @@ _sections_unfolded = [ "Animation", "Transform", "Z Index" ]
 [node name="DamageShape" type="CollisionShape2D" parent="." index="1"]
 
 position = Vector2( 0, -40 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 disabled = true
 
 [node name="LeftWall" type="StaticBody2D" parent="." index="2"]
@@ -88,7 +88,7 @@ bounce = 0.0
 [node name="Shape" type="CollisionShape2D" parent="LeftWall" index="0"]
 
 position = Vector2( -120, -41 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="RightWall" type="StaticBody2D" parent="." index="3"]
 
@@ -103,7 +103,7 @@ bounce = 0.0
 [node name="Shape" type="CollisionShape2D" parent="RightWall" index="0"]
 
 position = Vector2( 120, -41 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 
@@ -112,9 +112,20 @@ autoplay = "SMASH"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 8.0
-anims/SMASH = SubResource( 3 )
+anims/SMASH = SubResource( 4 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="." index="5"]
+
+position = Vector2( -199, -240 )
+rect = Rect2( 0, 0, 400, 300 )
+pause_animations = true
+freeze_bodies = true
+pause_particles = true
+pause_animated_sprites = true
+process_parent = false
+physics_process_parent = false
 
 [connection signal="area_entered" from="." to="." method="_on_attack"]
 

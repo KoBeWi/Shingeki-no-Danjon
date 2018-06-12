@@ -1261,6 +1261,7 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Equipment" type="Control" parent="Tabs" index="1"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1940,6 +1941,7 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Categories" type="Control" parent="Tabs/Equipment" index="6"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -2023,7 +2025,6 @@ __meta__ = {
 
 [node name="ActivePanel" type="TextureRect" parent="Tabs/Skills" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

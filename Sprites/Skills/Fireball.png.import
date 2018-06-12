@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ItemDropPanel.png-726013f802a1687024c4e28d0dbf91e3.stex"
+path="res://.import/Fireball.png-4aa46806974c44921afe7778c8440a2d.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/ItemDropPanel.png"
-source_md5="50b3a6d6b91d40eda6e1978060d51319"
+source_file="res://Sprites/Skills/Fireball.png"
+source_md5="e44f390f6b4bb61caa231e7075278f7f"
 
-dest_files=[ "res://.import/ItemDropPanel.png-726013f802a1687024c4e28d0dbf91e3.stex" ]
-dest_md5="15d494887a3b205a08e27dbe55a8da0f"
+dest_files=[ "res://.import/Fireball.png-4aa46806974c44921afe7778c8440a2d.stex" ]
+dest_md5="a80ff6bb5f9781c0d32a3abc2cc26048"
 
 [params]
 

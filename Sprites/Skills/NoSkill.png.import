@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ItemDropPanel.png-726013f802a1687024c4e28d0dbf91e3.stex"
+path="res://.import/NoSkill.png-256333695fb9e1b6381ba378a1cac478.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/ItemDropPanel.png"
-source_md5="50b3a6d6b91d40eda6e1978060d51319"
+source_file="res://Sprites/Skills/NoSkill.png"
+source_md5="efd8b182f7dc6342b75594cadb408796"
 
-dest_files=[ "res://.import/ItemDropPanel.png-726013f802a1687024c4e28d0dbf91e3.stex" ]
-dest_md5="15d494887a3b205a08e27dbe55a8da0f"
+dest_files=[ "res://.import/NoSkill.png-256333695fb9e1b6381ba378a1cac478.stex" ]
+dest_md5="dce6e49702c5e87756d554ac9e8d4657"
 
 [params]
 
