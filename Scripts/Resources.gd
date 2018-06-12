@@ -62,6 +62,12 @@ func _ready():
 		dungeons[dungeon.name] = dungeon.data
 	
 	crafting = read_json("res://Resources/CraftingList.json")
+	
+	##meh meh (DEBUG)
+	SkillBase.acquired_skills.append("Fireball")
+	SkillBase.acquired_skills.append("FireSpear")
+	SkillBase.acquired_skills.append("FireBolt")
+	SkillBase.acquired_skills.append("FireShield")
 
 func _process(delta):
 	##wszystko to debug D:
@@ -72,11 +78,6 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_F4):
 		for item in Res.items:
 			PlayerStats.add_item(item.id, 1, false)
-		
-		if !SkillBase.acquired_skills.has("FastWalk"): SkillBase.acquired_skills.append("FastWalk")
-		if !SkillBase.acquired_skills.has("Fireball"): SkillBase.acquired_skills.append("Fireball")
-		if !SkillBase.acquired_skills.has("FireSpear"): SkillBase.acquired_skills.append("FireSpear")
-		if !SkillBase.acquired_skills.has("FireBolt"): SkillBase.acquired_skills.append("FireBolt")
 		game.player.UI.get_node("PlayerMenu").update_skills()
 
 func save_setting(setting, set):

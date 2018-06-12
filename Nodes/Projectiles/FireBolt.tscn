@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Sprites/Projectiles/FireBolt.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Enemies/Mechanic/FireExplosion.png" type="Texture" id=2]
 
 [sub_resource type="GDScript" id=1]
 
@@ -12,13 +13,14 @@ const SPEED = 10
 
 var direction = 0 setget new_dir
 var damage = 0
+var exploded = false
 
 func intiated():
 	Res.play_sample(self, \"FireBolt\")
 
 func _physics_process(delta):
-	if move_and_collide(MOVEMENT[direction] * SPEED):
-		queue_free()
+	if !exploded and move_and_collide(MOVEMENT[direction] * SPEED):
+		explode()
 
 func new_dir(dir):
 	direction = dir
@@ -29,8 +31,39 @@ func _on_attack_hit(collider):
 		SkillBase.inc_stat(\"FireMagic\")
 		SkillBase.inc_stat(\"Ranged\")
 		collider.get_parent().damage(damage)
-		queue_free()"
+		explode()
+
+func explode():
+	if exploded: return
+	Res.play_sample(self, \"FireBoltExplosion\")
+	exploded = true
+	$Sprite.visible = false
+	$Explosion.visible = true
+	$Animation.play(\"Explode\")
+	$AttackCollider/Shape.shape.extents = Vector2(240, 240)
+	$Animation.connect(\"animation_finished\", self, \"queue_free2\")
+
+func queue_free2(this_argument_doesnt_exist_lol): queue_free()"
 _sections_unfolded = [ "Resource" ]
+
+[sub_resource type="Animation" id=4]
+
+resource_name = "Explode"
+length = 6.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Explosion:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
 
 [sub_resource type="Animation" id=2]
 
@@ -72,24 +105,34 @@ hframes = 8
 frame = 4
 _sections_unfolded = [ "Animation", "Transform" ]
 
-[node name="Animation" type="AnimationPlayer" parent="." index="1"]
+[node name="Explosion" type="Sprite" parent="." index="1"]
+
+visible = false
+rotation = -1.5708
+texture = ExtResource( 2 )
+hframes = 10
+frame = 5
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="Animation" type="AnimationPlayer" parent="." index="2"]
 
 root_node = NodePath("..")
 autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
+anims/Explode = SubResource( 4 )
 anims/Idle = SubResource( 2 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Shape" type="CollisionShape2D" parent="." index="2"]
+[node name="Shape" type="CollisionShape2D" parent="." index="3"]
 
 position = Vector2( 0, -6 )
 shape = SubResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="AttackCollider" type="Area2D" parent="." index="3"]
+[node name="AttackCollider" type="Area2D" parent="." index="4"]
 
 editor/display_folded = true
 input_pickable = true

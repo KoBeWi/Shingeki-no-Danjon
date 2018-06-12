@@ -370,7 +370,6 @@ func trigger_skill():
 		if( direction == 2 ):
 			projectile.position = position + Vector2(0,80)
 		
-		
 		projectile.direction = direction
 		projectile.intiated()
 		

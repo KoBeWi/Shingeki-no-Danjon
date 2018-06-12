@@ -1,0 +1,14 @@
+{
+	"type": "active",
+	"name": "Fire Bomb",
+	"description": "Activates a shield of flames that damages nearby enemies.",
+	"infos": ["Fire elemental", "X CTRL to use"],
+	"combo": ["Special", "Shield"],
+	"projectile": "FireShield",
+	"stats": ["DefensiveMagic"],
+	"cost": 20,
+	"damage": 30,
+	"magic": 1,
+	"elements": {"fire": 1},
+	"scalling": {"intelligence": 1}
+}
