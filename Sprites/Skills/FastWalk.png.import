@@ -7,10 +7,10 @@ path="res://.import/FastWalk.png-56cde112397731c27444d1aba2cf37a0.stex"
 [deps]
 
 source_file="res://Sprites/Skills/FastWalk.png"
-source_md5="78c2027a4087fa6eba3754cb26b15386"
+source_md5="9fcb2674bd2b809a928d784dbc6e629e"
 
 dest_files=[ "res://.import/FastWalk.png-56cde112397731c27444d1aba2cf37a0.stex" ]
-dest_md5="7ebf86a4f804961716ad127f74bba9fc"
+dest_md5="167d75678c05935a661c3c1603b2b697"
 
 [params]
 

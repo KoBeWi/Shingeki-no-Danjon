@@ -1,6 +1,6 @@
 {
 	"type": "active",
-	"name": "Fire Bomb",
+	"name": "Fire Shield",
 	"description": "Activates a shield of flames that damages nearby enemies.",
 	"infos": ["Fire elemental", "X CTRL to use"],
 	"combo": ["Special", "Shield"],

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FastWalk.png-f159762cb323530e92b63c10ee27416c.stex"
+path="res://.import/RockPunch.png-eb2a34e44b03a50d35a2c579d2107167.stex"
 
 [deps]
 
-source_file="res://Sprites/Skills/HD/FastWalk.png"
-source_md5="fa7bd16664b69becd94f423a34718116"
+source_file="res://Sprites/Skills/RockPunch.png"
+source_md5="d0c875efb833a7042dc518243b1ea328"
 
-dest_files=[ "res://.import/FastWalk.png-f159762cb323530e92b63c10ee27416c.stex" ]
-dest_md5="939823e991d4dabe285fdc65f1b0686f"
+dest_files=[ "res://.import/RockPunch.png-eb2a34e44b03a50d35a2c579d2107167.stex" ]
+dest_md5="866a5619d8b6ebd21ad963f33d4fb150"
 
 [params]
 

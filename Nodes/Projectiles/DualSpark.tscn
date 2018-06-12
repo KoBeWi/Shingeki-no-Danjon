@@ -77,7 +77,6 @@ _sections_unfolded = [ "Collision", "Z Index" ]
 rotation = -1.5708
 texture = ExtResource( 1 )
 hframes = 4
-frame = 3
 _sections_unfolded = [ "Animation", "Transform" ]
 
 [node name="Animation" type="AnimationPlayer" parent="." index="1"]

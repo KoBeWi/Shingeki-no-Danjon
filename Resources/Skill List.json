@@ -13,6 +13,13 @@
 		}
 	],
 	
+	"FireBolt": [
+		{
+			"stat": "FireMagic",
+			"value": 15
+		}
+	],
+	
 	"WaterAffinity": [
 		{
 			"stat": "WaterMagic",
