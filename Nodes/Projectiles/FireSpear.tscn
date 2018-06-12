@@ -34,7 +34,7 @@ func _on_Animation_animation_finished(anim_name):
 	if anim_name == \"Start\": $Animation.play(\"Fly\")"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 
 resource_name = "Fly"
 length = 4.0
@@ -53,9 +53,8 @@ tracks/0/keys = {
 "values": [ 2, 3, 4, 5 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
-resource_name = "Start"
 length = 2.0
 loop = false
 step = 1.0
@@ -72,15 +71,17 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
 extents = Vector2( 17, 36 )
 
-[node name="FireSpear" type="KinematicBody2D"]
+[node name="FireSpear" type="KinematicBody2D" groups=[
+"playerSkills",
+]]
 
 input_pickable = false
-collision_layer = 0
+collision_layer = 8
 collision_mask = 12
 collision/safe_margin = 0.08
 script = SubResource( 1 )
@@ -101,15 +102,15 @@ autoplay = "Start"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/Fly = SubResource( 4 )
-anims/Start = SubResource( 2 )
+anims/Fly = SubResource( 2 )
+anims/Start = SubResource( 3 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="2"]
 
 position = Vector2( 0, -2 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="AttackCollider" type="Area2D" parent="." index="3"]
@@ -129,7 +130,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
 position = Vector2( 0, -2 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
 [connection signal="animation_finished" from="Animation" to="." method="_on_Animation_animation_finished"]

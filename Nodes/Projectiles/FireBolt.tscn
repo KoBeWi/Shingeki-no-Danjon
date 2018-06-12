@@ -47,7 +47,7 @@ func explode():
 func queue_free2(this_argument_doesnt_exist_lol): queue_free()"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 
 resource_name = "Explode"
 length = 6.0
@@ -66,7 +66,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
 length = 8.0
 loop = true
@@ -84,15 +84,17 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
 extents = Vector2( 17, 32 )
 
-[node name="FireBolt" type="KinematicBody2D"]
+[node name="FireBolt" type="KinematicBody2D" groups=[
+"playerSkills",
+]]
 
 input_pickable = false
-collision_layer = 0
+collision_layer = 8
 collision_mask = 12
 collision/safe_margin = 0.08
 script = SubResource( 1 )
@@ -122,15 +124,15 @@ autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/Explode = SubResource( 4 )
-anims/Idle = SubResource( 2 )
+anims/Explode = SubResource( 2 )
+anims/Idle = SubResource( 3 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="Shape" type="CollisionShape2D" parent="." index="3"]
 
 position = Vector2( 0, -6 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="AttackCollider" type="Area2D" parent="." index="4"]
@@ -150,7 +152,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="Shape" type="CollisionShape2D" parent="AttackCollider" index="0"]
 
 position = Vector2( 0, -6 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]
