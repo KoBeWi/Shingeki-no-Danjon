@@ -13,17 +13,19 @@ const SPEED = 15
 var direction = 0 setget new_dir
 var damage = 0
 var phase = 0
+var time = 0
 
 func intiated():
 	Res.play_sample(self, \"DualSpark\")
 	var dual = duplicate(DUPLICATE_USE_INSTANCING)
 	dual.get_node(\"Sprite\").texture = preload(\"res://Sprites/Projectiles/DarkEnergyDonut.png\")
 	dual.direction = direction
-	dual.phase = PI/2
+	dual.phase = PI
 	get_parent().add_child(dual)
 
 func _physics_process(delta):
-	if move_and_collide(MOVEMENT[direction] * SPEED + MOVEMENT[direction].rotated(PI/2) * sin(OS.get_ticks_msec()/100.0) * 20):
+	time += delta*10
+	if move_and_collide(MOVEMENT[direction] * SPEED + MOVEMENT[direction].rotated(PI/2) * cos(time + phase) * 10):
 		queue_free()
 
 func new_dir(dir):
@@ -61,7 +63,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 17, 32 )
 
-[node name="Spark" type="KinematicBody2D"]
+[node name="Spark" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 0
@@ -75,7 +77,7 @@ _sections_unfolded = [ "Collision", "Z Index" ]
 rotation = -1.5708
 texture = ExtResource( 1 )
 hframes = 4
-frame = 2
+frame = 3
 _sections_unfolded = [ "Animation", "Transform" ]
 
 [node name="Animation" type="AnimationPlayer" parent="." index="1"]
