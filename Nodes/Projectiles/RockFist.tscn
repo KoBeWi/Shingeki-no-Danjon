@@ -54,9 +54,9 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 14, 22 )
+extents = Vector2( 42, 66 )
 
-[node name="RockFist" type="KinematicBody2D"]
+[node name="RockFist" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 0
@@ -68,6 +68,7 @@ _sections_unfolded = [ "Collision", "Z Index" ]
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
 rotation = -1.5708
+scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
 hframes = 4
 _sections_unfolded = [ "Animation", "Transform", "Z Index" ]

@@ -47,12 +47,12 @@ func preparation(delta):
 		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.5
 		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%2 == 0:
 			for i in range(sprites.size()):
-				sprites[i].modulate = Color(10,10,10,1)
+				sprites[i].modulate = Color(10,10,10,1) if !special_ready else Color(10,1,1,1)
 		else:
 			for i in range(sprites.size()):
 				sprites[i].modulate = Color(1,1,1,1)
 		
-		if flash_time > 1:
+		if flash_time > 0.3:
 			for i in range(sprites.size()):
 				sprites[i].modulate = Color(1,1,1,1)
 			flash_time = 0

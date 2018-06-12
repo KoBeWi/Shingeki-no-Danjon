@@ -678,7 +678,7 @@ func scroll_inventory(scroll):
 	$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect" index="0"]
+[node name="PlayerMenu" type="TextureRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0

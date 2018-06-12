@@ -119,10 +119,18 @@ func _physics_process(delta):
 			$Elements.visible = true
 			SkillBase.current_combo.clear()
 	else:
-		if Input.is_action_pressed("Up"): current_element = 3
-		elif Input.is_action_pressed("Right"): current_element = 2
-		elif Input.is_action_pressed("Down"): current_element = 4
-		elif Input.is_action_pressed("Left"): current_element = 1
+		if Input.is_action_pressed("Up"):
+			$Elements.visible = false
+			current_element = 3
+		elif Input.is_action_pressed("Right"):
+			$Elements.visible = false
+			current_element = 2
+		elif Input.is_action_pressed("Down"):
+			$Elements.visible = false
+			current_element = 4
+		elif Input.is_action_pressed("Left"):
+			$Elements.visible = false
+			current_element = 1
 		else: current_element = 0
 		
 		$Elements/Select.position = $Elements.get_child(current_element).position
