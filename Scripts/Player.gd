@@ -28,6 +28,7 @@ var current_element = 0
 
 var charge_spin
 var triggered_skill
+var water_stream_hack = false
 
 var damaged
 var dead = false
@@ -134,6 +135,12 @@ func _physics_process(delta):
 		if triggered_skill:
 			triggered_skill[1] -= delta
 			if triggered_skill[1] <= 0: trigger_skill()
+		elif water_stream_hack:
+			water_stream_hack -= delta
+			if water_stream_hack <= 0:
+				trigger_skill(Res.skills["WaterBubble"])
+				water_stream_hack = 0.1
+			if Input.is_action_just_released("Special"): water_stream_hack = false
 	
 	if Input.is_action_just_pressed("Ghost"):
 		if is_ghost:
@@ -351,8 +358,7 @@ func use_magic(): ##nie tylko magia :|
 		and (skill.combo.size() > triggered_skill[0].combo.size() or skill.combo.back().length() > triggered_skill[0].combo.back().length())):
 			triggered_skill = [skill, 0.2]
 
-func trigger_skill():
-	var skill = triggered_skill[0]
+func trigger_skill(skill = triggered_skill[0]):
 	triggered_skill = null
 	
 	if skill.has("cost"):
@@ -377,7 +383,9 @@ func trigger_skill():
 		for stat in skill.scalling.keys():
 			projectile.damage += int(PlayerStats[stat] * skill.scalling[stat])
 		
-		if SkillBase.has_skill("FireAffinity"): projectile.damage *= 3 ##hack
+		if skill.has("magic") and skill.magic == 1 and SkillBase.has_skill("FireAffinity"): projectile.damage *= 3 ##hack
+		
+		if skill.name == "Water Bubbles": water_stream_hack = 0.1
 
 func _on_other_attack_hit(body):
 	if body.is_in_group("secrets"):

@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/WaterBubble.ogg-162673c8355765a368d9134e9659a614.oggstr"
+
+[deps]
+
+source_file="res://Samples/WaterBubble.ogg"
+source_md5="932c45413fdfa929aac518e38980d3a7"
+
+dest_files=[ "res://.import/WaterBubble.ogg-162673c8355765a368d9134e9659a614.oggstr" ]
+dest_md5="600df7a9af79a2b326ab7ddd9c6ae6d2"
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,14 @@
+{
+	"type": "active",
+	"name": "Water Bubbles",
+	"description": "Shoots a stream of low-range water bubbles.",
+	"infos": ["Water elemental", "Hold X to use"],
+	"combo": ["Special"],
+	"projectile": "WaterBubble",
+	"stats": ["OffensiveMagic"],
+	"cost": 4,
+	"damage": 2,
+	"magic": 2,
+	"elements": {"water": 1},
+	"scalling": {"intelligence": 1}
+}

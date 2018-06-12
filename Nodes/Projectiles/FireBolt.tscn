@@ -89,7 +89,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 17, 32 )
 
-[node name="FireBolt" type="KinematicBody2D" index="0"]
+[node name="FireBolt" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 0
