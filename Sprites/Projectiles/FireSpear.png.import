@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Fireball.png-b9642901565ffee00d4440dcaa3c5aa8.stex"
+path="res://.import/FireSpear.png-b840b3e10b513852fb67c30d7a7cca96.stex"
 
 [deps]
 
-source_file="res://Sprites/Projectiles/Fireball.png"
-source_md5="34fd04aa5d4d270651fd3282d832df42"
+source_file="res://Sprites/Projectiles/FireSpear.png"
+source_md5="e2fc459f685a6eb665dc44e545e13fd4"
 
-dest_files=[ "res://.import/Fireball.png-b9642901565ffee00d4440dcaa3c5aa8.stex" ]
-dest_md5="03765f88c43b391655439eb377a878d9"
+dest_files=[ "res://.import/FireSpear.png-b840b3e10b513852fb67c30d7a7cca96.stex" ]
+dest_md5="3f6bc34367e972ac95d151ee8e83b5d8"
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

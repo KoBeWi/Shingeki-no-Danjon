@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/FireSpear.ogg-25ae9067da4ba9d89c0e2a683f12ff08.oggstr"
+
+[deps]
+
+source_file="res://Samples/FireSpear.ogg"
+source_md5="fa5a6d5e6896f8047228279a8eed609f"
+
+dest_files=[ "res://.import/FireSpear.ogg-25ae9067da4ba9d89c0e2a683f12ff08.oggstr" ]
+dest_md5="7cc562ff732fd0e2c2d259c8ff9388de"
+
+[params]
+
+loop=false
+loop_offset=0

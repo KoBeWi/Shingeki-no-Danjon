@@ -106,5 +106,6 @@ func _process(delta):
 		var action = current_combo.back()
 		if Input.is_action_pressed(action.action) and OS.get_ticks_msec() - action.time > LONG_ACTION: action.long = true
 		
-		if current_combo.size() > MAX_COMBO or !current_combo.front().hold and OS.get_ticks_msec() - current_combo.front().time > COMBO_TIMEOUT: current_combo.pop_front()
+		if current_combo.size() > MAX_COMBO: current_combo.pop_front()
+		if !current_combo.front().hold and OS.get_ticks_msec() - current_combo.front().time > COMBO_TIMEOUT: current_combo.clear()
 		for action in current_combo: if Input.is_action_just_released(action.action): action.hold = false

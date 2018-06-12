@@ -27,6 +27,7 @@ var shielding = false
 var current_element = 0
 
 var charge_spin
+var triggered_skill
 
 var damaged
 var dead = false
@@ -125,6 +126,9 @@ func _physics_process(delta):
 	
 	if !elements_on:# and Input.is_action_pressed("Magic"):
 		use_magic()
+		if triggered_skill:
+			triggered_skill[1] -= delta
+			if triggered_skill[1] <= 0: trigger_skill()
 	
 	if Input.is_action_just_pressed("Ghost"):
 		if is_ghost:
@@ -337,31 +341,37 @@ func use_magic(): ##nie tylko magia :|
 	for skill in SkillBase.get_active_skills():
 		skill = Res.skills[skill]
 		
-#		if (!skill.has("magic") or current_element == skill.magic) and SkillBase.check_combo(skill.combo):
-		if (!skill.has("magic") or current_element == skill.magic) and Input.is_action_just_pressed("Special"):
-			SkillBase.current_combo.clear()
-			
-			if skill.has("cost"):
-				if PlayerStats.mana < skill.cost: continue
-				else: PlayerStats.mana -= skill.cost
-			if skill.has("stats"): for stat in skill.stats: SkillBase.inc_stat(stat)
-			
-			if skill.has("projectile"):
-				var projectile = Res.create_instance("Projectiles/" + skill.projectile)
-				get_parent().add_child(projectile)
-				projectile.position = position - Vector2(0,45)
-				if( direction == 2 ):
-					projectile.position = position + Vector2(0,80)
-				
-				
-				projectile.direction = direction
-				projectile.intiated()
-				
-				projectile.damage = skill.damage
-				for stat in skill.scalling.keys():
-					projectile.damage += int(PlayerStats[stat] * skill.scalling[stat])
-				
-				if SkillBase.has_skill("FireAffinity"): projectile.damage *= 3 ##hack
+		if (!skill.has("magic") or current_element == skill.magic) and SkillBase.check_combo(skill.combo) and (!triggered_skill or skill != triggered_skill[0] and skill.combo.size() > triggered_skill[0].combo.size()):
+			triggered_skill = [skill, 0.2]
+
+func trigger_skill():
+	var skill = triggered_skill[0]
+	triggered_skill = null
+	
+	if skill.has("cost"):
+		if PlayerStats.mana < skill.cost: return
+		else: PlayerStats.mana -= skill.cost
+	
+	SkillBase.current_combo.clear()
+	
+	if skill.has("stats"): for stat in skill.stats: SkillBase.inc_stat(stat)
+	
+	if skill.has("projectile"):
+		var projectile = Res.create_instance("Projectiles/" + skill.projectile)
+		get_parent().add_child(projectile)
+		projectile.position = position - Vector2(0,45)
+		if( direction == 2 ):
+			projectile.position = position + Vector2(0,80)
+		
+		
+		projectile.direction = direction
+		projectile.intiated()
+		
+		projectile.damage = skill.damage
+		for stat in skill.scalling.keys():
+			projectile.damage += int(PlayerStats[stat] * skill.scalling[stat])
+		
+		if SkillBase.has_skill("FireAffinity"): projectile.damage *= 3 ##hack
 
 func _on_other_attack_hit(body):
 	if body.is_in_group("secrets"):

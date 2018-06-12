@@ -1,0 +1,14 @@
+{
+	"type": "active",
+	"name": "Fire Arrow",
+	"description": "Shoots a piercing arrow of fire.",
+	"infos": ["X X to use"],
+	"combo": ["Special", "Special"],
+	"projectile": "FireSpear",
+	"stats": ["OffensiveMagic"],
+	"cost": 11,
+	"damage": 3,
+	"magic": 1,
+	"elements": {"fire": 1},
+	"scalling": {"intelligence": 1}
+}
