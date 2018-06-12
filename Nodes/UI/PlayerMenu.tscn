@@ -1262,6 +1262,7 @@ _sections_unfolded = [ "custom_fonts" ]
 [node name="Equipment" type="Control" parent="Tabs" index="1"]
 
 editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -2004,7 +2005,6 @@ _sections_unfolded = [ "custom_fonts" ]
 [node name="Skills" type="Control" parent="Tabs" index="2"]
 
 editor/display_folded = true
-visible = false
 self_modulate = Color( 1, 0.501961, 0.501961, 0.501961 )
 anchor_left = 0.0
 anchor_top = 0.0

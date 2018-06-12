@@ -376,7 +376,7 @@ func trigger_skill(skill = triggered_skill[0]):
 		get_parent().add_child(projectile)
 		projectile.position = position - Vector2(0,45)
 		if( direction == 2 ):
-			projectile.position = position + Vector2(0,80)
+			projectile.position = position + Vector2(0,40)
 		
 		projectile.direction = direction
 		projectile.intiated()

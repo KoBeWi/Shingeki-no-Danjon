@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/RockFist.ogg-f44e002e0332f1e777827f699562dad8.oggstr"
+
+[deps]
+
+source_file="res://Samples/RockFist.ogg"
+source_md5="dd7dda2e277cb937485f7d4b1af44a7c"
+
+dest_files=[ "res://.import/RockFist.ogg-f44e002e0332f1e777827f699562dad8.oggstr" ]
+dest_md5="dcc7ac2893b47b88553fb56fd606525d"
+
+[params]
+
+loop=false
+loop_offset=0
