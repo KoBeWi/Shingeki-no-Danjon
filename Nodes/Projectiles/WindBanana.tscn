@@ -56,7 +56,9 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 28, 24 )
 
-[node name="Banana" type="KinematicBody2D" index="0"]
+[node name="Banana" type="KinematicBody2D" groups=[
+"playerSkills",
+]]
 
 input_pickable = false
 collision_layer = 0
