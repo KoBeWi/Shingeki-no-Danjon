@@ -102,8 +102,8 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="DamageCollider" type="Area2D" parent="." index="2"]
 
-editor/display_folded = true
-position = Vector2( 0, -30 )
+position = Vector2( -0.777163, -27.2376 )
+scale = Vector2( 1.37523, 1.08633 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -117,7 +117,8 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="DamageCollider" index="0"]
 
-position = Vector2( -0.540359, -4.21616 )
+position = Vector2( -0.477784, 1.89996 )
+scale = Vector2( 1.30838, 1.26869 )
 shape = SubResource( 3 )
 
 [node name="Shape" type="CollisionShape2D" parent="." index="3"]
