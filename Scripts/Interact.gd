@@ -17,7 +17,7 @@ func _physics_process(delta):
 		get_parent().interact()
 
 func on_enter(body):
-	if (body.is_in_group("players") or body.is_in_group("ghosts")) and (mode == 0 or body.is_ghost == (mode == 2)):
+	if (body.is_in_group("players") or body.is_in_group("ghosts")) and (mode == 0 or (!!body.is_ghost) == (mode == 2)):
 		if send_status: get_parent().interact_enter()
 		player_in = body
 		icon().texture = load("res://Sprites/UI/Interact" + str(type) + ".png")

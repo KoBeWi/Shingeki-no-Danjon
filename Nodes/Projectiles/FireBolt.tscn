@@ -9,7 +9,7 @@ resource_name = "FireBolt"
 script/source = "extends KinematicBody2D
 
 const MOVEMENT = [Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0)]
-const SPEED = 10
+const SPEED = 8
 
 var direction = 0 setget new_dir
 var damage = 0
@@ -17,6 +17,7 @@ var exploded = false
 
 func intiated():
 	Res.play_sample(self, \"FireBolt\")
+	$AttackCollider/Shape.shape = $AttackCollider/Shape.shape.duplicate() ##bug w Godocie
 
 func _physics_process(delta):
 	if !exploded and move_and_collide(MOVEMENT[direction] * SPEED):
@@ -40,7 +41,7 @@ func explode():
 	$Sprite.visible = false
 	$Explosion.visible = true
 	$Animation.play(\"Explode\")
-	$AttackCollider/Shape.shape.extents = Vector2(240, 240)
+	$AttackCollider/Shape.shape.extents = Vector2(120, 120)
 	$Animation.connect(\"animation_finished\", self, \"queue_free2\")
 
 func queue_free2(this_argument_doesnt_exist_lol): queue_free()"
