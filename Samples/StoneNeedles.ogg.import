@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/StoneNeedles.ogg-f44609da493caa076dff5df49d346e2d.oggstr"
+
+[deps]
+
+source_file="res://Samples/StoneNeedles.ogg"
+source_md5="481d2e0e19d4ebd1085dd31983a96c55"
+
+dest_files=[ "res://.import/StoneNeedles.ogg-f44609da493caa076dff5df49d346e2d.oggstr" ]
+dest_md5="3f5ebef8382c95b80433b3c049d93087"
+
+[params]
+
+loop=false
+loop_offset=0

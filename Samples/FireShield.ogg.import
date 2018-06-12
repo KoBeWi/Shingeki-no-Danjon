@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/FireShield.ogg-f4ed4f1b657b0916531cd0c7bea0a408.oggstr"
+
+[deps]
+
+source_file="res://Samples/FireShield.ogg"
+source_md5="4d4e47fe234616e94b104f08e20ec0c9"
+
+dest_files=[ "res://.import/FireShield.ogg-f4ed4f1b657b0916531cd0c7bea0a408.oggstr" ]
+dest_md5="957089fb3bf9a3a9476ac8299dfdaae0"
+
+[params]
+
+loop=false
+loop_offset=0

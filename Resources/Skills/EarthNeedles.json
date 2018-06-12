@@ -1,0 +1,14 @@
+{
+	"type": "active",
+	"name": "Stone Needles",
+	"description": "Shoots straight a magical ball made of fire.",
+	"infos": ["Earh elemental", "X to use"],
+	"combo": ["Special"],
+	"projectile": "StoneNeedles",
+	"stats": ["OffensiveMagic"],
+	"cost": 14,
+	"damage": 15,
+	"magic": 4,
+	"elements": {"earth": 1},
+	"scalling": {"intelligence": 1}
+}
