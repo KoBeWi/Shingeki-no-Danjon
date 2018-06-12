@@ -4,7 +4,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-resource_name = "Fireball"
+resource_name = "FireBolt"
 script/source = "extends KinematicBody2D
 
 const MOVEMENT = [Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0)]
@@ -14,7 +14,7 @@ var direction = 0 setget new_dir
 var damage = 0
 
 func intiated():
-	Res.play_sample(self, \"Fireball\")
+	Res.play_sample(self, \"FireBolt\")
 
 func _physics_process(delta):
 	if move_and_collide(MOVEMENT[direction] * SPEED):
@@ -55,7 +55,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 17, 32 )
 
-[node name="FireBolt" type="KinematicBody2D"]
+[node name="FireBolt" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 0

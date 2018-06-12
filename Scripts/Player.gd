@@ -345,9 +345,10 @@ func cancel_ghost():
 func use_magic(): ##nie tylko magia :|
 	for skill in SkillBase.get_active_skills():
 		skill = Res.skills[skill]
+#		print(SkillBase.check_combo(["Special_"]))
 		
-		if (!skill.has("magic") or current_element == skill.magic) and SkillBase.check_combo(skill.combo) and (!triggered_skill
-			or skill != triggered_skill[0] and (skill.combo.size() > triggered_skill[0].combo.size() or skill.combo.back().length() > triggered_skill[0].combo.back().length())):
+		if (!skill.has("magic") or current_element == skill.magic) and SkillBase.check_combo(skill.combo) and (!triggered_skill or skill != triggered_skill[0]
+		and (skill.combo.size() > triggered_skill[0].combo.size() or skill.combo.back().length() > triggered_skill[0].combo.back().length())):
 			triggered_skill = [skill, 0.2]
 
 func trigger_skill():

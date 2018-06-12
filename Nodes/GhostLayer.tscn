@@ -51,7 +51,7 @@ tracks/0/keys = {
 "values": [ 0.02, 0.002 ]
 }
 
-[node name="GhostLayer" type="CanvasLayer" index="0"]
+[node name="GhostLayer" type="CanvasLayer"]
 
 layer = 1
 offset = Vector2( 0, 0 )

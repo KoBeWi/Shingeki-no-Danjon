@@ -92,7 +92,7 @@ func check_combo(combo):
 		if i > 0: prev_action = current_combo[current_combo.size() - combo.size() + i-1]
 		var action2 = current_combo[current_combo.size() - combo.size() + i]
 		if not ((action2.action == action or action == "Dir" and ["Up", "Right", "Down", "Left"].has(action2.action) or action == "Same" and prev_action and action2.action == prev_action.action) and
-			(long or !action2.has("long")) and
+			(!long or action2.has("long")) and
 			(!hold or action2.hold)): return false
 	
 	return true

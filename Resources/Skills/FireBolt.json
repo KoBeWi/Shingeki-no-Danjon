@@ -4,7 +4,7 @@
 	"description": "Shoots a slow projectile that explodes upon impact.",
 	"infos": ["Fire elemental", "long X to use"],
 	"combo": ["Special_"],
-	"projectile": "FireSpear",
+	"projectile": "FireBolt",
 	"stats": ["OffensiveMagic"],
 	"cost": 15,
 	"damage": 20,
