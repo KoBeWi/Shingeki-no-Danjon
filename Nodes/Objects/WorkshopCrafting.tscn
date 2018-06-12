@@ -33,7 +33,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[node name="WorkshopCrafting" type="StaticBody2D" index="0"]
+[node name="WorkshopCrafting" type="StaticBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -71,7 +71,7 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 3 )
-type = 0
+type = 2
 mode = 1
 send_status = true
 

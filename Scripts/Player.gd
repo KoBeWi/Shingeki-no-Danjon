@@ -29,6 +29,7 @@ var current_element = 0
 var charge_spin
 var triggered_skill
 var water_stream_hack = false
+var wind_spam_hack = false
 
 var damaged
 var dead = false
@@ -139,16 +140,26 @@ func _physics_process(delta):
 		if Input.is_action_just_released("Magic"): $Elements.visible = false
 	
 	if !elements_on and !ghost_mode:# and Input.is_action_pressed("Magic"):
-		use_magic()
-		if triggered_skill:
-			triggered_skill[1] -= delta
-			if triggered_skill[1] <= 0: trigger_skill()
-		elif water_stream_hack:
-			water_stream_hack -= delta
-			if water_stream_hack <= 0:
-				trigger_skill(Res.skills["WaterBubble"])
-				water_stream_hack = 0.1
-			if !Input.is_action_pressed("Special"): water_stream_hack = false
+		if !wind_spam_hack:
+			use_magic()
+			if triggered_skill:
+				triggered_skill[1] -= delta
+				if triggered_skill[1] <= 0: trigger_skill()
+			elif water_stream_hack:
+				water_stream_hack -= delta
+				if water_stream_hack <= 0:
+					trigger_skill(Res.skills["WaterBubble"])
+					water_stream_hack = 0.1
+				if !Input.is_action_pressed("Special"): water_stream_hack = false
+		else:
+			if Input.is_action_just_pressed("Special"):
+				wind_spam_hack = 0.5
+				trigger_skill(Res.skills["WindBanana"])
+			
+			wind_spam_hack -= delta
+			if wind_spam_hack <= 0:
+				wind_spam_hack = 0
+				SkillBase.current_combo.clear()
 	
 	if Input.is_action_just_pressed("Ghost"):
 		if is_ghost:
@@ -157,7 +168,7 @@ func _physics_process(delta):
 			Res.play_sample(self, "GhostEnter")
 			ghost_mode = GHOST.instance()
 			ghost_mode.modulate = Color(1, 1, 1, 0.5)
-			ghost_mode.is_ghost = 5
+			ghost_mode.is_ghost = 8
 			ghost_mode.position.y += 8
 			ghost_mode.remove_from_group("players")
 			ghost_mode.add_to_group("ghosts")
@@ -397,6 +408,7 @@ func trigger_skill(skill = triggered_skill[0]):
 		elif skill.has("magic") and skill.magic == 2 and SkillBase.has_skill("WaterAffinity"): projectile.damage *= 3 ##hack
 		
 		if skill.name == "Water Bubbles": water_stream_hack = 0.1
+		if skill.name == "Razor Banana": wind_spam_hack = 0.5
 
 func _on_other_attack_hit(body):
 	if body.is_in_group("secrets"):

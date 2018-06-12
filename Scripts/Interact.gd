@@ -2,7 +2,7 @@ extends Area2D
 
 var player_in
 
-enum TYPE{STANDARD, TALK}
+enum TYPE{PICKUP, TALK, CRAFT, CRYSTAL}
 export(TYPE) var type = 0
 enum MODE{BOTH, NO_GHOST, GHOST_ONLY}
 export(MODE) var mode = 0

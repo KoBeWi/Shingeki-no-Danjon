@@ -1,0 +1,14 @@
+{
+	"type": "active",
+	"name": "Razor Banana",
+	"description": "Releases banana-shaped cutting waves of wind.",
+	"infos": ["Air elemental", "X to use", "Spam X to keep shooting"],
+	"combo": ["Special"],
+	"projectile": "WindBanana",
+	"stats": ["OffensiveMagic"],
+	"cost": 10,
+	"damage": 8,
+	"magic": 3,
+	"elements": {"air": 1},
+	"scalling": {"intelligence": 1}
+}

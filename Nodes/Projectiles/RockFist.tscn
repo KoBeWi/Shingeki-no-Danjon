@@ -56,7 +56,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 42, 66 )
 
-[node name="RockFist" type="KinematicBody2D" index="0"]
+[node name="RockFist" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 0

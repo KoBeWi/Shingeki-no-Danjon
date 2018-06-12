@@ -1,0 +1,14 @@
+{
+	"type": "active",
+	"name": "Dual Spark",
+	"description": "Shoots two interweaving balls of energy.",
+	"infos": ["Energy elemental", "X to use"],
+	"combo": ["Special"],
+	"projectile": "DualSpark",
+	"stats": ["OffensiveMagic"],
+	"cost": 30,
+	"damage": 12,
+	"magic": 0,
+	"elements": {"energy": 1},
+	"scalling": {"intelligence": 1}
+}
