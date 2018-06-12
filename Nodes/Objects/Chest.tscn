@@ -21,6 +21,7 @@ func interact():
 	if item > -1:
 		var it = Res.create_instance(\"Item\")
 		it.position = position + Vector2(0, 50)
+		z_index-=1
 		it.id = item
 		get_parent().add_child(it)
 

@@ -16,7 +16,7 @@ var SPEED                = 120
 const KNOCKBACK_ATACK      = 5 
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 60
+const PERSONAL_SPACE       = 80
 const TIME_OF_LIYUGN_CORPS = 3
 
 var MAT = load("res://Resources/Materials/ColorShader.tres")
@@ -94,40 +94,7 @@ func _physics_process(delta):
 		if( !special_ready ) : special_ready = (randi()%SPECIAL_PROBABILITY == 0)
 		if( !  atack_ready ) : atack_ready   = (randi()%ATACK_SPEED         == 0)
 		
-		var move = Vector2(sign(player.position.x - position.x), sign(player.position.y - position.y)).normalized() * SPEED * delta
-		
-		var x_distance = abs(position.x - player.position.x)
-		var y_distance = abs(position.y - player.position.y) 
-
-		var axix_X = x_distance >= PERSONAL_SPACE
-		var axix_Y = y_distance >= PERSONAL_SPACE
-		
-		if( x_distance < move.x*SPEED ): move.x = x_distance/SPEED
-		if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
-		
-		if (axix_X or axix_Y):
-			move_and_slide(move * SPEED)
-		
-		#print(axix_X , " ",x_distance," ", y_distance, " " , move)
-		
-		if( x_distance > y_distance and axix_X ):
-			if abs(move.x) != 0: 
-				sprites[0].flip_h = move.x > 0
-				play_animation_if_not_playing("Left")
-				last_animation = "Left"
-				direction = "Right" if move.x > 0 else "Left"
-		elif(x_distance < y_distance and axix_Y):
-			if move.y < 0: 
-				play_animation_if_not_playing("Down")
-				last_animation = "Down"				
-				direction = "Up"
-			elif move.y > 0: 
-				play_animation_if_not_playing("Up")
-				last_animation = "Up"			
-				direction = "Down"
-		else:
-			play_animation_if_not_playing(last_animation)
-			pass
+		test_calculate_move(delta)
 	
 		var player_monster_distance_x = abs(position.x - player.position.x) 
 		var player_monster_distance_y = abs(position.y - player.position.y) 
@@ -253,3 +220,89 @@ func _on_animation_finished(anim_name):
 	if "Punch" in anim_name:
 		$"AttackCollider/Shape".disabled = true
 		in_action     = false
+		
+var is_avoiding = false
+var avoid_distance = Vector2(0,0)
+var avoid_stack    = 1
+var acc = Vector2(0,0)
+var randomDirection = randi()%2
+
+
+func test_calculate_move(delta):
+	var move = Vector2(sign(player.position.x - position.x + acc.x), sign(player.position.y - position.y+ acc.y)).normalized() * SPEED * delta
+		
+	var x_distance = abs(position.x - player.position.x)
+	var y_distance = abs(position.y - player.position.y) 
+
+	var axix_X = x_distance >= PERSONAL_SPACE
+	var axix_Y = y_distance >= PERSONAL_SPACE
+		
+	if( x_distance < move.x*SPEED ): move.x = x_distance/SPEED
+	if( y_distance < move.y*SPEED ): move.y = y_distance/SPEED
+	
+	if( x_distance > y_distance and axix_X ):
+		if abs(move.x) != 0: 
+			sprites[0].flip_h = move.x > 0
+			play_animation_if_not_playing("Left")
+			last_animation = "Left"
+			direction = "Right" if move.x > 0 else "Left"
+	elif(x_distance < y_distance and axix_Y):
+		if move.y < 0: 
+			play_animation_if_not_playing("Down")
+			last_animation = "Down"				
+			direction = "Down"
+		elif move.y > 0: 
+			play_animation_if_not_playing("Up")
+			last_animation = "Up"			
+			direction = "Up"
+	else:
+		play_animation_if_not_playing(last_animation)
+
+	if test_move( get_transform(), move  ):
+		
+		match direction:
+			"Up":
+				if( ! test_move( get_transform(), Vector2( 80 , 0) ) ) and !randomDirection: #and  abs(position.x+120 + 90*acc.x/100)  - abs(player.position.x)  <= 0  :
+					acc.x += 1
+					
+				if( ! test_move( get_transform(), Vector2( -80,  0) ) ) and randomDirection: #and  abs(position.x+120-90*acc.x/100) - abs(player.position.x)  >= 0 :
+					acc.x += -1
+						
+			"Down":		
+				
+				if( ! test_move( get_transform(), Vector2(  80 , 0) ) ) and !randomDirection:# and  abs(position.x+120-90*acc.x/100)  - abs(player.position.x)  <= 0  :
+					acc.x += 1
+					
+				if( ! test_move( get_transform(), Vector2( -80,  0) ) ) and randomDirection:# and  abs(position.x+120-90*acc.x/100) - abs(player.position.x)  >= 0 :
+					acc.x += -1
+				
+			"Left" :
+				
+				if( ! test_move( get_transform(), Vector2(  0 , 80) ) )and !randomDirection:# and  abs(position.y+120 + 80*acc.y/100)  - abs(player.position.y)  <= 0  :
+					acc.y += 1
+					
+				if( ! test_move( get_transform(), Vector2( 0,  -80) ) ) and randomDirection:# and  abs(position.y+120 - 80*acc.y/100) - abs(player.position.y)  >= 0 :
+					acc.y += -1
+				
+					
+			"Right" :
+					
+				if( ! test_move( get_transform(), Vector2(  0 , 80) ) ) and !randomDirection :#and  abs(position.y+120)  - abs(player.position.y)  <= 0  :
+					acc.y += 1
+					
+				if( ! test_move( get_transform(), Vector2( 0,  -80) ) ) and randomDirection :#and  abs(position.y+120) - abs(player.position.y)  >= 0 :
+					acc.y += -1
+		
+		var repairer = Vector2(0,0)
+		
+		if direction == "Left": repairer.x -=1
+		if direction == "Right": repairer.x +=1
+		if direction == "Up": repairer.y +=1
+		if direction == "Down": repairer.y -=1
+		
+		move_and_slide((acc + repairer).normalized() *delta * SPEED * SPEED   )
+				
+	else :
+		move_and_slide( (move + acc.normalized() *delta * SPEED) * SPEED )
+		randomDirection = randi()%2
+		acc = Vector2(0,0)

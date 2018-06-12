@@ -10,7 +10,7 @@
 	"breakable_contents": [[2, 200], [3, 400], [17,800]],
 	"breakable_count": 20,
 	"enemies": ["Puncher", "Grinder", "Trochnalis", "FLA-G", "FLA-B" ,"PuncherMKII", "FLA-S"],
-	"enemy_count": 35,
+	"enemy_count": 50,
 	"environment_objects": ["WaterPipe", "OilPipe", "ParaffinBluePipe", "ParaffinGreenPipe", "Pipe", "FloorWheel", "FirePipe", "WheelTrap"],
 	"environment_count": 50
 }

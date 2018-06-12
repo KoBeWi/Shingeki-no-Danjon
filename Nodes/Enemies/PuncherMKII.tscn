@@ -8,7 +8,6 @@
 [ext_resource path="res://Sprites/UI/EnemyHealth.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Enemies/Shadow.png" type="Texture" id=7]
 
-
 [sub_resource type="Animation" id=1]
 
 resource_name = "Dead"
@@ -279,7 +278,7 @@ extents = Vector2( 10, 10 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="Template" type="KinematicBody2D" index="0" groups=[
+[node name="Template" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
