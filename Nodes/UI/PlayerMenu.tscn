@@ -312,10 +312,10 @@ func _process(delta):
 					skill_select = min(skill_select+1, SkillBase.get_passive_skills().size()+9999)
 				select_skill()
 			elif Input.is_action_just_pressed(\"ui_up\"):
-				crafting_select = max(skill_select-4, 0)
+				skill_select = max(skill_select-4, 0)
 				select_skill()
 			elif Input.is_action_just_pressed(\"ui_down\"):
-				crafting_select = min(skill_select+4, SkillBase.get_active_skills().size()-1)
+				skill_select = min(skill_select+4, SkillBase.get_active_skills().size()-1)
 				select_skill()
 			if prev_sel != skill_select: Res.ui_sample(\"MenuMove\")
 		3:
@@ -507,7 +507,7 @@ func select_skill():
 		else:
 			$Tabs/Skills/PassivePanel/Skills.get_child(i).modulate = Color(1, 1, 1)
 	
-	$Tabs/Skills/LeftHeader/Info/Icon.texture = Res.get_skill_texture(skill)
+	$Tabs/Skills/LeftHeader/Info/Icon.texture = Res.get_skill_hd_texture(skill)
 	skill = Res.skills[skill]
 	$Tabs/Skills/LeftHeader/Info/Name.text = skill.name
 	$Tabs/Skills/LeftHeader2/Description.text = skill.description
@@ -678,7 +678,7 @@ func scroll_inventory(scroll):
 	$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect"]
+[node name="PlayerMenu" type="TextureRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0

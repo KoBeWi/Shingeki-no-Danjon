@@ -7,10 +7,10 @@ path="res://.import/WaterBubble.png-8f7c27ed2e69916dd4519b6b110ef036.stex"
 [deps]
 
 source_file="res://Sprites/Projectiles/WaterBubble.png"
-source_md5="202218b78b84e7af4c8144cb22312cd7"
+source_md5="0f5ee221fb7b052cd3d99b54656dddf7"
 
 dest_files=[ "res://.import/WaterBubble.png-8f7c27ed2e69916dd4519b6b110ef036.stex" ]
-dest_md5="7d9cb67d33733870f3f55b16f326a01b"
+dest_md5="9400226eeca3cdbcea70538b9c6f18be"
 
 [params]
 
