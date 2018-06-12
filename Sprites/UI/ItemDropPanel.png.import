@@ -7,10 +7,10 @@ path="res://.import/ItemDropPanel.png-726013f802a1687024c4e28d0dbf91e3.stex"
 [deps]
 
 source_file="res://Sprites/UI/ItemDropPanel.png"
-source_md5="50b3a6d6b91d40eda6e1978060d51319"
+source_md5="7eb12fda1bf0e7227b9e05ae3356002c"
 
 dest_files=[ "res://.import/ItemDropPanel.png-726013f802a1687024c4e28d0dbf91e3.stex" ]
-dest_md5="15d494887a3b205a08e27dbe55a8da0f"
+dest_md5="3491c4047dfbe9d4aeb9ead0297abaf3"
 
 [params]
 

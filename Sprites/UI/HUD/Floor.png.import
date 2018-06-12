@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Interact0.png-86d8f0d0d46905c60863562ff07728b4.stex"
+path="res://.import/Floor.png-b66846204eae904ec653cf36c4291b92.stex"
 
 [deps]
 
-source_file="res://Sprites/UI/Interact0.png"
-source_md5="b8f4d6f67d29ce45cc2adf0b8a8287b8"
+source_file="res://Sprites/UI/HUD/Floor.png"
+source_md5="a6ccced60011257efb133a2001f56567"
 
-dest_files=[ "res://.import/Interact0.png-86d8f0d0d46905c60863562ff07728b4.stex" ]
-dest_md5="74e0d313d358bad62e0f1468d2b2edc1"
+dest_files=[ "res://.import/Floor.png-b66846204eae904ec653cf36c4291b92.stex" ]
+dest_md5="3f3a043f2e8140ff47615225ed3ae1a2"
 
 [params]
 

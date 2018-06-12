@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Crush.ogg-8b2ef04e17e486b1dbf37010dfbeeca6.oggstr"
+
+[deps]
+
+source_file="res://Samples/Crush.ogg"
+source_md5="26de2cd4c7514e2a81c72717f90910af"
+
+dest_files=[ "res://.import/Crush.ogg-8b2ef04e17e486b1dbf37010dfbeeca6.oggstr" ]
+dest_md5="3827aa3bc1f2ead3dceddf2872282015"
+
+[params]
+
+loop=false
+loop_offset=0

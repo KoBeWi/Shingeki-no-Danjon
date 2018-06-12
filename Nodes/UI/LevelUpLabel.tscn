@@ -16,7 +16,7 @@ func level_up():
 	visible = false"
 _sections_unfolded = [ "Resource" ]
 
-[node name="LevelUpLabel" type="TextureRect" index="0"]
+[node name="LevelUpLabel" type="TextureRect"]
 
 visible = false
 modulate = Color( 1, 1, 1, 0.752941 )

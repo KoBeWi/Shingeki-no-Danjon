@@ -31,8 +31,6 @@ visible = false
 
 [node name="FloorLabel" parent="." index="3" instance=ExtResource( 5 )]
 
-visible = false
-
 [node name="SkillAcquiredPanel" parent="." index="4" instance=ExtResource( 6 )]
 
 visible = false
