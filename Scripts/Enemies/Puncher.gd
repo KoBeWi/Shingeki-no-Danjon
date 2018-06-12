@@ -24,6 +24,8 @@ var dead_time       = 0
 
 var can_use_special = true
 
+
+
 ############################################################################################
 
 var dead            = false
@@ -132,9 +134,32 @@ func calculate_move(delta):
 func _physics_process(delta):
 	._physics_process(delta)
 	
+	
 	if dead :
 		calculate_dead(delta)
 		return
+		
+	if preparing :
+		flash_time += delta
+		
+		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.5
+		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%3 == 0:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(10,10,10,10)
+		else:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+		
+		
+		if flash_time > 2:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+			flash_time = 0
+			preparing = false
+			if special_ready and can_use_special:
+				call_special_atack()
+			else:
+				call_normal_atack()
 		
 	if in_special_state:
 		in_special_state(delta)
@@ -158,9 +183,9 @@ func _physics_process(delta):
 			
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if special_ready and can_use_special:
-				call_special_atack()
+				preparing = true
 			elif atack_ready: 
-				call_normal_atack()
+				preparing = true
 				
 			
 var is_avoiding = false
@@ -325,6 +350,7 @@ func _on_animation_started(anim_name):
 	
 		for i in range(sprites.size()):
 			sprites[i].visible = (i+1 == main_sprite)
+			
 
 func _on_dead():
 	Res.play_sample(self, "RobotCrash")

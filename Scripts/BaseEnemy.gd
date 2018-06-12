@@ -16,6 +16,12 @@ var drops = []
 var bar_timeout = 0
 var _dead = false
 
+var preparing = false
+var flash_time = 0.0
+var kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu = 0.0
+
+
+
 func _ready():
 	health = max_health
 	health_bar.max_value = max_health
