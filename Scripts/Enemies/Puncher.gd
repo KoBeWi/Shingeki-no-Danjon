@@ -131,25 +131,17 @@ func calculate_move(delta):
 		#	play_animation_if_not_playing("Down")
 		#	direction = "Down"
 
-func _physics_process(delta):
-	._physics_process(delta)
-	
-	
-	if dead :
-		calculate_dead(delta)
-		return
-		
+func preparation(delta):
 	if preparing :
 		flash_time += delta
 		
-		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.5
-		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%3 == 0:
+		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.2
+		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%4 == 0:
 			for i in range(sprites.size()):
 				sprites[i].modulate = Color(10,10,10,10)
 		else:
 			for i in range(sprites.size()):
 				sprites[i].modulate = Color(1,1,1,1)
-		
 		
 		if flash_time > 2:
 			for i in range(sprites.size()):
@@ -160,6 +152,17 @@ func _physics_process(delta):
 				call_special_atack()
 			else:
 				call_normal_atack()
+
+func _physics_process(delta):
+	._physics_process(delta)
+	
+	
+	if dead :
+		calculate_dead(delta)
+		return
+		
+	preparation(delta)
+	
 		
 	if in_special_state:
 		in_special_state(delta)
@@ -359,6 +362,9 @@ func _on_dead():
 	$"Shape".disabled = true
 	$"DamageCollider/Shape".disabled = true
 	$"AttackCollider/Shape".disabled = true
+	
+	for i in range(sprites.size()):
+		sprites[i].modulate = Color(1,1,1,1)
 
 func _on_damage():
 	prevPos = position

@@ -1,7 +1,7 @@
 extends Node
 onready var dungeon = $"../Segments"
 
-var NewToTest = "Enemies/Puncher"#"Enemies/Mechanic" #jak zrobisz tak to masz fajny null ##DEBUG
+var NewToTest = "Enemies/FLA-B"#"Enemies/Mechanic" #jak zrobisz tak to masz fajny null ##DEBUG
 
 const SEG_W = 800
 const SEG_H = 800

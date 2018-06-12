@@ -15,7 +15,7 @@ var   SPEED                = 100
 const KNOCKBACK_ATACK      = 0
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 60
+const PERSONAL_SPACE       = 80
 const TIME_OF_LIYUGN_CORPS = 3
 
 var player
@@ -46,6 +46,28 @@ func _ready():
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 	$"AnimationPlayer".play("Idle")
 	
+	
+func preparation(delta):
+	if preparing :
+		flash_time += delta
+		
+		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.6
+		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%4 == 0:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,10,1,10)
+		else:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+		
+		if flash_time > 1:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+			flash_time = 0
+			preparing = false
+		#	if special_ready and can_use_special:
+		#		call_special_atack()
+		#	else:
+			call_normal_atack()
 	
 func calculate_dead(delta):
 	dead_time += delta
@@ -97,6 +119,8 @@ func _physics_process(delta):
 		calculate_dead(delta)
 		return
 		
+	preparation(delta)
+		
 	if in_special_state:
 		special_countown -=delta
 		if special_countown < 0:
@@ -119,7 +143,7 @@ func _physics_process(delta):
 		
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if atack_ready: 
-				call_normal_atack()
+				preparing = true
 	
 	elif !in_action:
 		play_animation_if_not_playing("Idle")
@@ -203,6 +227,9 @@ func _on_dead():
 	$"Shape".disabled = true
 	$"DamageCollider/Shape".disabled = true
 	$"AttackCollider/Shape".disabled = true
+	
+	for i in range(sprites.size()):
+		sprites[i].modulate = Color(1,1,1,1)
 
 func _on_damage():
 	follow_player = true

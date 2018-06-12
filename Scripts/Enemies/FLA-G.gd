@@ -16,7 +16,7 @@ var SPEED                = 120
 const KNOCKBACK_ATACK      = 5 
 
 const FOLLOW_RANGE         = 400
-const PERSONAL_SPACE       = 80
+const PERSONAL_SPACE       = 120
 const TIME_OF_LIYUGN_CORPS = 3
 
 var MAT = load("res://Resources/Materials/ColorShader.tres")
@@ -37,7 +37,7 @@ var suesided        = false
 var in_special      = false
 var in_special_state = false
 var magic_ready     = false 
-var  special_countown = 0.0
+var special_countown = 0.0
 
 var special_destination = Vector2(0,0)
 
@@ -52,6 +52,28 @@ func _ready():
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 	$"AnimationPlayer".play("Idle")
 	MAT.set_shader_param("ucolor", Color(0.1, 0.4, 1))
+
+func preparation(delta):
+	if preparing :
+		flash_time += delta
+		
+		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.2
+		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%4 == 0:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(10,10,10,10)
+		else:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+		
+		if flash_time > 2:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+			flash_time = 0
+			preparing = false
+			if special_ready and can_use_special:
+				call_special_atack()
+			else:
+				call_normal_atack()
 
 func _physics_process(delta):
 	._physics_process(delta)
@@ -79,6 +101,8 @@ func _physics_process(delta):
 #		
 #		return
 	
+	preparation(delta)
+	
 	if in_special_state:
 		special_countown -= delta
 		if special_countown < 0:
@@ -105,27 +129,35 @@ func _physics_process(delta):
 		
 		if magic_ready:
 			magic_ready = false
-			call_special_atack()
+			call_magic_atack()
 			return
 		
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if special_ready and can_use_special :
-				Res.play_sample(self, "FLAGSpecial")
-				in_action = true
-				play_animation_if_not_playing("Special"+direction)
+				preparing = true
 
-				damage = SPECIAL_DAMAGE
-				knockback = KNOCKBACK_ATACK
-				in_special = true
 				#special_destination = player.position - ( position - player.position )
 			elif atack_ready:
+				preparing = true
 
+
+func call_normal_atack():
+					
 				in_action = true
 				atack_ready = false
 				punch_in_direction()
 				damage = BASIC_DAMAGE
 				knockback = 0
 
+func call_special_atack():
+	
+	Res.play_sample(self, "FLAGSpecial")
+	in_action = true
+	play_animation_if_not_playing("Special"+direction)
+
+	damage = SPECIAL_DAMAGE
+	knockback = KNOCKBACK_ATACK
+	in_special = true
 
 func turn_down_special():
 	Res.play_sample(self, "FLABuffCancel")
@@ -139,7 +171,7 @@ func turn_down_special():
 	in_action = true
 	play_animation_if_not_playing("Magic", true)
 
-func call_special_atack():
+func call_magic_atack():
 	Res.play_sample(self, "FLABuff")
 	#change_color()
 	
@@ -198,6 +230,9 @@ func _on_dead():
 	$"Shape".disabled = true
 	$"DamageCollider/Shape".disabled = true
 	$"AttackCollider/Shape".disabled = true
+	
+	for i in range(sprites.size()):
+		sprites[i].modulate = Color(1,1,1,1)
 
 func _on_damage():
 	follow_player = true

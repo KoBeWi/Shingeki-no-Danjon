@@ -115,6 +115,8 @@ func _physics_process(delta):
 		calculate_dead(delta)
 		return
 		
+	preparation(delta)
+		
 	if in_special_state:
 		in_special_state(delta)
 		return
@@ -133,11 +135,11 @@ func _physics_process(delta):
 			
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if atack_ready: 
-				call_normal_atack()
+				preparing = true
 
 		if player_monster_distance_x < 300 and player_monster_distance_y < 300:
 			if special_ready and can_use_special:
-				call_special_atack()
+				preparing = true
 		
 
 func move_to_nav_point(delta):
@@ -222,6 +224,9 @@ func _on_dead():
 	$"Shape".disabled = true
 	$"DamageCollider/Shape".disabled = true
 	$"AttackCollider/Shape".disabled = true
+
+	for i in range(sprites.size()):
+		sprites[i].modulate = Color(1,1,1,1)
 
 func _on_damage():
 	follow_player = true
@@ -325,3 +330,25 @@ func test_calculate_move(delta):
 		randomDirection = randi()%2
 		acc = Vector2(0,0)
 
+func preparation(delta):
+	if preparing :
+		flash_time += delta
+		
+		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.2
+		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%4 == 0:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(10,10,10,10)
+		else:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+		
+		
+		if flash_time > 2:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+			flash_time = 0
+			preparing = false
+			if special_ready and can_use_special:
+				call_special_atack()
+			else:
+				call_normal_atack()

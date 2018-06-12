@@ -35,6 +35,30 @@ func _ready():
 	drops.append([3,  500 ])
 	drops.append([19, 500 ])
 
+
+func preparation(delta):
+	if preparing :
+		flash_time += delta
+		
+		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.7
+		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%4 == 0:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,10,5)
+		else:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+		
+		
+		if flash_time > 0.8:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+			flash_time = 0
+			preparing = false
+			if special_ready and can_use_special:
+				call_special_atack()
+			else:
+				call_normal_atack()
+
 func _physics_process(delta):
 	._physics_process(delta)
 	
@@ -42,6 +66,9 @@ func _physics_process(delta):
 		dead_time += delta
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
 		return
+	
+	preparation(delta)
+	
 	
 	if follow_player and !in_action :
 		
@@ -58,23 +85,28 @@ func _physics_process(delta):
 		
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if special_ready and can_use_special:
-				in_action = true
-				play_animation_if_not_playing("Special")
-				damage = SPECIAL_DAMAGE
-				knockback = KNOCKBACK_ATACK
+				preparing = true
 			elif atack_ready:
-#				print("CHARGE!!!")
-				in_action = true
-				atack_ready = false
-				
-				punch_in_direction()
-				damage = BASIC_DAMAGE
-				knockback = 0
+				preparing = true
 		
 		
 	elif !in_action:
 		play_animation_if_not_playing("Idle")
 
+
+func call_special_atack():
+	in_action = true
+	play_animation_if_not_playing("Special")
+	damage = SPECIAL_DAMAGE
+	knockback = KNOCKBACK_ATACK
+
+func call_normal_atack():
+	in_action = true
+	atack_ready = false
+				
+	punch_in_direction()
+	damage = BASIC_DAMAGE
+	knockback = 0
 
 func punch_in_direction():
 	Res.play_pitched_sample(self, "Punch")
@@ -111,6 +143,9 @@ func _on_dead():
 	$"Shape".disabled = true
 	$"DamageCollider/Shape".disabled = true
 	$"AttackCollider/Shape".disabled = true
+	
+	for i in range(sprites.size()):
+		sprites[i].modulate = Color(1,1,1,1)
 
 func _on_damage():
 	follow_player = true

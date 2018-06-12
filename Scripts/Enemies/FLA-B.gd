@@ -40,6 +40,28 @@ var special_nav_poit = Vector2(0,0)
 
 onready var sprites = $Sprites.get_children()
 
+func preparation(delta):
+	if preparing :
+		flash_time += delta
+		
+		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.5
+		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%2 == 0:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(10,10,10,1)
+		else:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+		
+		if flash_time > 1:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+			flash_time = 0
+			preparing = false
+			if special_ready and can_use_special:
+				call_special_atack()
+			else:
+				call_normal_atack()
+
 func _ready():
 	._ready()
 	drops.append([18, 400])
@@ -128,6 +150,8 @@ func _physics_process(delta):
 		calculate_dead(delta)
 		return
 	
+	preparation(delta)
+	
 	if follow_player and !in_action :
 		check_atacks_prepeare()
 		calculate_move(delta)
@@ -135,15 +159,12 @@ func _physics_process(delta):
 		var player_monster_distance_x = abs(position.x - player.position.x) 
 		var player_monster_distance_y = abs(position.y - player.position.y) 
 
-
-		
-			
 			
 		if( abs(player.position.x - position.x) < 10 or abs(player.position.y - position.y) < 10 ):
 			if special_ready and can_use_special:
-				call_special_atack()
+				preparing = true
 			elif atack_ready: 
-				call_normal_atack()
+				preparing = true
 				
 		if player_monster_distance_x > FOLLOW_RANGE and player_monster_distance_y > FOLLOW_RANGE:
 			follow_player = false
@@ -282,6 +303,9 @@ func _on_dead():
 	$"Shape".disabled = true
 	$"DamageCollider/Shape".disabled = true
 	$"AttackCollider/Shape".disabled = true
+	
+	for i in range(sprites.size()):
+		sprites[i].modulate = Color(1,1,1,1)
 
 func _on_damage():
 	follow_player = true
