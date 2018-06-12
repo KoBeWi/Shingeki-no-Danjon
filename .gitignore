@@ -1,3 +1,4 @@
 .import/
 Thumbs.db
 *.xcf
+Nodes/Projectiles/RockFist.tscn

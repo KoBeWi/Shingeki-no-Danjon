@@ -70,12 +70,14 @@ func _ready():
 	SkillBase.acquired_skills.append("FireShield")
 	SkillBase.acquired_skills.append("WaterBubble")
 	SkillBase.acquired_skills.append("RockPunch")
+	SkillBase.acquired_skills.append("WindBanana")
+	SkillBase.acquired_skills.append("DualSpark")
 
 func _process(delta):
 	##wszystko to debug D:
 	if Input.is_key_pressed(KEY_F2) and Input.is_action_just_pressed("Interact"):
 		save_setting("no_music", !File.new().file_exists("user://no_music"))
-	if Input.is_key_pressed(KEY_F5): PlayerStats.strength += 10
+	if Input.is_key_pressed(KEY_F5): PlayerStats.mana = 99999999999
 	
 	if Input.is_key_pressed(KEY_F4):
 		for item in Res.items:

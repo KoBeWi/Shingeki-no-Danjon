@@ -5,7 +5,7 @@ export(String) var type
 onready var player_menu = Res.game.player.UI.get_node("PlayerMenu")
 
 func interact():
-	$"/root/Game".open_menu()
+	Res.game.open_menu()
 	player_menu.current_tab = 3
 
 func interact_enter():
