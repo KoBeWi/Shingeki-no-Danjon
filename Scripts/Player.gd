@@ -26,6 +26,8 @@ var attacking = false
 var shielding = false
 var current_element = 0
 
+var charge_spin
+
 var damaged
 var dead = false
 
@@ -75,6 +77,15 @@ func _physics_process(delta):
 		else: Res.play_pitched_sample(self, "Punch")
 		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
+		charge_spin = 1
+	
+	if charge_spin: charge_spin += delta
+	
+	if Input.is_action_just_released("Attack"):
+		if charge_spin and charge_spin > 2:
+			change_animation("Body", "SpinAttack")
+			change_animation("LeftArm", "SpinAttack")
+		charge_spin = null
 	
 	if !attacking and !shielding and PlayerStats.get_equipment("shield") and Input.is_action_pressed("Shield"):
 		change_animation("LeftArm", "ShieldOn")
@@ -194,7 +205,12 @@ func damage(attacker, amount, _knockback):
 		change_animation("Body", "Damage")
 
 func _on_animation_finished(anim_name):
-	if anim_name.find("SwordAttack") > -1: attacking = false
+	if "SwordAttack" in anim_name: attacking = false
+	elif "SpinAttack" in anim_name:
+		change_animation("Body", "Idle")
+		change_animation("RightArm", "SwordAttackFront")
+		change_animation("LeftArm", "ShieldOff")
+		reset_arms()
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group("enemies"):
@@ -225,7 +241,9 @@ func get_texture_hack(texture):
 	return textures[texture]
 
 func change_texture(sprite, texture, on_back = [], move_child = {}):
-	sprite.texture = get_texture_hack("res://Sprites/Player/" + sprite_direction + "/" + texture + ".png")
+	var dir = sprite_direction
+	if texture == "SpinAttack": dir = "Common"
+	sprite.texture = get_texture_hack("res://Sprites/Player/" + dir + "/" + texture + ".png")
 	sprite.show_behind_parent = on_back.has(sprite_direction)
 	if move_child.has(sprite_direction):
 		$Body.move_child(sprite, move_child[sprite_direction])
@@ -245,6 +263,15 @@ func change_animation(part, animation):
 			$Body.hframes = 1
 			$BodyAnimator.playback_speed = 1
 			$Body.vframes = 1
+		"SpinAttack":
+			change_texture($Body, "SpinAttack")
+			change_texture($Body/LeftArm, "SpinAttack")
+			change_texture($Body/RightArm, "SpinAttack")
+			$Body.hframes = 7
+			$Body/LeftArm.hframes = 7
+			$Body/RightArm.hframes = 7
+			$ArmAnimator.playback_speed = 16
+			$BodyAnimator.playback_speed = 16
 		"Death":
 			change_dir(2)
 			change_texture($Body, "Death")
@@ -270,6 +297,7 @@ func change_animation(part, animation):
 		_: $ArmAnimator.play(animation)
 
 func reset_arms():
+	$Body/RightArm.hframes = 10
 	$Body/LeftArm.frame = 0
 	$Body/RightArm.frame = 0
 	$Body/RightArm/Weapon.frame = 0
