@@ -1,0 +1,14 @@
+{
+	"type": "active",
+	"name": "Fire Bomb",
+	"description": "Shoots a slow projectile that explodes upon impact.",
+	"infos": ["Fire elemental", "long X to use"],
+	"combo": ["Special_"],
+	"projectile": "FireSpear",
+	"stats": ["OffensiveMagic"],
+	"cost": 15,
+	"damage": 20,
+	"magic": 1,
+	"elements": {"fire": 1},
+	"scalling": {"intelligence": 1}
+}

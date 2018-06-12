@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/FireBolt.ogg-a0e44b613616c23e09830af5cb67452f.oggstr"
+
+[deps]
+
+source_file="res://Samples/FireBolt.ogg"
+source_md5="e30fb11759d445b39a32b323867f0c29"
+
+dest_files=[ "res://.import/FireBolt.ogg-a0e44b613616c23e09830af5cb67452f.oggstr" ]
+dest_md5="97bb9ee106b92c9a48fcaac145c1b406"
+
+[params]
+
+loop=false
+loop_offset=0

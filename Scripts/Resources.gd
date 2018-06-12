@@ -76,6 +76,7 @@ func _process(delta):
 		if !SkillBase.acquired_skills.has("FastWalk"): SkillBase.acquired_skills.append("FastWalk")
 		if !SkillBase.acquired_skills.has("Fireball"): SkillBase.acquired_skills.append("Fireball")
 		if !SkillBase.acquired_skills.has("FireSpear"): SkillBase.acquired_skills.append("FireSpear")
+		if !SkillBase.acquired_skills.has("FireBolt"): SkillBase.acquired_skills.append("FireBolt")
 		game.player.UI.get_node("PlayerMenu").update_skills()
 
 func save_setting(setting, set):

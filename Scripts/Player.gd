@@ -47,6 +47,11 @@ func _physics_process(delta):
 	frame_counter += 1
 	var move = Vector2()
 	
+	if is_ghost:
+		is_ghost -= delta
+		GHOST_EFFECT.material.set_shader_param("noise_power", 0.002 + max(2 - is_ghost, 0) * 0.02)
+		if is_ghost <= 0: get_parent().cancel_ghost()
+	
 	static_time += delta
 	motion_time += delta
 	if static_time >= MEDITATION_TIME: SkillBase.inc_stat("Meditation")
@@ -124,7 +129,7 @@ func _physics_process(delta):
 		
 		if Input.is_action_just_released("Magic"): $Elements.visible = false
 	
-	if !elements_on:# and Input.is_action_pressed("Magic"):
+	if !elements_on and !ghost_mode:# and Input.is_action_pressed("Magic"):
 		use_magic()
 		if triggered_skill:
 			triggered_skill[1] -= delta
@@ -137,7 +142,7 @@ func _physics_process(delta):
 			Res.play_sample(self, "GhostEnter")
 			ghost_mode = GHOST.instance()
 			ghost_mode.modulate = Color(1, 1, 1, 0.5)
-			ghost_mode.is_ghost = true
+			ghost_mode.is_ghost = 5
 			ghost_mode.position.y += 8
 			ghost_mode.remove_from_group("players")
 			ghost_mode.add_to_group("ghosts")
@@ -341,7 +346,8 @@ func use_magic(): ##nie tylko magia :|
 	for skill in SkillBase.get_active_skills():
 		skill = Res.skills[skill]
 		
-		if (!skill.has("magic") or current_element == skill.magic) and SkillBase.check_combo(skill.combo) and (!triggered_skill or skill != triggered_skill[0] and skill.combo.size() > triggered_skill[0].combo.size()):
+		if (!skill.has("magic") or current_element == skill.magic) and SkillBase.check_combo(skill.combo) and (!triggered_skill
+			or skill != triggered_skill[0] and (skill.combo.size() > triggered_skill[0].combo.size() or skill.combo.back().length() > triggered_skill[0].combo.back().length())):
 			triggered_skill = [skill, 0.2]
 
 func trigger_skill():

@@ -2,7 +2,7 @@
 	"type": "active",
 	"name": "Fire Ball",
 	"description": "Shoots straight a magical ball made of fire.",
-	"infos": ["X to use"],
+	"infos": ["Fire elemental", "X to use"],
 	"combo": ["Special"],
 	"projectile": "Fireball",
 	"stats": ["OffensiveMagic"],

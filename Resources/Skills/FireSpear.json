@@ -2,7 +2,7 @@
 	"type": "active",
 	"name": "Fire Arrow",
 	"description": "Shoots a piercing arrow of fire.",
-	"infos": ["X X to use"],
+	"infos": ["Fire elemental", "X X to use"],
 	"combo": ["Special", "Special"],
 	"projectile": "FireSpear",
 	"stats": ["OffensiveMagic"],
