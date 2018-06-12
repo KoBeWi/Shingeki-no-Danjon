@@ -293,7 +293,7 @@ position = Vector2( 0, -49 )
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 8
-frame = 3
+frame = 15
 _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility" ]
 
 [node name="2" type="Sprite" parent="Sprites" index="1"]
