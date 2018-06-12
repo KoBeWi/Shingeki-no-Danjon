@@ -1578,7 +1578,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[node name="Intro" type="Node2D"]
+[node name="Intro" type="Node2D" index="0"]
 
 script = SubResource( 1 )
 __meta__ = {

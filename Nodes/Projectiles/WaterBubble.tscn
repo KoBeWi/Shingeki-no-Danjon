@@ -60,7 +60,9 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 17, 17 )
 
-[node name="WaterBubble" type="KinematicBody2D"]
+[node name="WaterBubble" type="KinematicBody2D" groups=[
+"playerSkills",
+]]
 
 input_pickable = false
 collision_layer = 0

@@ -137,6 +137,8 @@ func _on_animation_started(anim_name):
 			sprites[i].visible = (i+1 == main_sprite)
 
 func _on_dead():
+	player.updateQuest("Grinder")
+	
 	Res.play_sample(self, "RobotCrash")
 	dead = true
 	$"AnimationPlayer".play("Dead")

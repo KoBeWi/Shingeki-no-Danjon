@@ -72,6 +72,7 @@ func damage_equipment(slot, damage = 1):
 			equipment[SLOTS[slot]] = null
 			emit_signal("equipment_changed")
 
+
 func count_item(id):
 	var amount = 0
 	for item in inventory: if item.id == id: amount += item.stack
@@ -137,6 +138,8 @@ func add_experience(amount):
 		emit_signal("level_up")
 
 func add_item(id, amount = 1, notify = true): ##dorobić obsługę amount
+	
+	
 	var item = Res.items[id]
 	
 	var slot = -1
@@ -147,6 +150,7 @@ func add_item(id, amount = 1, notify = true): ##dorobić obsługę amount
 	
 	if slot > -1:
 		inventory[slot].stack += 1
+		
 	elif inventory.size() < PlayerStats.INVENTORY_SIZE:
 		var _item = {"id": id, "stack": 1}
 		if item.has("durability"):
@@ -157,5 +161,6 @@ func add_item(id, amount = 1, notify = true): ##dorobić obsługę amount
 	else:
 		return false
 	
+	Res.game.player.updateQuest("",id)
 	if notify: emit_signal("got_item", id)
 	return true

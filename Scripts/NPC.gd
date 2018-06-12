@@ -13,6 +13,7 @@ func interact():
 		UI.initiate_dialogue("TestDialogue")
 	elif dialogue == 1: ##całkiem meh meh
 		UI.initiate_dialogue("Jigsaw")
+		get_parent().get_node("Player").addQuest("Hunt")
 	else:
 		UI.get_node("../Shop").open_shop("Common shop", [2, 32, 33, 34, 35])
 
