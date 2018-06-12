@@ -42,6 +42,33 @@ func _ready():
 	drops.append([21,200])
 	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 
+
+func preparation(delta):
+	if preparing :
+		flash_time += delta
+		
+		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.2
+		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%4 == 0:
+			if special_ready and can_use_special and health <= 0.25 * HP:
+				for i in range(sprites.size()):
+					sprites[i].modulate = Color(50,1,1,10)
+			else:
+				for i in range(sprites.size()):
+					sprites[i].modulate = Color(10,10,10,10)
+		else:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+		
+		if flash_time > 5:
+			for i in range(sprites.size()):
+				sprites[i].modulate = Color(1,1,1,1)
+			flash_time = 0
+			preparing = false
+			if special_ready and can_use_special and health <= 0.25 * HP:
+				call_special_atack()
+			else:
+				call_normal_atack()
+
 func _physics_process(delta):
 	._physics_process(delta)
 	
@@ -50,6 +77,8 @@ func _physics_process(delta):
 		if dead_time > TIME_OF_LIYUGN_CORPS: queue_free()
 		return
 	#follow_player  = false
+	
+	preparation(delta)
 	
 	if suesided:
 		health = 0
@@ -71,20 +100,26 @@ func _physics_process(delta):
 		
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
 			if special_ready and can_use_special and health <= 0.25 * HP:
-				Res.play_sample(self, "Explosion")
-				in_action = true
-				play_animation_if_not_playing("Special")
-				damage = SPECIAL_DAMAGE
-				knockback = KNOCKBACK_ATACK
-				armour += 0.3
+				preparing = true
 			elif atack_ready:
-				in_action = true
-				atack_ready = false
-				Res.play_sample(self, "Flamethrower")
-				punch_in_direction()
-				damage = BASIC_DAMAGE
-				knockback = 0
+				preparing = true
 
+
+func call_normal_atack():
+	in_action = true
+	atack_ready = false
+	Res.play_sample(self, "Flamethrower")
+	punch_in_direction()
+	damage = BASIC_DAMAGE
+	knockback = 0
+
+func call_special_atack():
+	Res.play_sample(self, "Explosion")
+	in_action = true
+	play_animation_if_not_playing("Special")
+	damage = SPECIAL_DAMAGE
+	knockback = KNOCKBACK_ATACK
+	armour += 0.3
 
 func punch_in_direction():
 	play_animation_if_not_playing("Punch" + direction)
@@ -114,6 +149,9 @@ func _on_dead():
 	$"Shape".disabled = true
 	$"DamageCollider/Shape".disabled = true
 	$"AttackCollider/Shape".disabled = true
+	
+	for i in range(sprites.size()):
+		sprites[i].modulate = Color(1,1,1,1)
 
 func _on_damage():
 	follow_player = true
