@@ -56,7 +56,9 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 28, 24 )
 
-[node name="Banana" type="KinematicBody2D"]
+[node name="Banana" type="KinematicBody2D" index="0" groups=[
+"playerSkills",
+]]
 
 input_pickable = false
 collision_layer = 0
@@ -91,6 +93,8 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="AttackCollider" type="Area2D" parent="." index="3"]
 
+position = Vector2( 0.144562, -5.293 )
+scale = Vector2( 1.12783, 1.16541 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
