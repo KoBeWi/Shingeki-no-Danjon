@@ -205,7 +205,7 @@ func test_calculate_move(delta):
 	else:
 		play_animation_if_not_playing(last_animation)
 
-	if test_move( get_transform(), move  , true):
+	if test_move( get_transform(), move):
 		
 		match direction:
 			"Up":
