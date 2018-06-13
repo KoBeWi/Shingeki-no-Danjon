@@ -17,8 +17,8 @@ func _process(delta):
 		var game = load(\"res://Scenes/Game.tscn\").instance()
 		$\"/root\".add_child(game)
 #		game.set_map(load(\"res://Maps/BossRoom.tscn\").instance())
-		game.set_map(load(\"res://Maps/Sandbox.tscn\").instance())
-#		game.set_map(load(\"res://Maps/JigsawRoom.tscn\").instance())
+#		game.set_map(load(\"res://Maps/Sandbox.tscn\").instance())
+		game.set_map(load(\"res://Maps/JigsawRoom.tscn\").instance())
 		
 		get_tree().current_scene = game
 		queue_free()"

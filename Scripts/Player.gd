@@ -38,6 +38,7 @@ func _ready():
 	change_animation("Body", "Idle")
 	$BodyAnimator.play("Idle")
 	change_animation("LeftArm", "ShieldOff")
+	change_animation("RightArm", "SwordAttack")
 	change_dir(2)
 	reset_arms()
 	
@@ -83,6 +84,7 @@ func _physics_process(delta):
 	if !is_ghost and !attacking and !ghost_mode and !shielding and Input.is_action_just_pressed("Attack"):
 		if PlayerStats.get_equipment("weapon"): Res.play_pitched_sample(self, "Sword")
 		else: Res.play_pitched_sample(self, "Punch")
+		reset_arms()
 		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
 		charge_spin = 1
@@ -249,10 +251,11 @@ func _on_animation_finished(anim_name):
 	if "SwordAttack" in anim_name: attacking = false
 	elif "SpinAttack" in anim_name or "Magic" in anim_name:
 		change_animation("Body", "Idle")
-		change_animation("RightArm", "SwordAttackFront")
+		change_animation("RightArm", "SwordAttack")
 		change_animation("LeftArm", "ShieldOff")
 		reset_arms()
 		$ArmAnimator.stop()
+		$Body/RightArm/Weapon.visible = true
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group("enemies"):
@@ -260,13 +263,13 @@ func _on_attack_hit(collider):
 		SkillBase.inc_stat("Melee")
 		collider.get_parent().damage(PlayerStats.get_damage())
 
-func change_dir(dir):
-	if direction == dir or !dead and (Input.is_action_pressed("Attack") or Input.is_action_pressed("Shield")): return
+func change_dir(dir, force = false):
+	if !force and (direction == dir or !dead and (Input.is_action_pressed("Attack") or Input.is_action_pressed("Shield"))): return
 #	running = false
 	direction = dir
 	sprite_direction = ["Back", "Right", "Front", "Left"][dir]
 	change_texture($Body, "Body" + animations["Body"])
-	change_texture($Body/RightArm, "SwordAttack", ["Left", "Back"])
+	change_texture($Body/RightArm, animations["RightArm"], ["Left", "Back"])
 	change_texture($Body/LeftArm, alt_animation(animations["LeftArm"]), ["Right", "Back"], {"Back": 1, "Front": 0})
 	update_weapon()
 	update_shield()
@@ -306,6 +309,7 @@ func change_animation(part, animation):
 			$BodyAnimator.playback_speed = 1
 			$Body.vframes = 1
 		"Magic":
+			$Body/RightArm/Weapon.visible = false
 			change_texture($Body/RightArm, "Magic")
 			$Body/RightArm.hframes = 1
 			$Body/RightArm.vframes = 1
@@ -347,6 +351,9 @@ func reset_arms():
 	$Body/RightArm.hframes = 10
 	$Body/RightArm.frame = 0
 	$Body/RightArm/Weapon.frame = 0
+	$Body/RightArm.visible = true
+	$Body/RightArm/Weapon.visible = true
+	change_dir(direction, true) ##OSTATECZNY HACK ZAGŁADY KODU
 	$AttackCollider/Shape.disabled = true
 
 func weapon_sprite():
@@ -391,14 +398,14 @@ func use_magic(): ##nie tylko magia :|
 
 func trigger_skill(skill = triggered_skill[0]):
 	triggered_skill = null
-	change_animation("RightArm", "Magic")
 	
 	if skill.has("cost"):
 		if PlayerStats.mana < skill.cost:
 			water_stream_hack = false
 			return
 		else: PlayerStats.mana -= skill.cost
-	
+		
+	change_animation("RightArm", "Magic")
 	SkillBase.current_combo.clear()
 	
 	if skill.has("stats"): for stat in skill.stats: SkillBase.inc_stat(stat)

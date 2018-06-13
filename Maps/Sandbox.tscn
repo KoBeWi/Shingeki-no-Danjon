@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Nodes/Objects/Chest.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Resources/Tilesets/Dungeon.tres" type="TileSet" id=2]
@@ -10,9 +10,7 @@
 [ext_resource path="res://Nodes/NPC.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Nodes/Environment/FirePipe.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Nodes/Environment/WheelTrap.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Nodes/Enemies/FLA-S.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Nodes/Enemies/FLA-G.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Nodes/Uganda.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Nodes/Uganda.tscn" type="PackedScene" id=11]
 
 [sub_resource type="GDScript" id=1]
 
@@ -121,15 +119,7 @@ position = Vector2( 212.77, 312.799 )
 
 position = Vector2( 1066.67, 508.001 )
 
-[node name="FLA-S" parent="." index="9" instance=ExtResource( 11 )]
-
-position = Vector2( 1018.22, 398.459 )
-
-[node name="KinematicBody2D" parent="." index="10" instance=ExtResource( 12 )]
-
-position = Vector2( 1153.28, 408.281 )
-
-[node name="Uganda" parent="." index="11" instance=ExtResource( 13 )]
+[node name="Uganda" parent="." index="9" instance=ExtResource( 11 )]
 
 position = Vector2( 413.215, 615.51 )
 

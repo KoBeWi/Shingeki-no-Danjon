@@ -29,7 +29,7 @@ extents = Vector2( 30.7129, 50.1693 )
 [sub_resource type="Animation" id=4]
 
 resource_name = "Magic"
-length = 1.0
+length = 3.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -508,7 +508,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "players",
 ]]
 
