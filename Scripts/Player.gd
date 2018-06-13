@@ -418,7 +418,10 @@ func _on_other_attack_hit(body):
 		
 func addQuest(ques):
 	if ques in Quests.keys():
-		Quests[ques]["Status"]["Aquired"] = true
+		if !Quests[ques]["Status"]["Aquired"]:
+			Quests[ques]["Status"]["Aquired"] = true
+		else:
+			return
 		
 		for item in PlayerStats.inventory:
 			if item.id in Quests[ques]["Items"].keys():
@@ -428,6 +431,12 @@ func addQuest(ques):
 					print("Checkpoint ", item.id )
 		print(ques, " in progress")
 		
+		
+func is_quest_done(ques):
+	return Quests[ques]["Status"]["Done"]
+		
+func is_quest_aquired(ques):
+	return Quests[ques]["Status"]["Aquired"]
 		
 func checkQuest(ques):
 	
@@ -461,13 +470,17 @@ func updateQuest( mob = null, item = null, place = null ):
 			if !checkQuest(ques) : continue
 					
 			Quests[ques]["Status"]["Done"] = true
-			PlayerStats.add_experience(Quests[ques]["Reward"]["Exp"])
-			PlayerStats.money += Quests[ques]["Reward"]["Money"]
+			print(ques," Requierments Complete")
+			
+func add_quest_rewards(ques):
+	PlayerStats.add_experience(Quests[ques]["Reward"]["Exp"])
+	PlayerStats.money += Quests[ques]["Reward"]["Money"]
 					
-			for item in Quests[ques]["Reward"]["Items"].keys():
-				for i in range(Quests[ques]["Reward"]["Items"][item]):
-					PlayerStats.add_item(item)
-			print(ques," QUEST DONE")
+	for item in Quests[ques]["Reward"]["Items"].keys():
+		for i in range(Quests[ques]["Reward"]["Items"][item]):
+			PlayerStats.add_item(item)
+	
+	print(ques," Rewards Recived")
 			
 var Quests = {
 	
