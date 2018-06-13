@@ -20,15 +20,23 @@ var UI = Res.game.player.UI.get_node(\"DialogueBox\")
 
 var quest_begin = false
 var quest_end   = false
+var recived     = true
 
 func interact():
-	 ##całkiem meh
-	quest_begin = Res.game.player.is_quest_aquired(\"Uganda\")
-	quest_end   = Res.game.player.is_quest_done(\"Uganda\")
-	
-	UI.initiate_dialogue(\"Uganda\")
-	
-	
+
+	var QuestName = \"Uganda\"
+	if Res.game.player.is_quest_done(QuestName):
+		UI.initiate_dialogue(\"UgandaDoneQuest\")
+		recived = false
+	elif Res.game.player.is_quest_aquired(QuestName):
+		UI.initiate_dialogue(\"UgandaHaveQuest\")
+	else:
+		UI.initiate_dialogue(\"UgandaGiveQuest\")
+		Res.game.player.addQuest(QuestName)
+		
+	if !recived :
+		Res.game.player.add_quest_rewards(\"Uganda\")
+		recived = true
 		
 
 func _ready():
@@ -222,7 +230,7 @@ func icon(): if player_in: return player_in.get_node(\"Interact\")"
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="Uganda" type="KinematicBody2D"]
+[node name="Uganda" type="KinematicBody2D" index="0"]
 
 scale = Vector2( 1.5, 1.5 )
 input_pickable = false

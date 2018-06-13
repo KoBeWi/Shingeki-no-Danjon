@@ -519,9 +519,9 @@ var Quests = {
 		}   ,
 	"Uganda" : { 
 		"Status" : { "Aquired" : false, "Done" : false }, 
-		"Items":{ 1 : { "Amount"   : 0, "Required" : 1, "Finished" : false }, },
-		"Mob" : { "Puncher" : { "AlreadyKilled" : 0 , "NeedToBeKilled" : 1, "Finished" : false } , "Grinder" : { "AlreadyKilled" : 0 ,  "NeedToBeKilled" : 1, "Finished" : false } }, 
-		"Reward" : { "Exp" : 100,  "Money" : 100, "Items" : { 1 : 1,  2 : 2 } } 
+		"Items":{  },
+		"Mob" : { "Puncher" : { "AlreadyKilled" : 0 , "NeedToBeKilled" : 2, "Finished" : false } , "Grinder" : { "AlreadyKilled" : 0 ,  "NeedToBeKilled" : 2, "Finished" : false } }, 
+		"Reward" : { "Exp" : 100,  "Money" : 100, "Items" : { randi()%20 : 1,  randi()%20 : 2, randi()%20 : 3, randi()%20 : 4  } } 
 		}   
 		
 	}
