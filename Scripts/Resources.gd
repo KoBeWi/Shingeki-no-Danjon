@@ -83,7 +83,7 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_F5):
 		PlayerStats.health = 99999999999
 		PlayerStats.mana = 99999999999
-#		PlayerStats.intelligence = 999999
+		PlayerStats.intelligence = 999999
 	
 	if Input.is_key_pressed(KEY_F4):
 		for item in items:

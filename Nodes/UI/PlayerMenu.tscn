@@ -353,13 +353,13 @@ func _process(delta):
 			
 			if crafting_scroll > 0 and crafting_select - crafting_scroll < 2:
 				crafting_scroll -= 2
-				$Tabs/Crafting/Scrollbar/ActualScroll.rect_position.y = crafting_scroll / float(max_scroll) * 347
+				$Tabs/Crafting/Scrollbar/ActualScroll.rect_position.y = crafting_scroll / max(float(max_scroll), 1) * 347
 				select_crafting()
 				update_crafting()
 			
 			if crafting_select - crafting_scroll > 7:
 				crafting_scroll += 2
-				$Tabs/Crafting/Scrollbar/ActualScroll.rect_position.y = crafting_scroll / float(max_scroll) * 347
+				$Tabs/Crafting/Scrollbar/ActualScroll.rect_position.y = crafting_scroll / max(float(max_scroll), 1) * 347
 				select_crafting()
 				update_crafting()
 			
@@ -684,7 +684,7 @@ func refresh():
 func scroll_inventory(scroll):
 	inventory_scroll = scroll
 	var max_scroll = inventory_list.size()-7
-	$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283
+	$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / max(float(max_scroll), 1) * 283
 
 func auto_move(delta):
 	if !auto_move or auto_move[1] == \"up\" and !Input.is_action_pressed(\"ui_up\") or auto_move[1] == \"down\" and !Input.is_action_pressed(\"ui_down\"):

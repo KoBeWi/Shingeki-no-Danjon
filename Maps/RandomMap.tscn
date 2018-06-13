@@ -23,8 +23,13 @@ func initialize():
 	else:
 		seed(my_seed)
 	
+	##DEBUGSON
 	if DungeonState.current_floor == 1:
-		seed(778622209) ##DEBUG
+		seed(778622209)
+	elif DungeonState.current_floor == 2:
+		seed(1779916426 )
+	elif DungeonState.current_floor == 3:
+		seed(2946992650)
 	
 	$Generator.generate(10, 10)"
 _sections_unfolded = [ "Resource" ]

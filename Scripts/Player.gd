@@ -111,7 +111,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Spell1") and PlayerStats.get_skill(0) and PlayerStats.mana > PlayerStats.get_skill(0).cost:
 		cast_spell(0)
 	
-	if PlayerStats.mana < PlayerStats.max_mana and frame_counter % 20 == 0: PlayerStats.mana += 1
+	if PlayerStats.mana < PlayerStats.max_mana and frame_counter % 20 == 0: PlayerStats.mana = min(PlayerStats.mana + PlayerStats.intelligence/5 + 1, PlayerStats.max_mana)
 	UI.soft_refresh()
 	
 	if move.length_squared() == 0: running = false

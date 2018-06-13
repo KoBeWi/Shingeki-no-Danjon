@@ -126,10 +126,10 @@ func recalc_stats():
 	mana = min(mana, max_mana)
 
 func exp_to_level(level):
-	return level * 10 + level * level * 2 + 10
+	return level * 10 + level * level * 3 + 10
 	
 func total_exp(level):
-	return 2 * pow(level, 3) / 3 + level * (level+1) * 5 + 10 * level
+	return 3 * pow(level, 3) / 3 + level * (level+1) * 5 + 10 * level
 
 func add_experience(amount):
 	experience += amount

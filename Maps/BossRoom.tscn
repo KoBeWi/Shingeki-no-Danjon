@@ -1,17 +1,26 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Resources/Tilesets/Dungeon.tres" type="TileSet" id=1]
 [ext_resource path="res://Nodes/Enemies/Mechanic.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Resources/Fonts/Font80.tres" type="DynamicFont" id=3]
 
 [sub_resource type="GDScript" id=1]
 
 script/source = "extends Node2D
 
+onready var meka = $Mechanic
+
 func initialize():
 	Res.game.player.position = $Position2D.position
-	Res.play_music(\"MechanicBattle\")"
+	Res.play_music(\"MechanicBattle\")
 
-[node name="Segment" type="YSort"]
+func _process(delta):
+	if !\"mekaded\" in PlayerStats.events.keys() and meka.health <= 0:
+		PlayerStats.events[\"mekaded\"] = true
+		$CanvasLayer/Label.visible = true
+		Res.music.stop()"
+
+[node name="Segment" type="YSort" index="0"]
 
 sort_enabled = true
 script = SubResource( 1 )
@@ -72,5 +81,37 @@ position = Vector2( 400, 760 )
 [node name="Mechanic" parent="." index="3" instance=ExtResource( 2 )]
 
 position = Vector2( 617.745, 272.608 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="4"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="Label" type="Label" parent="CanvasLayer" index="0"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 188.0
+margin_right = 1366.0
+margin_bottom = 280.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 3 )
+text = "THE END"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect", "custom_fonts" ]
 
 
