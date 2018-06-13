@@ -222,7 +222,7 @@ func icon(): if player_in: return player_in.get_node(\"Interact\")"
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="Uganda" type="KinematicBody2D" index="0"]
+[node name="Uganda" type="KinematicBody2D"]
 
 scale = Vector2( 1.5, 1.5 )
 input_pickable = false

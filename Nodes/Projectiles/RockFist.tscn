@@ -19,6 +19,7 @@ func intiated():
 func _physics_process(delta):
 	if SPEED < 40: SPEED *= 1.1
 	if move_and_collide(MOVEMENT[direction] * SPEED):
+		Res.play_sample(self, \"EarthPunch\")
 		queue_free()
 
 func new_dir(dir):
@@ -27,6 +28,7 @@ func new_dir(dir):
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group(\"enemies\"):
+		Res.play_sample(self, \"EarthPunch\")
 		SkillBase.inc_stat(\"EarthMagic\")
 		SkillBase.inc_stat(\"Ranged\")
 		collider.get_parent().damage(damage)
@@ -56,7 +58,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 42, 66 )
 
-[node name="RockFist" type="KinematicBody2D"]
+[node name="RockFist" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 0

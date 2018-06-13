@@ -17,9 +17,6 @@ func intiated():
 	Res.play_sample(self, \"StoneNeedles\")
 	if direction != 2: position += MOVEMENT[direction] * 80
 
-func _physics_process(delta):
-	pass
-
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group(\"enemies\"):
 		SkillBase.inc_stat(\"EarthMagic\")

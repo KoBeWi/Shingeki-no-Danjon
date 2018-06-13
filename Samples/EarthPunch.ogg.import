@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/EarthPunch.ogg-bd0ab1f03a66841556f059883b16673e.oggstr"
+
+[deps]
+
+source_file="res://Samples/EarthPunch.ogg"
+source_md5="f30a181920c76f87009315c10b6dd3e9"
+
+dest_files=[ "res://.import/EarthPunch.ogg-bd0ab1f03a66841556f059883b16673e.oggstr" ]
+dest_md5="4b358fc8008974785d3e0fedb325515d"
+
+[params]
+
+loop=false
+loop_offset=0

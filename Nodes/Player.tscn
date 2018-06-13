@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Common/SpinAttack.png" type="Texture" id=2]
@@ -28,7 +28,25 @@ extents = Vector2( 30.7129, 50.1693 )
 
 [sub_resource type="Animation" id=4]
 
-resource_name = "ShieldOff"
+resource_name = "Magic"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/RightArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+
 length = 3.0
 loop = false
 step = 1.0
@@ -57,9 +75,8 @@ tracks/1/keys = {
 "values": [ 2, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
-resource_name = "ShieldOn"
 length = 3.0
 loop = false
 step = 1.0
@@ -88,7 +105,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=7]
 
 resource_name = "SpinAttack"
 length = 15.0
@@ -119,7 +136,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 
 length = 11.0
 loop = false
@@ -185,7 +202,7 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=9]
 
 length = 11.0
 loop = false
@@ -251,7 +268,7 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
 
 length = 11.0
 loop = false
@@ -317,7 +334,7 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=11]
 
 length = 11.0
 loop = false
@@ -383,9 +400,8 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
 
-resource_name = "Damage"
 length = 1.0
 loop = false
 step = 1.0
@@ -402,7 +418,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=13]
 
 length = 10.0
 loop = false
@@ -420,7 +436,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=14]
 
 length = 24.0
 loop = true
@@ -438,9 +454,8 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=15]
 
-resource_name = "SpinAttack"
 length = 16.0
 loop = false
 step = 1.0
@@ -457,7 +472,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=16]
 
 length = 45.0
 loop = true
@@ -475,7 +490,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=17]
 
 length = 1.0
 loop = true
@@ -493,7 +508,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[node name="Player" type="KinematicBody2D" index="0" groups=[
+[node name="Player" type="KinematicBody2D" groups=[
 "players",
 ]]
 
@@ -510,7 +525,6 @@ _sections_unfolded = [ "Transform", "Z Index", "collision" ]
 position = Vector2( 0, -55 )
 texture = ExtResource( 2 )
 hframes = 7
-frame = 6
 _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [node name="RightArm" type="Sprite" parent="Body" index="0"]
@@ -518,6 +532,7 @@ _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 editor/display_folded = true
 texture = ExtResource( 3 )
 hframes = 7
+frame = 1
 _sections_unfolded = [ "Animation", "Visibility" ]
 
 [node name="Weapon" type="Sprite" parent="Body/RightArm" index="0"]
@@ -632,13 +647,14 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/ShieldOff = SubResource( 4 )
-anims/ShieldOn = SubResource( 5 )
-anims/SpinAttack = SubResource( 16 )
-anims/SwordAttackBack = SubResource( 6 )
-anims/SwordAttackFront = SubResource( 7 )
-anims/SwordAttackLeft = SubResource( 8 )
-anims/SwordAttackRight = SubResource( 9 )
+anims/Magic = SubResource( 4 )
+anims/ShieldOff = SubResource( 5 )
+anims/ShieldOn = SubResource( 6 )
+anims/SpinAttack = SubResource( 7 )
+anims/SwordAttackBack = SubResource( 8 )
+anims/SwordAttackFront = SubResource( 9 )
+anims/SwordAttackLeft = SubResource( 10 )
+anims/SwordAttackRight = SubResource( 11 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -649,11 +665,11 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 16.0
-anims/Damage = SubResource( 10 )
-anims/Death = SubResource( 11 )
-anims/Idle = SubResource( 12 )
-anims/SpinAttack = SubResource( 13 )
-anims/Walk = SubResource( 14 )
+anims/Damage = SubResource( 12 )
+anims/Death = SubResource( 13 )
+anims/Idle = SubResource( 14 )
+anims/SpinAttack = SubResource( 15 )
+anims/Walk = SubResource( 16 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -724,7 +740,7 @@ autoplay = "Idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Idle = SubResource( 15 )
+anims/Idle = SubResource( 17 )
 blend_times = [  ]
 
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_hit"]

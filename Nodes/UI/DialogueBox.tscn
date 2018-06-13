@@ -77,7 +77,7 @@ func process():
 	else:
 		return false"
 
-[node name="DialogueBox" type="TextureRect"]
+[node name="DialogueBox" type="TextureRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0

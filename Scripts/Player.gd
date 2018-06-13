@@ -247,11 +247,12 @@ func damage(attacker, amount, _knockback):
 
 func _on_animation_finished(anim_name):
 	if "SwordAttack" in anim_name: attacking = false
-	elif "SpinAttack" in anim_name:
+	elif "SpinAttack" in anim_name or "Magic" in anim_name:
 		change_animation("Body", "Idle")
 		change_animation("RightArm", "SwordAttackFront")
 		change_animation("LeftArm", "ShieldOff")
 		reset_arms()
+		$ArmAnimator.stop()
 
 func _on_attack_hit(collider):
 	if collider.get_parent().is_in_group("enemies"):
@@ -304,6 +305,10 @@ func change_animation(part, animation):
 			$Body.hframes = 1
 			$BodyAnimator.playback_speed = 1
 			$Body.vframes = 1
+		"Magic":
+			change_texture($Body/RightArm, "Magic")
+			$Body/RightArm.hframes = 1
+			$Body/RightArm.vframes = 1
 		"SpinAttack":
 			change_texture($Body, "SpinAttack")
 			change_texture($Body/LeftArm, "SpinAttack")
@@ -338,8 +343,8 @@ func change_animation(part, animation):
 		_: $ArmAnimator.play(animation)
 
 func reset_arms():
-	$Body/RightArm.hframes = 10
 	$Body/LeftArm.frame = 0
+	$Body/RightArm.hframes = 10
 	$Body/RightArm.frame = 0
 	$Body/RightArm/Weapon.frame = 0
 	$AttackCollider/Shape.disabled = true
@@ -386,6 +391,7 @@ func use_magic(): ##nie tylko magia :|
 
 func trigger_skill(skill = triggered_skill[0]):
 	triggered_skill = null
+	change_animation("RightArm", "Magic")
 	
 	if skill.has("cost"):
 		if PlayerStats.mana < skill.cost:
@@ -491,6 +497,12 @@ func add_quest_rewards(ques):
 var Quests = {
 	
 	"Hunt" : { 
+		"Status" : { "Aquired" : false, "Done" : false }, 
+		"Items":{ 1 : { "Amount"   : 0, "Required" : 1, "Finished" : false }, },
+		"Mob" : { "Puncher" : { "AlreadyKilled" : 0 , "NeedToBeKilled" : 1, "Finished" : false } , "Grinder" : { "AlreadyKilled" : 0 ,  "NeedToBeKilled" : 1, "Finished" : false } }, 
+		"Reward" : { "Exp" : 100,  "Money" : 100, "Items" : { 1 : 1,  2 : 2 } } 
+		}   ,
+	"Uganda" : { 
 		"Status" : { "Aquired" : false, "Done" : false }, 
 		"Items":{ 1 : { "Amount"   : 0, "Required" : 1, "Finished" : false }, },
 		"Mob" : { "Puncher" : { "AlreadyKilled" : 0 , "NeedToBeKilled" : 1, "Finished" : false } , "Grinder" : { "AlreadyKilled" : 0 ,  "NeedToBeKilled" : 1, "Finished" : false } }, 
