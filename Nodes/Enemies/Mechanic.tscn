@@ -38,8 +38,8 @@ resource_name = "RightShield"
 script/source = "extends KinematicBody2D
 
 var destroyed = false
-var hp        = 100
-var max_hp    = 100
+var hp        = 150
+var max_hp    = 150
 var armour    = 0.8
 
 var time = 0.0
@@ -208,8 +208,8 @@ resource_name = "LeftShield"
 script/source = "extends KinematicBody2D
 
 var destroyed = false
-var hp        = 100
-var max_hp    = 100
+var hp        = 150
+var max_hp    = 150
 var armour    = 0.8
 
 var time = 0.0
@@ -645,7 +645,7 @@ tracks/2/keys = {
 } ]
 }
 
-[node name="Mechanic" type="KinematicBody2D" groups=[
+[node name="Mechanic" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 

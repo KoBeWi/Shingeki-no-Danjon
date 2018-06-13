@@ -1,8 +1,8 @@
 extends "res://Scripts/BaseEnemy.gd"
 
-const HP  = 60
+const HP  = 100
 const XP  = 200
-const ARM = 0.3
+const ARM = 0.4
 
 var   BASIC_DAMAGE         = 10
 const SPECIAL_DAMAGE       = 0

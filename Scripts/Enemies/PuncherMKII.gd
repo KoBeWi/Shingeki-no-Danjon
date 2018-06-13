@@ -1,6 +1,6 @@
 extends "res://Scripts/BaseEnemy.gd"
 
-const HP  = 100
+const HP  = 250
 const XP  = 200
 const ARM = 0.5
 

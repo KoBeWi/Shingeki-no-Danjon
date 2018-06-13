@@ -1,5 +1,9 @@
 extends "res://Scripts/BaseEnemy.gd"
 
+const HP  = 20
+const XP  = 10
+const ARM = 0.4
+
 const BASIC_DAMAGE         = 2
 const SPECIAL_DAMAGE       = 20
 
@@ -34,7 +38,7 @@ func _ready():
 	._ready()
 	drops.append([3,  500 ])
 	drops.append([19, 500 ])
-
+	if !DEBBUG_RUN : .set_statistics(HP, XP, ARM)
 
 func preparation(delta):
 	if preparing :

@@ -1,8 +1,8 @@
 extends "res://Scripts/BaseEnemy.gd"
 
-const HP  = 30
+const HP  = 80
 const XP  = 100
-const ARM = 0.1
+const ARM = 0.3
 
 const BASIC_DAMAGE         = 12
 const SPECIAL_DAMAGE       = 50
@@ -49,7 +49,7 @@ func preparation(delta):
 		
 		kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu += 0.2
 		if int(kolejna_przypadkowa_zmienna_do_jakiegos_pomyslu)%4 == 0:
-			if special_ready and can_use_special and health <= 0.25 * HP:
+			if special_ready and can_use_special and health <= 0.15 * HP:
 				for i in range(sprites.size()):
 					sprites[i].modulate = Color(50,1,1,10)
 			else:
@@ -64,7 +64,7 @@ func preparation(delta):
 				sprites[i].modulate = Color(1,1,1,1)
 			flash_time = 0
 			preparing = false
-			if special_ready and can_use_special and health <= 0.25 * HP:
+			if special_ready and can_use_special and health <= 0.15 * HP:
 				call_special_atack()
 			else:
 				call_normal_atack()
@@ -99,7 +99,7 @@ func _physics_process(delta):
 			play_animation_if_not_playing("Idle")
 		
 		if player_monster_distance_x < 79 and player_monster_distance_y < 79:
-			if special_ready and can_use_special and health <= 0.25 * HP:
+			if special_ready and can_use_special and health <= 0.15 * HP:
 				preparing = true
 			elif atack_ready:
 				preparing = true

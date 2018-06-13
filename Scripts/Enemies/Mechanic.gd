@@ -22,7 +22,7 @@ var block_payback_prob = 100
 var summon_prob        = 1000
 var fire_bomb_prob     = 250
 
-var max_hp = 300
+var max_hp = 500
 
 var follow = false
 
