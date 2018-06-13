@@ -1,0 +1,14 @@
+{
+	"type": "active",
+	"name": "Water Bubbles",
+	"description": "Shoots a sharp water bullet, that splits in more bullets on hit.",
+	"infos": ["Water elemental", "X X to use"],
+	"combo": ["Special", "Special"],
+	"projectile": "WaterBullet",
+	"stats": ["OffensiveMagic"],
+	"cost": 10,
+	"damage": 5,
+	"magic": 2,
+	"elements": {"water": 1},
+	"scalling": {"intelligence": 1}
+}

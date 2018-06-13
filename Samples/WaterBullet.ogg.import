@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/WaterBullet.ogg-209c19e5a2ea91289a3d87dbd01fc1b4.oggstr"
+
+[deps]
+
+source_file="res://Samples/WaterBullet.ogg"
+source_md5="05cf5cc1f50a000ec19a31a424a850ff"
+
+dest_files=[ "res://.import/WaterBullet.ogg-209c19e5a2ea91289a3d87dbd01fc1b4.oggstr" ]
+dest_md5="1a064d4d420557fd892ecda4902a2903"
+
+[params]
+
+loop=false
+loop_offset=0

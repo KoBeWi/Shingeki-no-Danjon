@@ -20,6 +20,24 @@
 		}
 	],
 	
+	"WaterBullet": [
+		{
+			"stat": "WaterMagic",
+			"value": 20
+		}
+	],
+	
+	"FireShield": [
+		{
+			"stat": "FireMagic",
+			"value": 5
+		},
+		{
+			"stat": "ShieldBlocks",
+			"value": 5
+		}
+	],
+	
 	"WaterAffinity": [
 		{
 			"stat": "WaterMagic",

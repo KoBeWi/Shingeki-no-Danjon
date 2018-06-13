@@ -165,7 +165,7 @@ func _process(delta):
 		$Tabs/Character/CharacterSkillPointBar/Amount.text = str(PlayerStats.stat_points)
 		var current_exp = PlayerStats.experience - PlayerStats.total_exp(PlayerStats.level-1)
 		var next_exp = PlayerStats.exp_to_level(PlayerStats.level)
-		$Tabs/Character/CharacterExp/Label.text = str(current_exp) + \" / \" + str(next_exp)
+		$Tabs/Character/CharacterExp/Label.text = str(int(current_exp)) + \" / \" + str(int(next_exp))
 		$Tabs/Character/CharacterExp.value = current_exp
 		$Tabs/Character/CharacterExp.max_value = next_exp
 		

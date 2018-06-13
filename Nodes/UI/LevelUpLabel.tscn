@@ -9,7 +9,7 @@ resource_name = "LevelUpLabel"
 script/source = "extends TextureRect
 
 func _process(delta):
-	if visible and Input.is_action_just_pressed(\"Menu\"):
+	if visible and (Input.is_action_just_pressed(\"Menu\") or Input.is_action_just_pressed(\"Interact\")):
 		visible = false
 		get_tree().paused = false
 

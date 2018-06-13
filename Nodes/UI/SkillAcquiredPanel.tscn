@@ -17,7 +17,7 @@ func _process(delta):
 		skill_time -= delta
 		modulate.a = clamp(skill_time / (SKILL_TIMEOUT-1), 0, 1)
 		
-		if skill_time <= 0 or Input.is_action_just_pressed(\"Menu\"):
+		if skill_time <= 0 or Input.is_action_just_pressed(\"Menu\") or Input.is_action_just_pressed(\"Interact\"):
 			get_tree().paused = false
 			visible = false
 
