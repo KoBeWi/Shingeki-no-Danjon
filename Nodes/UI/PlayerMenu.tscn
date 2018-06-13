@@ -698,7 +698,7 @@ func auto_move(delta):
 	return 0"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect" index="0"]
+[node name="PlayerMenu" type="TextureRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0

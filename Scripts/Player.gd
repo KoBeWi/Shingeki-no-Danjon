@@ -47,6 +47,9 @@ func _ready():
 
 func _physics_process(delta):
 	if dead: return
+	if is_ghost: ##( ･_･)
+		$Body/RightArm/Weapon.visible = false
+		$Body/LeftArm/Shield.visible = false
 	frame_counter += 1
 	var move = Vector2()
 	
@@ -402,6 +405,7 @@ func use_magic(): ##nie tylko magia :|
 func trigger_skill(skill = triggered_skill[0]):
 	triggered_skill = null
 	attacking = false
+	if is_ghost: return ##;_________;
 	
 	if skill.has("cost"):
 		if PlayerStats.mana < skill.cost:
@@ -409,7 +413,7 @@ func trigger_skill(skill = triggered_skill[0]):
 			return
 		else: PlayerStats.mana -= skill.cost
 		
-	change_animation("RightArm", "Magic")
+	if skill.has("magic"): change_animation("RightArm", "Magic")
 	SkillBase.current_combo.clear()
 	
 	if skill.has("stats"): for stat in skill.stats: SkillBase.inc_stat(stat)
