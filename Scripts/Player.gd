@@ -492,6 +492,13 @@ var Quests = {
 	
 	"Hunt" : { 
 		"Status" : { "Aquired" : false, "Done" : false }, 
+		"Items":{  },
+		"Mob" : { "Puncher" : { "AlreadyKilled" : 0 , "NeedToBeKilled" : 4, "Finished" : false }  }, 
+		"Reward" : { "Exp" : 100,  "Money" : 100, "Items" : { 5 :1, 7 :1, 12:1, 15:1 , 2:2 } } 
+		}   ,
+		
+	"Uganda" : { 
+		"Status" : { "Aquired" : false, "Done" : false }, 
 		"Items":{ 1 : { "Amount"   : 0, "Required" : 1, "Finished" : false }, },
 		"Mob" : { "Puncher" : { "AlreadyKilled" : 0 , "NeedToBeKilled" : 1, "Finished" : false } , "Grinder" : { "AlreadyKilled" : 0 ,  "NeedToBeKilled" : 1, "Finished" : false } }, 
 		"Reward" : { "Exp" : 100,  "Money" : 100, "Items" : { 1 : 1,  2 : 2 } } 

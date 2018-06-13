@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/DialogueSystem.gd" type="Script" id=1]
-[ext_resource path="res://Resources/Dialogues/TestDialogue.vs" type="Script" id=2]
+[ext_resource path="res://Resources/Dialogues/Uganda2.vs" type="Script" id=2]
 
 [node name="Node" type="Node"]
 

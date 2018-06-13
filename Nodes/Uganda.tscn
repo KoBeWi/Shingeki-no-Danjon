@@ -20,15 +20,25 @@ var UI = Res.game.player.UI.get_node(\"DialogueBox\")
 
 var quest_begin = false
 var quest_end   = false
+var recived     = false
 
 func interact():
 	 ##całkiem meh
-	quest_begin = Res.game.player.is_quest_aquired(\"Uganda\")
-	quest_end   = Res.game.player.is_quest_done(\"Uganda\")
+	print(get_path())
 	
-	UI.initiate_dialogue(\"Uganda\")
-	
-	
+	var QuestName = \"Uganda\"
+	if Res.game.player.is_quest_done(QuestName):
+		UI.initiate_dialogue(\"JigsawDoneQuest\")
+		Res.game.player.add_quest_rewards(QuestName)
+	elif Res.game.player.is_quest_aquired(QuestName):
+		UI.initiate_dialogue(\"JigsawHaveQuest\")
+	else:
+		UI.initiate_dialogue(\"JigsawGiveQuest\")
+		Res.game.player.addQuest(QuestName)
+		
+	if !recived :
+		Res.game.player.add_quest_rewards(\"Uganda\")
+		recived = true
 		
 
 func _ready():
