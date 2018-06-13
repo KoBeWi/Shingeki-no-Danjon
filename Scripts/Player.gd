@@ -84,6 +84,7 @@ func _physics_process(delta):
 	if !is_ghost and !attacking and !ghost_mode and !shielding and Input.is_action_just_pressed("Attack"):
 		if PlayerStats.get_equipment("weapon"): Res.play_pitched_sample(self, "Sword")
 		else: Res.play_pitched_sample(self, "Punch")
+		change_animation("RightArm", "SwordAttack")
 		reset_arms()
 		$ArmAnimator.play("SwordAttack" + sprite_direction)
 		attacking = true
@@ -342,6 +343,8 @@ func change_animation(part, animation):
 			$Body/LeftArm.hframes = 2
 			update_shield()
 	
+	if animation == "SwordAttack": return ##LOOOL
+	
 	match part:
 		"Body": $BodyAnimator.play(animation)
 		_: $ArmAnimator.play(animation)
@@ -398,6 +401,7 @@ func use_magic(): ##nie tylko magia :|
 
 func trigger_skill(skill = triggered_skill[0]):
 	triggered_skill = null
+	attacking = false
 	
 	if skill.has("cost"):
 		if PlayerStats.mana < skill.cost:

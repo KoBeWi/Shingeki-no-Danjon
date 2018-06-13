@@ -1,8 +1,6 @@
 --zrefaktoryzowaæ kod wrogów
 --fancyfont do wywalenia bo chyba nie darmowe by³o
 jak siê coœ psuje to pokazywaæ co (w sensie ekwipunek)
-trzymanie do przewyijania
 idle sound dla robotów i bossa
 schody siê zmieniaj¹ miejscami lol
 obiekty na œcianê
-animacja do magii

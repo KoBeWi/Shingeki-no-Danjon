@@ -67,6 +67,8 @@ var crafting_list = []
 var crafting_select = 0
 var crafting_scroll = 0
 
+var auto_move
+
 func _ready():
 	PlayerStats.connect(\"got_item\", self, \"update_category\")
 	PlayerStats.connect(\"equipment_changed\", self, \"update_equipment\")
@@ -235,8 +237,13 @@ func _process(delta):
 				if Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 1: inventory_select = max(inventory_select-1, 0)
 				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == 0: inventory_select = -1
 				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, inventory_list.size()-1)
-				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = max(inventory_select-2, 0)
-				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = min(inventory_select+2, inventory_list.size()-1)
+				elif Input.is_action_just_pressed(\"ui_up\"):
+					inventory_select = max(inventory_select-2, 0)
+					auto_move = [0.5, \"up\"]
+				elif Input.is_action_just_pressed(\"ui_down\"):
+					inventory_select = min(inventory_select+2, inventory_list.size()-1)
+					auto_move = [0.5, \"down\"]
+				inventory_select = min(max(inventory_select + auto_move(delta)*2, 0), inventory_list.size()-1)
 				if inventory_select != prev_inv: Res.ui_sample(\"MenuMove\")
 				
 				var max_scroll = inventory_list.size()-7
@@ -275,8 +282,10 @@ func _process(delta):
 				if Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == 0: inventory_select = min(inventory_select+1, -1)
 				elif Input.is_action_just_pressed(\"ui_right\") and inventory_select % 2 == -1 and !inventory_list.empty(): inventory_select = (inventory_scroll+2 if inventory_scroll > 0 else 0)
 				elif Input.is_action_just_pressed(\"ui_left\") and inventory_select % 2 == -1: inventory_select = max(inventory_select-1, -PlayerStats.EQUIPMENT_SLOTS.size())
-				elif Input.is_action_just_pressed(\"ui_up\"): inventory_select = min(inventory_select+2, -1)
-				elif Input.is_action_just_pressed(\"ui_down\"): inventory_select = max(inventory_select-2, -PlayerStats.EQUIPMENT_SLOTS.size())
+				elif Input.is_action_just_pressed(\"ui_up\"):
+					inventory_select = min(inventory_select+2, -1)
+				elif Input.is_action_just_pressed(\"ui_down\"):
+					inventory_select = max(inventory_select-2, -PlayerStats.EQUIPMENT_SLOTS.size())
 				if inventory_select != prev_inv: Res.ui_sample(\"MenuMove\")
 				
 				if Input.is_action_just_pressed(\"Interact\") and PlayerStats.equipment[-inventory_select-1]:
@@ -675,10 +684,21 @@ func refresh():
 func scroll_inventory(scroll):
 	inventory_scroll = scroll
 	var max_scroll = inventory_list.size()-7
-	$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283"
+	$Tabs/Equipment/Inventory/Scrollbar/ActualScrollbar.rect_position.y = inventory_scroll / float(max_scroll) * 283
+
+func auto_move(delta):
+	if !auto_move or auto_move[1] == \"up\" and !Input.is_action_pressed(\"ui_up\") or auto_move[1] == \"down\" and !Input.is_action_pressed(\"ui_down\"):
+		auto_move = null
+		return 0
+	
+	auto_move[0] -= delta
+	if auto_move[0] <= 0:
+		if auto_move[1] == \"up\": return -1
+		elif auto_move[1] == \"down\": return 1
+	return 0"
 _sections_unfolded = [ "Resource" ]
 
-[node name="PlayerMenu" type="TextureRect"]
+[node name="PlayerMenu" type="TextureRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
