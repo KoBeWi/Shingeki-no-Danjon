@@ -52,6 +52,13 @@
 		}
 	],
 	
+	"SuperStrength": [
+		{
+			"stat": "Strength",
+			"value": 10
+		}
+	],
+	
 	"Fireball": [
 		{
 			"stat": "FireMagic",

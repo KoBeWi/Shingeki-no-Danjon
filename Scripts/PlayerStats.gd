@@ -46,6 +46,8 @@ func get_damage():
 		for stat in eq.scaling.keys():
 			damage += int(PlayerStats[stat] * eq.scaling[stat])
 	
+	if SkillBase.has_skill("SuperStrength"): damage *= 5
+	
 	return damage
 
 func get_defense():
