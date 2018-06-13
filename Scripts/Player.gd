@@ -375,7 +375,7 @@ func use_magic(): ##nie tylko magia :|
 		
 		if (!skill.has("magic") or current_element == skill.magic) and SkillBase.check_combo(skill.combo) and (!triggered_skill or skill != triggered_skill[0]
 		and (skill.combo.size() > triggered_skill[0].combo.size() or skill.combo.back().length() > triggered_skill[0].combo.back().length())):
-			print(skill)
+#			print(skill)
 			triggered_skill = [skill, 0.2]
 
 func trigger_skill(skill = triggered_skill[0]):

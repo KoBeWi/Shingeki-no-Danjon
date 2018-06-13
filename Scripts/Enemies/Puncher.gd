@@ -356,7 +356,7 @@ func _on_animation_started(anim_name):
 			
 
 func _on_dead():
-	player.updateQuest("Puncher")
+	Res.game.player.updateQuest("Puncher")
 	
 	Res.play_sample(self, "RobotCrash")
 	dead = true

@@ -12,12 +12,14 @@ const SPEED = 20
 
 var direction = 0 setget new_dir
 var damage = 0
+var offset = 0
+var no_dup = false
 
 func intiated():
 	Res.play_sample(self, \"WaterBullet\")
 
 func _physics_process(delta):
-	if $Animation.current_animation == \"Fly\" and move_and_collide(MOVEMENT[direction] * SPEED):
+	if $Animation.current_animation == \"Fly\" and move_and_collide(MOVEMENT[direction].rotated(offset) * SPEED):
 		queue_free()
 
 func new_dir(dir):
@@ -30,6 +32,15 @@ func _on_attack_hit(collider):
 		SkillBase.inc_stat(\"Ranged\")
 		collider.get_parent().damage(damage)
 		queue_free()
+		
+		if !no_dup:
+			for i in range(3):
+				var bullet = duplicate(DUPLICATE_USE_INSTANCING)
+				get_parent().add_child(bullet)
+				bullet.direction = direction
+				bullet.offset = (i-1) * PI/8
+				bullet.no_dup = true
+				bullet.position = position + MOVEMENT[direction] * 160
 
 func _on_Animation_animation_finished(anim_name):
 	if anim_name == \"Start\": $Animation.play(\"Fly\")"
@@ -92,7 +103,7 @@ _sections_unfolded = [ "Collision", "Z Index" ]
 
 rotation = -1.5708
 texture = ExtResource( 1 )
-hframes = 6
+hframes = 4
 frame = 2
 _sections_unfolded = [ "Animation", "Transform" ]
 

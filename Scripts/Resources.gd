@@ -73,6 +73,7 @@ func _ready():
 	SkillBase.acquired_skills.append("WindBanana")
 	SkillBase.acquired_skills.append("DualSpark")
 	SkillBase.acquired_skills.append("EarthNeedles")
+	SkillBase.acquired_skills.append("WaterBullet")
 
 func _process(delta):
 	##wszystko to debug D:
