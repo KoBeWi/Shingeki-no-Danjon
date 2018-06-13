@@ -1,4 +1,3 @@
-tool
 extends Node2D
 
 const SKINS = ["Female1Blue", "Female1Brown", "Jigsaw", "Male1Basic", "Male1Glasses", "Male1Old", "Male1Scar"]

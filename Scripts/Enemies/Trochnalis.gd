@@ -59,7 +59,7 @@ func preparation(delta):
 			for i in range(sprites.size()):
 				sprites[i].modulate = Color(1,1,1,1)
 		
-		if flash_time > 5:
+		if flash_time > 1.5:
 			for i in range(sprites.size()):
 				sprites[i].modulate = Color(1,1,1,1)
 			flash_time = 0

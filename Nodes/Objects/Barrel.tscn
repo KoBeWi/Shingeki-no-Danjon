@@ -21,25 +21,21 @@ func _process(delta):
 func _ready():
 	Res.game.perma_state(self, \"queue_free\")
 
-func _on_hit(body):
-	if body.get_parent().is_in_group(\"players\") or body.get_parent().is_in_group(\"playerSkills\"):
-		Res.play_sample(self, \"WoodBreak\")
-		$Animation.play(\"Destroyed\")
-		$DamageCollider.queue_free()
-		$Shape.disabled = true
-		z_index = -1
-		$\"/root/Game\".save_state(self)
-		
-		destroyed = true
-		
-		if body.get_parent().is_in_group(\"playerSkills\"):
-			body.get_parent().queue_free()
-		
-		if item > -1:
-			var it = Res.create_instance(\"Item\")
-			it.position = position
-			it.id = item
-			get_parent().add_child(it)"
+func damage(amount):
+	Res.play_sample(self, \"WoodBreak\")
+	$Animation.play(\"Destroyed\")
+	$DamageCollider.queue_free()
+	$Shape.disabled = true
+	z_index = -1
+	$\"/root/Game\".save_state(self)
+	
+	destroyed = true
+	
+	if item > -1:
+		var it = Res.create_instance(\"Item\")
+		it.position = position
+		it.id = item
+		get_parent().add_child(it)"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="Animation" id=2]
@@ -70,7 +66,9 @@ extents = Vector2( 24.9147, 34.5188 )
 custom_solver_bias = 0.0
 extents = Vector2( 24, 20 )
 
-[node name="Barrel" type="StaticBody2D"]
+[node name="Barrel" type="StaticBody2D" index="0" groups=[
+"enemies",
+]]
 
 input_pickable = false
 collision_layer = 13
@@ -126,7 +124,5 @@ shape = SubResource( 3 )
 
 position = Vector2( -0.803871, -10.4729 )
 shape = SubResource( 4 )
-
-[connection signal="area_entered" from="DamageCollider" to="." method="_on_hit"]
 
 

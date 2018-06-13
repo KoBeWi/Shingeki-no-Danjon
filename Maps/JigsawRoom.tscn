@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Resources/Tilesets/Dungeon.tres" type="TileSet" id=1]
 [ext_resource path="res://Nodes/Objects/Stairs.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Nodes/Objects/WorkshopCrafting.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Nodes/NPC.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/NPC.gd" type="Script" id=5]
+[ext_resource path="res://Sprites/NPC/Shopkeeper.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/Interact.gd" type="Script" id=7]
 
 [sub_resource type="GDScript" id=1]
 
@@ -19,6 +22,42 @@ func _process(delta):
 	if !PlayerStats.events.has(\"jigsaw\") and Res.game.player.position.y < 400:
 		Res.game.player.UI.get_node(\"DialogueBox\").initiate_dialogue(\"Jigsaw\")
 		PlayerStats.events[\"jigsaw\"] = true"
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 22.5213 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 53.5912, 43.976 )
+
+[sub_resource type="Animation" id=4]
+
+resource_name = "Idle"
+length = 8.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="GDScript" id=5]
+
+script/source = "extends Node
+
+func _ready():
+	get_parent().UI = Res.game.player.UI.get_node(\"DialogueBox\")"
 
 [node name="JigsawRoom" type="YSort"]
 
@@ -93,10 +132,66 @@ position = Vector2( 544.929, 266.566 )
 dialogue = 1
 skin = 2
 
-[node name="NPC2" parent="." index="6" instance=ExtResource( 4 )]
+[node name="NPC2" type="KinematicBody2D" parent="." index="6"]
 
+editor/display_folded = true
 position = Vector2( 209.903, 384.655 )
-dialogue = 2
-skin = 3
+z_index = 1
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 5 )
+_sections_unfolded = [ "Z Index" ]
+dialogue = 0
+skin = 0
+
+[node name="Sprite" type="Sprite" parent="NPC2" index="0"]
+
+position = Vector2( 0, -48 )
+texture = ExtResource( 6 )
+hframes = 8
+_sections_unfolded = [ "Animation" ]
+
+[node name="Shape" type="CollisionShape2D" parent="NPC2" index="1"]
+
+position = Vector2( 0, -7 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="InteractArea" type="Area2D" parent="NPC2" index="2"]
+
+position = Vector2( 0, -48 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 7 )
+type = 1
+mode = 0
+send_status = false
+
+[node name="Shape" type="CollisionShape2D" parent="NPC2/InteractArea" index="0"]
+
+position = Vector2( -1.39496, 41.4926 )
+shape = SubResource( 3 )
+
+[node name="Animation" type="AnimationPlayer" parent="NPC2" index="3"]
+
+root_node = NodePath("..")
+autoplay = "Idle"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 20.0
+anims/Idle = SubResource( 4 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="Hack" type="Node" parent="NPC2" index="4"]
+
+script = SubResource( 5 )
 
 
