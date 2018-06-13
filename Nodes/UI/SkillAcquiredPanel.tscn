@@ -18,7 +18,7 @@ func _process(delta):
 		modulate.a = clamp(skill_time / (SKILL_TIMEOUT-1), 0, 1)
 		
 		if skill_time <= 0 or Input.is_action_just_pressed(\"Menu\") or Input.is_action_just_pressed(\"Interact\"):
-			get_tree().paused = false
+			if !Res.game.player.UI.get_node(\"PlayerMenu\").visible: get_tree().paused = false
 			visible = false
 
 func new_skill(skill):

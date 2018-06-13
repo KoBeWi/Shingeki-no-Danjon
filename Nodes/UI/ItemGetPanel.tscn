@@ -19,7 +19,7 @@ func got_item(id):
 	$Name.text = Res.items[id].name
 	$Icon.texture = Res.get_item_texture(id)
 	visible = true
-	timeout = 1"
+	timeout = 1.5"
 _sections_unfolded = [ "Resource" ]
 
 [node name="ItemGetPanel" type="TextureRect"]

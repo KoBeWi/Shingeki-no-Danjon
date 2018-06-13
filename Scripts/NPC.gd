@@ -15,7 +15,9 @@ func interact():
 		var QuestName = "Hunt"
 		if Res.game.player.is_quest_done(QuestName):
 			UI.initiate_dialogue("JigsawDoneQuest")
-			Res.game.player.add_quest_rewards(QuestName)
+			if !PlayerStats.events["quest"]:
+				Res.game.player.add_quest_rewards(QuestName)
+				PlayerStats.events["quest"] = true
 		elif Res.game.player.is_quest_aquired(QuestName):
 			UI.initiate_dialogue("JigsawHaveQuest")
 		else:

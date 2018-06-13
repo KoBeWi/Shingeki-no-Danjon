@@ -11,7 +11,7 @@ script/source = "extends TextureRect
 func _process(delta):
 	if visible and (Input.is_action_just_pressed(\"Menu\") or Input.is_action_just_pressed(\"Interact\")):
 		visible = false
-		get_tree().paused = false
+		if !Res.game.player.UI.get_node(\"PlayerMenu\").visible: get_tree().paused = false
 
 func level_up():
 	Res.play_sample(get_parent().player, \"LevelUp\", false)
@@ -19,7 +19,7 @@ func level_up():
 	visible = true
 	get_tree().paused = true
 	yield(get_tree().create_timer(2), \"timeout\")
-	get_tree().paused = false
+	if !Res.game.player.UI.get_node(\"PlayerMenu\").visible: get_tree().paused = false
 	visible = false"
 _sections_unfolded = [ "Resource" ]
 
