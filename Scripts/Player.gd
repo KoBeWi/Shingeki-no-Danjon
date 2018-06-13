@@ -121,15 +121,19 @@ func _physics_process(delta):
 			SkillBase.current_combo.clear()
 	else:
 		if Input.is_action_pressed("Up"):
+			Res.ui_sample("SelectElement")
 			$Elements.visible = false
 			current_element = 3
 		elif Input.is_action_pressed("Right"):
+			Res.ui_sample("SelectElement")
 			$Elements.visible = false
 			current_element = 2
 		elif Input.is_action_pressed("Down"):
+			Res.ui_sample("SelectElement")
 			$Elements.visible = false
 			current_element = 4
 		elif Input.is_action_pressed("Left"):
+			Res.ui_sample("SelectElement")
 			$Elements.visible = false
 			current_element = 1
 		else: current_element = 0
@@ -137,7 +141,9 @@ func _physics_process(delta):
 		$Elements/Select.position = $Elements.get_child(current_element).position
 		UI.get_node("HUD/Controls/ButtonElement").texture = Res.cache_resource("res://Sprites/UI/HUD/ButtonElement" + str(current_element) + ".png")
 		
-		if Input.is_action_just_released("Magic"): $Elements.visible = false
+		if Input.is_action_just_released("Magic"):
+			Res.ui_sample("SelectElement")
+			$Elements.visible = false
 	
 	if !elements_on and !ghost_mode:# and Input.is_action_pressed("Magic"):
 		if !wind_spam_hack:

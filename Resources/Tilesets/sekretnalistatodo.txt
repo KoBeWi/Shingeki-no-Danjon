@@ -5,6 +5,5 @@ trzymanie do przewyijania
 idle sound dla robotów i bossa
 schody siê zmieniaj¹ miejscami lol
 obiekty na œcianê
-magia ma niszczyæ beczki
-firebolt jako upgrade fireballa
-dŸwiêk zmiany ¿ywio³u
+magia ma niszczyæ beczki (do poprawy)
+animacja do magii
