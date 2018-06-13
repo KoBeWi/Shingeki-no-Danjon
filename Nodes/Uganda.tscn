@@ -230,7 +230,7 @@ func icon(): if player_in: return player_in.get_node(\"Interact\")"
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="Uganda" type="KinematicBody2D" index="0"]
+[node name="Uganda" type="KinematicBody2D"]
 
 scale = Vector2( 1.5, 1.5 )
 input_pickable = false
@@ -282,7 +282,7 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = SubResource( 8 )
-type = 0
+type = 1
 mode = 0
 send_status = false
 

@@ -12,6 +12,7 @@ config_version=3
 
 config/name="Shingeki no Danjon"
 run/main_scene="res://Scenes/Intro.tscn"
+boot_splash/image="res://Sprites/Splash.png"
 config/icon="res://icon.png"
 
 [autoload]
@@ -26,8 +27,6 @@ DungeonState="*res://Scripts/DungeonState.gd"
 window/size/width=1366
 window/size/height=768
 window/size/resizable=false
-window/size/fullscreen=true
-window/dpi/allow_hidpi=true
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
