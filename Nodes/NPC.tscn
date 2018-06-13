@@ -40,7 +40,7 @@ script/source = "extends Node
 func _ready():
 	get_parent().UI = Res.game.player.UI.get_node(\"DialogueBox\")"
 
-[node name="NPC" type="KinematicBody2D" index="0"]
+[node name="NPC" type="KinematicBody2D"]
 
 z_index = 1
 input_pickable = false
@@ -68,7 +68,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="InteractArea" type="Area2D" parent="." index="2"]
 
-editor/display_folded = true
 position = Vector2( 0, -48 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
