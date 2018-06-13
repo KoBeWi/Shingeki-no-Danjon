@@ -27,6 +27,13 @@
 		}
 	],
 	
+	"Tornado": [
+		{
+			"stat": "AirMagic",
+			"value": 50
+		}
+	],
+	
 	"FireShield": [
 		{
 			"stat": "FireMagic",

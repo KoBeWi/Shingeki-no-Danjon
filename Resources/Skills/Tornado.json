@@ -1,0 +1,14 @@
+{
+	"type": "active",
+	"name": "The Tornado",
+	"description": "D E V A S T A T I N G",
+	"infos": ["Air elemental", "Long X to use"],
+	"combo": ["Special_"],
+	"projectile": "Tornado",
+	"stats": ["OffensiveMagic"],
+	"cost": 70,
+	"damage": 50,
+	"magic": 3,
+	"elements": {"air": 1},
+	"scalling": {"intelligence": 1}
+}

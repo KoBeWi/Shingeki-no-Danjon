@@ -189,8 +189,8 @@ func check_status(delta):
 			damage = PAYBACK_DMG
 			knockback = PAYBACK_KNOCKBACK
 			
-			$RightShield.visible = false
-			$LeftShield.visible = false
+			if RShieldON: $RightShield.visible = false
+			if LShieldON: $LeftShield.visible = false
 			
 			return
 		if time_of_using_skill > TIME_OF_BLOCK:

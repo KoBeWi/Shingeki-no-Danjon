@@ -1,6 +1,6 @@
 {
 	"type": "active",
-	"name": "Water Bubbles",
+	"name": "Water Bullet",
 	"description": "Shoots a sharp water bullet, that splits in more bullets on hit.",
 	"infos": ["Water elemental", "X X to use"],
 	"combo": ["Special", "Special"],

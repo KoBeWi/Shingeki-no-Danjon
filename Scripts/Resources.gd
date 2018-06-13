@@ -73,17 +73,23 @@ func _ready():
 	SkillBase.acquired_skills.append("WindBanana")
 	SkillBase.acquired_skills.append("DualSpark")
 	SkillBase.acquired_skills.append("EarthNeedles")
-	SkillBase.acquired_skills.append("WaterBullet")
+#	SkillBase.acquired_skills.append("WaterBullet")
+#	SkillBase.acquired_skills.append("Tornado")
 
 func _process(delta):
 	##wszystko to debug D:
 	if Input.is_key_pressed(KEY_F2) and Input.is_action_just_pressed("Interact"):
 		save_setting("no_music", !File.new().file_exists("user://no_music"))
-	if Input.is_key_pressed(KEY_F5): PlayerStats.mana = 99999999999
+	if Input.is_key_pressed(KEY_F5):
+		PlayerStats.health = 99999999999
+		PlayerStats.mana = 99999999999
+#		PlayerStats.intelligence = 999999
 	
 	if Input.is_key_pressed(KEY_F4):
-		for item in Res.items:
+		for item in items:
 			PlayerStats.add_item(item.id, 1, false)
+		for skill in skills:
+			if !skill in SkillBase.acquired_skills: SkillBase.acquired_skills.append(skill)
 		game.player.UI.get_node("PlayerMenu").update_skills()
 
 func save_setting(setting, set):
@@ -128,6 +134,7 @@ func play_sample(source, sample, pausable = true, follow_source = true):
 	var player = create_instance("SampleInstance")
 	player.init(source, sample, pausable, follow_source)
 	get_parent().get_node("Game").add_child(player)
+	return weakref(player)
 
 func play_pitched_sample(source, sample, pausable = true, follow_source = true):
 	var player = create_instance("PitchedSampleInstance")
